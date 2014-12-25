@@ -1,10 +1,9 @@
 package com.softserve.edu.dao.impl;
 
-import org.hibernate.Query;
-import org.springframework.stereotype.Repository;
-
 import com.softserve.edu.dao.LanguageDao;
 import com.softserve.edu.entity.Language;
+import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class LanguageDaoImpl extends AbstractGenericDao<Language, Short>

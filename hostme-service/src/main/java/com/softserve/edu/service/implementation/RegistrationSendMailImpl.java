@@ -1,8 +1,8 @@
 package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.entity.User;
-import com.softserve.edu.service.SystemPropertiesService;
 import com.softserve.edu.service.RegistrationSendMail;
+import com.softserve.edu.service.SystemPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;

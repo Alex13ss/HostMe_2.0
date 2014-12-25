@@ -1,10 +1,9 @@
 package com.softserve.edu.controller;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.List;
-
 import com.google.gson.Gson;
+import com.softserve.edu.entity.Hosting;
+import com.softserve.edu.service.SearchService;
+import com.softserve.edu.utils.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.service.SearchService;
-import com.softserve.edu.utils.Search;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SearchController {

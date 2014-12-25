@@ -1,9 +1,9 @@
 package com.softserve.edu.dao;
 
-import java.util.List;
-
 import com.softserve.edu.entity.Request;
 import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
+
+import java.util.List;
 
 public interface RequestDao extends GenericDao<Request, Integer> {
 	public boolean checkRequest(Request request) throws RequestAlreadySentException;

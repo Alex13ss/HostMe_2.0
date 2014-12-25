@@ -1,9 +1,9 @@
 package com.softserve.edu.service;
 
-import java.util.List;
-
-import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
 import com.softserve.edu.entity.Request;
+import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
+
+import java.util.List;
 
 public interface RequestService {
 

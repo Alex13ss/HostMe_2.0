@@ -1,10 +1,10 @@
 package com.softserve.edu.utils;
 
-import java.io.Serializable;
-
 import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.UserProfile;
+
+import java.io.Serializable;
 
 public interface Connection<A> extends Serializable {
 

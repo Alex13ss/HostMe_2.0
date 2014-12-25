@@ -1,14 +1,13 @@
 package com.softserve.edu.utils;
 
-import java.io.IOException;
-import java.util.Calendar;
-
-import org.springframework.stereotype.Component;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.Calendar;
 @Component
 public class TimeDeserializer extends JsonDeserializer<Calendar> {
 

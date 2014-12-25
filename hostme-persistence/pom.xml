@@ -14,8 +14,6 @@
     <properties>
         <hibernateVersion>4.3.6.Final</hibernateVersion>
         <jacsonVersion>2.4.2</jacsonVersion>
-        <springVersion>3.2.8.RELEASE</springVersion>
-        <springSecurity>3.2.5.RELEASE</springSecurity>
     </properties>
 
     <dependencies>
@@ -86,6 +84,30 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jacsonVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${springVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${springVersion}</version>
         </dependency>
 
         <dependency>

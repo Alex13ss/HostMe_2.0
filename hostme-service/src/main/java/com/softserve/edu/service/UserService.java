@@ -1,8 +1,8 @@
 package com.softserve.edu.service;
 
-import java.util.List;
-
 import com.softserve.edu.entity.User;
+
+import java.util.List;
 
 public interface UserService {
 

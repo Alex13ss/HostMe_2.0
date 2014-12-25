@@ -1,5 +1,9 @@
 package com.softserve.edu.controller;
 
+import com.softserve.edu.entity.User;
+import com.softserve.edu.service.ImageService;
+import com.softserve.edu.service.ProfileService;
+import com.softserve.edu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,11 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.softserve.edu.entity.User;
-import com.softserve.edu.service.ImageService;
-import com.softserve.edu.service.ProfileService;
-import com.softserve.edu.service.UserService;
 
 @Controller
 public class ProfileController {
@@ -39,13 +38,10 @@ public class ProfileController {
 
 		User user = getCurrentUser();
 
-		// userService.initilizeUserLanguages(user);
-
 		model.addAttribute("age", profileService.calcAge(user));
 		model.addAttribute("birth", profileService.receiveBirthday(user.getBirthday()));
 		model.addAttribute("user", user);
 		return "profile";
-
 	}
 
 }

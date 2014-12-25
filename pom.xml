@@ -15,7 +15,10 @@
         <module>hostme-web</module>
     </modules>
 
-
+    <properties>
+        <springVersion>4.1.3.RELEASE</springVersion>
+        <springSecurity>3.2.5.RELEASE</springSecurity>
+    </properties>
 
     <build>
         <plugins>

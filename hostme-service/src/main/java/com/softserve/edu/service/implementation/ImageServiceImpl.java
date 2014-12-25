@@ -1,13 +1,8 @@
 package com.softserve.edu.service.implementation;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;
-
 import com.softserve.edu.dao.ImageDao;
 import com.softserve.edu.entity.Hosting;
+import com.softserve.edu.entity.Image;
 import com.softserve.edu.entity.User;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.SystemPropertiesService;
@@ -17,7 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.softserve.edu.entity.Image;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
 
 @Service
 public class ImageServiceImpl implements ImageService {

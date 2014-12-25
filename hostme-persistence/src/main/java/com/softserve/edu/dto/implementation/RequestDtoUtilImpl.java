@@ -1,23 +1,22 @@
 package com.softserve.edu.dto.implementation;
 
-import java.util.Calendar;
-
 import com.softserve.edu.dto.RequestDtoUtil;
 import com.softserve.edu.entity.Hosting;
 import com.softserve.edu.entity.Request;
 import com.softserve.edu.entity.Status;
-import com.softserve.edu.entity.User;
 import com.softserve.edu.entity.exceptions.RequestCannotSendException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.softserve.edu.service.ProfileService;
+import java.util.Calendar;
+
+//import com.softserve.edu.service.ProfileService;
 
 @Service
 public class RequestDtoUtilImpl implements RequestDtoUtil {
 
 	@Autowired
-	private ProfileService profileService;
+//	private ProfileService profileService;
 
 	@Override
 	public Request formRequestModel(long endDate, long beginDate,
@@ -29,8 +28,8 @@ public class RequestDtoUtilImpl implements RequestDtoUtil {
 		request.setBeginDate(begin);
 		end.setTimeInMillis(endDate);
 		request.setEndDate(end);
-		User user = profileService.getUserByLogin(login);
-		request.setAuthor(user);
+//		User user = profileService.getUserByLogin(login);
+//		request.setAuthor(user);
 		Hosting hosting = new Hosting();
 		hosting.setHostingId(hostingId);
 		request.setHosting(hosting);

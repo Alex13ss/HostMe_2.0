@@ -1,14 +1,13 @@
 package com.softserve.edu.dto.implementation;
 
-import java.util.Calendar;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.softserve.edu.dto.UserDtoUtil;
 import com.softserve.edu.entity.Gender;
 import com.softserve.edu.entity.Role;
 import com.softserve.edu.entity.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
 
 @Service
 public class UserDtoUtilImpl implements UserDtoUtil {

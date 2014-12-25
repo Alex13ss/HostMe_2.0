@@ -1,14 +1,13 @@
 package com.softserve.edu.dao.impl;
 
-import java.io.Serializable;
-import java.util.List;
-
+import com.softserve.edu.dao.GenericDao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.softserve.edu.dao.GenericDao;
+import java.io.Serializable;
+import java.util.List;
 
 public abstract class AbstractGenericDao<E, I extends Serializable> implements
 		GenericDao<E, I> {

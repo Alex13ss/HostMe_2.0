@@ -1,5 +1,13 @@
-package com.softserve.edu.controller.rest;
+package com.softserve.edu.controller;
 
+import com.softserve.edu.dto.RequestDtoUtil;
+import com.softserve.edu.entity.Hosting;
+import com.softserve.edu.entity.Request;
+import com.softserve.edu.entity.User;
+import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
+import com.softserve.edu.service.HostingService;
+import com.softserve.edu.service.ProfileService;
+import com.softserve.edu.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -8,17 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.softserve.edu.dto.RequestDtoUtil;
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.entity.Request;
-import com.softserve.edu.entity.Status;
-import com.softserve.edu.entity.User;
-import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
-import com.softserve.edu.entity.exceptions.RequestCannotSendException;
-import com.softserve.edu.service.HostingService;
-import com.softserve.edu.service.ProfileService;
-import com.softserve.edu.service.RequestService;
 
 @RestController
 public class RestRequestController {

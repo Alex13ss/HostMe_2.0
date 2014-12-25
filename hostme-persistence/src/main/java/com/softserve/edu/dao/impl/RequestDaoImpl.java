@@ -1,8 +1,9 @@
 package com.softserve.edu.dao.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.softserve.edu.dao.RequestDao;
+import com.softserve.edu.entity.Request;
+import com.softserve.edu.entity.Status;
+import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,10 +11,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.softserve.edu.dao.RequestDao;
-import com.softserve.edu.entity.Request;
-import com.softserve.edu.entity.Status;
-import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class RequestDaoImpl extends AbstractGenericDao<Request, Integer> implements

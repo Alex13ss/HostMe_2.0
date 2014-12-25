@@ -1,10 +1,10 @@
 package com.softserve.edu.dao;
 
-import java.util.List;
-
-import com.softserve.edu.entity.Hosting;
 import com.softserve.edu.entity.Gender;
+import com.softserve.edu.entity.Hosting;
 import com.softserve.edu.utils.Search;
+
+import java.util.List;
 
 public interface HostingDao extends GenericDao<Hosting, Integer> {
 

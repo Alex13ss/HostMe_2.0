@@ -1,7 +1,6 @@
 package com.softserve.edu.service.implementation;
 
-import java.util.List;
-
+import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.entity.User;
 import com.softserve.edu.service.UserService;
 import org.hibernate.Hibernate;
@@ -9,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softserve.edu.dao.UserDao;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {

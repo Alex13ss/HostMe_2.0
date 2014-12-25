@@ -1,11 +1,6 @@
 package com.softserve.edu.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "ROLE", schema = "hostme", uniqueConstraints = { @UniqueConstraint(columnNames = { "role_id" }) })

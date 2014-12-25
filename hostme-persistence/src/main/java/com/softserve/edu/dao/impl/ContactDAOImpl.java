@@ -1,12 +1,12 @@
 package com.softserve.edu.dao.impl;
 
-import java.util.List;
-
 import com.softserve.edu.dao.ContactDAO;
 import com.softserve.edu.entity.Contact;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class ContactDAOImpl implements ContactDAO {

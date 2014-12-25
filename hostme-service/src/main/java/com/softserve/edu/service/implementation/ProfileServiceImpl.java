@@ -1,17 +1,16 @@
 package com.softserve.edu.service.implementation;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
+import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.entity.User;
 import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.softserve.edu.dao.UserDao;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {

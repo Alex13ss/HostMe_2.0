@@ -1,8 +1,8 @@
 package com.softserve.edu.service;
 
-import java.util.ArrayList;
-
 import com.softserve.edu.entity.Hosting;
+
+import java.util.ArrayList;
 
 public interface HostingService {
 

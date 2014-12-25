@@ -1,8 +1,8 @@
 package com.softserve.edu.service;
 
-import java.util.List;
-
 import com.softserve.edu.utils.Search;
+
+import java.util.List;
 
 public interface SearchService {
 

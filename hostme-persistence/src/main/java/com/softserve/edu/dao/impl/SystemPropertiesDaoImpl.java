@@ -1,6 +1,7 @@
 package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.SystemPropertiesDao;
+import com.softserve.edu.entity.SystemProperties;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -8,8 +9,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.softserve.edu.entity.SystemProperties;
 
 @Repository
 public class SystemPropertiesDaoImpl extends

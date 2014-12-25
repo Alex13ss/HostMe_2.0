@@ -1,7 +1,8 @@
 package com.softserve.edu.service;
 
-import java.util.List;
 import com.softserve.edu.entity.Language;
+
+import java.util.List;
 
 public interface LanguageService {
 	

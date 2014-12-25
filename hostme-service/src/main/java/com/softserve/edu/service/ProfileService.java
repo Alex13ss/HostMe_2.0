@@ -1,8 +1,8 @@
 package com.softserve.edu.service;
 
-import java.util.Calendar;
-
 import com.softserve.edu.entity.User;
+
+import java.util.Calendar;
 
 public interface ProfileService {
 

@@ -1,5 +1,11 @@
 package com.softserve.edu.controller;
 
+import com.softserve.edu.entity.Feedback;
+import com.softserve.edu.entity.Hosting;
+import com.softserve.edu.entity.User;
+import com.softserve.edu.service.FeedbackService;
+import com.softserve.edu.service.HostingService;
+import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,13 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.softserve.edu.entity.Feedback;
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.entity.User;
-import com.softserve.edu.service.FeedbackService;
-import com.softserve.edu.service.HostingService;
-import com.softserve.edu.service.ProfileService;
 
 @Controller
 public class FeedbacksController {

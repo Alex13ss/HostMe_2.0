@@ -1,8 +1,12 @@
 package com.softserve.edu.dao.impl;
 
-import java.util.List;
+import com.softserve.edu.dao.HostingDao;
 import com.softserve.edu.entity.Gender;
-import org.hibernate.*;
+import com.softserve.edu.entity.Hosting;
+import com.softserve.edu.utils.Search;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.ProjectionList;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -10,9 +14,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.softserve.edu.dao.HostingDao;
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.utils.Search;
+import java.util.List;
 
 @Repository
 public class HostingDaoImpl extends AbstractGenericDao<Hosting, Integer> implements HostingDao {
