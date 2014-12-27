@@ -1,8 +1,8 @@
 package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.HostingDao;
-import com.softserve.edu.entity.Gender;
-import com.softserve.edu.entity.Hosting;
+import com.softserve.edu.model.Gender;
+import com.softserve.edu.model.Hosting;
 import com.softserve.edu.utils.Search;
 import org.hibernate.Criteria;
 import org.hibernate.Session;

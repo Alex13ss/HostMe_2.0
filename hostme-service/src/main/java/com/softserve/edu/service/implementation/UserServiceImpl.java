@@ -1,7 +1,7 @@
 package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.UserDao;
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.UserService;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;

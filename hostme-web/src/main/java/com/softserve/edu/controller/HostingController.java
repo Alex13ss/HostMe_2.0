@@ -1,10 +1,10 @@
 package com.softserve.edu.controller;
 
 import com.google.gson.Gson;
-import com.softserve.edu.entity.Feedback;
-import com.softserve.edu.entity.Gender;
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.entity.Request;
+import com.softserve.edu.model.Feedback;
+import com.softserve.edu.model.Gender;
+import com.softserve.edu.model.Hosting;
+import com.softserve.edu.model.Request;
 import com.softserve.edu.service.HostingService;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.ProfileService;

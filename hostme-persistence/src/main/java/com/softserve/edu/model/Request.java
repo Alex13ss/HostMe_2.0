@@ -1,4 +1,4 @@
-package com.softserve.edu.entity;
+package com.softserve.edu.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;

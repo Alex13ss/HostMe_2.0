@@ -1,6 +1,6 @@
 package com.softserve.edu.service.implementation;
 
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.RegistrationSendMail;
 import com.softserve.edu.service.SystemPropertiesService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
     pageEncoding="utf8"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="security"
     uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
@@ -12,12 +12,12 @@
     content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
     name='viewport'>
 <script type="text/javascript"
-    src="resources/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="resources/js/jquery.validate.js"></script>
-<script type="text/javascript" src="resources/js/validation.js"></script>
-<script type="text/javascript" src="resources/js/registration.js"></script>
+    src="WEB-INF/resources/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="WEB-INF/resources/js/jquery.validate.js"></script>
+<script type="text/javascript" src="WEB-INF/resources/js/validation.js"></script>
+<script type="text/javascript" src="WEB-INF/resources/js/registration.js"></script>
 <link rel="stylesheet" type="text/css"
-    href="resources/css/datepicker.css">
+    href="WEB-INF/resources/css/datepicker.css">
 <title>Host me</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
@@ -100,21 +100,21 @@
                             <div class="carousel-inner">
                                 <div class="item">
                                     <img
-                                        src="resources/images/index-hosting1.jpg"
+                                        src="WEB-INF/resources/images/index-hosting1.jpg"
                                         alt="First slide">
                                     <div class="carousel-caption">First
                                         Slide</div>
                                 </div>
                                 <div class="item active">
                                     <img
-                                        src="resources/images/index-hosting2.jpg"
+                                        src="WEB-INF/resources/images/index-hosting2.jpg"
                                         alt="Second slide">
                                     <div class="carousel-caption">Second
                                         Slide</div>
                                 </div>
                                 <div class="item">
                                     <img
-                                        src="resources/images/index-hosting3.jpg"
+                                        src="WEB-INF/resources/images/index-hosting3.jpg"
                                         alt="Third slide">
                                     <div class="carousel-caption">Third
                                         Slide</div>

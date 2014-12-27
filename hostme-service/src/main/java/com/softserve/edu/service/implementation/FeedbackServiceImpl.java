@@ -1,7 +1,7 @@
 package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.FeedbackDao;
-import com.softserve.edu.entity.Feedback;
+import com.softserve.edu.model.Feedback;
 import com.softserve.edu.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

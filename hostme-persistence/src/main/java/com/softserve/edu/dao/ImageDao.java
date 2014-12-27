@@ -1,6 +1,6 @@
 package com.softserve.edu.dao;
 
-import com.softserve.edu.entity.Image;
+import com.softserve.edu.model.Image;
 
 public interface ImageDao extends GenericDao<Image, Long> {
 }

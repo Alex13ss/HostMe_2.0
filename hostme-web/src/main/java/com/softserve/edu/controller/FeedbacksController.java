@@ -1,8 +1,8 @@
 package com.softserve.edu.controller;
 
-import com.softserve.edu.entity.Feedback;
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.Feedback;
+import com.softserve.edu.model.Hosting;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.FeedbackService;
 import com.softserve.edu.service.HostingService;
 import com.softserve.edu.service.ProfileService;

@@ -1,7 +1,7 @@
 package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.ContactDAO;
-import com.softserve.edu.entity.Contact;
+import com.softserve.edu.model.Contact;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

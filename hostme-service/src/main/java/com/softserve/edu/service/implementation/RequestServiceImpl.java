@@ -1,8 +1,8 @@
 package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.RequestDao;
-import com.softserve.edu.entity.Request;
-import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
+import com.softserve.edu.model.Request;
+import com.softserve.edu.model.exceptions.RequestAlreadySentException;
 import com.softserve.edu.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

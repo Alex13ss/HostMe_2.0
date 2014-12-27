@@ -1,4 +1,4 @@
-package com.softserve.edu.entity;
+package com.softserve.edu.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;

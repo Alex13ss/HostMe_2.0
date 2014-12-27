@@ -1,4 +1,4 @@
-package com.softserve.edu.entity.exceptions;
+package com.softserve.edu.model.exceptions;
 
 public class RequestAlreadySentException extends Exception {
 	private static final long serialVersionUID = 1L;

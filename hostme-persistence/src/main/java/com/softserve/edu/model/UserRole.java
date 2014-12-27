@@ -1,4 +1,4 @@
-package com.softserve.edu.entity;
+package com.softserve.edu.model;
 
 @Deprecated
 public enum UserRole {

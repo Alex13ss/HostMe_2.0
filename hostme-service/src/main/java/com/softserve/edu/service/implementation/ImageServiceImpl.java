@@ -1,9 +1,9 @@
 package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.ImageDao;
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.entity.Image;
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.Hosting;
+import com.softserve.edu.model.Image;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.SystemPropertiesService;
 import org.apache.commons.io.FileUtils;

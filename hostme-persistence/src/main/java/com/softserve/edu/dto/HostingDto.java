@@ -1,7 +1,7 @@
 package com.softserve.edu.dto;
 
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.Hosting;
+import com.softserve.edu.model.User;
 
 public class HostingDto {
 

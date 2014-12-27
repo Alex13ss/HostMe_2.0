@@ -1,10 +1,10 @@
 package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.UserDao;
-import com.softserve.edu.entity.Gender;
-import com.softserve.edu.entity.Role;
-import com.softserve.edu.entity.User;
-import com.softserve.edu.entity.UserState;
+import com.softserve.edu.model.Gender;
+import com.softserve.edu.model.Role;
+import com.softserve.edu.model.User;
+import com.softserve.edu.model.UserState;
 import com.softserve.edu.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

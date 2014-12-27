@@ -1,6 +1,6 @@
 package com.softserve.edu.dao;
 
-import com.softserve.edu.entity.Contact;
+import com.softserve.edu.model.Contact;
 
 import java.util.List;
 

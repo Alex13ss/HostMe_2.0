@@ -1,7 +1,7 @@
 package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.SystemPropertiesDao;
-import com.softserve.edu.entity.SystemProperties;
+import com.softserve.edu.model.SystemProperties;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

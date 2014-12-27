@@ -1,6 +1,6 @@
 package com.softserve.edu.service;
 
-import com.softserve.edu.entity.Feedback;
+import com.softserve.edu.model.Feedback;
 
 public interface FeedbackService {
     

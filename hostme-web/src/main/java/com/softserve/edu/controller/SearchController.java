@@ -1,7 +1,7 @@
 package com.softserve.edu.controller;
 
 import com.google.gson.Gson;
-import com.softserve.edu.entity.Hosting;
+import com.softserve.edu.model.Hosting;
 import com.softserve.edu.service.SearchService;
 import com.softserve.edu.utils.Search;
 import org.springframework.beans.factory.annotation.Autowired;

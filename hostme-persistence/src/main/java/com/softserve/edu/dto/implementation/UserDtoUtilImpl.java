@@ -1,9 +1,9 @@
 package com.softserve.edu.dto.implementation;
 
 import com.softserve.edu.dto.UserDtoUtil;
-import com.softserve.edu.entity.Gender;
-import com.softserve.edu.entity.Role;
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.Gender;
+import com.softserve.edu.model.Role;
+import com.softserve.edu.model.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

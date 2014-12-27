@@ -1,7 +1,7 @@
 package com.softserve.edu.controller;
 
-import com.softserve.edu.entity.Language;
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.Language;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.LanguageService;
 import com.softserve.edu.service.ProfileService;

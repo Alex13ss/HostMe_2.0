@@ -1,7 +1,7 @@
 package com.softserve.edu.dao;
 
-import com.softserve.edu.entity.Gender;
-import com.softserve.edu.entity.Hosting;
+import com.softserve.edu.model.Gender;
+import com.softserve.edu.model.Hosting;
 import com.softserve.edu.utils.Search;
 
 import java.util.List;

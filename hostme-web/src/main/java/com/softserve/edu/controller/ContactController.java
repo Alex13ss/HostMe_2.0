@@ -1,7 +1,7 @@
 package com.softserve.edu.controller;
 
-import com.softserve.edu.entity.Contact;
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.Contact;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.ContactService;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.ProfileService;

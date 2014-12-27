@@ -1,9 +1,9 @@
 package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.RequestDao;
-import com.softserve.edu.entity.Request;
-import com.softserve.edu.entity.Status;
-import com.softserve.edu.entity.exceptions.RequestAlreadySentException;
+import com.softserve.edu.model.Request;
+import com.softserve.edu.model.Status;
+import com.softserve.edu.model.exceptions.RequestAlreadySentException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

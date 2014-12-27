@@ -1,9 +1,9 @@
 package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.UserDao;
-import com.softserve.edu.entity.Role;
-import com.softserve.edu.entity.User;
-import com.softserve.edu.entity.UserState;
+import com.softserve.edu.model.Role;
+import com.softserve.edu.model.User;
+import com.softserve.edu.model.UserState;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;

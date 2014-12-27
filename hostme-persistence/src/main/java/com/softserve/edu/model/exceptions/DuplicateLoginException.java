@@ -1,4 +1,4 @@
-package com.softserve.edu.entity.exceptions;
+package com.softserve.edu.model.exceptions;
 
 public class DuplicateLoginException extends Exception {
 	/**

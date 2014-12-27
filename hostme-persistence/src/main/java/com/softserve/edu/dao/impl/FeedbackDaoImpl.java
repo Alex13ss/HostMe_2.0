@@ -1,7 +1,7 @@
 package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.FeedbackDao;
-import com.softserve.edu.entity.Feedback;
+import com.softserve.edu.model.Feedback;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

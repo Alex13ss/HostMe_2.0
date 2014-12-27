@@ -1,10 +1,10 @@
 package com.softserve.edu.dto.implementation;
 
 import com.softserve.edu.dto.RequestDtoUtil;
-import com.softserve.edu.entity.Hosting;
-import com.softserve.edu.entity.Request;
-import com.softserve.edu.entity.Status;
-import com.softserve.edu.entity.exceptions.RequestCannotSendException;
+import com.softserve.edu.model.Hosting;
+import com.softserve.edu.model.Request;
+import com.softserve.edu.model.Status;
+import com.softserve.edu.model.exceptions.RequestCannotSendException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

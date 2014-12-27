@@ -1,7 +1,7 @@
 package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.LanguageDao;
-import com.softserve.edu.entity.Language;
+import com.softserve.edu.model.Language;
 import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 

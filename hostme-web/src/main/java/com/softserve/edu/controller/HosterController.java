@@ -1,6 +1,6 @@
 package com.softserve.edu.controller;
 
-import com.softserve.edu.entity.User;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.RegistrationService;
 import com.softserve.edu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

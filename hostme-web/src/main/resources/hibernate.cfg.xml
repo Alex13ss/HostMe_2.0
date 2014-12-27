@@ -4,6 +4,6 @@
 "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<mapping class="Contact" />
+		<mapping class="com.softserve.edu.model.Contact" />
 	</session-factory>
 </hibernate-configuration>
