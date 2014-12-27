@@ -35,7 +35,6 @@
                                     items="${user.images}">
                                     <img src="${image_url}${image.link}"
                                         style="width: 200px; height: 200px" />
-                                    </a>
                                 </c:forEach>
                             </div>
                         </div>
@@ -197,8 +196,8 @@
 </body>
 
 
-<script src="jquery-2.1.1.js"></script>
-<script src="bootstrap.js"></script>
+<script src="../WEB-INF/resources/js/jquery-2.1.1.js"></script>
+<script src="../WEB-INF/resources/js/bootstrap.js"></script>
 <script type="text/javascript">
 	$('#myModal').modal('show');
 </script>
@@ -209,7 +208,7 @@
 	});
 </script>
 
-<script src="jquery-2.1.1.js"></script>
-<script src="bootstrap.js"></script>
+<script src="../WEB-INF/resources/js/jquery-2.1.1.js"></script>
+<script src="../WEB-INF/resources/js/bootstrap.js"></script>
 
 </html>

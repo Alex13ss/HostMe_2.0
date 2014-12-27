@@ -8,8 +8,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="resources/js/jquery.validate.js"></script>
-<script type="text/javascript" src="resources/js/validation.js"></script>
+<script type="text/javascript" src="../WEB-INF/resources/js/jquery.validate.js"></script>
+<script type="text/javascript" src="../WEB-INF/resources/js/validation.js"></script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>

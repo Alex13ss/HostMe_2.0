@@ -11,7 +11,6 @@
 <title><spring:message code="label.title" /></title>
 </head>
 <body>
-HAHAHA
 
 	<a href="<c:url value="/logout" />"> <spring:message
 			code="label.logout" />

@@ -7,7 +7,7 @@
     content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
     name='viewport'>
 
-<script type="text/javascript" src="resources/js/header.js"></script>
+<script type="text/javascript" src="../WEB-INF/resources/js/header.js"></script>
 
 <header class="header">
 
