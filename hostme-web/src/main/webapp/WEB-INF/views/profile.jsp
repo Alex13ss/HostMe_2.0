@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html style="min-height: 682px;">
 <head>
-<link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
+<link rel="stylesheet" type="text/css" href="/WEB-INF/resources/css/AdminLTE.css">
 </head>
 <body class="wysihtml5-supported">
 

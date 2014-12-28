@@ -84,7 +84,6 @@
                 </security:authorize>
             </ul>
         </section>
-        <!-- /.sidebar -->
     </aside>
 </security:authorize>
 </html>

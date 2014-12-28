@@ -30,10 +30,10 @@
 				</h3>
 				<p>
 					We could not find the page you were looking for. Meanwhile, you may
-					<a href='../../index.html'>return to dashboard</a> or try using the
+					<a href='/../index.html'>return to dashboard</a> or try using the
 					search form.
 				</p>
-				<img src="../WEB-INF/resources/images/error404.jpg" alt="User Image">
+				<img src="/WEB-INF/resources/images/error404.jpg" alt="User Image">
 				<form:form method="get" action="error-search" class='search-form'>
 					<div class='input-group'>
 						<input type="text" name="search" class='form-control'

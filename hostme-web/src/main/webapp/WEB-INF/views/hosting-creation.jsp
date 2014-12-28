@@ -7,10 +7,10 @@
 <html>
 <head>
 
-<script type="text/javascript" src="../WEB-INF/resources/js/countries3.js"></script>
-<script type="text/javascript" src="../WEB-INF/resources/js/jquery.MultiFile.js"></script>
-<script type="text/javascript" src="../WEB-INF/resources/js/jquery.validate.js"></script>
-<script type="text/javascript" src="../WEB-INF/resources/js/validation.js"></script>
+<script type="text/javascript" src="/WEB-INF/resources/js/countries3.js"></script>
+<script type="text/javascript" src="/WEB-INF/resources/js/jquery.MultiFile.js"></script>
+<script type="text/javascript" src="/WEB-INF/resources/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/WEB-INF/resources/js/validation.js"></script>
 
 </head>
 <body>

@@ -8,27 +8,27 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-    href="../WEB-INF/resources/css/daterangepicker-bs3.css">
+    href="/WEB-INF/resources/css/daterangepicker-bs3.css">
 
 <link rel="stylesheet" type="text/css"
-    href="../WEB-INF/resources/css/datepicker.css">
+    href="/WEB-INF/resources/css/datepicker.css">
 
 <link rel="stylesheet" type="text/css"
-    href="../WEB-INF/resources/css/bootstrap3-wysihtml5.css">
+    href="/WEB-INF/resources/css/bootstrap3-wysihtml5.css">
 
-<link href="../WEB-INF/resources/css/lightbox.css" rel="stylesheet" />
+<link href="/WEB-INF/resources/css/lightbox.css" rel="stylesheet" />
 
 <script type="text/javascript" src="../WEB-INF/resources/js/daterangepicker.js"></script>
 
 <script type="text/javascript"
-    src="../WEB-INF/resources/js/bootstrap-datepicker.js"></script>
+    src="/WEB-INF/resources/js/bootstrap-datepicker.js"></script>
 
 <script type="text/javascript"
-    src="../WEB-INF/resources/js/bootstrap3-wysihtml5.all.min.js"></script>
+    src="/WEB-INF/resources/js/bootstrap3-wysihtml5.all.min.js"></script>
 
 <script type="text/javascript" src="../WEB-INF/resources/js/hosting.js"></script>
 
-<script src="../WEB-INF/resources/js/lightbox.min.js"></script>
+<script src="/WEB-INF/resources/js/lightbox.min.js"></script>
 
 </head>
 

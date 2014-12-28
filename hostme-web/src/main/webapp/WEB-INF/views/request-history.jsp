@@ -6,13 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="../WEB-INF/resources/css/dataTables.bootstrap.css" rel="stylesheet"
+<link href="/WEB-INF/resources/css/dataTables.bootstrap.css" rel="stylesheet"
 	type="text/css" />
-<script src="../WEB-INF/resources/js/jquery.dataTables.js" type="text/javascript"></script>
-<script src="../WEB-INF/resources/js/request-history.js" type="text/javascript"></script>
-<script src="../WEB-INF/resources/js/fnAjaxReload.js" type="text/javascript"></script>
+<script src="/WEB-INF/resources/js/jquery.dataTables.js" type="text/javascript"></script>
+<script src="/WEB-INF/resources/js/request-history.js" type="text/javascript"></script>
+<script src="/WEB-INF/resources/js/fnAjaxReload.js" type="text/javascript"></script>
 
-<script src="../WEB-INF/resources/js/dataTables.bootstrap.js"
+<script src="/WEB-INF/resources/js/dataTables.bootstrap.js"
 	type="text/javascript"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
 <title>Request history</title>
