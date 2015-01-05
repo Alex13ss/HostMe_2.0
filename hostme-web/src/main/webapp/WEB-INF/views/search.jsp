@@ -8,14 +8,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="/WEB-INF/resources/js/request.js"></script>
-<script type="text/javascript" src="/WEB-INF/resources/js/daterangepicker.js"></script>
-<script type="text/javascript" src="/WEB-INF/resources/js/search.js"></script>
-<script type="text/javascript" src="/WEB-INF/resources/js/countries.js"></script>
-<script type="text/javascript" src="/WEB-INF/resources/js/jput.min.js"></script>
+<script type="text/javascript" src="resources/js/request.js"></script>
+<script type="text/javascript" src="resources/js/daterangepicker.js"></script>
+<script type="text/javascript" src="resources/js/search.js"></script>
+<script type="text/javascript" src="resources/js/countries.js"></script>
+<script type="text/javascript" src="resources/js/jput.min.js"></script>
 <title>Search</title>
 <link rel="stylesheet" type="text/css"
-    href="/WEB-INF/resources/css/daterangepicker-bs3.css">
+    href="resources/css/daterangepicker-bs3.css">
 </head>
 <body>
     <section class="content-header">
@@ -276,8 +276,8 @@
     </div>
 
     </section>
-    <script src="/WEB-INF/resources/js/jquery-2.1.1.js"></script>
-    <script src="/WEB-INF/resources/js/bootstrap.js"></script>
+    <script src="jquery-2.1.1.js"></script>
+    <script src="bootstrap.js"></script>
     <script type="text/javascript">
 					$('#myModal').modal('show');
 				</script>

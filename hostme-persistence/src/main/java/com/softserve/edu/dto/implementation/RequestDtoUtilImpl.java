@@ -15,7 +15,7 @@ import java.util.Calendar;
 @Service
 public class RequestDtoUtilImpl implements RequestDtoUtil {
 
-	@Autowired
+//	@Autowired
 //	private ProfileService profileService;
 
 	@Override

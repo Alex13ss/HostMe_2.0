@@ -7,15 +7,15 @@
 <html style="min-height: 682px;">
 <head>
 
-<link rel="stylesheet" type="text/css" href="/WEB-INF/resources/css/datepicker.css">
-<link rel="stylesheet" type="text/css" href="/WEB-INF/resources/css/AdminLTE.css">
-<link rel="stylesheet" type="text/css" href="/WEB-INF/resources/css/bootstrapValidator.css">
+<link rel="stylesheet" type="text/css" href="resources/css/datepicker.css">
+<link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
+<link rel="stylesheet" type="text/css" href="resources/css/bootstrapValidator.css">
 
-<script type="text/javascript" src="/WEB-INF/resources/js/jquery.MultiFile.js"></script>
+<script type="text/javascript" src="resources/js/jquery.MultiFile.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 
-<script type="text/javascript" src="/WEB-INF/resources/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap-datepicker.js"></script>
 
 
 </head>

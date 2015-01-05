@@ -19,6 +19,11 @@
 
     <dependencies>
 
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-web</artifactId>
+		<version>${springVersion}</version>
+	</dependency>
         <dependency>
             <groupId>com.softserve.edu</groupId>
             <artifactId>hostme-persistence</artifactId>
@@ -31,11 +36,6 @@
             <version>${springSecurity}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${springVersion}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.social</groupId>
