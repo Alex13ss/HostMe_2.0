@@ -7,20 +7,20 @@ import javax.persistence.*;
 public class Contact {
     
     @Id
-    @Column(name = "ID")
+    @Column(name = "id")
     @GeneratedValue
     private Integer id;
 
-    @Column(name = "FIRSTNAME")
+    @Column(name = "firstName")
     private String firstname;
 
-    @Column(name = "LASTNAME")
+    @Column(name = "lastName")
     private String lastname;
 
-    @Column(name = "EMAIL")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "TELEPHONE")
+    @Column(name = "telephone")
     private String telephone;
 
     public Integer getId() {
