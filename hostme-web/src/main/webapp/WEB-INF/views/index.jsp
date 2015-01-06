@@ -12,77 +12,58 @@
     content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
     name='viewport'>
 <script type="text/javascript"
-    src="resources/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="resources/js/jquery.validate.js"></script>
-<script type="text/javascript" src="resources/js/validation.js"></script>
-<script type="text/javascript" src="resources/js/registration.js"></script>
+        src="/resources/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript"
+        src="/resources/js/jquery.validate.js"></script>
+<script type="text/javascript"
+        src="/resources/js/validation.js"></script>
+<script type="text/javascript"
+        src="/resources/js/registration.js"></script>
 <link rel="stylesheet" type="text/css"
-    href="resources/css/datepicker.css">
+        href="/resources/css/datepicker.css">
 <title>Sight Visiting</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 </head>
 <body>
-
     <section class="content">
-        <!-- /.row (main row) -->
-        <!-- Small boxes (Stat box) -->
         <div class="row">
             <security:authorize access="! isAuthenticated()">
-                <!-- ./col -->
-                <div class="col-lg-3 col-xs-6 col-md-offset-3">
-                    <!-- small box -->
-                    <div class="small-box bg-aqua">
-                        <div class="inner" style="padding-top: 2em">
-                            <h4>
-                                <strong>Registered user</strong>
-                            </h4>
+                <a href="<c:url value='login' />">
+                    <div class="col-lg-3 col-xs-6 col-md-offset-3">
+                        <div class="btn small-box bg-aqua">
+                            <div class="inner" style="padding-top: 2em">
+                                <h4>
+                                    <strong>Log in</strong>
+                                </h4>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-stats-bars"></i>
+                            </div>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
-                        </div>
-
-                        <div class="btn small-box-footer">
-                            <a href="<c:url value='login' />"
-                                style="padding-right: 0.3em; color: white">Login</a><i
-                                class="fa fa-arrow-circle-right"></i>
-                        </div>
-
                     </div>
-                </div>
+                </a>
                 <!-- ./col -->
                 <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
-                    <div class="small-box bg-yellow">
+                    <div data-toggle="modal"
+                         data-target="#registrationModal"
+                         class="btn small-box bg-yellow">
                         <div class="inner" style="padding-top: 2em">
                             <h4>
-                                <strong>New user</strong>
+                                <strong>Sign in</strong>
                             </h4>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <security:authorize access="! isAuthenticated()">
-                            <div data-toggle="modal"
-                                data-target="#registrationModal"
-                                class="btn small-box-footer">
-                                Registration <i
-                                    class="fa fa-arrow-circle-right"></i>
-                            </div>
-                        </security:authorize>
                     </div>
                 </div>
-
-                <!-- ./col -->
+            </security:authorize>
         </div>
-
-        </security:authorize>
-        <!-- Main row -->
         <div class="row">
-
             <div class="col-md-12">
                 <div class="box box-solid">
-                    <!-- /.box-header -->
                     <div class="box-body">
                         <div id="carousel-example-generic"
                             class="carousel slide" data-ride="carousel">
@@ -131,22 +112,10 @@
                             </a>
                         </div>
                     </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
             </div>
-
-
-            <!-- Left col -->
-
-            <!-- /.Left col -->
-
-            <!-- right col -->
-
-            <!-- right col -->
         </div>
 
-        <!-- /.row -->
         <!-- Login Modal -->
 
         <div class="modal fade" id="registrationModal" tabindex="-1"
@@ -256,10 +225,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
                             </div>
                             <div class="modal-footer">
                                 <button
@@ -269,7 +234,6 @@
                                     type="button"
                                     class="btn btn-primary btn-block">Close</a>
                             </div>
-
                         </div>
                     </div>
                 </form:form>
