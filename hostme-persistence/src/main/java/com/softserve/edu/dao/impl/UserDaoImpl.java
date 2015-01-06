@@ -16,7 +16,7 @@ public class UserDaoImpl extends AbstractGenericDao<User, Integer> implements
 		super(User.class);
 	}
 	
-	private final int USER = 1;
+	private final Integer USER = 1;
 
 	@Override
 	public User getUserByEmail(String email) {
@@ -46,7 +46,7 @@ public class UserDaoImpl extends AbstractGenericDao<User, Integer> implements
         	User user = (User) cr.uniqueResult();
         	user.setUserState(UserState.ACTIVE);
         	Role registeredUser = new Role();
-        	registeredUser.setId(USER);
+        	registeredUser.setRoleId(USER);
         	user.setRole(registeredUser);
     }
 

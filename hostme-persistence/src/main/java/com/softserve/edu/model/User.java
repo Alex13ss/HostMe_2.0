@@ -22,35 +22,48 @@ public class User {
 	@GeneratedValue
 	@Column(name = "user_id", unique = true, nullable = false)
 	private Integer userId;
+	
 	@JsonIgnore
 	@Column(name = "login", length = 50, updatable = false, unique = true)
 	private String login;
+	
 	@JsonIgnore
 	@Column(name = "password", length = 70)
 	private String password;
+	
 	@Column(name = "firstName", length = 70)
 	private String firstName;
+	
 	@Column(name = "lastName", length = 70)
 	private String lastName;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gender", nullable = false)
 	private Gender gender;
+	
 	@Enumerated(EnumType.STRING)
  	@Column(name = "user_state", nullable = false)
  	private UserState userState;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "birth_date")
 	private Calendar birthday;
+	
 	@Column(name = "email", unique = true, length = 70)
 	private String email;
+	
 	@Column(name = "hobby", length = 100)
 	private String hobby;
+	
 	@Column(name = "description", length = 100)
 	private String description;
+	
 	@Column(name = "country", length = 50)
 	private String country;
+	
 	@Column(name = "region", length = 50)
 	private String region;
+	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name = "role_id")

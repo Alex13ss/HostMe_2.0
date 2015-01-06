@@ -15,41 +15,57 @@ public class Hosting {
 	@GeneratedValue
 	@Column(name = "hosting_id", unique = true, nullable = false)
 	private Integer hostingId;
+	
 	@Column(name = "country", length = 50, nullable = false)
 	private String country;
+	
 	@Column(name = "region", length = 50, nullable = false)
 	private String region;
+	
 	@Column(name = "city", length = 50, nullable = false)
 	private String city;
+	
 	@Column(name = "address", length = 150, nullable = false)
 	private String address;
+	
 	@Column(name = "min_guests")
 	private Integer minNumberOfGuests;
+	
 	@Column(name = "max_guests")
 	private Integer maxNumberOfGuests;
+	
 	@Column(name = "children")
 	private Boolean children;
+	
 	@Column(name = "pets")
 	private Boolean pets;
+	
 	@Column(name = "smoking")
 	private Boolean smoking;
+	
 	@Column(name = "family")
 	private Boolean family;
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "gender", nullable = false)
 	private Gender gender;
+	
 	@Column(name = "notes", length = 1000)
 	private String notes;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User owner;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "hosting", fetch = FetchType.EAGER, orphanRemoval = true)
 	@Cascade({ CascadeType.DELETE, CascadeType.PERSIST, CascadeType.SAVE_UPDATE })
 	private Set<Image> images = new HashSet<Image>();
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "hosting", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Feedback> feedbacks = new HashSet<Feedback>();
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "hosting", fetch = FetchType.LAZY)
 	private Set<Request> requests = new HashSet<Request>();

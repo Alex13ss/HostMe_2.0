@@ -10,8 +10,10 @@ public class SystemProperties {
 	@GeneratedValue
 	@Column(name = "property_id", unique = true, nullable = false)
 	private Integer propertyId;
+	
 	@Column(name = "prop_key", length = 200, nullable = false)
 	private String propKey;
+	
 	@Column(name = "value", length = 200, nullable = false)
 	private String value;
 
