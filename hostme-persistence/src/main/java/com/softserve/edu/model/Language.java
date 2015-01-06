@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "LANGUAGE", uniqueConstraints = { @UniqueConstraint(columnNames = {
+@Table(name = "LANGUAGES", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"language_id", "language" }) })
 public class Language {
 	@Id

@@ -3,7 +3,7 @@ package com.softserve.edu.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "IMAGE", uniqueConstraints = { @UniqueConstraint(columnNames =  "image_id") })
+@Table(name = "IMAGES", uniqueConstraints = { @UniqueConstraint(columnNames =  "image_id") })
 public class Image {
 	@Id
 	@GeneratedValue

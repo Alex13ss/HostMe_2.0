@@ -14,7 +14,7 @@ import java.util.Calendar;
  * @author Lv-117
  */
 @Entity
-@Table(name = "REQUEST", uniqueConstraints = { @UniqueConstraint(columnNames = { "request_id" }) })
+@Table(name = "REQUESTS", uniqueConstraints = { @UniqueConstraint(columnNames = { "request_id" }) })
 public class Request  implements Serializable{
 
 	@Id

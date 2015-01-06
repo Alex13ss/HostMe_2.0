@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "FEEDBACK", uniqueConstraints = { @UniqueConstraint(columnNames = "feedback_id") })
+@Table(name = "FEEDBACKS", uniqueConstraints = { @UniqueConstraint(columnNames = "feedback_id") })
 public class Feedback {
 	@Id
 	@GeneratedValue

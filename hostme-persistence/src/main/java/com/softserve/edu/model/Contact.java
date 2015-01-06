@@ -3,7 +3,7 @@ package com.softserve.edu.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CONTACT")
+@Table(name = "CONTACTS")
 public class Contact {
     
     @Id
