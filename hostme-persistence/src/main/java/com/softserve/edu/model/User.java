@@ -14,7 +14,7 @@ import java.util.*;
  * @author Lv-117
  */
 @Entity
-@Table(name = "USER", schema = "hostme", uniqueConstraints = { @UniqueConstraint(columnNames = {
+@Table(name = "USER", uniqueConstraints = { @UniqueConstraint(columnNames = {
 		"user_id", "login", "email" }) })
 public class User {
 

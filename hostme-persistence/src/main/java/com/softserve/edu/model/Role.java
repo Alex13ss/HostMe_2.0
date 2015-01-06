@@ -3,7 +3,7 @@ package com.softserve.edu.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ROLE", schema = "hostme", uniqueConstraints = { @UniqueConstraint(columnNames = { "role_id" }) })
+@Table(name = "ROLE", uniqueConstraints = { @UniqueConstraint(columnNames = { "role_id" }) })
 public class Role {
 
 	@Id
