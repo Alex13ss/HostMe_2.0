@@ -24,6 +24,10 @@ public class Image {
 	@ManyToOne
 	@JoinColumn(name = "feedback_id")
 	private Feedback feedback;
+	
+	@ManyToOne
+	@JoinColumn(name = "event_id")
+	private Event event;
 
 	public Image() {
 	}
