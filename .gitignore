@@ -3,6 +3,7 @@
 .project
 .settings/
 */.springBeans
+hostme-persistence/src/main/resources/hibernate.cfg.xml
 
 # Intellij
 .idea/
