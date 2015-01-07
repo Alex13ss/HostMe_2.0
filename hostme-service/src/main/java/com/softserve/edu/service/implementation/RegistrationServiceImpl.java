@@ -58,7 +58,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 		user.setGender(getGender(gender));
 		user.setBirthday(toDateFormat(date));
 		Role registeredUser = new Role();
-		registeredUser.setId(USERINACTIVE);
+		registeredUser.setRoleId(USERINACTIVE);
 		user.setRole(registeredUser);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		user.setPassword(encoder.encode(user.getPassword()));

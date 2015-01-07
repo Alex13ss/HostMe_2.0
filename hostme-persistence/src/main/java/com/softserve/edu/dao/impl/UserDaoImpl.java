@@ -46,7 +46,7 @@ public class UserDaoImpl extends AbstractGenericDao<User, Integer> implements
         	User user = (User) cr.uniqueResult();
         	user.setUserState(UserState.ACTIVE);
         	Role registeredUser = new Role();
-        	registeredUser.setId(USER);
+        	registeredUser.setRoleId(USER);
         	user.setRole(registeredUser);
     }
 

@@ -9,19 +9,12 @@ public class Role {
 	@Id
 	@GeneratedValue
 	@Column(name = "role_id", unique = true, nullable = false)
-	private Integer id;
+	private Integer roleId;
 
 	@Column(name = "role", length = 10)
 	private String role;
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+	
 	public String getRole() {
 		return role;
 	}
@@ -29,5 +22,15 @@ public class Role {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
+	}
+	
+	
 
 }

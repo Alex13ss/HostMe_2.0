@@ -21,7 +21,7 @@ public class UserDtoUtilImpl implements UserDtoUtil {
 		birthday.setTimeInMillis(dateOfBirthMili);
 		user.setBirthday(birthday);
 		Role registeredUser = new Role();
-		registeredUser.setId(USER);
+		registeredUser.setRoleId(USER);
 		user.setRole(registeredUser);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		user.setPassword(encoder.encode(user.getPassword()));
