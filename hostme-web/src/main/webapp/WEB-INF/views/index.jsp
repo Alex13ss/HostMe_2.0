@@ -220,8 +220,7 @@
                                                 type="text"
                                                 class="datepicker form-control"
                                                 id="dateOfBirth"
-                                                placeholder="MM/dd/yyyy"
-                                                pattern="MM/dd/yyyy" />
+                                                />
                                         </div>
                                     </div>
                                 </div>
