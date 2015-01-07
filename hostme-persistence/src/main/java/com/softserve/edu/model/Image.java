@@ -9,25 +9,17 @@ public class Image {
 	@GeneratedValue
 	@Column(name = "image_id", unique = true, nullable = false)
 	private Integer imageId;
-	
 	@Column(name = "link", nullable = false)
 	private String link;
-	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
 	@ManyToOne
 	@JoinColumn(name = "hosting_id")
 	private Hosting hosting;
-	
 	@ManyToOne
 	@JoinColumn(name = "feedback_id")
 	private Feedback feedback;
-	
-	@ManyToOne
-	@JoinColumn(name = "event_id")
-	private Event event;
 
 	public Image() {
 	}

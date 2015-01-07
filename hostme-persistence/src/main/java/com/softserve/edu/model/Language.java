@@ -12,10 +12,10 @@ public class Language {
 	@GeneratedValue
 	@Column(name = "language_Id", unique = true, nullable = false)
 	private Short languageId;
-	
+
 	@Column(name = "language", length = 50, nullable = false, unique = true)
 	private String language;
-	
+
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "languages")
 	private List<User> users = new ArrayList<User>();
 

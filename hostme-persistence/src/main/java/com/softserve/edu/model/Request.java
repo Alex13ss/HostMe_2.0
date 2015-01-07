@@ -21,11 +21,11 @@ public class Request  implements Serializable{
 	@GeneratedValue
 	@Column(name = "request_id", unique = true, nullable = false)
 	private Integer requestId;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
 	private Status status;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "begin_date", nullable = false)
 	private Calendar beginDate;
@@ -33,18 +33,18 @@ public class Request  implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "end_date", nullable = false)
 	private Calendar endDate;
-	
+
 	@Column(name = "notes", length = 800)
 	private String notes;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "hosting_id", nullable = false)
 	private Hosting hosting;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "sender_id", nullable = false)
 	private User author;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "receiver_id", nullable = false)
 	private User receiver;

@@ -7,18 +7,19 @@ import java.util.Set;
 @Entity
 @Table(name = "FEEDBACKS", uniqueConstraints = { @UniqueConstraint(columnNames = "feedback_id") })
 public class Feedback {
+
 	@Id
 	@GeneratedValue
 	@Column(name = "feedback_id", unique = true, nullable = false)
 	private Integer feedbackId;
-	
+
 	@Column(name = "description", nullable = false, length = 1000)
 	private String description;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "hosting_id", nullable = false)
 	private Hosting hosting;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "author_id", nullable = false)
 	private User author;
