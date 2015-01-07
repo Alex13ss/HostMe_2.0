@@ -12,9 +12,10 @@
 	<annotation-driven />
 	<resources mapping="/resources/**" location="WEB-INF/resources/" />
 	<context:component-scan base-package="com.softserve.edu.controller" />
+
 	<beans:bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<beans:property name="basename" value="i18n.messages" />
+		<beans:property name="basename" value="classpath:i18n/messages" />
 		<beans:property name="defaultEncoding" value="UTF-8" />
 	</beans:bean>
 
@@ -30,7 +31,6 @@
 		<beans:property name="defaultLocale" value="en" />
 	</beans:bean>
 
-
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
@@ -45,11 +45,11 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
+
 	<beans:bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles3.TilesView">
 		</beans:property>
 	</beans:bean>
-
 </beans:beans>
