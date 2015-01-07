@@ -12,15 +12,15 @@
     content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
     name='viewport'>
 <script type="text/javascript"
-        src="/resources/js/bootstrap-datepicker.js"></script>
+        src="../resources/js/bootstrap-datepicker.js"></script>
 <script type="text/javascript"
-        src="/resources/js/jquery.validate.js"></script>
+        src="../resources/js/jquery.validate.js"></script>
 <script type="text/javascript"
-        src="/resources/js/validation.js"></script>
+        src="../resources/js/validation.js"></script>
 <script type="text/javascript"
-        src="/resources/js/registration.js"></script>
+        src="../resources/js/registration.js"></script>
 <link rel="stylesheet" type="text/css"
-        href="/resources/css/datepicker.css">
+        href="../resources/css/datepicker.css">
 <title>Sight Visiting</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 

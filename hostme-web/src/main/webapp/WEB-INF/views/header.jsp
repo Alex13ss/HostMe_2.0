@@ -28,8 +28,9 @@
                 <!-- Messages: style can be found in dropdown.less-->
 
                 <li class="dropdown"><a class="dropdown-toggle"
-                    data-toggle="dropdown" href="#"><spring:message
-                            code="label.title" /><span class="caret"></span></a>
+                    data-toggle="dropdown" href="#">
+                    <spring:message code="label.title" />
+                    <span class="caret"></span></a>
 
                     <ul class="dropdown-menu">
                         <li role="presentation"><a role="menuitem"
