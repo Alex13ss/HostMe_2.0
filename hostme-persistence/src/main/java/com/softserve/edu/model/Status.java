@@ -1,5 +1,6 @@
 package com.softserve.edu.model;
 
 public enum Status {
-	PENDING, APPROVED, REJECTED,REFUSED
+	PENDING, APPROVED, REJECTED,REFUSED,SUBMITTED,MODERATING
 }
+
