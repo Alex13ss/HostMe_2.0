@@ -13,8 +13,8 @@
           rel="stylesheet" type="text/css" />
     <link href="${pageContext.request.contextPath}/WEB-INF/resources/css/dataTables.bootstrap.css"
             rel="stylesheet" type="text/css" />
-    <link href="${pageContext.request.contextPath}/WEB-INF/resources/css/maps/basicMap.css"
-            rel="stylesheet" type="text/css" />
+    <%--<link href="${pageContext.request.contextPath}/WEB-INF/resources/css/maps/basicMap.css"--%>
+            <%--rel="stylesheet" type="text/css" />--%>
 
     <script src="${pageContext.request.contextPath}/WEB-INF/resources/js/jquery.dataTables.js"></script>
     <script src="${pageContext.request.contextPath}/WEB-INF/resources/js/fnAjaxReload.js"></script>
@@ -23,7 +23,7 @@
     <script src="${pageContext.request.contextPath}/WEB-INF/resources/js/routes/routes.js"></script>
 
     <style type="text/css">
-        #map-canvas { height: 30%; width: 40%; margin: 0; padding: 0;}
+        #map-canvas { height: 40%; margin: 0; padding: 0;}
     </style>
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiYncr79qu9wVjrwaSBHHTKMb3Dbo3Eo">
@@ -48,20 +48,18 @@
         </h1>
     </section>
     <section class="content">
-        <div class="box box-primary container-fluid">
-                <div class="row " style="margin-top:1.5em">
+        <div class="box box-primary">
+            <div class="container-fluid ">
+                <div class="row " style="margin-top:1.5em; margin-bottom: 1.5em" >
                     <div class="form-group col-lg-4">
-                        <label class="col-lg-2 control-label">
+                        <label class="control-label">
                             <h4>Country</h4>
                         </label>
-                        <div class="col-lg-5">
-
-                        </div>
                     </div>
+                    <div class="col-lg-8" id="map-canvas" style=""></div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-8" id="map-canvas"></div>
-                </div>
+            </div>
+
         </div>
     </section>
 </body>
