@@ -7,10 +7,24 @@
 <html>
 <head>
 
-<script type="text/javascript" src="resources/js/countries3.js"></script>
-<script type="text/javascript" src="resources/js/jquery.MultiFile.js"></script>
-<script type="text/javascript" src="resources/js/jquery.validate.js"></script>
-<script type="text/javascript" src="resources/js/validation.js"></script>
+    <link rel="stylesheet" type="text/css"
+            href="resources/css/maps/basicMap.css">
+
+    <script type="text/javascript"
+            src="resources/js/countries3.js"></script>
+    <script type="text/javascript"
+            src="resources/js/jquery.MultiFile.js"></script>
+    <script type="text/javascript"
+            src="resources/js/jquery.validate.js"></script>
+    <script type="text/javascript"
+            src="resources/js/validation.js"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiYncr79qu9wVjrwaSBHHTKMb3Dbo3Eo">
+    </script>
+
+    <%--<style type="text/css">--%>
+        <%--#map-canvas { height: 30%; width: 40%; margin: 0; padding: 0;}--%>
+    <%--</style>--%>
 
 </head>
 <body>
@@ -20,16 +34,11 @@
     </h1>
     </section>
 
-    <!-- Main content -->
     <section class="content">
 
-
     <div>
-
         <div class="box box-primary">
-
             <div class="box-body">
-
                 <form:form method="post" action="hosting-creation"
                     onsubmit="validateForm(event)"
                     modelAttribute="hosting" id="hostingCreationForm"
@@ -86,6 +95,7 @@
                             </div>
                         </div>
                     </div>
+                    <div id="map-canvas"></div>
                     <div class="row">
                         <div class="form-group">
                             <label for="Address"
@@ -199,45 +209,53 @@
                 </form:form>
             </div>
         </div>
-
     </div>
     </section>
 
     <script language="javascript">
 					printCountry("country");
 					printState('region', 0);
-				</script>
-
+    </script>
     <script language="javascript">
-					window.onload = function() {
-						maxAmount = 20;
-						minselect = document.getElementById("min"),
-								maxselect = document.getElementById("max")
-						for (var i = 1; i <= maxAmount; i++) {
-							var minoption = null, maxoption = null;
-							minoption = document.createElement("option");
-							maxoption = document.createElement("option");
-							minoption.innerHTML = i;
-							minselect.appendChild(minoption);
-							maxoption.innerHTML = maxAmount - i + 1;
-							maxselect.appendChild(maxoption);
-						}
-					};
-					function removeOptions(selectbox) {
-						var i;
-						for (i = selectbox.options.length - 1; i >= 0; i--) {
-							selectbox.remove(i);
-						}
-					}
-					function repopulateMax(selVal) {
-						removeOptions(maxselect);
-						for (var i = maxAmount; i > selVal; i--) {
-							var option = null;
-							option = document.createElement("option");
-							option.innerHTML = i;
-							maxselect.appendChild(option);
-						}
-					}
-				</script>
+        function initialize() {
+            var mapOptions = {
+                center: { lat: -34.397, lng: 150.644},
+                zoom: 8
+            };
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                    mapOptions);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+        window.onload = function() {
+            maxAmount = 20;
+            minselect = document.getElementById("min"),
+                    maxselect = document.getElementById("max")
+            for (var i = 1; i <= maxAmount; i++) {
+                var minoption = null, maxoption = null;
+                minoption = document.createElement("option");
+                maxoption = document.createElement("option");
+                minoption.innerHTML = i;
+                minselect.appendChild(minoption);
+                maxoption.innerHTML = maxAmount - i + 1;
+                maxselect.appendChild(maxoption);
+            }
+        };
+        function removeOptions(selectbox) {
+            var i;
+            for (i = selectbox.options.length - 1; i >= 0; i--) {
+                selectbox.remove(i);
+            }
+        }
+        function repopulateMax(selVal) {
+            removeOptions(maxselect);
+            for (var i = maxAmount; i > selVal; i--) {
+                var option = null;
+                option = document.createElement("option");
+                option.innerHTML = i;
+                maxselect.appendChild(option);
+            }
+        }
+    </script>
 </body>
 </html>
