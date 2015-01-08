@@ -1,7 +1,11 @@
 package com.softserve.edu.dao.impl;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import com.softserve.edu.dao.FeedbackDao;
 import com.softserve.edu.model.Feedback;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +19,21 @@ public class FeedbackDaoImpl extends AbstractGenericDao<Feedback, Long>
         super(Feedback.class);
     }
     
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext()
+    private EntityManager entityManager;
     
     @Override
     public void createFeedback(Feedback feedback) {
-        sessionFactory.getCurrentSession().save(feedback);
+	Session session = (Session) entityManager.getDelegate();
+        session.save(feedback);
     }
     
     @Override
     public void deleteFeedbackById(Integer feedbackId) {
-        Session session = sessionFactory.getCurrentSession();
+	Session session = (Session) entityManager.getDelegate();
         Feedback feedback = (Feedback) session.get(Feedback.class, feedbackId);
         if (feedback != null) {
-            sessionFactory.getCurrentSession().delete(feedback);
+            session.delete(feedback);
         }
     }
 }
