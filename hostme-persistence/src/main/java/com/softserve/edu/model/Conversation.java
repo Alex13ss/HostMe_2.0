@@ -17,16 +17,18 @@ public class Conversation {
     @Column(name = "createdAt")
     private Date createdAt;
 
-    // @ManyToOne
-    // @JoinColumn(name = "group_id")
-    // private Group group;
+//    @ManyToOne
+//    @JoinColumn(name = "group_id")
+//    private Group group;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User ownerUser;
-    /*
-     * @OneToMany() private Set<User> moderators;
-     * 
-     * @OneToMany(mappedBy = "conversation_id") private Set<Post> posts;
-     */
+
+    @OneToMany()
+    private Set<User> moderators;
+
+    @OneToMany(mappedBy = "conversation_id")
+    private Set<Post> posts;
+
 }
