@@ -13,6 +13,7 @@
 	<properties>
 		<hibernateVersion>4.3.6.Final</hibernateVersion>
 		<jacsonVersion>2.4.2</jacsonVersion>
+		<springDataJpaVersion>1.7.1.RELEASE</springDataJpaVersion>
 	</properties>
 
 	<dependencies>
@@ -54,6 +55,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
+			<version>${hibernateVersion}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernateVersion}</version>
 		</dependency>
 
@@ -103,6 +110,12 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
 			<version>${springSecurity}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${springDataJpaVersion}</version>
 		</dependency>
 
 	</dependencies>
