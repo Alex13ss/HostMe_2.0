@@ -2,33 +2,40 @@ package com.softserve.edu.dao.impl;
 
 import com.softserve.edu.dao.ContactDAO;
 import com.softserve.edu.model.Contact;
+
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Repository
 public class ContactDAOImpl implements ContactDAO {
     
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext()
+    private EntityManager entityManager;
 
     public void addContact(Contact contact) {
-        sessionFactory.getCurrentSession().save(contact);
+	entityManager.persist(contact);
+        //sessionFactory.getCurrentSession().save(contact);
     }
 
     @SuppressWarnings("unchecked")
     public List<Contact> listContact() {
-        return sessionFactory.getCurrentSession().createQuery("from Contact")
-                .list();
+	Session session = (Session) entityManager.getDelegate();
+        return session.createQuery("from Contact").list();
     }
 
     public void removeContact(Integer id) {
-        Contact contact = (Contact) sessionFactory.getCurrentSession().load(
+	Session session = (Session) entityManager.getDelegate();
+        Contact contact = (Contact) session.load(
                 Contact.class, id);
         if (null != contact) {
-            sessionFactory.getCurrentSession().delete(contact);
+            session.delete(contact);
         }
     }
 

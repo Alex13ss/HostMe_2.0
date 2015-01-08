@@ -4,6 +4,7 @@ import com.softserve.edu.dao.RequestDao;
 import com.softserve.edu.model.Request;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.exceptions.RequestAlreadySentException;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,6 +15,9 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Repository
 public class RequestDaoImpl extends AbstractGenericDao<Request, Integer> implements
         RequestDao {
@@ -21,14 +25,14 @@ public class RequestDaoImpl extends AbstractGenericDao<Request, Integer> impleme
         super(Request.class);
     }
     
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext()
+    private EntityManager entityManager;
     
     
     @Override
     public boolean checkRequest(Request request)
             throws RequestAlreadySentException {
-    	Session session = sessionFactory.getCurrentSession();
+	Session session = (Session) entityManager.getDelegate();
     	Criteria criteria = session.createCriteria(Request.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
     	criteria.add(Restrictions.eq("author.userId", request.getAuthor().getUserId()));
     	criteria.add(Restrictions.eq("receiver.userId", request.getReceiver().getUserId()));
@@ -36,15 +40,14 @@ public class RequestDaoImpl extends AbstractGenericDao<Request, Integer> impleme
     	criteria.add(Restrictions.eq("endDate", request.getEndDate()));
         @SuppressWarnings("unchecked")
 		ArrayList<Request> existingRequests = (ArrayList<Request>) criteria.list();
-        //
-        // Criteria criteria = getSessionFactory().getCurrentSession()
-        // .createCriteria(Request.class);
-        // criteria.setFetchMode("request.hosting", FetchMode.JOIN);
-        // criteria.add(Restrictions.eq("endDate", request.getEndDate()));
-        // criteria.add(Restrictions.eq("beginDate", request.getBeginDate()));
-        // criteria.add(Restrictions.eq("hosting_id", request.getHosting()));
-        // ArrayList<Request> existingRequests = (ArrayList<Request>)
-        // criteria.list();
+        
+//         Criteria criteria = session.createCriteria(Request.class);
+//         criteria.setFetchMode("request.hosting", FetchMode.JOIN);
+//         criteria.add(Restrictions.eq("endDate", request.getEndDate()));
+//         criteria.add(Restrictions.eq("beginDate", request.getBeginDate()));
+//         criteria.add(Restrictions.eq("hosting_id", request.getHosting()));
+//         ArrayList<Request> existingRequests = (ArrayList<Request>)
+//         criteria.list();
         if (!existingRequests.isEmpty()) {
             throw new RequestAlreadySentException();
         }
@@ -53,17 +56,16 @@ public class RequestDaoImpl extends AbstractGenericDao<Request, Integer> impleme
     
     @Override
     public List<Request> getAllApprovedRequestsByHostingId(int hostingId) {
-        Session session = sessionFactory.getCurrentSession();
+	Session session = (Session) entityManager.getDelegate();
         Criteria cr = session.createCriteria(Request.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         cr.add(Restrictions.eq("status", Status.APPROVED)).add(Restrictions.eq("hosting.hostingId", hostingId));
-        
         return cr.list();
     }
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Request> getMySentRequest(int userId) {
-		Session session = sessionFactory.getCurrentSession();
+	    Session session = (Session) entityManager.getDelegate();
 		Criteria criteria = session.createCriteria(Request.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteria.add(Restrictions.eq("author.userId", userId));
 		return criteria.list();
@@ -71,7 +73,7 @@ public class RequestDaoImpl extends AbstractGenericDao<Request, Integer> impleme
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Request> getMyReceivedRequest(int userId) {
-		Session session = sessionFactory.getCurrentSession();
+	    Session session = (Session) entityManager.getDelegate();
 		Criteria criteria = session.createCriteria(Request.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteria.add(Restrictions.eq("receiver.userId", userId));
 		return criteria.list();

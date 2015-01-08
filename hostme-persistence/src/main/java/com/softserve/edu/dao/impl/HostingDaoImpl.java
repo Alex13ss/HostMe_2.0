@@ -4,6 +4,7 @@ import com.softserve.edu.dao.HostingDao;
 import com.softserve.edu.model.Gender;
 import com.softserve.edu.model.Hosting;
 import com.softserve.edu.utils.Search;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,14 +17,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Repository
 public class HostingDaoImpl extends AbstractGenericDao<Hosting, Integer> implements HostingDao {
     public HostingDaoImpl() {
         super(Hosting.class);
     }
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext()
+    private EntityManager entityManager;
     
     private static final Integer ROWS = 3;    
 
@@ -31,7 +35,7 @@ public class HostingDaoImpl extends AbstractGenericDao<Hosting, Integer> impleme
     Get list of the hostels that are required criterias
      */
     public List<Object> getList(List<Search> listSearch, Integer page) {
-        Session session = sessionFactory.getCurrentSession();
+	Session session = (Session) entityManager.getDelegate();
         ProjectionList projs = Projections.projectionList();
         projs.add(Projections.property("h.hostingId"), "hostingId")
             .add(Projections.property("h.address"), "address")
@@ -58,7 +62,7 @@ public class HostingDaoImpl extends AbstractGenericDao<Hosting, Integer> impleme
     Get count of pages
      */
     public Integer getCountOfPages(List<Search> listSearch) {
-        Session session = sessionFactory.getCurrentSession();
+	Session session = (Session) entityManager.getDelegate();
         Criteria cr = session.createCriteria(Hosting.class, "hosting").setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         cr = getCriteriasResult(cr, listSearch);
         if (cr.list().size() % ROWS == 0)

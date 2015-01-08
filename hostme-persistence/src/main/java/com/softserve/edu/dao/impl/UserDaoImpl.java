@@ -11,43 +11,41 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDaoImpl extends AbstractGenericDao<User, Integer> implements
-		UserDao {
-	public UserDaoImpl() {
-		super(User.class);
-	}
-	
-	private final int USER = 1;
+	UserDao {
+    public UserDaoImpl() {
+	super(User.class);
+    }
 
-	@Override
-	public User getUserByEmail(String email) {
-		Criteria criteria = getSessionFactory().getCurrentSession()
-				.createCriteria(User.class);
-		criteria.add(Restrictions.eq("email", email));
-	//	User user = (User) criteria.list().get(0);
-        	User user = (User) criteria.uniqueResult();
-		return user;
-	}
+    private final int USER = 1;
 
-	@Override
-	public User getUserByLogin(String login) {
-		Criteria criteria = getSessionFactory().getCurrentSession()
-				.createCriteria(User.class);
-		criteria.add(Restrictions.eq("login", login));
-	//	User user = (User) criteria.list().get(0);
-        	User user = (User) criteria.uniqueResult();
-		return user;
-	}
-	
-	@Override
-    	public void activateAccount(Integer userId) {
-        	Session session = getSessionFactory().getCurrentSession();
-        	Criteria cr = session.createCriteria(User.class);
-        	cr.add(Restrictions.eq("userId", userId));
-        	User user = (User) cr.uniqueResult();
-        	user.setUserState(UserState.ACTIVE);
-        	Role registeredUser = new Role();
-        	registeredUser.setRoleId(USER);
-        	user.setRole(registeredUser);
+    @Override
+    public User getUserByEmail(String email) {
+	Session session = (Session) entityManager.getDelegate();
+	Criteria criteria = session.createCriteria(User.class);
+	criteria.add(Restrictions.eq("email", email));
+	User user = (User) criteria.uniqueResult();
+	return user;
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+	Session session = (Session) entityManager.getDelegate();
+	Criteria criteria = session.createCriteria(User.class);
+	criteria.add(Restrictions.eq("login", login));
+	User user = (User) criteria.uniqueResult();
+	return user;
+    }
+
+    @Override
+    public void activateAccount(Integer userId) {
+	Session session = (Session) entityManager.getDelegate();
+	Criteria cr = session.createCriteria(User.class);
+	cr.add(Restrictions.eq("userId", userId));
+	User user = (User) cr.uniqueResult();
+	user.setUserState(UserState.ACTIVE);
+	Role registeredUser = new Role();
+	registeredUser.setRoleId(USER);
+	user.setRole(registeredUser);
     }
 
 }
