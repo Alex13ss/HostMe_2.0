@@ -10,7 +10,7 @@ public class Conversation {
     @Id
     @GeneratedValue
     private Long id;
-
+/*
     @Column(name = "name")
     private String name;
 
@@ -30,5 +30,6 @@ public class Conversation {
 
     @OneToMany(mappedBy = "conversation_id")
     private Set<Post> posts;
+    */
 
 }
