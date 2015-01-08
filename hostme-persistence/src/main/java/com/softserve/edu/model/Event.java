@@ -1,6 +1,7 @@
 package com.softserve.edu.model;
 
-import java.util.Calendar;
+
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -18,17 +19,17 @@ public class Event {
 	@GeneratedValue
 	@Column(name = "event_id", unique = true, nullable = false)
 	private Integer eventId;
-/*
+
 	@Column(name = "description")
 	private String description;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "start_date")
-	private Calendar startDate;
+	private Date startDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "end_date")
-	private Calendar endDate;
+	private Date endDate;
 
 	@Column(name = "attendee")
 	private String attendee;
@@ -81,19 +82,19 @@ public class Event {
 		this.description = description;
 	}
 
-	public Calendar getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Calendar startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public Calendar getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Calendar endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
@@ -266,6 +267,8 @@ public class Event {
 			return false;
 		return true;
 	}
-*/
+
+
+	
 	
 }
