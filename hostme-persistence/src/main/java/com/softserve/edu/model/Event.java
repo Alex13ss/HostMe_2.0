@@ -19,7 +19,7 @@ public class Event {
 	@GeneratedValue
 	@Column(name = "event_id", unique = true, nullable = false)
 	private Integer eventId;
-
+/*
 	@Column(name = "description")
 	private String description;
 
@@ -268,7 +268,7 @@ public class Event {
 		return true;
 	}
 
-
+*/
 	
 	
 }
