@@ -44,15 +44,15 @@ public class Event {
 	// maybe I should use User
 	private String owner;
 
-	@ManyToOne
-	@JoinColumn(name = "state_id", nullable = false)
-	private State state;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", nullable = false)
+	private Status status;
 
 	@Column(name = "comment")
 	private String comment;
 
 	@ManyToOne
-	@JoinColumn(name = "price_id", nullable = false)
+	@JoinColumn(name = "priceCategory_id", nullable = false)
 	private PriceCategory priceCategory;
 
 	@Column(name = "website")
@@ -129,12 +129,12 @@ public class Event {
 		this.owner = owner;
 	}
 
-	public State getState() {
-		return state;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public String getComment() {
@@ -176,6 +176,7 @@ public class Event {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result
 				+ ((attendee == null) ? 0 : attendee.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
@@ -184,7 +185,10 @@ public class Event {
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
 		result = prime * result
+				+ ((priceCategory == null) ? 0 : priceCategory.hashCode());
+		result = prime * result
 				+ ((startDate == null) ? 0 : startDate.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((website == null) ? 0 : website.hashCode());
 		return result;
 	}
@@ -207,6 +211,11 @@ public class Event {
 			if (other.attendee != null)
 				return false;
 		} else if (!attendee.equals(other.attendee))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
 			return false;
 		if (comment == null) {
 			if (other.comment != null)
@@ -238,10 +247,17 @@ public class Event {
 				return false;
 		} else if (!owner.equals(other.owner))
 			return false;
+		if (priceCategory == null) {
+			if (other.priceCategory != null)
+				return false;
+		} else if (!priceCategory.equals(other.priceCategory))
+			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
 				return false;
 		} else if (!startDate.equals(other.startDate))
+			return false;
+		if (status != other.status)
 			return false;
 		if (website == null) {
 			if (other.website != null)
@@ -250,14 +266,6 @@ public class Event {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Event [eventId=" + eventId + ", description=" + description
-				+ ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", attendee=" + attendee + ", address=" + address
-				+ ", owner=" + owner + ", comment=" + comment + ", website="
-				+ website + ", image=" + image + "]";
-	}*/
-
+*/
+	
 }
