@@ -7,23 +7,22 @@ import javax.persistence.*;
 
 @Entity
 public class Post {
-	
-	@Id
-	@GeneratedValue
-	private Long id;
-	/*
-	@Column(name="postedAt")
-	private Date postedAt;
-	
-	@OneToMany//ManyToMany
-	private Set<Attachment> attachments;
-	
-	@ManyToOne
-	private User user;
-	
-	@ManyToOne()
-	@JoinColumn(name = "conversation_id")
-	private Conversation conversation;
-	*/
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    /*
+     * @Column(name="postedAt") 
+     * private Date postedAt;
+     * 
+     * @OneToMany//ManyToMany 
+     * private Set<Attachment> attachments;
+     * 
+     * @ManyToOne 
+     * private User user;
+     */
+    @ManyToOne()
+    @JoinColumn(name = "conversation_id")
+    private Conversation conversation;
 
 }
