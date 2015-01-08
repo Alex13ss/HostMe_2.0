@@ -1,6 +1,7 @@
 package com.softserve.edu.model;
 
 
+
 import java.util.Set;
 
 import javax.persistence.*;
