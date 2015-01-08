@@ -20,12 +20,13 @@ public class Group {
     
     @Column(name = "group_name", nullable = false)
     private String groupName;
-    
+/*    
     @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Image> image;
     
     @ManyToMany(mappedBy = "group")
     private Set<User> users;
+    
     
     // name ???
     
@@ -34,6 +35,8 @@ public class Group {
     
     @OneToMany(mappedBy = "group")
     private Set<Conversation> conversations;
+    
+    
 
     public Long getGroupId() {
         return groupId;
@@ -83,4 +86,4 @@ public class Group {
         this.conversations = conversations;
     }
     
-}
+*/}
