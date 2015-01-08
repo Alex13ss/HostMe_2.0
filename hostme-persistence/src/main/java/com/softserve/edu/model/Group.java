@@ -9,8 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "GROUPS")
 public class Group {
     
     @Id
@@ -36,7 +38,7 @@ public class Group {
     @OneToMany(mappedBy = "group")
     private Set<Conversation> conversations;
     
-    
+*/    
 
     public Long getGroupId() {
         return groupId;
@@ -53,7 +55,7 @@ public class Group {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-
+/*
     public Set<Image> getImage() {
         return image;
     }
