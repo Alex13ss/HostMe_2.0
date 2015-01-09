@@ -75,6 +75,13 @@
                             class="fa fa-arrows"></i>
                         <spring:message code="label.routes" /></a></li>
                 </security:authorize>
+                
+                <security:authorize access="isAuthenticated()">
+                    <li><a href='<c:url value="groups"/>'
+                           style="margin-left: 10px;"><i
+                            class="fa fa-users"></i>
+                        <spring:message code="label.groups" /></a></li>
+                </security:authorize>
 
                 <security:authorize access="isAuthenticated()">
                     <li><a href='<c:url value="request"/>'
