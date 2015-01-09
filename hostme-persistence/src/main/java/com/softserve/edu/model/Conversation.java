@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "conversations")
 public class Conversation {
     @Id
     @GeneratedValue
@@ -25,10 +26,10 @@ public class Conversation {
     @JoinColumn(name = "user_id")
     private User ownerUser;
 
-    @OneToMany()
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<User> moderators;
 
-    @OneToMany(mappedBy = "conversation")
+    @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER)
     private Set<Post> posts;
 
     public Long getId() {

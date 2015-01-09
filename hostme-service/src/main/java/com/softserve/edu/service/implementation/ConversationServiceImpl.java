@@ -1,13 +1,12 @@
 package com.softserve.edu.service.implementation;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.softserve.edu.model.Conversation;
 import com.softserve.edu.repositories.ConversationRepository;
 import com.softserve.edu.service.ConversationService;
@@ -20,14 +19,26 @@ public class ConversationServiceImpl implements ConversationService{
 
     @Override
     @Transactional
-    public Set<Conversation> findAll() {
-	List<Conversation> list = (List<Conversation>) conversationRepository.findAll();
-	Set<Conversation> items = new HashSet<Conversation>(list);  
-	return items;
+    public List<Conversation> findAll() {
+	return (List<Conversation>) conversationRepository.findAll();
     }
-    
-    
-    
-    
+
+    @Override
+    @Transactional
+    public List<Conversation> findAll(Sort sort) {
+	return (List<Conversation>) conversationRepository.findAll(sort);
+    }
+
+    @Override
+    @Transactional
+    public List<Conversation> findAll(Pageable pageable) {
+	return conversationRepository.findAll(pageable).getContent();
+    }
+
+    @Override
+    @Transactional
+    public Conversation findOne(Long id) {
+	return conversationRepository.findOne(id);
+    }
 
 }
