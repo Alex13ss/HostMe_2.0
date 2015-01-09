@@ -7,11 +7,13 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.softserve.edu.model.Group;
 import com.softserve.edu.repositories.GroupRepository;
 import com.softserve.edu.service.GroupService;
 
+@Component
 public class GroupServiceImpl implements GroupService {
     
     @Autowired

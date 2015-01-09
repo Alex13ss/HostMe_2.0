@@ -14,7 +14,7 @@ import com.softserve.edu.service.GroupService;
 @Controller
 public class GroupController {
     
-//    @Autowired
+    @Autowired
     private GroupService groupService;
     
     @RequestMapping(value= "/groups", method = RequestMethod.GET)
