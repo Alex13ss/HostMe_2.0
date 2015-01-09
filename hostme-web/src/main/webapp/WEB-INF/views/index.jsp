@@ -51,7 +51,7 @@
                          class="btn small-box bg-yellow">
                         <div class="inner" style="padding-top: 2em">
                             <h4>
-                                <strong>Sign in</strong>
+                                <strong>Registration</strong>
                             </h4>
                         </div>
                         <div class="icon">

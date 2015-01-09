@@ -32,8 +32,6 @@
                 <tiles:insertAttribute name="body" />
             </aside>
             
-			<tiles:insertAttribute name="footer" />
-
         </div>
 
     </security:authorize>
@@ -44,6 +42,6 @@
         </aside>
     </security:authorize>
 
-    <%--     <tiles:insertAttribute name="footer" /> --%>
+    <tiles:insertAttribute name="footer" />
 </body>
 </html>
