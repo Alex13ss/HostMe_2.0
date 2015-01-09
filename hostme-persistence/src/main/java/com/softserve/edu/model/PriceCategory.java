@@ -4,21 +4,23 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "PRICECATEGORIES", uniqueConstraints = { @UniqueConstraint(columnNames = "priceCategory_id") })
 public class PriceCategory {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name = "priceCategory_id", unique = true, nullable = false)
 	private Integer priceCategoryId;
-/*	
+/*
 	@Column(name = "description")
 	private String priceCategory;
-	
+
 	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Event> event;
+
+	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
+	private Set<Sightseeing> sightseeing;
 
 	public PriceCategory() {
 		super();
@@ -48,6 +50,14 @@ public class PriceCategory {
 		this.event = event;
 	}
 
+	public Set<Sightseeing> getSightseeing() {
+		return sightseeing;
+	}
+
+	public void setSightseeing(Set<Sightseeing> sightseeing) {
+		this.sightseeing = sightseeing;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,6 +67,8 @@ public class PriceCategory {
 				+ ((priceCategory == null) ? 0 : priceCategory.hashCode());
 		result = prime * result
 				+ ((priceCategoryId == null) ? 0 : priceCategoryId.hashCode());
+		result = prime * result
+				+ ((sightseeing == null) ? 0 : sightseeing.hashCode());
 		return result;
 	}
 
@@ -84,9 +96,12 @@ public class PriceCategory {
 				return false;
 		} else if (!priceCategoryId.equals(other.priceCategoryId))
 			return false;
+		if (sightseeing == null) {
+			if (other.sightseeing != null)
+				return false;
+		} else if (!sightseeing.equals(other.sightseeing))
+			return false;
 		return true;
 	}
-	
-	*/
-
+*/
 }

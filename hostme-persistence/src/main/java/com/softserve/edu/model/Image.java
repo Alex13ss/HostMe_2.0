@@ -24,11 +24,15 @@ public class Image {
 	@ManyToOne
 	@JoinColumn(name = "feedback_id")
 	private Feedback feedback;
-	
-	/*@ManyToOne
+	/*
+	@ManyToOne
 	@JoinColumn(name = "event_id")
-	private Event event;*/
+	private Event event;
 
+	@ManyToOne
+	@JoinColumn(name = "sightseeing_id")
+	private Sightseeing sightseeing;
+	*/
 	public Image() {
 	}
 
