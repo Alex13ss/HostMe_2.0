@@ -11,7 +11,7 @@
 </head>
 
 <body>
-	<c:forEach var="conversation" items="${groups}">
+	<c:forEach var="groups" items="${groups}">
 		<c:out value="${group.name}" />
 	</c:forEach>
 </body>

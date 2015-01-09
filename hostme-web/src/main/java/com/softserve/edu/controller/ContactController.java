@@ -61,7 +61,7 @@ public class ContactController {
     
     @RequestMapping("/logout")
     public String logout() {
-        return "index";
+        return "redirect:/index";
         
     }
     

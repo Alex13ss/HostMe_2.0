@@ -14,8 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 </head>
-<script
-    src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <body>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel" data-backdrop="static"
@@ -33,6 +32,7 @@
                         </a>
                         <h4 class="modal-title" id="myModalLabel">Sign In</h4>
                     </div>
+                    
                     <div class="modal-body">
                         <c:if test="${param.success eq true }">
                             <div class="row">
@@ -44,6 +44,7 @@
                                 <%--activated successfully!--%>
                             </div>
                         </c:if>
+                        
                         <c:if test="${param.error eq true }">
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-2">
@@ -52,6 +53,7 @@
                                 </div>
                             </div>
                         </c:if>
+                        
                         <c:if test="${param.registration eq true }">
                             <div class="callout callout-warning"
                                 id=" alert">We send you the mail
@@ -140,7 +142,6 @@
 						});
 					});
 				</script>
-
 
 </body>
 </html>
