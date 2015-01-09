@@ -14,8 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login</title>
 </head>
-<script
-    src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <body>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
         aria-labelledby="myModalLabel" data-backdrop="static"
@@ -26,24 +25,26 @@
                 method="POST" id="loginForm">
                 <div class="modal-content">
                     <div class="header bg-blue">
-                        <h4 class="modal-title" id="myModalLabel">Sign
-                            In</h4>
-                        <a href="<c:url value='/index' />" type="button"
-                            class="close"> <span aria-hidden="true">&times;</span><span
-                            class="sr-only">Close</span>
+                        <a href="<c:url value='/index' />" 
+                        	type="button" class="close"> 
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
                         </a>
+                        <h4 class="modal-title" id="myModalLabel">Sign In</h4>
                     </div>
+                    
                     <div class="modal-body">
                         <c:if test="${param.success eq true }">
                             <div class="row">
                                 <div class="callout callout-info">Your
                                     account has been activated
-                                    successfully! Congrats!Now you must
+                                    successfully! Congratulations! Now you must
                                     log in!</div>
                                 <%--<h4 class="success_registration">Your account has been--%>
                                 <%--activated successfully!--%>
                             </div>
                         </c:if>
+                        
                         <c:if test="${param.error eq true }">
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-2">
@@ -52,6 +53,7 @@
                                 </div>
                             </div>
                         </c:if>
+                        
                         <c:if test="${param.registration eq true }">
                             <div class="callout callout-warning"
                                 id=" alert">We send you the mail
@@ -79,15 +81,14 @@
                                         autofocus id="login">
                                 </div>
                             </div>
+                            
                             <div class="form-group">
-
                                 <div>
                                     <input type="password"
                                         name="j_password"
                                         class="form-control"
                                         placeholder="Password" required
                                         id="password">
-
                                 </div>
                             </div>
 
@@ -97,41 +98,41 @@
                                     type="checkbox" class="minimal"
                                     name="_spring_security_remember_me" />
                             </div>
+                            
                             <div class="row">
                                 <div class="col-sm-offset-5 col-sm-2"></div>
                             </div>
                         </div>
-
-
-
-
                     </div>
+                    
                     <div class="modal-footer">
                         <button class="btn btn-primary btn-block "
                             type="submit">Sign in</button>
                         <a href="<c:url value='/index' />" type="button"
                             class="btn btn-primary btn-block">Close</a>
-
                     </div>
-
                 </div>
+                
             </form>
             <div class="margin text-center">
                 <span style="color: white;">Sign in using social
                     networks</span> <br>
+                    
                 <button class="btn bg-light-blue btn-circle">
                     <i class="fa fa-facebook"></i>
                 </button>
+                
                 <button class="btn bg-aqua btn-circle">
                     <i class="fa fa-twitter"></i>
                 </button>
+                
                 <button class="btn bg-red btn-circle">
                     <i class="fa fa-google-plus"></i>
                 </button>
-
             </div>
         </div>
     </div>
+    
     <script type="text/javascript">
 					$(function() {
 						$('.modal').modal({
@@ -142,7 +143,5 @@
 					});
 				</script>
 
-
 </body>
-
 </html>

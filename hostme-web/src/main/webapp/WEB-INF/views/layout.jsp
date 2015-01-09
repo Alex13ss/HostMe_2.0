@@ -33,7 +33,8 @@
             </aside>
             
         </div>
-
+        
+        <tiles:insertAttribute name="footer" />
     </security:authorize>
 
     <security:authorize access="! isAuthenticated()">
@@ -42,6 +43,5 @@
         </aside>
     </security:authorize>
 
-    <tiles:insertAttribute name="footer" />
 </body>
 </html>
