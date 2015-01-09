@@ -43,7 +43,9 @@
                         </div>
                     </div>
                 </a>
+                
                 <!-- ./col -->
+                
                 <div class="col-lg-3 col-xs-6">
                     <!-- small box -->
                     <div data-toggle="modal"
@@ -61,6 +63,7 @@
                 </div>
             </security:authorize>
         </div>
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="box box-solid">
@@ -78,6 +81,7 @@
                                     data-target="#carousel-example-generic"
                                     data-slide-to="2" class=""></li>
                             </ol>
+                            
                             <div class="carousel-inner">
                                 <div class="item">
                                     <img
@@ -86,6 +90,7 @@
                                     <div class="carousel-caption">First
                                         Slide</div>
                                 </div>
+                                
                                 <div class="item active">
                                     <img
                                         src="resources/images/index-hosting2.jpg"
@@ -93,6 +98,7 @@
                                     <div class="carousel-caption">Second
                                         Slide</div>
                                 </div>
+                                
                                 <div class="item">
                                     <img
                                         src="resources/images/index-hosting3.jpg"
@@ -116,7 +122,7 @@
             </div>
         </div>
 
-        <!-- Login Modal -->
+        <!-- Registration Modal -->
 
         <div class="modal fade" id="registrationModal" tabindex="-1"
             role="dialog" aria-labelledby="myModalLabel"
@@ -127,16 +133,16 @@
                     modelAttribute="user" id="registrationForm"
                     onsubmit="validateForm(event)">
                     <div class="modal-content">
+                    
                         <div class="header bg-blue">
-
                             <a href="<c:url value='/index' />"
-                                type="button" class="close"> <span
-                                aria-hidden="true">&times;</span><span
-                                class="sr-only">Close</span>
+                                type="button" class="close"> 
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
                             </a>
-                            <h4 class="modal-title" id="myModalLabel">Join
-                                us</h4>
+                            <h4 class="modal-title" id="myModalLabel">Join us</h4>
                         </div>
+                        
                         <div class="modal-body">
                             <div class="body bg-gray">
                                 <div class="form-group">
@@ -148,6 +154,7 @@
                                             placeholder="First Name" />
                                     </div>
                                 </div>
+                                
                                 <div class="form-group">
                                     <div>
                                         <form:input path="lastName"
@@ -156,8 +163,8 @@
                                             id="lastName"
                                             placeholder="Last Name" />
                                     </div>
-
                                 </div>
+                                
                                 <div class="form-group">
                                     <div>
                                         <form:input path="login"
@@ -168,6 +175,7 @@
                                             onblur="checkLoginIdentity()" />
                                     </div>
                                 </div>
+                                
                                 <div class="form-group">
                                     <div>
                                         <form:input path="password"
@@ -177,6 +185,7 @@
                                             placeholder="Password" />
                                     </div>
                                 </div>
+                                
                                 <div>
                                     <div class="form-group">
                                         <div>
@@ -184,11 +193,10 @@
                                                 type="password"
                                                 class="form-control"
                                                 id="repeatPassword"
-                                                placeholder="Password"
+                                                placeholder="Password again"
                                                 onblur="checkIdenticalPasswords()" />
                                         </div>
                                     </div>
-
 
                                     <div class="form-group">
                                         <div class="row">
@@ -204,6 +212,7 @@
                                             Male
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <div>
                                             <form:input path="email"
@@ -214,6 +223,7 @@
                                                 onblur="checkEmailIdentity()" />
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group">
                                         <div>
                                             <form:input path="birthday"
@@ -225,9 +235,10 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="modal-footer">
                                 <button
-                                    class="btn btn-primary btn-block "
+                                    class="btn btn-primary btn-block"
                                     type="submit">Sumbit</button>
                                 <a href="<c:url value='/index' />"
                                     type="button"
@@ -239,15 +250,14 @@
             </div>
         </div>
 
-
         <!-- Login Modal -->
+        
     </section>
 
     <script type="text/javascript">
 					$('.datepicker').datepicker();
 					(function($) {
-						$(
-								'input[type="checkbox"].flat-red, input[type="radio"].flat-red')
+						$('input[type="checkbox"].flat-red, input[type="radio"].flat-red')
 								.iCheck({
 									checkboxClass : 'icheckbox_flat-red',
 									radioClass : 'iradio_flat-red'
