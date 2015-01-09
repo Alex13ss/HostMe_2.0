@@ -36,6 +36,25 @@
                             </div>
                         </div>
                     </div>
+                    
+                    
+<!-- tour btn -->
+                <div class="col-lg-3 col-xs-6">
+                    <div data-toggle="modal"
+                         data-target=""
+                         class="btn small-box bg-green">
+                        <div class="inner" style="padding-top: 2em">
+                            <h4>
+                                <strong>Take a tour</strong>
+                            </h4>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-search"></i>
+                        </div>
+                    </div>
+                </div>
+<!-- tour btn -->
+                
                 
                 <!-- ./col -->
                 
@@ -146,6 +165,7 @@
                                             class="form-control"
                                             id="firstName"
                                             placeholder="First Name" />
+                                            <form:errors path="firstName" />
                                     </div>
                                 </div>
                                 
@@ -156,6 +176,7 @@
                                             class="form-control"
                                             id="lastName"
                                             placeholder="Last Name" />
+                                            <form:errors path="lastName" />
                                     </div>
                                 </div>
                                 
@@ -167,6 +188,7 @@
                                             id="login"
                                             placeholder="Login"
                                             onblur="checkLoginIdentity()" />
+                                            <form:errors path="login" />
                                     </div>
                                 </div>
                                 
@@ -177,6 +199,7 @@
                                             class="form-control"
                                             id="password"
                                             placeholder="Password" />
+                                            <form:errors path="password" />
                                     </div>
                                 </div>
                                 
@@ -213,7 +236,7 @@
                                                 type="text"
                                                 class="form-control"
                                                 id="email"
-                                                placeholder="some.email@gmail.com"
+                                                placeholder="email.example@email.com"
                                                 onblur="checkEmailIdentity()" />
                                         </div>
                                     </div>
@@ -224,7 +247,7 @@
                                                 type="text"
                                                 class="datepicker form-control"
                                                 id="dateOfBirth"
-                                                />
+                                                placeholder="Enter yuor B-day date" />
                                         </div>
                                     </div>
                                 </div>
