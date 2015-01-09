@@ -31,8 +31,11 @@
             <aside class="right-side">
                 <tiles:insertAttribute name="body" />
             </aside>
+            
+			<tiles:insertAttribute name="footer" />
 
         </div>
+
     </security:authorize>
 
     <security:authorize access="! isAuthenticated()">
