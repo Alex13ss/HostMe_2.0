@@ -16,7 +16,7 @@ public class PriceCategory {
 	@Column(name = "description")
 	private String priceCategory;
 
-	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Event> event;
 
 //	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
