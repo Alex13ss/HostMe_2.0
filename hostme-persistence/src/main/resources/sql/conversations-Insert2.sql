@@ -1,1 +1,0 @@
-INSERT INTO "conversations" (id,name) VALUES (1,'Non Corporation'),(2,'Turpis Non PC'),(3,'Mauris Industries'),(4,'Augue Corporation'),(5,'Fermentum Risus Incorporated'),(6,'Ac Eleifend Vitae LLP'),(7,'Fringilla Purus Corp.'),(8,'Ut Nec Urna Incorporated'),(9,'Accumsan Interdum Libero Incorporated'),(10,'Accumsan Corp.');
