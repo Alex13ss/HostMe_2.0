@@ -1,0 +1,44 @@
+.conversations_header {
+    display: block;
+    background: none repeat scroll 0% 0% #F1F1F1;
+    padding: 10px;
+    margin:: 10px 10px 10px 10px;
+    font-size: 18px;
+    clear:both;
+}
+
+A.conversations_header_link {
+	color: #488214;
+}
+
+.conversation_badge{
+	background-color: #5cb85c;
+	font-size: 16px;
+}
+
+.conversation_create_label{
+	float:right;
+	padding: 2px;
+	font-weight: normal;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 105%;
+	border-radius: 5px;
+}
+
+.conversation{
+	padding: 5px 10px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.conversation:HOVER{
+	background: none repeat scroll 0% 0% #F1F1F1;
+}
+
+.conversation_title{
+	font-size: 14px;
+}
+
+.last_post{
+	font-size: 10px;
+	color:black;
+}
