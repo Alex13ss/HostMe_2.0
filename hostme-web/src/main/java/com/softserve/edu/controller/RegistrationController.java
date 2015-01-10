@@ -33,9 +33,9 @@ public class RegistrationController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String addContact(@Valid @ModelAttribute("user") User user,
                              BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "index";
-        }
+//        if (bindingResult.hasErrors()) {
+//            return "index";
+//        }
         String birthday = (String) bindingResult.getFieldValue("birthday");
         String gender = (String) bindingResult.getFieldValue("gender");
         UserState userState = UserState.INACTIVE;
