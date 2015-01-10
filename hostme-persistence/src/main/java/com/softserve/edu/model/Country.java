@@ -19,10 +19,10 @@ public class Country {
 	@GeneratedValue
 	@Column(name = "country_id", unique = true, nullable = false)
 	private Integer countryId;
-/*	
+
 	@Column(name = "country", length = 32)
 	private String country;
-	
+		
 	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<City> city;
 
@@ -91,7 +91,6 @@ public class Country {
 			return false;
 		return true;
 	}
-	
-	*/
+
 	
 }

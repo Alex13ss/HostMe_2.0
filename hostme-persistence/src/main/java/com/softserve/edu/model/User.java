@@ -38,292 +38,300 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "USERS", uniqueConstraints = { @UniqueConstraint(columnNames = {
-        "user_id", "login", "email" }) })
+		"user_id", "login", "email" }) })
 public class User {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "user_id", unique = true, nullable = false)
-    private Integer userId;
+	@Id
+	@GeneratedValue
+	@Column(name = "user_id", unique = true, nullable = false)
+	private Integer userId;
 
-    @Size(min = 3, message = "Login must be at least 3 characters!")
-    @JsonIgnore
-    @Column(name = "login", length = 50, updatable = false, unique = true)
-    private String login;
+	@Size(min = 3, message = "Login must be at least 3 characters!")
+	@JsonIgnore
+	@Column(name = "login", length = 50, updatable = false, unique = true)
+	private String login;
 
-    @Size(min = 5, message = "Password must be at least 5 characters!")
-    @JsonIgnore
-    @Column(name = "password", length = 70)
-    private String password;
+	@Size(min = 5, message = "Password must be at least 5 characters!")
+	@JsonIgnore
+	@Column(name = "password", length = 70)
+	private String password;
 
-    @Size(min = 3, message = "Name must be at least 3 characters!")
-    @Column(name = "firstName", length = 70)
-    private String firstName;
+	@Size(min = 3, message = "Name must be at least 3 characters!")
+	@Column(name = "firstName", length = 70)
+	private String firstName;
 
-    @Size(min = 3, message = "Name must be at least 3 characters!")
-    @Column(name = "lastName", length = 70)
-    private String lastName;
+	@Size(min = 3, message = "Name must be at least 3 characters!")
+	@Column(name = "lastName", length = 70)
+	private String lastName;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender", nullable = false)
-    private Gender gender;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "gender", nullable = false)
+	private Gender gender;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_state", nullable = false)
-    private UserState userState;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "user_state", nullable = false)
+	private UserState userState;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "birth_date")
-    private Calendar birthday;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "birth_date")
+	private Calendar birthday;
 
-    @Size(min = 1, message = "Invalid email address!")
-    @Email
-    @Column(name = "email", unique = true, length = 70)
-    private String email;
+	@Size(min = 1, message = "Invalid email address!")
+	@Email
+	@Column(name = "email", unique = true, length = 70)
+	private String email;
 
-    @Column(name = "hobby", length = 100)
-    private String hobby;
+	@Column(name = "hobby", length = 100)
+	private String hobby;
 
-    @Column(name = "description", length = 100)
-    private String description;
+	@Column(name = "description", length = 100)
+	private String description;
 
-    @Column(name = "country", length = 50)
-    private String country;
+	@Column(name = "country", length = 50)
+	private String country;
 
-    @Column(name = "region", length = 50)
-    private String region;
+	@Column(name = "region", length = 50)
+	private String region;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "role_id")
-    private Role role;
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name = "role_id")
+	private Role role;
 
-    /**
-     * Contains languages owned by this user
-     */
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
-    @JoinTable(name = "user_languages", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "language_id"))
-    private List<Language> languages = new ArrayList<Language>();
-    /**
-     * Contains images uploaded by this user
-     */
-    @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Image> images = new HashSet<Image>();
-    /**
-     * Contains hosting apartments owned by this user
-     */
-    @JsonIgnore
-    @OneToMany(mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Hosting> hostings = new HashSet<Hosting>();
-    /**
-     * Contains requests submitted by this user
-     */
-    @JsonIgnore
-    @OneToMany(mappedBy = "author", orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Request> requests = new HashSet<Request>();
-    /**
-     * Contains feedbackas provided by this user to hosters
-     */
-    @JsonIgnore
-    @OneToMany(mappedBy = "author", orphanRemoval = true, fetch = FetchType.LAZY)
-    private Set<Feedback> feedbacks = new HashSet<Feedback>();
+	/**
+	 * Contains languages owned by this user
+	 */
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER)
+	@Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
+	@JoinTable(name = "user_languages", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "language_id"))
+	private List<Language> languages = new ArrayList<Language>();
+	/**
+	 * Contains images uploaded by this user
+	 */
+	@JsonIgnore
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
+	private Set<Image> images = new HashSet<Image>();
+	/**
+	 * Contains hosting apartments owned by this user
+	 */
+	@JsonIgnore
+	@OneToMany(mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<Hosting> hostings = new HashSet<Hosting>();
+	/**
+	 * Contains requests submitted by this user
+	 */
+	@JsonIgnore
+	@OneToMany(mappedBy = "author", orphanRemoval = true, fetch = FetchType.LAZY)
+	private Set<Request> requests = new HashSet<Request>();
+	/**
+	 * Contains feedbackas provided by this user to hosters
+	 */
+	@JsonIgnore
+	@OneToMany(mappedBy = "author", orphanRemoval = true, fetch = FetchType.LAZY)
+	private Set<Feedback> feedbacks = new HashSet<Feedback>();
 
-    public User() {
-    }
+	@OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, orphanRemoval = true)
+	private Set<Event> owner;
 
-    public User(String firstName, String lastName, Gender gender) {
-        super();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-    }
+	@ManyToMany(fetch = FetchType.EAGER)
+	@Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
+	@JoinTable(name = "user_attendee", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "event_id"))
+	private Set<Event> attendee;
 
-    public UserState getUserState() {
-        return userState;
-    }
+	public User() {
+	}
 
-    public void setUserState(UserState userState) {
-        this.userState = userState;
-    }
+	public User(String firstName, String lastName, Gender gender) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.gender = gender;
+	}
 
-    public Integer getUserId() {
-        return userId;
-    }
+	public UserState getUserState() {
+		return userState;
+	}
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+	public void setUserState(UserState userState) {
+		this.userState = userState;
+	}
 
-    public String getLogin() {
-        return login;
-    }
+	public Integer getUserId() {
+		return userId;
+	}
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getLogin() {
+		return login;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
 
-    public Gender getGender() {
-        return gender;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
-    public Calendar getBirthday() {
-        return birthday;
-    }
+	public Gender getGender() {
+		return gender;
+	}
 
-    public void setBirthday(Calendar birthday) {
-        this.birthday = birthday;
-    }
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public Calendar getBirthday() {
+		return birthday;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setBirthday(Calendar birthday) {
+		this.birthday = birthday;
+	}
 
-    public String getHobby() {
-        return hobby;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setHobby(String hobby) {
-        this.hobby = hobby;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getHobby() {
+		return hobby;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
 
-    public String getCountry() {
-        return country;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public String getRegion() {
-        return region;
-    }
+	public String getCountry() {
+		return country;
+	}
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
-    public List<Language> getLanguages() {
+	public String getRegion() {
+		return region;
+	}
 
-        HashSet<Language> langs = new HashSet<Language>(languages);
-        languages.clear();
-        languages.addAll(langs);
+	public void setRegion(String region) {
+		this.region = region;
+	}
 
-        return languages;
-    }
+	public List<Language> getLanguages() {
 
-    public void setLanguages(List<Language> languages) {
-        this.languages = languages;
-    }
+		HashSet<Language> langs = new HashSet<Language>(languages);
+		languages.clear();
+		languages.addAll(langs);
 
-    public Set<Hosting> getHostings() {
-        return hostings;
-    }
+		return languages;
+	}
 
-    public Set<Image> getImages() {
-        return images;
-    }
+	public void setLanguages(List<Language> languages) {
+		this.languages = languages;
+	}
 
-    public Set<Request> getRequests() {
-        return requests;
-    }
+	public Set<Hosting> getHostings() {
+		return hostings;
+	}
 
-    public Set<Feedback> getFeedbacks() {
-        return feedbacks;
-    }
+	public Set<Image> getImages() {
+		return images;
+	}
 
-    public void addLanguage(Language language) {
-        if (language != null && !languages.contains(language)) {
-            languages.add(language);
-            language.addUser(this);
-        }
-    }
+	public Set<Request> getRequests() {
+		return requests;
+	}
 
-    public void addImage(Image image) {
-        if (image != null && !images.contains(image)) {
-            images.add(image);
-            image.setUser(this);
-        }
-    }
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
 
-    public void addHosting(Hosting hosting) {
-        if (hosting != null && !hostings.contains(hosting)) {
-            hostings.add(hosting);
-            hosting.setOwner(this);
-        }
-    }
+	public void addLanguage(Language language) {
+		if (language != null && !languages.contains(language)) {
+			languages.add(language);
+			language.addUser(this);
+		}
+	}
 
-    public void addRequest(Request request) {
-        if (request != null && !requests.contains(request)) {
-            requests.add(request);
-            request.setAuthor(this);
-        }
-    }
+	public void addImage(Image image) {
+		if (image != null && !images.contains(image)) {
+			images.add(image);
+			image.setUser(this);
+		}
+	}
 
-    public void addFeedback(Feedback feedback) {
-        if (feedback != null && !feedbacks.contains(feedback)) {
-            feedbacks.add(feedback);
-            feedback.setAuthor(this);
-        }
-    }
+	public void addHosting(Hosting hosting) {
+		if (hosting != null && !hostings.contains(hosting)) {
+			hostings.add(hosting);
+			hosting.setOwner(this);
+		}
+	}
 
-    public Role getRole() {
-        return role;
-    }
+	public void addRequest(Request request) {
+		if (request != null && !requests.contains(request)) {
+			requests.add(request);
+			request.setAuthor(this);
+		}
+	}
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
+	public void addFeedback(Feedback feedback) {
+		if (feedback != null && !feedbacks.contains(feedback)) {
+			feedbacks.add(feedback);
+			feedback.setAuthor(this);
+		}
+	}
 
-    @Override
-    public String toString() {
-        return "User [userId=" + userId + ", login=" + login + ", password="
-                + password + ", firstName=" + firstName + ", lastName="
-                + lastName + ", gender=" + gender + ", birthday=" + birthday
-                + ", email=" + email + ", about=" + ", country=" + country
-                + ", region=" + region + "]";
-    }
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", login=" + login + ", password="
+				+ password + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", gender=" + gender + ", birthday=" + birthday
+				+ ", email=" + email + ", about=" + ", country=" + country
+				+ ", region=" + region + "]";
+	}
 
 }

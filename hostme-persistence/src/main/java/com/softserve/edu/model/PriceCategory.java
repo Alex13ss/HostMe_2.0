@@ -12,15 +12,15 @@ public class PriceCategory {
 	@GeneratedValue
 	@Column(name = "priceCategory_id", unique = true, nullable = false)
 	private Integer priceCategoryId;
-/*
+
 	@Column(name = "description")
 	private String priceCategory;
 
 	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Event> event;
 
-	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<Sightseeing> sightseeing;
+//	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
+//	private Set<Sightseeing> sightseeing;
 
 	public PriceCategory() {
 		super();
@@ -50,7 +50,7 @@ public class PriceCategory {
 		this.event = event;
 	}
 
-	public Set<Sightseeing> getSightseeing() {
+/*	public Set<Sightseeing> getSightseeing() {
 		return sightseeing;
 	}
 
@@ -102,6 +102,8 @@ public class PriceCategory {
 		} else if (!sightseeing.equals(other.sightseeing))
 			return false;
 		return true;
-	}
-*/
+	}*/
+
+
+	
 }

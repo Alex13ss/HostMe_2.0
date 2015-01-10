@@ -11,7 +11,7 @@ public class City {
 	@GeneratedValue
 	@Column(name = "city_id", unique = true, nullable = false)
 	private Integer cityId;
-/*
+
 	@Column(name = "city", length = 32)
 	private String city;
 
@@ -22,8 +22,8 @@ public class City {
 	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Event> event;
 
-	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<Sightseeing> sightseeing;
+//	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
+//	private Set<Sightseeing> sightseeing;
 
 	public City() {
 		super();
@@ -61,7 +61,7 @@ public class City {
 		this.event = event;
 	}
 
-	public Set<Sightseeing> getSightseeing() {
+	/*public Set<Sightseeing> getSightseeing() {
 		return sightseeing;
 	}
 
@@ -117,6 +117,8 @@ public class City {
 		} else if (!sightseeing.equals(other.sightseeing))
 			return false;
 		return true;
-	}
-	*/
+	}*/
+
+	
+
 }

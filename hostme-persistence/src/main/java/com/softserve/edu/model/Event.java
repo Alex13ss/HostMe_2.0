@@ -1,7 +1,7 @@
 package com.softserve.edu.model;
 
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -19,156 +19,185 @@ public class Event {
 	@GeneratedValue
 	@Column(name = "event_id", unique = true, nullable = false)
 	private Integer eventId;
-/*
+	
 	@Column(name = "description")
 	private String description;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "start_date")
-	private Date startDate;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "end_date")
-	private Date endDate;
-
-	@Column(name = "attendee")
-	private String attendee;
-
+	
 	@ManyToOne
 	@JoinColumn(name = "city_id", nullable = false)
 	private City city;
-
+				
 	@Column(name = "address")
 	private String address;
+	
+			
+	@Temporal(TemporalType.DATE)
+	@Column(name = "start_date")
+	private Date startDate;
 
-	@Column(name = "owner")
-	// maybe I should use User
-	private String owner;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "status", nullable = false)
-	private Status status;
-
-	@Column(name = "comment")
-	private String comment;
-
+	@Temporal(TemporalType.DATE)
+	@Column(name = "end_date")
+	private Date endDate;
+	
 	@ManyToOne
 	@JoinColumn(name = "priceCategory_id", nullable = false)
 	private PriceCategory priceCategory;
-
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", nullable = false)
+	private Status status;
+	
+	@Column(name = "comment")
+	private String comment;
+	
 	@Column(name = "website")
 	private String website;
-
+	
 	@OneToMany(mappedBy = "event", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Image> image;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User owner;
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendee")	
+	private Set<User> attendee;
+		
 
 	public Event() {
 		super();
 	}
 
+
 	public Integer getEventId() {
 		return eventId;
 	}
+
 
 	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
 
+
 	public String getDescription() {
 		return description;
 	}
+
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public String getAttendee() {
-		return attendee;
-	}
-
-	public void setAttendee(String attendee) {
-		this.attendee = attendee;
-	}
 
 	public City getCity() {
 		return city;
 	}
 
+
 	public void setCity(City city) {
 		this.city = city;
 	}
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public String getOwner() {
-		return owner;
+
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Status getStatus() {
-		return status;
+
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
 
 	public PriceCategory getPriceCategory() {
 		return priceCategory;
 	}
 
+
 	public void setPriceCategory(PriceCategory priceCategory) {
 		this.priceCategory = priceCategory;
 	}
+
+
+	public Status getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+
+	public String getComment() {
+		return comment;
+	}
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 
 	public String getWebsite() {
 		return website;
 	}
 
+
 	public void setWebsite(String website) {
 		this.website = website;
 	}
+
 
 	public Set<Image> getImage() {
 		return image;
 	}
 
+
 	public void setImage(Set<Image> image) {
 		this.image = image;
 	}
+
+
+	public User getOwner() {
+		return owner;
+	}
+
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+
+	public Set<User> getAttendee() {
+		return attendee;
+	}
+
+
+	public void setAttendee(Set<User> attendee) {
+		this.attendee = attendee;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -193,6 +222,7 @@ public class Event {
 		result = prime * result + ((website == null) ? 0 : website.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -267,8 +297,7 @@ public class Event {
 			return false;
 		return true;
 	}
-
-*/
+	
 	
 	
 }
