@@ -82,6 +82,12 @@
                             class="fa fa-users"></i>
                         <spring:message code="label.groups" /></a></li>
                 </security:authorize>
+                 <security:authorize access="isAuthenticated()">
+                    <li><a href='<c:url value="events"/>'
+                           style="margin-left: 10px;"><i
+                            class="fa fa-calendar"></i>
+                        <spring:message code="label.events" /></a></li>
+                </security:authorize>
 
                 <security:authorize access="isAuthenticated()">
                     <li><a href='<c:url value="request"/>'

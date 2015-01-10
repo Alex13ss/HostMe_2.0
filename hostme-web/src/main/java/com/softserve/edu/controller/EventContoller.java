@@ -22,7 +22,7 @@ public class EventContoller {
 	
 	
 	
-	@RequestMapping(value = "/event", method = RequestMethod.GET)
+	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public String getEvents(Model model){
 		List<Event> events = eventService.getAllEvents();
 		System.out.println("ASDD");
