@@ -303,30 +303,20 @@
                         </c:if>
                         
                         <c:if test="${param.error eq true }">
-                            <div class="row">
-                                <div class="col-md-6 col-md-offset-2">
-                                    <h4 class="error">Wrong login
-                                        or password! Try again!</h4>
-                                </div>
-                            </div>
+                            <div class="callout callout-danger"
+                                id="alert">Wrong login or password! Try again!</div>
                         </c:if>
                         
                         <c:if test="${param.registration eq true }">
                             <div class="callout callout-warning"
-                                id=" alert">We send you the mail
+                                id="alert">We send you the mail
                                 with the activation link. Please, check
                                 your mail and activate your account!</div>
                         </c:if>
 
                         <c:if test="${param.logout eq true }">
-                            <div class="row">
-                                <div class="col-md-6"
-                                    style="margin-left: 1em; margin-bottom:1em;">
-                                    <label class="error">
-                                    	<code>You have logged out. Please, log in!</code>
-                                    </label>
-                                </div>
-                            </div>
+                      	    <div class="callout callout-danger"
+                                id="alert">You have logged out. Please, log in!</div>
                         </c:if>
 
                         <div class="body bg-gray">
