@@ -25,7 +25,6 @@ public class EventContoller {
 	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public String getEvents(Model model){
 		List<Event> events = eventService.getAllEvents();
-		System.out.println("ASDD");
 		model.addAttribute("events", events);
 		return "events";
 		

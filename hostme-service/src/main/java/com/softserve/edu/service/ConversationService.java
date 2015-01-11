@@ -14,4 +14,8 @@ public interface ConversationService {
     List<Conversation> findAll(Pageable pageable);
     
     Conversation findOne(Long id);
+    
+    //List<Conversation> findLatestConversationsByGroupId(Long id);
+    
+    //List<Conversation> findAllConversationsByGroupId(Long id);
 }

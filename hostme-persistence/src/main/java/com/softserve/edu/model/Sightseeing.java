@@ -14,13 +14,13 @@ public class Sightseeing {
 	@Column(name = "sightseeing_id")
 	private Integer sightseeingId;
 
-//	@ManyToOne
-//	@JoinColumn(name = "city_id", nullable = false)
-//	private City city;
-//
-//	@Column(name = "address", nullable = false)
-//	private String address;
-//
+	@ManyToOne
+	@JoinColumn(name = "city_id", nullable = false)
+	private City city;
+
+	@Column(name = "address", nullable = false)
+	private String address;
+
 //	@Enumerated(EnumType.STRING)
 //	@Column(name = "sightseeingType", nullable = false, insertable = false, updatable = false)
 //	private SightseeingType sightseeingType;
@@ -48,30 +48,30 @@ public class Sightseeing {
 //	@Column(name = "comment")
 //	private String comment;
 //
-//	public Integer getSightseeingId() {
-//		return sightseeingId;
-//	}
-//
-//	public void setSightseeingId(Integer sightseeingId) {
-//		this.sightseeingId = sightseeingId;
-//	}
-//
-//	public City getCity() {
-//		return city;
-//	}
-//
-//	public void setCity(City city) {
-//		this.city = city;
-//	}
-//
-//	public String getAddress() {
-//		return address;
-//	}
-//
-//	public void setAddress(String address) {
-//		this.address = address;
-//	}
-//
+	public Integer getSightseeingId() {
+		return sightseeingId;
+	}
+
+	public void setSightseeingId(Integer sightseeingId) {
+		this.sightseeingId = sightseeingId;
+	}
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 //	public SightseeingType getSightseeingType() {
 //		return sightseeingType;
 //	}

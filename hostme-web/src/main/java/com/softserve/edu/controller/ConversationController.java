@@ -24,8 +24,11 @@ public class ConversationController {
     //This controlles created only for test use
     @RequestMapping(value = "/conversations", method = RequestMethod.GET)
     public String conversationsIndex(Model model) {
-	List<Conversation> conversations = conversationService.findAll(new PageRequest(0, 5, Direction.DESC, "id"));
+	//То для Саші для груп останні 5 обговорень
+	//List<Conversation> conversations = conversationService.findAll(new PageRequest(0, 5, Direction.DESC, "id"));
+	List<Conversation> conversations = conversationService.findAll();
 	model.addAttribute("conversations", conversations);
+	model.addAttribute("conversationsSize", conversations.size());
 	return "conversations";
     }
     
