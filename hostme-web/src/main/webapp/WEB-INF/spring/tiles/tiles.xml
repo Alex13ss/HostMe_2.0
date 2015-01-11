@@ -14,4 +14,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
 
+	<definition name="mainroutes" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/routes/routes.jsp" />
+	</definition>
+
 </tiles-definitions>

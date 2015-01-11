@@ -14,6 +14,6 @@ public class RoutesController {
 
     @RequestMapping(value = "/routes", method = RequestMethod.GET)
     public static String showRoutes() {
-        return "routes";
+        return "mainroutes";
     }
 }
