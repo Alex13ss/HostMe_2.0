@@ -16,9 +16,9 @@
 </head>
 <body class="wysihtml5-supported">
 
-	<video id="bgvid" autoplay loop poster="resources/images/nature.jpg">
+	<!--  	<video id="bgvid" autoplay loop poster="resources/images/nature.jpg">
 		<source src="resources/video/mp4/nature1.mp4" type="video/mp4">
-	</video>
+	</video> -->
 
 
 
@@ -29,8 +29,51 @@
 	</section>
 
 
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+
+			<div class="box">
+				<div class="box-header">
+
+					<h3 class="box-title">
+						<i class="fa fa-plus-square"></i> Events management
+
+					</h3>
+					<div class="col-lg-offset-11" style="margin-top: 10px;">
+						<button onclick="refresh()" class="btn btn-default btn-sm">
+							<i class="fa fa-fw fa-plus-square-o"></i>
+							<spring:message code="label.addEvent" />
+						</button>
+						<button onclick="refresh()" class="btn btn-default btn-sm">
+							<i class="fa fa-fw fa-refresh"></i>Refresh
+						</button>
+						
+					</div>
+					
+
+				</div>
+
+				<!-- /.box-header -->
+				<ul class="nav nav-tabs">
+					<li id="request_from_me" class="active"
+						onclick="initialize_request_from_me(this)"><a href="#"
+						data-toggle="tab"><spring:message code="label.Myevents" /></a></li>
+					<li class="" onclick="initialize_request_to_me(this)"><a
+						href="#" data-toggle="tab"><spring:message
+								code="label.SignedEvents" /></a></li>
+				</ul>
 
 
+
+
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+
+	</section>
+	<!-- /.content -->
 
 </body>
 </html>
