@@ -1,8 +1,11 @@
 package com.softserve.edu.service;
 
 import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
+import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.model.Conversation;
 
 public interface ConversationService {
@@ -15,7 +18,9 @@ public interface ConversationService {
     
     Conversation findOne(Long id);
     
-    //List<Conversation> findLatestConversationsByGroupId(Long id);
+    List<ConversationDto> findLatestConversationsDtoByGroupId(Long id);
+    
+    Long countByGroupId(Long id);
     
     //List<Conversation> findAllConversationsByGroupId(Long id);
 }
