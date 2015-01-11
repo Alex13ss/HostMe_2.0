@@ -40,8 +40,9 @@
 					<autocommit>true</autocommit>
 					<onError>continue</onError>
 					<srcFiles>
-						<srcFile>src/main/resources/sql/conversations-Insert.sql</srcFile>
 						<srcFile>src/main/resources/sql/roles-insert.sql</srcFile>
+						<srcFile>src/main/resources/sql/users-insert.sql</srcFile>
+						<srcFile>src/main/resources/sql/conversations-Insert.sql</srcFile>
 					</srcFiles>
 				</configuration>
 

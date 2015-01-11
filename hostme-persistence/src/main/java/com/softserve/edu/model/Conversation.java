@@ -1,6 +1,6 @@
 package com.softserve.edu.model;
 
-import java.sql.Date;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -10,17 +10,19 @@ import javax.persistence.*;
 public class Conversation {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt")
-    private Date createdAt;
+    private Calendar createdAt;
 
-//    @ManyToOne
-//    @JoinColumn(name = "group_id")
-//    private Group group;
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -48,11 +50,11 @@ public class Conversation {
         this.name = name;
     }
 
-    public Date getCreatedAt() {
+    public Calendar getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(Calendar createdAt) {
         this.createdAt = createdAt;
     }
 

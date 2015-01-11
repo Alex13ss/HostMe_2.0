@@ -2,18 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="resources/css/conversations.css">
-<!--title>Insert title here</title-->
-</head>
-<body>
-Begin
-<%@ include file="conversations/latest.jsp" %>
-End
-	<%--page for viewing all conversations on group --%>
-	<!--div id="group_conversations_block">
+Hello Group
+<div id="group_conversations_block">
 	
 		<c:url var="conversationsUrl" value="/conversations" />
 
@@ -28,21 +18,19 @@ End
 		</a>
 
 		<div id="conversations_body">
-			<c:forEach var="conversation" items="${conversations}">
+			<c:forEach var="conversationDto" items="${conversationDtos}">
 				
 				<c:url var="conversationUrl" value="/conversation">
-					<c:param name="id" value="${conversation.id}" />
+					<c:param name="id" value="${conversationDto.conversation.id}" />
 				</c:url>
 				
 				<a href="<c:out value="${conversationUrl}"/>">
 					<div class="conversation">
-						<div class="conversation_title">${conversation.name}</div>
-						<div class="last_post">Останнє повідомлення від (юзер). (дата) о (час)</div>
+						<div class="conversation_title">${conversationDto.conversation.name}</div>
+						<div class="last_post">Останнє повідомлення від ${conversationDto.lastPost.author.login}. ${conversationDto.lastPostDate } о ${conversationDto.lastPostTime}</div>
 					</div>
 				</a>
 			</c:forEach>
 		</div>
 		
-	</div-->
-</body>
-</html>
+	</div>
