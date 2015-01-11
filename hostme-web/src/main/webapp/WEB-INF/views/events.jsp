@@ -9,8 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap.css">
+
 <link rel="stylesheet" type="text/css" href="resources/css/video.css">
 <title>Events</title>
 </head>
@@ -26,7 +25,7 @@
 			<spring:message code="label.events" />
 		</h1>
 	</section>
-
+ 
 	<!-- Main content -->
 	<section class="content">
 		<div class="row">
@@ -45,6 +44,9 @@
 						</button>
 						<button onclick="refresh()" class="btn btn-default btn-sm">
 							<i class="fa fa-fw fa-refresh"></i><spring:message code="label.Refresh" />
+						</button>
+						<button >
+							<i class="fa fa-fw fa-refresh"></i><spring:message code="label.addEvent" />
 						</button>
 						
 					</div>
