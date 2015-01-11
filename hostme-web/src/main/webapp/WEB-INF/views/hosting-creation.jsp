@@ -3,7 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -52,8 +52,7 @@
                                 <form:select class="form-control"
                                     path="country" id="country"
                                     name="country"
-                                    onchange="printState('region',this.selectedIndex);">
-                                </form:select>
+                                    onchange="printState('region',this.selectedIndex);" />
                             </div>
                         </div>
                     </div>
@@ -64,8 +63,7 @@
                             </label>
                             <div class="col-lg-5">
                                 <form:select class="form-control"
-                                    path="region" id="region">
-                                </form:select>
+                                    path="region" id="region" />
                             </div>
                         </div>
                     </div>
@@ -104,13 +102,11 @@
                             <div class="col-lg-2">
                                 <form:select class="form-control"
                                     path="minNumberOfGuests" id="min"
-                                    onchange="repopulateMax(this.selectedIndex)">
-                                </form:select>
+                                    onchange="repopulateMax(this.selectedIndex)" />
                             </div>
                             <div class="col-lg-2">
                                 <form:select class="form-control"
-                                    path="maxNumberOfGuests" id="max">
-                                </form:select>
+                                    path="maxNumberOfGuests" id="max" />
                             </div>
                         </div>
                     </div>
