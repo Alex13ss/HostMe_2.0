@@ -2,7 +2,6 @@ package com.softserve.edu.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Post;
