@@ -21,13 +21,11 @@
 	</video> -->
 
 
-
 	<section class="content-header">
 		<h1>
 			<spring:message code="label.events" />
 		</h1>
 	</section>
-
 
 	<!-- Main content -->
 	<section class="content">
@@ -46,7 +44,7 @@
 							<spring:message code="label.addEvent" />
 						</button>
 						<button onclick="refresh()" class="btn btn-default btn-sm">
-							<i class="fa fa-fw fa-refresh"></i>Refresh
+							<i class="fa fa-fw fa-refresh"></i><spring:message code="label.Refresh" />
 						</button>
 						
 					</div>
