@@ -217,6 +217,7 @@
 
                                     <div class="form-group">
                                         <div class="row">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <form:radiobutton
                                                 class="radio inline"
                                                 path="gender"
@@ -247,7 +248,7 @@
                                                 type="text"
                                                 class="datepicker form-control"
                                                 id="dateOfBirth"
-                                                placeholder="Enter yuor B-day date" />
+                                                placeholder="Enter yuor B-day date (dd/MM/yyyy)" />
                                         </div>
                                     </div>
                                 </div>
