@@ -9,7 +9,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
 </head>
-<body class="wysihtml5-supported">
+<body >
 
     <section class="content-header">
         <h1>
