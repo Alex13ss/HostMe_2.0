@@ -37,7 +37,8 @@
 						<i class="fa fa-plus-square"></i> Events management
 
 					</h3>
-					<div  id="mystyle" style="margin-top: 10px;">
+					
+					<div id="mystyle" style="margin-top: 10px;">
 						
 							<button onclick="refresh()" class="btn btn-default btn-sm">
 								<i class="fa fa-fw fa-plus-square-o"></i>
@@ -49,9 +50,7 @@
 								<i class="fa fa-fw fa-refresh"></i>
 								<spring:message code="label.Refresh" />
 							</button>
-						
-
-					</div>
+						</div>
 
 
 				</div>
