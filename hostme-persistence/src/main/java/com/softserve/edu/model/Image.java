@@ -28,11 +28,11 @@ public class Image {
 	@ManyToOne
 	@JoinColumn(name = "event_id")
 	private Event event;
-	/*
+	
 	@ManyToOne
 	@JoinColumn(name = "sightseeing_id")
 	private Sightseeing sightseeing;
-	*/
+	
 	public Image() {
 	}
 
@@ -81,23 +81,31 @@ public class Image {
 		this.feedback = feedback;
 	}
 
+	public Sightseeing getSightseeing() {
+		return sightseeing;
+	}
+
+	public void setSightseeing(Sightseeing sightseeing) {
+		this.sightseeing = sightseeing;
+	}
+	
 	@Override
 	public String toString() {
 		return "Image [imageId=" + imageId + ", link=" + link + "]";
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((feedback == null) ? 0 : feedback.hashCode());
-		result = prime * result + ((hosting == null) ? 0 : hosting.hashCode());
-		result = prime * result + ((imageId == null) ? 0 : imageId.hashCode());
-		result = prime * result + ((link == null) ? 0 : link.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result
+//				+ ((feedback == null) ? 0 : feedback.hashCode());
+//		result = prime * result + ((hosting == null) ? 0 : hosting.hashCode());
+//		result = prime * result + ((imageId == null) ? 0 : imageId.hashCode());
+//		result = prime * result + ((link == null) ? 0 : link.hashCode());
+//		result = prime * result + ((user == null) ? 0 : user.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

@@ -9,25 +9,21 @@
 <head>
 <link rel="stylesheet" type="text/css"
     href="resources/css/daterangepicker-bs3.css">
-
 <link rel="stylesheet" type="text/css"
     href="resources/css/datepicker.css">
-
 <link rel="stylesheet" type="text/css"
     href="resources/css/bootstrap3-wysihtml5.css">
+<link rel="stylesheet"
+    href="resources/css/lightbox.css"/>
 
-<link href="resources/css/lightbox.css" rel="stylesheet" />
-
-<script type="text/javascript" src="resources/js/daterangepicker.js"></script>
-
+<script type="text/javascript"
+    src="resources/js/daterangepicker.js"></script>
 <script type="text/javascript"
     src="resources/js/bootstrap-datepicker.js"></script>
-
 <script type="text/javascript"
     src="resources/js/bootstrap3-wysihtml5.all.min.js"></script>
-
-<script type="text/javascript" src="resources/js/hosting.js"></script>
-
+<script type="text/javascript"
+    src="resources/js/hosting.js"></script>
 <script src="resources/js/lightbox.min.js"></script>
 
 </head>

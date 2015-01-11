@@ -49,17 +49,29 @@
     </section>
     <section class="content">
         <div class="box box-primary">
-            <div class="container-fluid ">
+            <div class="container-fluid " style="margin-left: 1.5em">
                 <div class="row " style="margin-top:1.5em; margin-bottom: 1.5em" >
                     <div class="form-group col-lg-4">
-                        <label class="control-label">
+                        <div class="row">
                             <h4>Country</h4>
-                        </label>
+                        </div>
+                        <div class="row">
+                            <h4>City</h4>
+                        </div>
                     </div>
                     <div class="col-lg-8" id="map-canvas" style=""></div>
                 </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <h4>Popular routes</h4>
+                        </div>
+                        <div class="row">
+                            <h4>Table with routes</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     </section>
 </body>

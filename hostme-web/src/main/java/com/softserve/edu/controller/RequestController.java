@@ -40,30 +40,28 @@ public class RequestController {
 
 	}
 
-	@RequestMapping(value = "/request-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/request-update", method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Request updateRequestStatus(
 			@RequestBody Request request) {
 		requestService.update(request);
 		return request;
-
 	}
 
 	@RequestMapping(value = "/request-sent-history", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Request> dataTableSent() {
 		User user = profileService.getUserByLogin(SecurityContextHolder
 				.getContext().getAuthentication().getName());
-		List<Request> requests = requestService.getMySentRequest(user
+		return requestService.getMySentRequest(user
 				.getUserId());
-		return requests;
 	}
 
 	@RequestMapping(value = "/request-obtain-history", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Request> dataTableObtain() {
 		User user = profileService.getUserByLogin(SecurityContextHolder
 				.getContext().getAuthentication().getName());
-		List<Request> requests = requestService.getMyReceivedRequest(user
+		return requestService.getMyReceivedRequest(user
 				.getUserId());
-		return requests;
 	}
 
 	@RequestMapping(value = "/request", method = RequestMethod.POST)
@@ -91,12 +89,8 @@ public class RequestController {
 		request.setReceiver(hosting.getOwner());
 		requestService.createRequest(request);
 
-		boolean requestSent = true;
-		model.addAttribute("requestSent", requestSent);
-		StringBuilder returnString = new StringBuilder(
-				"redirect:/hosting?hostingId=");
-		return returnString.append(hosting.getHostingId()).append("&userId=")
-				.append(user.getUserId()).toString();
-
+		model.addAttribute("requestSent", true);
+		return "redirect:/hosting?hostingId=" + (hosting.getHostingId())+ "&userId=" +
+				user.getUserId();
 	}
 }

@@ -19,8 +19,8 @@ public class PriceCategory {
 	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Event> event;
 
-//	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
-//	private Set<Sightseeing> sightseeing;
+	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
+	private Set<Sightseeing> sightseeing;
 
 	public PriceCategory() {
 		super();
@@ -50,7 +50,7 @@ public class PriceCategory {
 		this.event = event;
 	}
 
-/*	public Set<Sightseeing> getSightseeing() {
+	public Set<Sightseeing> getSightseeing() {
 		return sightseeing;
 	}
 
@@ -58,19 +58,19 @@ public class PriceCategory {
 		this.sightseeing = sightseeing;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((event == null) ? 0 : event.hashCode());
-		result = prime * result
-				+ ((priceCategory == null) ? 0 : priceCategory.hashCode());
-		result = prime * result
-				+ ((priceCategoryId == null) ? 0 : priceCategoryId.hashCode());
-		result = prime * result
-				+ ((sightseeing == null) ? 0 : sightseeing.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((event == null) ? 0 : event.hashCode());
+//		result = prime * result
+//				+ ((priceCategory == null) ? 0 : priceCategory.hashCode());
+//		result = prime * result
+//				+ ((priceCategoryId == null) ? 0 : priceCategoryId.hashCode());
+//		result = prime * result
+//				+ ((sightseeing == null) ? 0 : sightseeing.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -102,8 +102,5 @@ public class PriceCategory {
 		} else if (!sightseeing.equals(other.sightseeing))
 			return false;
 		return true;
-	}*/
-
-
-	
+	}
 }

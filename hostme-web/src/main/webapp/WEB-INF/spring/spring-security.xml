@@ -23,6 +23,7 @@
 		<intercept-url pattern="/profile" access="hasRole('USER')" />
 		<intercept-url pattern="/conversations" access="hasRole('USER')" />
 		<intercept-url pattern="/conversation" access="hasRole('USER')" />
+		<intercept-url pattern="/sightseeings" access="hasRole('USER')" />
 		<form-login login-page="/login" authentication-failure-url="/login?error=true" />
 		<logout logout-url="/logout" logout-success-url="/login?logout=true" />
 		<!-- <form-login login-page="/login" default-target-url="/hostel" -->
