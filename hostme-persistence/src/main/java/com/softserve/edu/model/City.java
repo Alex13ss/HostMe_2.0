@@ -22,8 +22,8 @@ public class City {
 	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Event> event;
 
-//	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
-//	private Set<Sightseeing> sightseeing;
+	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
+	private Set<Sightseeing> sightseeing;
 
 	public City() {
 		super();
@@ -61,7 +61,7 @@ public class City {
 		this.event = event;
 	}
 
-	/*public Set<Sightseeing> getSightseeing() {
+	public Set<Sightseeing> getSightseeing() {
 		return sightseeing;
 	}
 
@@ -69,18 +69,18 @@ public class City {
 		this.sightseeing = sightseeing;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((cityId == null) ? 0 : cityId.hashCode());
-		result = prime * result + ((country == null) ? 0 : country.hashCode());
-		result = prime * result + ((event == null) ? 0 : event.hashCode());
-		result = prime * result
-				+ ((sightseeing == null) ? 0 : sightseeing.hashCode());
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((city == null) ? 0 : city.hashCode());
+//		result = prime * result + ((cityId == null) ? 0 : cityId.hashCode());
+//		result = prime * result + ((country == null) ? 0 : country.hashCode());
+//		result = prime * result + ((event == null) ? 0 : event.hashCode());
+//		result = prime * result
+//				+ ((sightseeing == null) ? 0 : sightseeing.hashCode());
+//		return result;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -117,7 +117,7 @@ public class City {
 		} else if (!sightseeing.equals(other.sightseeing))
 			return false;
 		return true;
-	}*/
+	}
 
 	
 

@@ -11,7 +11,11 @@
 	<c:forEach var="sightseeing" items="${sightseeings}">
 		<c:out value="${sightseeing.sightseeingId}">
 		</c:out>
-		<c:out value="${sightseeing.address}">
+		<c:out value="${sightseeing.sightseeingName}">
+		</c:out>
+		<c:out value="${sightseeing.city.city}">
+		</c:out>
+		<c:out value="${sightseeing.description}">
 		</c:out>
 	</c:forEach>
 </body>

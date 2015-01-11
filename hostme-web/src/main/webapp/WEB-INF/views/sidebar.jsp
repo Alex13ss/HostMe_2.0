@@ -91,6 +91,12 @@
 				</security:authorize>
 
 				<security:authorize access="isAuthenticated()">
+					<li><a href='<c:url value="sightseeings"/>'
+						style="margin-left: 10px;"><i class="fa fa-camera-retro"></i> <spring:message
+								code="label.sightseeings" /></a></li>
+				</security:authorize>
+
+				<security:authorize access="isAuthenticated()">
 					<li><a href='<c:url value="request"/>'
 						style="margin-left: 10px;"><i class="fa fa-question-circle"></i>
 							<spring:message code="label.requesthistory" /></a></li>
