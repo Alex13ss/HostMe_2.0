@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.model.Conversation;
+import com.softserve.edu.model.Group;
 import com.softserve.edu.service.ConversationService;
 
 @Controller
@@ -18,14 +20,12 @@ public class ConversationController {
     @Autowired
     private ConversationService conversationService;
 
-    //This controlles created only for test use
     @RequestMapping(value = "/conversations", method = RequestMethod.GET)
-    public String conversationsIndex(Model model) {
-	//То для Саші для груп останні 5 обговорень
-	//List<Conversation> conversations = conversationService.findAll(new PageRequest(0, 5, Direction.DESC, "id"));
-	List<ConversationDto> conversations = conversationService.findLatestConversationsDtoByGroupId((long) 1);
+    public String conversationsIndex(@RequestParam("group_id") long id,Model model) {
+	List<ConversationDto> conversations = conversationService.findAllConversationsDtoByGroupId(id);
+	Long conversationsSize = conversationService.countByGroupId(id);
 	model.addAttribute("conversationDtos", conversations);
-	model.addAttribute("conversationsSize", conversations.size());//replace with count by group
+	model.addAttribute("conversationsSize", conversationsSize);
 	return "conversations";
     }
     

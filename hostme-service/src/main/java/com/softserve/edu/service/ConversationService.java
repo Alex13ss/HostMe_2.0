@@ -18,9 +18,11 @@ public interface ConversationService {
     
     Conversation findOne(Long id);
     
-    List<ConversationDto> findLatestConversationsDtoByGroupId(Long id);
-    
     Long countByGroupId(Long id);
+    
+    List<ConversationDto> findAllConversationsDtoByGroupId(Long id);
+    
+    List<ConversationDto> findLatestConversationsDtoByGroupId(Long id);
     
     //List<Conversation> findAllConversationsByGroupId(Long id);
 }
