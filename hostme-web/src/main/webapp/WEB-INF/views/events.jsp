@@ -25,7 +25,7 @@
 			<spring:message code="label.events" />
 		</h1>
 	</section>
- 
+
 	<!-- Main content -->
 	<section class="content">
 		<div class="row">
@@ -37,20 +37,22 @@
 						<i class="fa fa-plus-square"></i> Events management
 
 					</h3>
-					<div class="col-lg-offset-11" style="margin-top: 10px;">
-						<button onclick="refresh()" class="btn btn-default btn-sm">
-							<i class="fa fa-fw fa-plus-square-o"></i>
-							<spring:message code="label.addEvent" />
-						</button>
-						<button onclick="refresh()" class="btn btn-default btn-sm">
-							<i class="fa fa-fw fa-refresh"></i><spring:message code="label.Refresh" />
-						</button>
-						<button >
-							<i class="fa fa-fw fa-refresh"></i><spring:message code="label.addEvent" />
-						</button>
+					<div  id="mystyle" style="margin-top: 10px;">
 						
+							<button onclick="refresh()" class="btn btn-default btn-sm">
+								<i class="fa fa-fw fa-plus-square-o"></i>
+								<spring:message code="label.addEvent" />
+							</button>
+						
+						
+							<button onclick="refresh()" class="btn btn-default btn-sm">
+								<i class="fa fa-fw fa-refresh"></i>
+								<spring:message code="label.Refresh" />
+							</button>
+						
+
 					</div>
-					
+
 
 				</div>
 
