@@ -2,6 +2,7 @@ package com.softserve.edu.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Post;
@@ -52,10 +54,21 @@ public class ConversationServiceImpl implements ConversationService{
     @Override
     @Transactional
     public List<ConversationDto> findLatestConversationsDtoByGroupId(Long id) {
-	//Додати пошук по ід групи
 	List<ConversationDto> result = new ArrayList<ConversationDto>();
 	Pageable pageable = new PageRequest(0, 5, Direction.DESC, "id");
-	List<Conversation> conversations = conversationRepository.findAll(pageable).getContent();
+	List<Conversation> conversations = conversationRepository.findAllByGroupGroupId(pageable, id).getContent();
+	for (Conversation conv : conversations){
+	    Post lastPost = postRepository.findFirstByConversationIdOrderByIdDesc(conv.getId());
+	    result.add(new ConversationDto(conv,lastPost));
+	}
+	return result;
+    }
+    
+    @Override
+    @Transactional
+    public List<ConversationDto> findAllConversationsDtoByGroupId(Long id) {
+	List<ConversationDto> result = new ArrayList<ConversationDto>();
+	List<Conversation> conversations = (List<Conversation>) conversationRepository.findAllByGroupGroupId(id);
 	for (Conversation conv : conversations){
 	    Post lastPost = postRepository.findFirstByConversationIdOrderByIdDesc(conv.getId());
 	    result.add(new ConversationDto(conv,lastPost));
@@ -64,6 +77,7 @@ public class ConversationServiceImpl implements ConversationService{
     }
 
     @Override
+    @Transactional
     public Long countByGroupId(Long id) {
 	return conversationRepository.countByGroupGroupId(id);
     }

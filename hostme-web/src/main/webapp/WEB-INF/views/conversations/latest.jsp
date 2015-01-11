@@ -2,12 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-Hello Group
 <div id="group_conversations_block">
-	
-		<c:url var="conversationsUrl" value="/conversations" />
 
-		<a class="conversations_header_link" href="<c:out value="${conversationsUrl}"/>">
+	<a class="conversations_header_link" href="<c:out value="${conversationsUrl}"/>">
 			<div class="conversations_header">
 				<spring:message code="conversations.title" />
 				<span class="badge conversation_badge">${conversationsSize}</span> <span
