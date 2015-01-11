@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.service.GroupService;
 
@@ -26,11 +28,10 @@ public class GroupController {
         return "groups";
     }
     
-    @RequestMapping(value= "/groups/{id}")
-    public String groups(@PathVariable("id") Long id, Model model) {
-        Group group = groupService.findOne(id);
-        model.addAttribute("groupp", group);
+    @RequestMapping(value = "/group", method = RequestMethod.GET)
+    public String showConversation(@RequestParam("id") long id, Model model) {
+	Group group = groupService.findOne(id);
+        model.addAttribute("group", group);
         return "group";
     }
-    
 }
