@@ -45,14 +45,17 @@
 				<table id="request_table_obtain"
 					class="table table-bordered table-striped">
 				</table>
+
+				<c:forEach var="group" items="${groups}">
+					<c:out value="${group.groupName}" />
+
+					<a href="<c:out value="groups/${group.groupId}"/>">
+				</c:forEach>
+
 			</div>
 			<!-- /.box-body -->
 		</div>
 		<!-- /.box -->
-
-		<c:forEach var="group" items="${groups}">
-			<c:out value="${group.groupName}" />
-		</c:forEach>
 
 	</section>
 

@@ -15,7 +15,7 @@ import com.softserve.edu.service.GroupService;
 
 @Component
 public class GroupServiceImpl implements GroupService {
-    
+
     @Autowired
     private GroupRepository groupRepository;
 
@@ -23,8 +23,14 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     public Set<Group> findAll() {
         List<Group> list = (List<Group>) groupRepository.findAll();
-        Set<Group> items = new HashSet<Group>(list);  
+        Set<Group> items = new HashSet<Group>(list);
         return items;
+    }
+
+    @Override
+    @Transactional
+    public Group findOne(Long id) {
+        return groupRepository.findOne(id);
     }
 
 }
