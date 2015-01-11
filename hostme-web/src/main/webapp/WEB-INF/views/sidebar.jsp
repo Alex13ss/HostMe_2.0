@@ -66,9 +66,17 @@
 				</security:authorize>
 
 				<security:authorize access="isAuthenticated()">
-					<li><a href='<c:url value="routes"/>'
-						style="margin-left: 10px;"><i class="fa fa-arrows"></i> <spring:message
-								code="label.routes" /></a></li>
+					<li class="treeview">
+						<a href="#" style="margin-left: 10px">
+							<i class="fa fa-arrows"></i>
+							<span><spring:message code="label.routes" /></span>
+							<i class="fa fa-angle-left pull-right"></i>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href='<c:url value="/popularRoutes"/>'><i class="fa fa-angle-double-right"></i> Popular Routes</a></li>
+							<li><a href='<c:url value="/createRoute"/>'><i class="fa fa-angle-double-right"></i> Create Route</a></li>
+						</ul>
+					</li>
 				</security:authorize>
 
 				<security:authorize access="isAuthenticated()">
