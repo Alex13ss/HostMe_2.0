@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.repositories.SightseeingRepository;
 import com.softserve.edu.service.SightseeingService;
 
+@Service
 public class SightseeingServiceImpl implements SightseeingService {
 
 	@Autowired

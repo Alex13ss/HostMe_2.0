@@ -6,5 +6,4 @@ import com.softserve.edu.model.Sightseeing;
 
 public interface SightseeingService {
 	Set<Sightseeing> findAll();
-	
 }
