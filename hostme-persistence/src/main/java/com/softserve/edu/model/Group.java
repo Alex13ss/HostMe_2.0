@@ -3,6 +3,7 @@ package com.softserve.edu.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -43,7 +44,7 @@ public class Group {
      * private Set<Tag> tag;
      */
 
-    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
     private Set<Conversation> conversations;
 
     public Long getId() {

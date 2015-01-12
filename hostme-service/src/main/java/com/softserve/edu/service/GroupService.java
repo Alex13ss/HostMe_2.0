@@ -8,6 +8,8 @@ public interface GroupService {
 
     Set<Group> findAll();
 
-    Group findOne(Long id);
+    public Group findOne(Long id);
+
+    void delete(Group group);
 
 }
