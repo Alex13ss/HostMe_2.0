@@ -49,7 +49,7 @@
 				<c:forEach var="group" items="${groups}">
 					<c:out value="${group.groupName}" />
 					<c:url var="groupUrl" value="/group">
-						<c:param name="id" value="${group.groupId}" />
+						<c:param name="id" value="${group.id}" />
 					</c:url>
 					<a href="<c:out value="${groupUrl}"/>">Go Here!</a>
 					<br>

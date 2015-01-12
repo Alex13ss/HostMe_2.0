@@ -12,7 +12,7 @@
 Here Will be group info
 <p>Begin Conversations block</p>
 <c:url var="conversationsUrl" value="/conversations">
-		<c:param name="group_id" value="${group.groupId}" />
+		<c:param name="group_id" value="${group.id}" />
 </c:url>
 <%@ include file="conversations/latest.jsp" %>
 <p>End Conversations block</p>

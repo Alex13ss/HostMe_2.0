@@ -8,10 +8,10 @@ import com.softserve.edu.model.Conversation;
 
 public interface ConversationRepository extends PagingAndSortingRepository<Conversation, Long> {
     
-    Long countByGroupGroupId(Long id);
+    Long countByGroupId(Long id);
     
-    Iterable<Conversation> findAllByGroupGroupId(Long id);
+    Iterable<Conversation> findAllByGroupId(Long id);
     
-    Page<Conversation> findAllByGroupGroupId(Pageable pageable, Long id);
+    Page<Conversation> findAllByGroupId(Pageable pageable, Long id);
     
 }
