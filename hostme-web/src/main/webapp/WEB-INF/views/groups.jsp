@@ -29,11 +29,11 @@
 			<div class="box-header">
 
 				<h3 class="box-title col-md-10">
-					<i class="fa fa-th" style="margin-right: 10px;"> </i>Choose group
-					and have a fun and useful conversations!
+					<i class="fa fa-fw fa-list-alt"></i> Choose group and have a fun
+					and useful conversations!
 				</h3>
 
-				<div class="col-md-2" style="margin-top: 10px;">
+				<div class="col-md-2" align="right" style="margin-top: 10px;">
 					<button onclick="refresh()" class="btn btn-default btn-sm">
 						<i class="fa fa-fw fa-refresh"></i> Refresh list
 					</button>
@@ -41,25 +41,83 @@
 
 			</div>
 			<!-- /.box-header -->
+
 			<div class="box-body">
-				<table id="request_table_obtain"
-					class="table table-bordered table-striped">
+
+				<script type="text/javascript">
+					$(document).ready(
+							function() {
+								$(".triggerRemove").click(
+										function(e) {
+											e.preventDefault();
+											$("#modalRemove .removeBtn").attr(
+													"href",
+													$(this).attr("href"));
+											$("#modalRemove").modal();
+										});
+							});
+				</script>
+
+				<div class="alert alert-info" style="margin-right: 15px;"
+					align="center">Find minded people and get some conversations!
+					You'll get many useful information here! Have a fun! ;)</div>
+
+				<table class="table table-bordered table-hover table-striped">
+					<thead>
+						<tr>
+							<th>Group name</th>
+							<th>Published at</th>
+							<th>Operations</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${groups}" var="group">
+							<tr>
+								<td><a> <c:url var="groupUrl" value="/group">
+											<c:param name="id" value="${group.id}" />
+										</c:url> <a href="<c:out value="${groupUrl}"/>"><c:out
+												value="${group.groupName}" /></a> <br>
+								</a></td>
+								<td>${group.createdAt}</td>
+								<td><a
+									href="<spring:url value="/groups/remove/${group.id}" />"
+									class="btn btn-danger triggerRemove"> Remove </a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 
-				<c:forEach var="group" items="${groups}">
-					<c:out value="${group.groupName}" />
-					<c:url var="groupUrl" value="/group">
-						<c:param name="id" value="${group.id}" />
-					</c:url>
-					<a href="<c:out value="${groupUrl}"/>">Go Here!</a>
-					<br>
-				</c:forEach>
+				<!-- Modal -->
+				<div class="modal fade" id="modalRemove" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">Remove group</h4>
+							</div>
+							<div class="modal-body">Really remove?</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Cancel</button>
+								<a href="" class="btn btn-danger removeBtn">Remove</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div align="right" style="margin-top: 21px;">
+					<button type="button" class="btn btn-primary btn-md"
+						data-toggle="modal" data-target="">Create a new group</button>
+				</div>
 
 			</div>
 			<!-- /.box-body -->
 		</div>
 		<!-- /.box -->
-
 	</section>
 
 </body>
