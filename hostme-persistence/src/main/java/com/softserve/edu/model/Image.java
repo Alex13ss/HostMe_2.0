@@ -30,6 +30,10 @@ public class Image {
 	private Event event;
 	
 	@ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+	
+	@ManyToOne
 	@JoinColumn(name = "sightseeing_id")
 	private Sightseeing sightseeing;
 	

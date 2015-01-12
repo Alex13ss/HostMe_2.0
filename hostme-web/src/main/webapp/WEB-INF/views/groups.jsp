@@ -33,7 +33,7 @@
 					and useful conversations!
 				</h3>
 
-				<div class="col-md-2" style="margin-top: 10px;">
+				<div class="col-md-2" align="right" style="margin-top: 10px;">
 					<button onclick="refresh()" class="btn btn-default btn-sm">
 						<i class="fa fa-fw fa-refresh"></i> Refresh list
 					</button>
@@ -58,10 +58,15 @@
 							});
 				</script>
 
+				<div class="alert alert-info" style="margin-right: 15px;"
+					align="center">Find minded people and get some conversations!
+					You'll get many useful information here! Have a fun! ;)</div>
+
 				<table class="table table-bordered table-hover table-striped">
 					<thead>
 						<tr>
 							<th>Group name</th>
+							<th>Published at</th>
 							<th>Operations</th>
 						</tr>
 					</thead>
@@ -73,6 +78,7 @@
 										</c:url> <a href="<c:out value="${groupUrl}"/>"><c:out
 												value="${group.groupName}" /></a> <br>
 								</a></td>
+								<td>${group.createdAt}</td>
 								<td><a
 									href="<spring:url value="/groups/remove/${group.id}" />"
 									class="btn btn-danger triggerRemove"> Remove </a></td>
@@ -101,6 +107,11 @@
 							</div>
 						</div>
 					</div>
+				</div>
+
+				<div align="right" style="margin-top: 21px;">
+					<button type="button" class="btn btn-primary btn-md"
+						data-toggle="modal" data-target="">Create a new group</button>
 				</div>
 
 			</div>

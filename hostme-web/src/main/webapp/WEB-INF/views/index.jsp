@@ -216,8 +216,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="row">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div class="row" style="margin-left: 7px;">
                                             <form:radiobutton
                                                 class="radio inline"
                                                 path="gender"
