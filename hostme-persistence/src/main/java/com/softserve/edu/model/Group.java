@@ -18,7 +18,7 @@ public class Group {
     @Id
     @GeneratedValue
     @Column(name = "group_id", unique = true, nullable = false)
-    private Long groupId;
+    private Long id;
     
     @Column(name = "group_name", nullable = false)
     private String groupName;
@@ -40,12 +40,12 @@ public class Group {
     
 */    
 
-    public Long getGroupId() {
-        return groupId;
+    public Long getId() {
+        return id;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getGroupName() {
