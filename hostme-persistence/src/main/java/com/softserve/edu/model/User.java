@@ -110,24 +110,28 @@ public class User {
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
     @JoinTable(name = "user_languages", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "language_id"))
     private List<Language> languages = new ArrayList<Language>();
+
     /**
      * Contains images uploaded by this user
      */
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Image> images = new HashSet<Image>();
+
     /**
      * Contains hosting apartments owned by this user
      */
     @JsonIgnore
     @OneToMany(mappedBy = "owner", orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Hosting> hostings = new HashSet<Hosting>();
+
     /**
      * Contains requests submitted by this user
      */
     @JsonIgnore
     @OneToMany(mappedBy = "author", orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Request> requests = new HashSet<Request>();
+
     /**
      * Contains feedbackas provided by this user to hosters
      */
@@ -145,6 +149,11 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = javax.persistence.CascadeType.ALL)
     private Set<Route> routes = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
+    @JoinTable(name = "user_groups", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<Group> groups;
 
     public User() {
     }
@@ -261,11 +270,9 @@ public class User {
     }
 
     public List<Language> getLanguages() {
-
         HashSet<Language> langs = new HashSet<Language>(languages);
         languages.clear();
         languages.addAll(langs);
-
         return languages;
     }
 
@@ -346,6 +353,14 @@ public class User {
 
     public void setRoutes(Set<Route> routes) {
         this.routes = routes;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 
     @Override
