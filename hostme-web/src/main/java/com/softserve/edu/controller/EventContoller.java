@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.User;
@@ -38,13 +39,13 @@ public class EventContoller {
 	}
 	
 	@RequestMapping(value = "/my-events", method = RequestMethod.GET)
-	public String getEventsByOwner(Model model){
+	public @ResponseBody List<Event> getEventsByOwner(Model model){
 		
 		User user = profileController.getCurrentUser();
 		
 		List<Event> events = eventService.getEventByOwner(user);
 		model.addAttribute("my-events", events);
-		return "my-events";
+		return events;
 		
 	}
 		
