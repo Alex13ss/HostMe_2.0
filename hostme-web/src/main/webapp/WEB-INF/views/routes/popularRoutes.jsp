@@ -13,11 +13,6 @@
         #map-canvas { height: 40%; margin: 0; padding: 0;}
     </style>
 
-    <link href="<c:url value="resources/css/bootstrap.css"/>"
-          rel="stylesheet" type="text/css" />
-    <link href="<c:url value="resources/css/dataTables.bootstrap.css"/>"
-            rel="stylesheet" type="text/css" />
-
     <script src="<c:url value="resources/js/jquery.dataTables.js"/>"></script>
     <script src="<c:url value="resources/js/fnAjaxReload.js"/>"></script>
     <script src="<c:url value="resources/js/dataTables.bootstrap.js"/>"></script>
@@ -66,7 +61,7 @@
                             <h4>City</h4>
                         </div>
                     </div>
-                    <div class="col-lg-8" id="map-canvas" style=""></div>
+                    <div class="col-lg-8" id="map-canvas" ></div>
                     <button onclick="calcRoute(directionsDisplay)">Click</button>
                 </div>
                 <div class="row">
