@@ -1,17 +1,15 @@
 package com.softserve.edu.model;
 
+import com.softserve.edu.model.routes.Place;
+
 import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Sightseeing", uniqueConstraints = { @UniqueConstraint(columnNames = "sightseeing_id") })
-public class Sightseeing {
-
-	@Id
-	@GeneratedValue
-	@Column(name = "sightseeing_id")
-	private Integer sightseeingId;
+@Table(name = "Sightseeing", uniqueConstraints = { @UniqueConstraint(columnNames = "id") })
+@PrimaryKeyJoinColumn(name = "id")
+public class Sightseeing extends Place{
 
 	@Column(name = "sightseeing_name", nullable = false)
 	private String sightseeingName;
@@ -49,14 +47,6 @@ public class Sightseeing {
 
 	@Column(name = "comment")
 	private String comment;
-
-	public Integer getSightseeingId() {
-		return sightseeingId;
-	}
-
-	public void setSightseeingId(Integer sightseeingId) {
-		this.sightseeingId = sightseeingId;
-	}
 
 	public String getSightseeingName() {
 		return sightseeingName;
@@ -146,86 +136,4 @@ public class Sightseeing {
 		this.comment = comment;
 	}
 
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((address == null) ? 0 : address.hashCode());
-//		result = prime * result + ((city == null) ? 0 : city.hashCode());
-//		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-//		result = prime * result
-//				+ ((description == null) ? 0 : description.hashCode());
-//		result = prime * result + ((image == null) ? 0 : image.hashCode());
-//		result = prime * result
-//				+ ((priceCategory == null) ? 0 : priceCategory.hashCode());
-//		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
-//		result = prime * result
-//				+ ((sightseeingId == null) ? 0 : sightseeingId.hashCode());
-//		result = prime * result
-//				+ ((sightseeingType == null) ? 0 : sightseeingType.hashCode());
-//		result = prime * result + ((status == null) ? 0 : status.hashCode());
-//		result = prime * result + ((website == null) ? 0 : website.hashCode());
-//		return result;
-//	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Sightseeing other = (Sightseeing) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (city == null) {
-			if (other.city != null)
-				return false;
-		} else if (!city.equals(other.city))
-			return false;
-		if (comment == null) {
-			if (other.comment != null)
-				return false;
-		} else if (!comment.equals(other.comment))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (image == null) {
-			if (other.image != null)
-				return false;
-		} else if (!image.equals(other.image))
-			return false;
-		if (priceCategory == null) {
-			if (other.priceCategory != null)
-				return false;
-		} else if (!priceCategory.equals(other.priceCategory))
-			return false;
-		if (rating == null) {
-			if (other.rating != null)
-				return false;
-		} else if (!rating.equals(other.rating))
-			return false;
-		if (sightseeingId == null) {
-			if (other.sightseeingId != null)
-				return false;
-		} else if (!sightseeingId.equals(other.sightseeingId))
-			return false;
-		if (sightseeingType != other.sightseeingType)
-			return false;
-		if (status != other.status)
-			return false;
-		if (website == null) {
-			if (other.website != null)
-				return false;
-		} else if (!website.equals(other.website))
-			return false;
-		return true;
-	}
 }

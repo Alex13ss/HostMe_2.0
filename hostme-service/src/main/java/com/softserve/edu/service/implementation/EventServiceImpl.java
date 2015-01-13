@@ -31,7 +31,7 @@ public class EventServiceImpl implements EventService {
 	@Transactional
 	public void updateEvent(Event event) {
 		
-		Event update = eventRepository.findOne(event.getEventId());
+		Event update = eventRepository.findOne(event.getId());
 		
 		if(update != null) {
 			update.setStartDate(event.getStartDate());

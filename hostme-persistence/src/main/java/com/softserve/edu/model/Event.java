@@ -1,6 +1,8 @@
 package com.softserve.edu.model;
 
 
+import com.softserve.edu.model.routes.Place;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -13,13 +15,10 @@ import javax.persistence.*;
  *
  */
 @Entity
-@Table(name = "EVENTS", uniqueConstraints = { @UniqueConstraint(columnNames = "event_id") })
-public class Event {
-	@Id
-	@GeneratedValue
-	@Column(name = "event_id", unique = true, nullable = false)
-	private Integer eventId;
-	
+@Table(name = "EVENTS", uniqueConstraints = { @UniqueConstraint(columnNames = "id") })
+@PrimaryKeyJoinColumn(name = "id")
+public class Event extends Place{
+
 	@Column(name = "description")
 	private String description;
 	
@@ -67,17 +66,6 @@ public class Event {
 	public Event() {
 		super();
 	}
-
-
-	public Integer getEventId() {
-		return eventId;
-	}
-
-
-	public void setEventId(Integer eventId) {
-		this.eventId = eventId;
-	}
-
 
 	public String getDescription() {
 		return description;
@@ -198,106 +186,4 @@ public class Event {
 		this.attendee = attendee;
 	}
 
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result
-				+ ((attendee == null) ? 0 : attendee.hashCode());
-		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((comment == null) ? 0 : comment.hashCode());
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((eventId == null) ? 0 : eventId.hashCode());
-		result = prime * result + ((image == null) ? 0 : image.hashCode());
-		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
-		result = prime * result
-				+ ((priceCategory == null) ? 0 : priceCategory.hashCode());
-		result = prime * result
-				+ ((startDate == null) ? 0 : startDate.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((website == null) ? 0 : website.hashCode());
-		return result;
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Event other = (Event) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (attendee == null) {
-			if (other.attendee != null)
-				return false;
-		} else if (!attendee.equals(other.attendee))
-			return false;
-		if (city == null) {
-			if (other.city != null)
-				return false;
-		} else if (!city.equals(other.city))
-			return false;
-		if (comment == null) {
-			if (other.comment != null)
-				return false;
-		} else if (!comment.equals(other.comment))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (endDate == null) {
-			if (other.endDate != null)
-				return false;
-		} else if (!endDate.equals(other.endDate))
-			return false;
-		if (eventId == null) {
-			if (other.eventId != null)
-				return false;
-		} else if (!eventId.equals(other.eventId))
-			return false;
-		if (image == null) {
-			if (other.image != null)
-				return false;
-		} else if (!image.equals(other.image))
-			return false;
-		if (owner == null) {
-			if (other.owner != null)
-				return false;
-		} else if (!owner.equals(other.owner))
-			return false;
-		if (priceCategory == null) {
-			if (other.priceCategory != null)
-				return false;
-		} else if (!priceCategory.equals(other.priceCategory))
-			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
-		if (status != other.status)
-			return false;
-		if (website == null) {
-			if (other.website != null)
-				return false;
-		} else if (!website.equals(other.website))
-			return false;
-		return true;
-	}
-	
-	
-	
 }

@@ -34,7 +34,7 @@ public class Image {
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "sightseeing_id")
+    @JoinColumn(name = "id")
     private Sightseeing sightseeing;
 
     public Image() {

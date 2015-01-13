@@ -21,7 +21,6 @@ public class Route {
     @JoinTable(name = "routes_waypoints",
         joinColumns = {@JoinColumn(name = "route_id")},
         inverseJoinColumns = {@JoinColumn(name = "waypoint_id")})
-    Set<Waypoint> waypoint;
 
     public int getId() {
         return id;
@@ -47,11 +46,4 @@ public class Route {
         this.description = description;
     }
 
-    public Set<Waypoint> getWaypoint() {
-        return waypoint;
-    }
-
-    public void setWaypoint(Set<Waypoint> waypoint) {
-        this.waypoint = waypoint;
-    }
 }
