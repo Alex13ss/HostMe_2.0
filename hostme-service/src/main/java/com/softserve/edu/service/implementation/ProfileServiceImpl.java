@@ -42,7 +42,6 @@ public class ProfileServiceImpl implements ProfileService {
 						.get(Calendar.DAY_OF_MONTH)) {
 			age--;
 		}
-		System.out.println(age);
 		return age;
 	}
 

@@ -18,7 +18,8 @@
 		<intercept-url pattern="/hosting-creation" access="hasRole('USER')" />
 		<intercept-url pattern="/edit-languages" access="hasRole('USER')" />
 		<intercept-url pattern="/search" access="hasRole('USER')" />
-		<intercept-url pattern="/routes" access="hasRole('USER')" />
+		<intercept-url pattern="/popularRoutes" access="hasRole('USER')" />
+		<intercept-url pattern="/createRoute" access="hasRole('USER')" />
 		<intercept-url pattern="/groups" access="hasRole('USER')" />
 		<intercept-url pattern="/profile" access="hasRole('USER')" />
 		<intercept-url pattern="/conversations" access="hasRole('USER')" />

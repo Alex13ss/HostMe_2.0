@@ -22,7 +22,7 @@
     <section class="content">
         <div class="row">
             <security:authorize access="! isAuthenticated()">
-                    <div class="col-lg-3 col-xs-6 col-md-offset-3">
+                    <div class="col-lg-3 col-xs-6 col-md-offset-2">
                         <div class="btn small-box bg-aqua">
                             <div data-toggle="modal"
                   			     data-target="#myModal" 
@@ -38,7 +38,6 @@
                     </div>
                     
                     
-<!-- tour btn -->
                 <div class="col-lg-3 col-xs-6">
                     <div data-toggle="modal"
                          data-target=""
@@ -53,8 +52,7 @@
                         </div>
                     </div>
                 </div>
-<!-- tour btn -->
-                
+
                 
                 <!-- ./col -->
                 
@@ -136,7 +134,7 @@
 
         <!-- Registration Modal -->
 
-        <div class="modal fade" id="registrationModal" tabindex="-1"
+        <div class="modal fade bg-gray" id="registrationModal" tabindex="-1"
             role="dialog" aria-labelledby="myModalLabel"
             data-backdrop="static"
             aria-hidden="true">
@@ -269,7 +267,7 @@
 
         <!-- Login Modal -->
         
-        <div class="modal fade" id="myModal" tabindex="-1" 
+        <div class="modal fade bg-gray" id="myModal" tabindex="-1"
     	role="dialog" aria-labelledby="myModalLabel" 
     	data-backdrop="static"
         aria-hidden="true">

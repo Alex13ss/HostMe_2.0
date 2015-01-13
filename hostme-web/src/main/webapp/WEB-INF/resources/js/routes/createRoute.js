@@ -1,1 +1,1 @@
-
+var dirServis = new google.maps.DirectionsService();

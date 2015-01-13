@@ -223,15 +223,16 @@
                                             </div></td>
                                     </tr>
                                 </c:forEach>
-
                             </table>
-
                             <div style="margin-top: 20px;">
 
-                                <a
-                                    href="<c:url value='hosting-creation' />"
-                                    class="btn btn-primary button"><spring:message
-                                            code="label.addHosting" /></a> <br>
+                                <a href="<c:url value='hosting-creation' />"
+                                    class="btn btn-primary button">
+                                    <spring:message code="label.addHosting" /></a>
+
+                                <a href="<c:url value='/createRoute' />"
+                                    class="btn btn-primary button">
+                                    <spring:message code="routes.createRoute" /></a>
                             </div>
                         </div>
                     </div>

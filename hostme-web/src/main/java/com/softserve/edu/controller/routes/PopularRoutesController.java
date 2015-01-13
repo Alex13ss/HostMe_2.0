@@ -1,6 +1,6 @@
 package com.softserve.edu.controller.routes;
 
-import com.softserve.edu.service.RoutesService;
+import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
