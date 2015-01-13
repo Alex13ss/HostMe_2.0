@@ -23,6 +23,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
+import com.softserve.edu.model.routes.Route;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
@@ -135,8 +136,13 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
-    @JoinTable(name = "user_attendee", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "event_id"))
+    @JoinTable(name = "user_attendee",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> attendee;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = javax.persistence.CascadeType.ALL)
+    private Set<Route> routes = new HashSet<>();
 
     public User() {
     }
@@ -331,6 +337,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(Set<Route> routes) {
+        this.routes = routes;
     }
 
     @Override

@@ -149,7 +149,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-5">
                             <div class="row col-md-12"
                                 style="padding-top: 3em;">
@@ -171,82 +170,101 @@
                                     </h4>
                                     <p>${user.hobby}</p>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12" style="margin-top: 1em;">
-                            <h4>
-                                <spring:message
-                                    code="label.hostingAddresses" />
-                                :
-                            </h4>
-                        </div>
-                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th><spring:message
-                                            code="label.country" /></th>
-                                    <th><spring:message
-                                            code="label.region" /></th>
-                                    <th><spring:message
-                                            code="label.city" /></th>
-                                    <th><spring:message
-                                            code="label.address" /></th>
-                                    <th><spring:message
-                                            code="label.manage" /></th>
-                                </tr>
-                                <c:forEach var="hosting"
-                                    items="${user.hostings}">
-                                    <tr>
-                                        <td>${hosting.country}</td>
-                                        <td>${hosting.region}</td>
-                                        <td>${hosting.city}</td>
-                                        <td><a
-                                            href=<c:url value="hosting?hostingId=${hosting.hostingId}&&userId=${user.userId}"/>>${hosting.address}</a></td>
-                                        <td width="250px;"><div
-                                                class="tools">
-                                                <a href=<c:url value="hosting-editing?hostingId=${hosting.hostingId}&&userId=${user.userId}"/>
-                                                    class="text-green"><spring:message
-                                            code="label.edit" />&nbsp;&nbsp;<span
-                                                    class="fa fa-edit"
-                                                    style="margin-right: 1em"></span></a>
-                                                <a href=<c:url value="hosting-delete?hostingId=${hosting.hostingId}"/>
-                                                    class="text-red"><spring:message
-                                            code="label.delete" />&nbsp;&nbsp;<span
-                                                    class="fa fa-trash-o"></span></a>
-                                            </div></td>
-                                    </tr>
-                                </c:forEach>
-                            </table>
-                            <div class="row">
-                                <div class="col-md-12" style="margin-top: 1em;">
-                                    <h4>
-                                        <spring:message code="routes.userOwnRoutes" />
-                                    </h4>
+                            <c:if test="${!empty user.hostings}">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-top: 1em;">
+                                        <h4>
+                                            <spring:message
+                                                    code="label.hostingAddresses" />
+                                            :
+                                        </h4>
+                                    </div>
                                 </div>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th><spring:message
+                                                code="label.country" /></th>
+                                        <th><spring:message
+                                                code="label.region" /></th>
+                                        <th><spring:message
+                                                code="label.city" /></th>
+                                        <th><spring:message
+                                                code="label.address" /></th>
+                                        <th><spring:message
+                                                code="label.manage" /></th>
+                                    </tr>
+                                    <c:forEach var="hosting"
+                                        items="${user.hostings}">
+                                        <tr>
+                                            <td>${hosting.country}</td>
+                                            <td>${hosting.region}</td>
+                                            <td>${hosting.city}</td>
+                                            <td><a
+                                                href=<c:url value="hosting?hostingId=${hosting.hostingId}&&userId=${user.userId}"/>>${hosting.address}</a></td>
+                                            <td width="250px"><div
+                                                    class="tools">
+                                                    <a href=<c:url value="hosting-editing?hostingId=${hosting.hostingId}&&userId=${user.userId}"/>
+                                                        class="text-green"><spring:message
+                                                code="label.edit" />&nbsp;&nbsp;<span
+                                                        class="fa fa-edit"
+                                                        style="margin-right: 1em"></span></a>
+                                                    <a href=<c:url value="hosting-delete?hostingId=${hosting.hostingId}"/>
+                                                        class="text-red"><spring:message
+                                                code="label.delete" />&nbsp;&nbsp;<span
+                                                        class="fa fa-trash-o"></span></a>
+                                                </div></td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </c:if>
+                            <c:if test="${!empty user.routes}">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-top: 1em;">
+                                        <h4>
+                                            <spring:message code="routes.userRoutes" />
+                                        </h4>
+                                    </div>
+                                </div>
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Places</th>
+                                    </tr>
+                                    <c:forEach var="route" items="${user.routes}">
+                                        <tr>
+                                            <td>${route.name}</td>
+                                            <td>${route.description}</td>
+                                            <td>
+                                               <c:forEach var="place" items="${route.places}">
+                                                   ${place}
+                                               </c:forEach>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
+                            </c:if>
+                            <div style="margin-top: 20px;">
+
+                                <a href="<c:url value='hosting-creation' />"
+                                    class="btn btn-primary button">
+                                    <spring:message code="label.addHosting" /></a>
+
+                                <a href="<c:url value='/createRoute' />"
+                                    class="btn btn-primary button">
+                                    <spring:message code="routes.createRoute" /></a>
                             </div>
                         </div>
-                        <div style="margin-top: 20px;">
-
-                            <a href="<c:url value='hosting-creation' />"
-                               class="btn btn-primary button">
-                                <spring:message code="label.addHosting" /></a>
-
-                            <a href="<c:url value='/createRoute' />"
-                               class="btn btn-primary button">
-                                <spring:message code="routes.createRoute" /></a>
-                        </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </section>
 </body>

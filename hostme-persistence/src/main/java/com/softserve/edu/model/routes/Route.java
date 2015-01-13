@@ -1,5 +1,7 @@
 package com.softserve.edu.model.routes;
 
+import com.softserve.edu.model.User;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,6 +18,9 @@ public class Route {
 
     @Column (nullable = false)
     private String description;
+
+    @ManyToOne
+    private User user;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "routes_places",
@@ -47,4 +52,27 @@ public class Route {
         this.description = description;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(Set<Place> places) {
+        this.places = places;
+    }
+
+    @Override
+    public String toString() {
+        return "Route{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
