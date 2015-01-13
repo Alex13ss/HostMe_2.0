@@ -281,7 +281,16 @@ public class User {
         return feedbacks;
     }
 
-    public void addLanguage(Language language) {
+        
+    public Set<Event> getAttendee() {
+		return attendee;
+	}
+
+	public void setAttendee(Set<Event> attendee) {
+		this.attendee = attendee;
+	}
+
+	public void addLanguage(Language language) {
         if (language != null && !languages.contains(language)) {
             languages.add(language);
             language.addUser(this);

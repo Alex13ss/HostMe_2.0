@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/video.css">
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
+<script src="resources/js/event.js" type="text/javascript"></script>
 <script src="resources/js/fnAjaxReload.js" type="text/javascript"></script>
 <script src="resources/js/dataTables.bootstrap.js"
 	type="text/javascript"></script>
