@@ -12,7 +12,7 @@ public class City {
 	@Column(name = "city_id", unique = true, nullable = false)
 	private Integer cityId;
 
-	@Column(name = "city", length = 32)
+	@Column(name = "city", length = 64)
 	private String city;
 
 	@ManyToOne

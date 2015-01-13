@@ -20,7 +20,7 @@ public class Country {
 	@Column(name = "country_id", unique = true, nullable = false)
 	private Integer countryId;
 
-	@Column(name = "country", length = 32)
+	@Column(name = "country", length = 64)
 	private String country;
 		
 	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER, orphanRemoval = true)

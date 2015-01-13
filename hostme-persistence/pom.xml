@@ -36,12 +36,18 @@
 					<driver>org.postgresql.Driver</driver>
 					<url>jdbc:postgresql://localhost:5432/hostme</url>
 					<username>postgres</username>
-					<password>${jdbc.password}</password>
+					<password>123456</password>
 					<autocommit>true</autocommit>
 					<onError>continue</onError>
 					<srcFiles>
+					<!--  	 -->
+						<srcFile>src/main/resources/sql/places.sql</srcFile>
+						<srcFile>src/main/resources/sql/countries.sql</srcFile>
+						<srcFile>src/main/resources/sql/Cities.sql</srcFile>
 						<srcFile>src/main/resources/sql/roles-insert.sql</srcFile>
+						<srcFile>src/main/resources/sql/PriceCategory.sql</srcFile>
 						<srcFile>src/main/resources/sql/users-insert.sql</srcFile>
+						<srcFile>src/main/resources/sql/events.sql</srcFile>
 						<srcFile>src/main/resources/sql/conversations-Insert.sql</srcFile>
 					</srcFiles>
 				</configuration>
