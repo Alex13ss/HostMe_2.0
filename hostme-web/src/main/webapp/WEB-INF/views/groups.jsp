@@ -8,6 +8,7 @@
 <html>
 <head>
 
+<script type="text/javascript" src="../resources/js/group.js"></script>
 <script type="text/javascript" src="resources/js/fnAjaxReload.js"></script>
 
 <title>Groups</title>
