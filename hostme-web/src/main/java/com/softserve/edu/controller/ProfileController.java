@@ -24,7 +24,7 @@ public class ProfileController {
 	@Autowired
 	private ImageService imageService;
 
-	private User getCurrentUser() {
+	public User getCurrentUser() {
 
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();

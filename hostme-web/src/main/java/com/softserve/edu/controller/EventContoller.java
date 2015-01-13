@@ -26,18 +26,8 @@ public class EventContoller {
 	
 	@Autowired
 	ProfileService profileService;
-	
-	
-	private User getCurrentUser() {
 
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-		String currentPrincipalName = authentication.getName();
-
-		return profileService.getUserByLogin(currentPrincipalName);
-	}
-
-	
+	ProfileController profileController;
 	
 	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public String getEvents(Model model){
@@ -50,23 +40,12 @@ public class EventContoller {
 	@RequestMapping(value = "/my-events", method = RequestMethod.GET)
 	public String getEventsByOwner(Model model){
 		
-		User user = getCurrentUser();
+		User user = profileController.getCurrentUser();
 		
 		List<Event> events = eventService.getEventByOwner(user);
 		model.addAttribute("my-events", events);
 		return "my-events";
 		
 	}
-	
-	@RequestMapping(value = "/signed-events", method = RequestMethod.GET)
-	public String getEventsByAttendee(Model model){
 		
-		User user = getCurrentUser();
-		
-		Set<Event> events = user.getAttendee();
-		model.addAttribute("signed-events", events);
-		return "signed-events";
-		
-	}
-	
 }
