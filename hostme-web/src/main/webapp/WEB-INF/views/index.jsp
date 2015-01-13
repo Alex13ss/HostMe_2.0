@@ -185,7 +185,7 @@
 									</div>
 
 									<div class="form-group">
-										<div class="row" style="margin-left: 7px;">
+										<div class="row" style="margin-left: auto;"> Your gender:
 											<form:radiobutton class="radio inline" path="gender"
 												value="FEMALE" />
 											Female
