@@ -3914,3 +3914,6 @@ img.displayed {
 .optionsList {
 	padding-left: 0.5em;
 }
+div#addButtonEvent{
+	float:right;
+}
