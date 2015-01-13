@@ -27,7 +27,7 @@ public class CreateRouteController {
     public String addRoute(@ModelAttribute("route") Route route,
                            @RequestParam(value = "from") String begin,
                            @RequestParam(value = "to") String end,
-                           @RequestParam(value = "waypoint1") String waypoint) {
+                           @RequestParam(value = "waypoint") String waypoint) {
 
         routesService.addRoute(route);
         return "redirect:/profile";

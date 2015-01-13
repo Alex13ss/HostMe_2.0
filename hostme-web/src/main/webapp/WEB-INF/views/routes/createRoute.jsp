@@ -13,12 +13,12 @@
         #map-canvas { height: 40%; margin: 0; padding: 0;}
     </style>
 
-    <link href="${pageContext.request.contextPath}/WEB-INF/resources/css/bootstrap.css"
-            rel="stylesheet" type="text/css" />
-    <link href="${pageContext.request.contextPath}/WEB-INF/resources/css/dataTables.bootstrap.css"
-            rel="stylesheet" type="text/css" />
-    <link href="${pageContext.request.contextPath}/WEB-INF/resources/css/maps/basicMap.css"
-            rel="stylesheet" type="text/css">
+    <link href="<c:url value="resources/css/bootstrap.css"/>"
+          rel="stylesheet" type="text/css" />
+    <link href="<c:url value="resources/css/dataTables.bootstrap.css"/>"
+          rel="stylesheet" type="text/css" />
+    <link href="<c:url value="resources/css/basicMap.css"/>"
+          rel="stylesheet" type="text/css" />
 
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiYncr79qu9wVjrwaSBHHTKMb3Dbo3Eo">
@@ -39,21 +39,6 @@
             var map = new google.maps.Map(document.getElementById('map-canvas'),
                     mapOptions);
             directionsDisplay.setMap(map);
-        }
-
-        function calcRoute() {
-            var start = "Lviv";
-            var end = "Kiev";
-            var request = {
-                origin: start,
-                destination: end,
-                travelMode: google.maps.TravelMode.DRIVING
-            };
-            directionsService.route(request, function (result, status) {
-                if (status == google.maps.DirectionsStatus.OK) {
-                    directionsDisplay.setDirections(result);
-                }
-            });
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
@@ -97,13 +82,12 @@
                             </label>
                         </div>
                         <div class="row">
-                            Waypoint1
+                            <spring:message code="routes.createRouteWaypoint"/>
                             <label>
                                 <input class="form-control" type="text" name="waypoint">
                             </label>
                         </div>
-                        <button type="submit" class="btn btn-primary"
-                        style="margin-bottom: 30px; margin-top: 10px;">
+                        <button type="submit" class="btn btn-primary">
                             Create route
                         </button>
                     </div>

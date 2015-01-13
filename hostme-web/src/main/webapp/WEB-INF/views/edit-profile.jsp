@@ -15,7 +15,8 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.min.js"></script>
 
-<script type="text/javascript" src="resources/js/bootstrap-datepicker.js"></script>
+<%--<script type="text/javascript" src="resources/js/bootstrap-datepicker.js"></script>--%>
+<script type="text/javascript" src="<c:url value="resources/js/bootstrap-datepicker.js"/>"></script>
 
 
 </head>
