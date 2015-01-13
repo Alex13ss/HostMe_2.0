@@ -38,13 +38,13 @@ public class EventContoller {
 		
 	}
 	
-	@RequestMapping(value = "/my-events", method = RequestMethod.GET)
+	@RequestMapping(value = "/all-events", method = RequestMethod.GET)
 	public @ResponseBody List<Event> getEventsByOwner(Model model){
 		
 		User user = profileController.getCurrentUser();
 		
 		List<Event> events = eventService.getEventByOwner(user);
-		model.addAttribute("my-events", events);
+		model.addAttribute("all-events", events);
 		return events;
 		
 	}

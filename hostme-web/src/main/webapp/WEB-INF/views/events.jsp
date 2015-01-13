@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
-<link rel="stylesheet" type="text/css" href="resources/css/video.css">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/event.js" type="text/javascript"></script>
@@ -43,7 +43,7 @@
 
 					</h3>
 
-					<div id="mystyle" style="margin-top: 10px;">
+					<div id="addButtonEvent" style="margin-top: 10px;">
 						<a href="event-creation" class="btn btn-default btn-sm"><i
 							class="fa fa-fw fa-plus-square-o"></i>
 						<spring:message code="label.addEvent" /></a>
@@ -61,7 +61,7 @@
 				<ul class="nav nav-tabs">
 
 					<li id="all_events" class="active"
-						onclick="initialize_request_from_me(this)"><a href="#"
+						onclick="all_events(this)"><a href="#"
 						data-toggle="tab"><spring:message code="label.events" /></a></li>
 
 					<li class="" onclick="initialize_request_to_me(this)"><a
