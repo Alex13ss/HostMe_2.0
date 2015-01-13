@@ -5,30 +5,33 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
-import com.softserve.edu.model.routes.Route;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.softserve.edu.model.routes.Route;
 
 /**
  * This class represents data for User object. It uses Hibernate to map java
@@ -37,12 +40,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author Lv-117
  */
 @Entity
-@Table(name = "USERS", uniqueConstraints = { @UniqueConstraint(columnNames = {
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = {
         "user_id", "login", "email" }) })
 public class User {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "users_user_id_seq", sequenceName = "users_user_id_seq", allocationSize = 100)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_user_id_seq")
     @Column(name = "user_id", unique = true, nullable = false)
     private Integer userId;
 
@@ -136,9 +140,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
-    @JoinTable(name = "user_attendee",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id"))
+    @JoinTable(name = "user_attendee", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "event_id"))
     private Set<Event> attendee;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = javax.persistence.CascadeType.ALL)
@@ -287,16 +289,15 @@ public class User {
         return feedbacks;
     }
 
-        
     public Set<Event> getAttendee() {
-		return attendee;
-	}
+        return attendee;
+    }
 
-	public void setAttendee(Set<Event> attendee) {
-		this.attendee = attendee;
-	}
+    public void setAttendee(Set<Event> attendee) {
+        this.attendee = attendee;
+    }
 
-	public void addLanguage(Language language) {
+    public void addLanguage(Language language) {
         if (language != null && !languages.contains(language)) {
             languages.add(language);
             language.addUser(this);
