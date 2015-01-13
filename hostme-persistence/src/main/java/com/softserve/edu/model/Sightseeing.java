@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Sightseeing extends Place{
 
 	@Column(name = "sightseeing_name", nullable = false)
-	private String sightseeingName;
+	private String name;
 	
 	@ManyToOne
 	@JoinColumn(name = "city_id", nullable = false)
@@ -48,12 +48,12 @@ public class Sightseeing extends Place{
 	@Column(name = "comment")
 	private String comment;
 
-	public String getSightseeingName() {
-		return sightseeingName;
+	public String getName() {
+		return name;
 	}
 
-	public void setSightseeingName(String sightseeingName) {
-		this.sightseeingName = sightseeingName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public City getCity() {

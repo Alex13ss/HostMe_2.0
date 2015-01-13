@@ -1,22 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link type="text/css" rel="stylesheet"
+	href="resources/css/sightseeing.css" />
+<script type='text/javascript' src="resources/js/sightseeing.js"></script>
 <title>Sightseeing</title>
 </head>
-<body>
-	<c:forEach var="sightseeing" items="${sightseeings}">
-		<c:out value="${sightseeing.sightseeingId}">
-		</c:out>
-		<c:out value="${sightseeing.sightseeingName}">
-		</c:out>
-		<c:out value="${sightseeing.city.city}">
-		</c:out>
-		<c:out value="${sightseeing.description}">
-		</c:out>
-	</c:forEach>
+<body class="skin-blue  pace-done" style="min-height: 1293px;">
+	<section class="content-header">
+	<h1>
+		<spring:message code="label.sightseeings" />
+	</h1>
+	</section>
+
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">List of all sightseeings</h3>
+		</div>
+		<div class="box-body table-responsive">
+			<div id="example1_wrapper" class="dataTables_wrapper form-inline"
+				role="grid">
+				<div style="margin-top: 20px;">
+
+					<a href="<c:url value='create-sightseeing' />"
+						class="btn btn-primary button"><spring:message
+							code="label.addSightseeing" /></a> <br>
+				</div>
+				<table id="example1"
+					class="table table-bordered table-striped dataTable">
+					<thead>
+						<tr role="row">
+							<th>Id</th>
+							<th>Name</th>
+							<th>Description</th>
+							<th>City</th>
+							<th>Image</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="sightseeing" items="${sightseeings}">
+							<tr
+								href="<c:url value="sightseeing"><c:param name="id" value="${sightseeing.id}" /></c:url>"
+								class="clickableRow" class="odd">
+								<td class=" sorting_1"><c:out value="${sightseeing.id}">
+									</c:out></td>
+								<td class=" "><c:out value="${sightseeing.name}">
+									</c:out></td>
+								<td class=" "><c:out value="${sightseeing.description}">
+									</c:out></td>
+								<td class=" "><c:out value="${sightseeing.city.city}">
+									</c:out></td>
+								<td class=" "><a href="${image.link}"><img
+										width="150px" height="150px" src="${image.link}"></a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

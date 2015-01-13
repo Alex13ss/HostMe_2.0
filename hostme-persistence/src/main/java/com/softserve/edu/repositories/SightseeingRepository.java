@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.softserve.edu.model.Sightseeing;
 
-public interface SightseeingRepository extends CrudRepository<Sightseeing, Long> {
+public interface SightseeingRepository extends CrudRepository<Sightseeing, Integer> {
 
 }

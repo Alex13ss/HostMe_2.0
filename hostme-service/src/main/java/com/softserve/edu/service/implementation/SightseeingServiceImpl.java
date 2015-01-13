@@ -27,4 +27,10 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return items;
 	}
 
+	@Override
+	@Transactional
+	public Sightseeing findOne(Integer id) {
+		return sightseeingRepository.findOne(id);
+	}
+
 }
