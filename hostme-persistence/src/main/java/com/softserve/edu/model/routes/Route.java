@@ -18,9 +18,10 @@ public class Route {
     private String description;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "routes_waypoints",
+    @JoinTable(name = "routes_places",
         joinColumns = {@JoinColumn(name = "route_id")},
-        inverseJoinColumns = {@JoinColumn(name = "waypoint_id")})
+        inverseJoinColumns = {@JoinColumn(name = "place_id")})
+    private Set<Place> places;
 
     public int getId() {
         return id;

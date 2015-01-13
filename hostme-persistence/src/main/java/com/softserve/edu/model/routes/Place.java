@@ -1,6 +1,7 @@
 package com.softserve.edu.model.routes;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table
@@ -19,4 +20,7 @@ public class Place {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    @ManyToMany(mappedBy = "places", cascade = CascadeType.ALL)
+    Set<Route> routes;
 }
