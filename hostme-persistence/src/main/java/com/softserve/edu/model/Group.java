@@ -87,4 +87,9 @@ public class Group {
         this.createdAt = createdAt;
     }
 
+    public void setUser(User user) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

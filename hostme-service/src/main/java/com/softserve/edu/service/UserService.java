@@ -18,4 +18,6 @@ public interface UserService {
 	
 	public void initilizeUserLanguages(User user);
 
+    public Object findOneWithGroups(String name);
+
 }

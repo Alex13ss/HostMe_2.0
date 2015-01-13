@@ -16,6 +16,9 @@ import com.softserve.edu.service.GroupService;
 @Component
 public class GroupServiceImpl implements GroupService {
 
+    // @Autowired
+    // private UserRepository userRepository;
+    
     @Autowired
     private GroupRepository groupRepository;
 
@@ -37,5 +40,18 @@ public class GroupServiceImpl implements GroupService {
     public void delete(Group group) {
         groupRepository.delete(group);
     }
+
+    @Override
+    public void create(Group group, String name) {
+        // TODO Auto-generated method stub
+        
+    }
+
+//    @Override
+//    public void create(Group group, String name) {
+//        User user = userRepository.findByName(name);
+//        group.setUser(user);
+//        groupRepository.save(group);
+//    }
 
 }

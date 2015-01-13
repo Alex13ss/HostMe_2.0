@@ -39,6 +39,50 @@
 					</button>
 				</div>
 
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+					aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">Create a new group</h4>
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group">
+									<label for="name" class="col-sm-2 control-label"> Name:
+									</label>
+									<div class="col-sm-10">
+										<!-- form:input path="name" cssClass="form-control" /-->
+										<!-- form:errors path="name" /-->
+									</div>
+								</div>
+								
+								<br />
+
+								<div class="form-group">
+									<label for="name" class="col-sm-2 control-label"> etc.:
+									</label>
+									<div class="col-sm-10">
+										<!-- form:input path="url" cssClass="form-control" /-->
+										<!--form:errors path="url" /-->
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">Close</button>
+								<input type="submit" class="btn btn-primary" value="Create one!" />
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 			<!-- /.box-header -->
 
@@ -99,7 +143,12 @@
 								</button>
 								<h4 class="modal-title" id="myModalLabel">Remove group</h4>
 							</div>
-							<div class="modal-body">Really remove?</div>
+							<div class="modal-body">
+								<div class="callout callout-danger" id="alert" align="center">
+									<font size="5">Are you sure you want to destroy this
+										group???</font>
+								</div>
+							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Cancel</button>
@@ -111,7 +160,8 @@
 
 				<div align="right" style="margin-top: 21px;">
 					<button type="button" class="btn btn-primary btn-md"
-						data-toggle="modal" data-target="">Create a new group</button>
+						data-toggle="modal" data-target="#myModal">Create a new
+						group</button>
 				</div>
 
 			</div>

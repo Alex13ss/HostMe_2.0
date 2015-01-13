@@ -3,6 +3,7 @@ package com.softserve.edu.service.implementation;
 import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.UserService;
+
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,5 +54,11 @@ public class UserServiceImpl implements UserService {
 		userDaoImpl.update(user);
 		Hibernate.initialize(user.getLanguages());
 	}
+
+    @Override
+    public Object findOneWithGroups(String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 	
 }
