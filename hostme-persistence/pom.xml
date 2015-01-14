@@ -14,7 +14,7 @@
 		<hibernateVersion>4.3.6.Final</hibernateVersion>
 		<jacsonVersion>2.4.2</jacsonVersion>
 		<springDataJpaVersion>1.7.1.RELEASE</springDataJpaVersion>
-		<jdbc.password>11071990</jdbc.password>
+		<jdbc.password>123456</jdbc.password>
 	</properties>
 
 	<build>
@@ -41,15 +41,15 @@
 					<onError>continue</onError>
 					<srcFiles>
 						<!-- -->
-						<srcFile>src/main/resources/sql/places.sql</srcFile>
 						<srcFile>src/main/resources/sql/countries.sql</srcFile>
-						<srcFile>src/main/resources/sql/Cities.sql</srcFile>
-						<srcFile>src/main/resources/sql/roles-insert.sql</srcFile>
-						<srcFile>src/main/resources/sql/PriceCategory.sql</srcFile>
-						<srcFile>src/main/resources/sql/users-insert.sql</srcFile>
+						<srcFile>src/main/resources/sql/cities.sql</srcFile>
+						<srcFile>src/main/resources/sql/places.sql</srcFile>
+						<srcFile>src/main/resources/sql/roles.sql</srcFile>
+						<srcFile>src/main/resources/sql/priceCategories.sql</srcFile>
+						<srcFile>src/main/resources/sql/users.sql</srcFile>
 						<srcFile>src/main/resources/sql/events.sql</srcFile>
-						<srcFile>src/main/resources/sql/conversations-Insert.sql</srcFile>
-						<srcFile>src/main/resources/sql/sightseeing.sql</srcFile>
+						<srcFile>src/main/resources/sql/conversations.sql</srcFile>
+						<srcFile>src/main/resources/sql/sightseeings.sql</srcFile>
 					</srcFiles>
 				</configuration>
 
