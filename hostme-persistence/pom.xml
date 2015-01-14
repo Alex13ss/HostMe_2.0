@@ -14,7 +14,7 @@
 		<hibernateVersion>4.3.6.Final</hibernateVersion>
 		<jacsonVersion>2.4.2</jacsonVersion>
 		<springDataJpaVersion>1.7.1.RELEASE</springDataJpaVersion>
-		<jdbc.password>123456</jdbc.password>
+		<jdbc.password>11071990</jdbc.password>
 	</properties>
 	
 	<build>
@@ -49,6 +49,7 @@
 						<srcFile>src/main/resources/sql/users-insert.sql</srcFile>
 						<srcFile>src/main/resources/sql/events.sql</srcFile>
 						<srcFile>src/main/resources/sql/conversations-Insert.sql</srcFile>
+						<srcFile>src/main/resources/sql/sightseeing.sql</srcFile>
 					</srcFiles>
 				</configuration>
 
