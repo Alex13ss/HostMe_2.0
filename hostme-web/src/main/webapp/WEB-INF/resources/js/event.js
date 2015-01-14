@@ -7,7 +7,7 @@ var request_from_me_url = "request-sent-history";
 var request_to_me_url = "request-obtain-history";
 
 function refresh() {
-	if ($("#all_events").attr('class') != 'active') {
+	if ($("#events").attr('class') != 'active') {
 		table.fnReloadAjax();
 	} else {
 		table.fnReloadAjax("all-events");
@@ -15,7 +15,7 @@ function refresh() {
 
 }
 
-function all_events(element) {
+function events(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
 		table.fnAddData(all_events_data);
@@ -74,7 +74,7 @@ $(document)
 																			.preventDefault();
 																	$
 																			.ajax({
-																				url : 'event-update',
+																				url : 'events',
 																				'dataType' : 'json',
 																				beforeSend : function() {
 
@@ -154,7 +154,7 @@ $(document)
 
 										"bProcessing" : false,
 										"bServerSide" : false,
-										"sAjaxSource" : "all-events",
+										"sAjaxSource" : "events",
 										"aoColumns" : [
 												{
 													"mData" : "description",

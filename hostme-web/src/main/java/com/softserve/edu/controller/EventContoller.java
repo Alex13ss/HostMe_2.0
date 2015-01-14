@@ -31,27 +31,14 @@ public class EventContoller {
 	@Autowired
 	ProfileService profileService;
 
-	ProfileController profileController;
-	
-	@RequestMapping(value = "/events", method = RequestMethod.GET)
-	public String getEvents(Model model){
-		List<Event> events = eventService.getAllEvents();
-		model.addAttribute("events", events);
-		return "events";
 		
-	}
-	
-	@RequestMapping(value = "/all-events", method = RequestMethod.GET)
+	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public @ResponseBody List<Event> getAllEvents(){
-				
+		
 		List<Event> events = eventService.getAllEvents();
 		return events;
 		
 	}
-	@RequestMapping(value = "/event-update", method = RequestMethod.POST,
-			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Event updateEventStatus(@RequestBody Event event) {
-		eventService.updateEvent(event);
-		return event;
-	}
+	
+	
 }

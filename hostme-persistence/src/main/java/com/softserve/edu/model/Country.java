@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import com.google.common.base.Objects;
 
 @Entity
 @Table(name = "COUNTRIES", uniqueConstraints = { @UniqueConstraint(columnNames = "country_id") })
@@ -23,7 +24,7 @@ public class Country {
 	@Column(name = "country", length = 64)
 	private String country;
 		
-	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, orphanRemoval = true)
 	private Set<City> city;
 
 	public Country() {
@@ -56,41 +57,26 @@ public class Country {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((city == null) ? 0 : city.hashCode());
-		result = prime * result + ((country == null) ? 0 : country.hashCode());
-		result = prime * result
-				+ ((countryId == null) ? 0 : countryId.hashCode());
-		return result;
+		return Objects.hashCode(countryId, country, city);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Country other = (Country) obj;
-		if (city == null) {
-			if (other.city != null)
-				return false;
-		} else if (!city.equals(other.city))
-			return false;
-		if (country == null) {
-			if (other.country != null)
-				return false;
-		} else if (!country.equals(other.country))
-			return false;
-		if (countryId == null) {
-			if (other.countryId != null)
-				return false;
-		} else if (!countryId.equals(other.countryId))
-			return false;
-		return true;
+	public boolean equals(Object object) {
+		if (object instanceof Country) {
+			Country that = (Country) object;
+			return Objects.equal(this.countryId, that.countryId)
+					&& Objects.equal(this.country, that.country)
+					&& Objects.equal(this.city, that.city);
+		}
+		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Country [countryId=" + countryId + ", country=" + country
+				+ ", city=" + city + "]";
+	}
+
+	
 	
 }

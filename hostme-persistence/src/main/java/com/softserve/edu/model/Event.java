@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
 
 /**
@@ -32,7 +34,7 @@ public class Event extends Place{
 	private Date endDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "priceCategory_id", nullable = false)
+	@JoinColumn(name = "priceCategory_id")
 	private PriceCategory priceCategory;
 	
 	@Enumerated(EnumType.STRING)
@@ -68,8 +70,6 @@ public class Event extends Place{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
 
 
 	public Date getStartDate() {
@@ -194,4 +194,15 @@ public class Event extends Place{
 		result = 31 * result + (attendee != null ? attendee.hashCode() : 0);
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "Event [description=" + description + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", priceCategory=" + priceCategory
+				+ ", status=" + status + ", comment=" + comment + ", website="
+				+ website + ", image=" + image + ", owner=" + owner
+				+ ", attendee=" + attendee + "]";
+	}
+	
+	
 }

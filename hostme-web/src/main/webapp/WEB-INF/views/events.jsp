@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
-<script src="resources/js/event.js" type="text/javascript"></script>
+<!--  <script src="resources/js/event.js" type="text/javascript"></script>-->
 <script src="resources/js/fnAjaxReload.js" type="text/javascript"></script>
 <script src="resources/js/dataTables.bootstrap.js"
 	type="text/javascript"></script>
@@ -60,8 +60,8 @@
 				<!-- /.box-header -->
 				<ul class="nav nav-tabs">
 
-					<li id="all_events" class="active"
-						onclick="all_events(this)"><a href="#"
+					<li id="events" class="active"
+						onclick="events(this)"><a href="#"
 						data-toggle="tab"><spring:message code="label.events" /></a></li>
 
 			<!--  		<li class="" onclick="initialize_request_to_me(this)"><a
