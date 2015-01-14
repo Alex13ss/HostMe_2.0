@@ -22,15 +22,7 @@ public class Event extends Place{
 
 	@Column(name = "description")
 	private String description;
-	
-	@ManyToOne
-	@JoinColumn(name = "city_id", nullable = false)
-	private City city;
-				
-	@Column(name = "address")
-	private String address;
-	
-			
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date")
 	private Date startDate;
@@ -78,24 +70,6 @@ public class Event extends Place{
 	}
 
 
-	public City getCity() {
-		return city;
-	}
-
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
 
 
 	public Date getStartDate() {

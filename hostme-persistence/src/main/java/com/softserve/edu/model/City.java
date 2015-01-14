@@ -1,5 +1,7 @@
 package com.softserve.edu.model;
 
+import com.softserve.edu.model.routes.Place;
+
 import java.util.Set;
 
 import javax.persistence.*;
@@ -20,10 +22,7 @@ public class City {
 	private Country country;
 
 	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<Event> event;
-
-	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<Sightseeing> sightseeing;
+	private Set<Place> places;
 
 	public City() {
 		super();
@@ -53,72 +52,35 @@ public class City {
 		this.country = country;
 	}
 
-	public Set<Event> getEvent() {
-		return event;
+	public Set<Place> getPlaces() {
+		return places;
 	}
 
-	public void setEvent(Set<Event> event) {
-		this.event = event;
+	public void setPlaces(Set<Place> places) {
+		this.places = places;
 	}
-
-	public Set<Sightseeing> getSightseeing() {
-		return sightseeing;
-	}
-
-	public void setSightseeing(Set<Sightseeing> sightseeing) {
-		this.sightseeing = sightseeing;
-	}
-
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		result = prime * result + ((city == null) ? 0 : city.hashCode());
-//		result = prime * result + ((cityId == null) ? 0 : cityId.hashCode());
-//		result = prime * result + ((country == null) ? 0 : country.hashCode());
-//		result = prime * result + ((event == null) ? 0 : event.hashCode());
-//		result = prime * result
-//				+ ((sightseeing == null) ? 0 : sightseeing.hashCode());
-//		return result;
-//	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		City other = (City) obj;
-		if (city == null) {
-			if (other.city != null)
-				return false;
-		} else if (!city.equals(other.city))
-			return false;
-		if (cityId == null) {
-			if (other.cityId != null)
-				return false;
-		} else if (!cityId.equals(other.cityId))
-			return false;
-		if (country == null) {
-			if (other.country != null)
-				return false;
-		} else if (!country.equals(other.country))
-			return false;
-		if (event == null) {
-			if (other.event != null)
-				return false;
-		} else if (!event.equals(other.event))
-			return false;
-		if (sightseeing == null) {
-			if (other.sightseeing != null)
-				return false;
-		} else if (!sightseeing.equals(other.sightseeing))
-			return false;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		City city1 = (City) o;
+
+		if (!city.equals(city1.city)) return false;
+		if (!cityId.equals(city1.cityId)) return false;
+		if (!country.equals(city1.country)) return false;
+		if (places != null ? !places.equals(city1.places) : city1.places != null) return false;
+
 		return true;
 	}
 
-	
-
+	@Override
+	public int hashCode() {
+		int result = cityId.hashCode();
+		result = 31 * result + city.hashCode();
+		result = 31 * result + country.hashCode();
+		result = 31 * result + (places != null ? places.hashCode() : 0);
+		return result;
+	}
 }

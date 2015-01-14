@@ -13,13 +13,6 @@ public class Sightseeing extends Place{
 
 	@Column(name = "sightseeing_name", nullable = false)
 	private String name;
-	
-	@ManyToOne
-	@JoinColumn(name = "city_id", nullable = false)
-	private City city;
-
-	@Column(name = "address", nullable = false)
-	private String address;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "sightseeing_type", nullable = false, insertable = false, updatable = false)
@@ -54,22 +47,6 @@ public class Sightseeing extends Place{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
 	}
 
 	public SightseeingType getSightseeingType() {
