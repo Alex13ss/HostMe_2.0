@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.*;
+import com.google.common.base.Objects;
 
 /**
  * 
@@ -185,5 +186,47 @@ public class Event extends Place{
 	public void setAttendee(Set<User> attendee) {
 		this.attendee = attendee;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(super.hashCode(), description, city, address,
+				startDate, endDate, priceCategory, status, comment, website,
+				image, owner, attendee);
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Event) {
+			if (!super.equals(object))
+				return false;
+			Event that = (Event) object;
+			return Objects.equal(this.description, that.description)
+					&& Objects.equal(this.city, that.city)
+					&& Objects.equal(this.address, that.address)
+					&& Objects.equal(this.startDate, that.startDate)
+					&& Objects.equal(this.endDate, that.endDate)
+					&& Objects.equal(this.priceCategory, that.priceCategory)
+					&& Objects.equal(this.status, that.status)
+					&& Objects.equal(this.comment, that.comment)
+					&& Objects.equal(this.website, that.website)
+					&& Objects.equal(this.image, that.image)
+					&& Objects.equal(this.owner, that.owner)
+					&& Objects.equal(this.attendee, that.attendee);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Event [description=" + description + ", city=" + city
+				+ ", address=" + address + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", priceCategory=" + priceCategory
+				+ ", status=" + status + ", comment=" + comment + ", website="
+				+ website + ", image=" + image + ", owner=" + owner
+				+ ", attendee=" + attendee + "]";
+	}
+
+	
+
 
 }

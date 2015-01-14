@@ -16,7 +16,7 @@
 		<springDataJpaVersion>1.7.1.RELEASE</springDataJpaVersion>
 		<jdbc.password>11071990</jdbc.password>
 	</properties>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -40,7 +40,7 @@
 					<autocommit>true</autocommit>
 					<onError>continue</onError>
 					<srcFiles>
-					<!--  	 -->
+						<!-- -->
 						<srcFile>src/main/resources/sql/places.sql</srcFile>
 						<srcFile>src/main/resources/sql/countries.sql</srcFile>
 						<srcFile>src/main/resources/sql/Cities.sql</srcFile>
@@ -162,6 +162,12 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${springDataJpaVersion}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+
 
 	</dependencies>
 
