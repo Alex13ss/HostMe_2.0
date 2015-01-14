@@ -31,7 +31,7 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String addContact(@Valid @ModelAttribute("user") User user,
+    public String addContact(@Valid @ModelAttribute("user") final User user,
                              BindingResult bindingResult) {
 //        if (bindingResult.hasErrors()) {
 //            return "index";

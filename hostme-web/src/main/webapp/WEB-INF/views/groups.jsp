@@ -8,8 +8,7 @@
 <html>
 <head>
 
-<script type="text/javascript" src="../resources/js/group.js"></script>
-<script type="text/javascript" src="resources/js/fnAjaxReload.js"></script>
+<script type="text/javascript" src="resources/js/group.js"></script>
 
 <title>Groups</title>
 <link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
@@ -34,12 +33,6 @@
 					and useful conversations!
 				</h3>
 
-				<div class="col-md-2" align="right" style="margin-top: 10px;">
-					<button onclick="refresh()" class="btn btn-default btn-sm">
-						<i class="fa fa-fw fa-refresh"></i> Refresh list
-					</button>
-				</div>
-
 				<!-- Modal -->
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
@@ -50,7 +43,8 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title" id="myModalLabel">Create a new group</h4>
+								<h4 class="modal-title" id="myModalLabel">Create a new
+									group</h4>
 							</div>
 							<div class="modal-body">
 
@@ -62,7 +56,7 @@
 										<!-- form:errors path="name" /-->
 									</div>
 								</div>
-								
+
 								<br />
 
 								<div class="form-group">
@@ -76,9 +70,9 @@
 
 							</div>
 							<div class="modal-footer">
+								<input type="submit" class="btn btn-primary" value="Create one!" />
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Close</button>
-								<input type="submit" class="btn btn-primary" value="Create one!" />
 							</div>
 						</div>
 					</div>
@@ -88,20 +82,6 @@
 			<!-- /.box-header -->
 
 			<div class="box-body">
-
-				<script type="text/javascript">
-					$(document).ready(
-							function() {
-								$(".triggerRemove").click(
-										function(e) {
-											e.preventDefault();
-											$("#modalRemove .removeBtn").attr(
-													"href",
-													$(this).attr("href"));
-											$("#modalRemove").modal();
-										});
-							});
-				</script>
 
 				<div class="alert alert-info" style="margin-right: 15px;"
 					align="center">Find minded people and get some conversations!
@@ -151,9 +131,9 @@
 								</div>
 							</div>
 							<div class="modal-footer">
+								<a href="" class="btn btn-danger removeBtn">Remove</a>
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Cancel</button>
-								<a href="" class="btn btn-danger removeBtn">Remove</a>
 							</div>
 						</div>
 					</div>
