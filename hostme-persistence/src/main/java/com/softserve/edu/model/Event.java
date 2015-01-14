@@ -162,45 +162,36 @@ public class Event extends Place{
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		Event event = (Event) o;
+
+		if (attendee != null ? !attendee.equals(event.attendee) : event.attendee != null) return false;
+		if (!description.equals(event.description)) return false;
+		if (endDate != null ? !endDate.equals(event.endDate) : event.endDate != null) return false;
+		if (!owner.equals(event.owner)) return false;
+		if (!priceCategory.equals(event.priceCategory)) return false;
+		if (startDate != null ? !startDate.equals(event.startDate) : event.startDate != null) return false;
+		if (status != event.status) return false;
+		if (website != null ? !website.equals(event.website) : event.website != null) return false;
+
+		return true;
+	}
+
+	@Override
 	public int hashCode() {
-		return Objects.hashCode(super.hashCode(), description, city, address,
-				startDate, endDate, priceCategory, status, comment, website,
-				image, owner, attendee);
+		int result = super.hashCode();
+		result = 31 * result + description.hashCode();
+		result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
+		result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+		result = 31 * result + priceCategory.hashCode();
+		result = 31 * result + status.hashCode();
+		result = 31 * result + (website != null ? website.hashCode() : 0);
+		result = 31 * result + owner.hashCode();
+		result = 31 * result + (attendee != null ? attendee.hashCode() : 0);
+		return result;
 	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof Event) {
-			if (!super.equals(object))
-				return false;
-			Event that = (Event) object;
-			return Objects.equal(this.description, that.description)
-					&& Objects.equal(this.city, that.city)
-					&& Objects.equal(this.address, that.address)
-					&& Objects.equal(this.startDate, that.startDate)
-					&& Objects.equal(this.endDate, that.endDate)
-					&& Objects.equal(this.priceCategory, that.priceCategory)
-					&& Objects.equal(this.status, that.status)
-					&& Objects.equal(this.comment, that.comment)
-					&& Objects.equal(this.website, that.website)
-					&& Objects.equal(this.image, that.image)
-					&& Objects.equal(this.owner, that.owner)
-					&& Objects.equal(this.attendee, that.attendee);
-		}
-		return false;
-	}
-
-	@Override
-	public String toString() {
-		return "Event [description=" + description + ", city=" + city
-				+ ", address=" + address + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", priceCategory=" + priceCategory
-				+ ", status=" + status + ", comment=" + comment + ", website="
-				+ website + ", image=" + image + ", owner=" + owner
-				+ ", attendee=" + attendee + "]";
-	}
-
-	
-
-
 }
