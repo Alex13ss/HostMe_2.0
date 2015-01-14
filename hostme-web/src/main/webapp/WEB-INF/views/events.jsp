@@ -64,12 +64,12 @@
 						onclick="all_events(this)"><a href="#"
 						data-toggle="tab"><spring:message code="label.events" /></a></li>
 
-					<li class="" onclick="initialize_request_to_me(this)"><a
+			<!--  		<li class="" onclick="initialize_request_to_me(this)"><a
 						href="#" data-toggle="tab"><spring:message
 								code="label.Myevents" /></a></li>
 					<li class="" onclick="initialize_request_to_me(this)"><a
 						href="#" data-toggle="tab"><spring:message
-								code="label.SignedEvents" /></a></li>
+								code="label.SignedEvents" /></a></li> -->
 				</ul>
 
 				<div class="box-body table-responsive">

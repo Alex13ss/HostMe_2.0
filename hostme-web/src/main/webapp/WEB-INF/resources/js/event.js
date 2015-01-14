@@ -24,17 +24,14 @@ function all_events(element) {
 
 }
 
-/*function initialize_request_to_me(element) {
-	if (element.className != 'active' && request_to_me_data == undefined) {
-		request_from_me_data = table.fnGetData();
-		table.fnReloadAjax('request-obtain-history');
-
-	} else if (request_to_me_data != undefined) {
-		table.fnClearTable();
-		table.fnAddData(request_to_me_data);
-	}
-
-} */
+/*
+ * function initialize_request_to_me(element) { if (element.className !=
+ * 'active' && request_to_me_data == undefined) { request_from_me_data =
+ * table.fnGetData(); table.fnReloadAjax('request-obtain-history');
+ *  } else if (request_to_me_data != undefined) { table.fnClearTable();
+ * table.fnAddData(request_to_me_data); }
+ *  }
+ */
 
 $(document)
 		.ready(
@@ -77,7 +74,7 @@ $(document)
 																			.preventDefault();
 																	$
 																			.ajax({
-																				url : 'request-update',
+																				url : 'event-update',
 																				'dataType' : 'json',
 																				beforeSend : function() {
 
@@ -91,7 +88,7 @@ $(document)
 																				success : function(
 																						response) {
 																					$(
-																							'td:eq(4)',
+																							'td:eq(11)',
 																							nRow)
 																							.html(
 																									response.status);
@@ -157,10 +154,14 @@ $(document)
 
 										"bProcessing" : false,
 										"bServerSide" : false,
-										"sAjaxSource" : "request-sent-history",
+										"sAjaxSource" : "all-events",
 										"aoColumns" : [
 												{
-													"mData" : "beginDate",
+													"mData" : "description",
+
+												},
+												{
+													"mData" : "startDate",
 													"mRender" : function(data,
 															type, full) {
 														return new Date(data)
@@ -178,10 +179,10 @@ $(document)
 													}
 												},
 												{
-													"mData" : "notes",
+													"mData" : "address",
 												},
 												{
-													"mData" : "hosting",
+													"mData" : "priceCategory",
 													"mRender" : function(data,
 															type, full) {
 														return '<a href=${pageContext.request.contextPath}/hoster?hosterId='
@@ -194,10 +195,10 @@ $(document)
 													}
 												},
 												{
-													"mData" : "status"
+													"mData" : "website"
 												},
 												{
-													"mData" : "hosting",
+													"mData" : "owner",
 													"mRender" : function(data,
 															type, full) {
 														return '<a href=hosting?hostingId='
@@ -208,52 +209,31 @@ $(document)
 													}
 												},
 												{
-													"mData" : "requestId"
+													"mData" : "status"
+												},
+												{
+													"mData" : "attendee"
 
 												},
 												{
-													"mData" : "beginDate",
-													"mRender" : function(data,
-															type, full) {
-														return new Date(data)
-																.toLocaleString()
-																.split(" ")[0];
-													}
+													"mData" : "comment"
 												},
+
 												{
-													"mData" : "beginDate",
+													"mData" : "image",
 													"mRender" : function(data,
 															type, full) {
 														return new Date(data)
 																.toLocaleString()
 																.split(" ")[0];
 													}
-												},
-												{
-													"mData" : "beginDate",
-													"mRender" : function(data,
-															type, full) {
-														return new Date(data)
-																.toLocaleString()
-																.split(" ")[0];
-													}
-												},
-												{
-													"mData" : "beginDate",
-													"mRender" : function(data,
-															type, full) {
-														return new Date(data)
-																.toLocaleString()
-																.split(" ")[0];
-													}
+
 												}
 
 										]
 									});
 
-					table
-							.on(
-									'draw',
+					table.on('draw',
 									function() {
 										if (table.fnSettings().sAjaxSource == "all-events") {
 											$(

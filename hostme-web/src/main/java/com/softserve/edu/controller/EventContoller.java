@@ -4,15 +4,18 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.softserve.edu.model.Event;
+import com.softserve.edu.model.Request;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.CityService;
 import com.softserve.edu.service.CountryService;
@@ -39,14 +42,16 @@ public class EventContoller {
 	}
 	
 	@RequestMapping(value = "/all-events", method = RequestMethod.GET)
-	public @ResponseBody List<Event> getEventsByOwner(Model model){
-		
-		User user = profileController.getCurrentUser();
-		
-		List<Event> events = eventService.getEventByOwner(user);
-		model.addAttribute("all-events", events);
+	public @ResponseBody List<Event> getAllEvents(){
+				
+		List<Event> events = eventService.getAllEvents();
 		return events;
 		
 	}
-		
+	@RequestMapping(value = "/event-update", method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Event updateEventStatus(@RequestBody Event event) {
+		eventService.updateEvent(event);
+		return event;
+	}
 }
