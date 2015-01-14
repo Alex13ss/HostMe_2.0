@@ -5,13 +5,13 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.softserve.edu.model.Conversation;
-import com.softserve.edu.model.Gender;
-import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.service.SightseeingService;
 
@@ -24,7 +24,6 @@ public class SightseeingController {
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.GET)
 	public String showSightseeings(Model model) {
 		Set<Sightseeing> sightseeings = sightseeingService.findAll();
-		System.out.println(sightseeings.size());
 		model.addAttribute("sightseeings", sightseeings);
 		return "sightseeings";
 	}
@@ -32,7 +31,6 @@ public class SightseeingController {
 	@RequestMapping(value = "/create-sightseeing", method = RequestMethod.GET)
 	public String addSightseeing(Model model) {
 		Sightseeing sightseeings = new Sightseeing();
-
 		model.addAttribute("sightseeings", sightseeings);
 		return "create-sightseeing";
 	}
@@ -42,5 +40,19 @@ public class SightseeingController {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
 		model.addAttribute("sightseeing", sightseeing);
 		return "sightseeing";
+	}
+
+	@RequestMapping("/sightseeing/delete/{id}")
+	public String deleteSightseeing(@PathVariable("id") Integer id) {
+		Sightseeing sightseeing = sightseeingService.findOne(id);
+		sightseeingService.delete(sightseeing);
+		return "redirect:/sightseeings";
+	}
+
+	@RequestMapping(value = "/sightseeingAdd", method = RequestMethod.POST)
+	public String addContact(@ModelAttribute("sightseeing") Sightseeing sightseeing,
+			BindingResult result) {
+		sightseeingService.saveSightseeing(sightseeing);
+		return "redirect:/create-sightseeing";
 	}
 }

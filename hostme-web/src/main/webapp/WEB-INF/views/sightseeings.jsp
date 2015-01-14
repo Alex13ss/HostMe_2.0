@@ -12,35 +12,34 @@
 <script type='text/javascript' src="resources/js/sightseeing.js"></script>
 <title>Sightseeing</title>
 </head>
-<body class="skin-blue  pace-done" style="min-height: 1293px;">
+<body class="skin-blue  pace-done">
 	<section class="content-header">
 	<h1>
 		<spring:message code="label.sightseeings" />
 	</h1>
 	</section>
-
 	<div class="box">
-		<div class="box-header">
-			<h3 class="box-title">List of all sightseeings</h3>
-		</div>
+		<section class="content-header">
+		<h3>List of all sightseeings</h3>
+		<ol class="breadcrumb">
+			<li><a href="<c:url value='create-sightseeing' />"><i
+					class="fa fa-fw fa-plus-square-o"></i> <spring:message
+						code="label.addSightseeing" /></a></li>
+		</ol>
+		</section>
 		<div class="box-body table-responsive">
 			<div id="example1_wrapper" class="dataTables_wrapper form-inline"
 				role="grid">
-				<div style="margin-top: 20px;">
-
-					<a href="<c:url value='create-sightseeing' />"
-						class="btn btn-primary button"><spring:message
-							code="label.addSightseeing" /></a> <br>
-				</div>
 				<table id="example1"
 					class="table table-bordered table-striped dataTable">
 					<thead>
 						<tr role="row">
-							<th>Id</th>
 							<th>Name</th>
 							<th>Description</th>
 							<th>City</th>
 							<th>Image</th>
+							<th>Delete</th>
+							<th>Edit</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,8 +47,6 @@
 							<tr
 								href="<c:url value="sightseeing"><c:param name="id" value="${sightseeing.id}" /></c:url>"
 								class="clickableRow" class="odd">
-								<td class=" sorting_1"><c:out value="${sightseeing.id}">
-									</c:out></td>
 								<td class=" "><c:out value="${sightseeing.name}">
 									</c:out></td>
 								<td class=" "><c:out value="${sightseeing.description}">
@@ -58,6 +55,8 @@
 									</c:out></td>
 								<td class=" "><a href="${image.link}"><img
 										width="150px" height="150px" src="${image.link}"></a></td>
+								<td class=" "><a href="sightseeing/delete/${sightseeing.id}"><i class="fa fa-fw fa-trash-o"></i></a></td>
+								<td class=" "><i class="fa fa-fw fa-pencil"></i></td>
 							</tr>
 						</c:forEach>
 					</tbody>

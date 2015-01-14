@@ -33,4 +33,15 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return sightseeingRepository.findOne(id);
 	}
 
+	@Override
+	public void delete(Sightseeing sightseeing) {
+		sightseeingRepository.delete(sightseeing);
+	}
+
+	@Override
+	@Transactional
+	public void saveSightseeing(Sightseeing sightseeing) {
+		sightseeingRepository.save(sightseeing);
+	}
+
 }

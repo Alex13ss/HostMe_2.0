@@ -3,6 +3,7 @@ package com.softserve.edu.model.routes;
 import com.softserve.edu.model.City;
 
 import javax.persistence.*;
+
 import java.util.Set;
 
 @Entity
@@ -15,7 +16,7 @@ public class Place {
     @Column
     private Integer id;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
@@ -71,12 +72,12 @@ public class Place {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + city.hashCode();
-        result = 31 * result + address.hashCode();
-        result = 31 * result + (routes != null ? routes.hashCode() : 0);
-        return result;
-    }
+//    @Override
+//    public int hashCode() {
+//        int result = id.hashCode();
+//        result = 31 * result + city.hashCode();
+//        result = 31 * result + address.hashCode();
+//        result = 31 * result + (routes != null ? routes.hashCode() : 0);
+//        return result;
+//    }
 }

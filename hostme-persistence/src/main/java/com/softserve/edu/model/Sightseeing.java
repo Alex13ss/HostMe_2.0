@@ -15,27 +15,27 @@ public class Sightseeing extends Place{
 	private String name;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "sightseeing_type", nullable = false, insertable = false, updatable = false)
+	@Column(name = "sightseeing_type", updatable = false)
 	private SightseeingType sightseeingType;
 
-	@Column(name = "rating", nullable = false)
+	@Column(name = "rating")
 	private Integer rating;
 
-	@Column(name = "website", nullable = false)
+	@Column(name = "website")
 	private String website;
 
-	@Column(name = "description", nullable = false)
+	@Column(name = "description")
 	private String description;
 
-	@ManyToOne
-	@JoinColumn(name = "priceCategory_id", nullable = false)
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "priceCategory_id")
 	private PriceCategory priceCategory;
 
 	@OneToMany(mappedBy = "sightseeing", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Image> image;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status", nullable = false)
+	@Column(name = "status")
 	private Status status;
 
 	@Column(name = "comment")

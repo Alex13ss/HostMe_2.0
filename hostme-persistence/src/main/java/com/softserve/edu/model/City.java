@@ -17,7 +17,7 @@ public class City {
 	@Column(name = "city", length = 64)
 	private String city;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "country_id", nullable = false)
 	private Country country;
 
@@ -75,12 +75,12 @@ public class City {
 		return true;
 	}
 
-	@Override
-	public int hashCode() {
-		int result = cityId.hashCode();
-		result = 31 * result + city.hashCode();
-		result = 31 * result + country.hashCode();
-		result = 31 * result + (places != null ? places.hashCode() : 0);
-		return result;
-	}
+//	@Override
+//	public int hashCode() {
+//		int result = cityId.hashCode();
+//		result = 31 * result + city.hashCode();
+//		result = 31 * result + country.hashCode();
+//		result = 31 * result + (places != null ? places.hashCode() : 0);
+//		return result;
+//	}
 }
