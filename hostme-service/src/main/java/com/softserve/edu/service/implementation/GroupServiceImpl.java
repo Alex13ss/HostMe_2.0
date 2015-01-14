@@ -18,7 +18,7 @@ public class GroupServiceImpl implements GroupService {
 
     // @Autowired
     // private UserRepository userRepository;
-    
+
     @Autowired
     private GroupRepository groupRepository;
 
@@ -43,15 +43,14 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void create(Group group, String name) {
-        // TODO Auto-generated method stub
-        
+        groupRepository.save(group);
     }
 
-//    @Override
-//    public void create(Group group, String name) {
-//        User user = userRepository.findByName(name);
-//        group.setUser(user);
-//        groupRepository.save(group);
-//    }
+    // @Override
+    // public void create(Group group, String name) {
+    // User user = userRepository.findByName(name);
+    // group.setUser(user);
+    // groupRepository.save(group);
+    // }
 
 }

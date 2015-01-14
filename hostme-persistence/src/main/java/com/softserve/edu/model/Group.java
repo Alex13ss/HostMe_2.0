@@ -31,7 +31,7 @@ public class Group {
     @Column(name = "group_id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "group_name", nullable = false)
+    @Column(name = "group_name")
     private String groupName;
 
     @Temporal(TemporalType.TIMESTAMP)

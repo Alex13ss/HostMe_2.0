@@ -11,7 +11,6 @@
 <script type="text/javascript" src="resources/js/group.js"></script>
 
 <title>Groups</title>
-<link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
 
 </head>
 <body class="wysihtml5-supported">
@@ -33,50 +32,53 @@
 					and useful conversations!
 				</h3>
 
-				<!-- Modal -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<h4 class="modal-title" id="myModalLabel">Create a new
-									group</h4>
-							</div>
-							<div class="modal-body">
-
-								<div class="form-group">
-									<label for="name" class="col-sm-2 control-label"> Name:
-									</label>
-									<div class="col-sm-10">
-										<!-- form:input path="name" cssClass="form-control" /-->
-										<!-- form:errors path="name" /-->
-									</div>
+				<form:form commandName="group">
+					<!-- Modal -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title" id="myModalLabel">Create a new
+										group</h4>
 								</div>
+								<div class="modal-body">
 
-								<br />
-
-								<div class="form-group">
-									<label for="name" class="col-sm-2 control-label"> etc.:
-									</label>
-									<div class="col-sm-10">
-										<!-- form:input path="url" cssClass="form-control" /-->
-										<!--form:errors path="url" /-->
+									<div class="form-group">
+										<label for="name" class="col-sm-2 control-label">
+											Name: </label>
+										<div class="col-sm-10">
+											<!-- form:input path="groupName" cssClass="form-control" /-->
+											<!-- form:errors path="name" /-->
+										</div>
 									</div>
-								</div>
 
-							</div>
-							<div class="modal-footer">
-								<input type="submit" class="btn btn-primary" value="Create one!" />
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Close</button>
+									<br />
+
+									<div class="form-group">
+										<label for="name" class="col-sm-2 control-label">
+											etc.: </label>
+										<div class="col-sm-10">
+											<!-- form:input path="url" cssClass="form-control" /-->
+											<!--form:errors path="url" /-->
+										</div>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<input type="submit" class="btn btn-primary"
+										value="Create one!" />
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal">Close</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</form:form>
 
 			</div>
 			<!-- /.box-header -->
