@@ -12,12 +12,11 @@ $(document).ready(function() {
             mapOptions);
         directionsDisplay.setMap(map);
     }
-
     google.maps.event.addDomListener(window, 'load', initialize);
 
     $("#googleCalculator").click(function (directionsDisplay) {
-        var start = $("#description").val();
-        var end = "Kiev";
+        var start = $("#beginPoint").val();
+        var end = $("#endPoint").val();
         var request = {
             origin: start,
             destination: end,

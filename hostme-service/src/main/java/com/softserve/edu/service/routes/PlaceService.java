@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface PlaceService {
 
+    public List<Place> getAllPlaces();
+
     public List<Place> getPlacesNearToUser();
 
     public List<Place> getUserPlaces();

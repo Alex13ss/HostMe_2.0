@@ -21,6 +21,10 @@ public class PlaceServiceImp implements PlaceService{
     @Autowired
     PlaceRepository placeRepository;
 
+    public List<Place> getAllPlaces() {
+        return (ArrayList<Place>) placeRepository.findAll();
+    }
+
     public List<Place> getPlacesNearToUser() {
         ArrayList<Place> result = new ArrayList<>();
         User user = getCurrentUser();

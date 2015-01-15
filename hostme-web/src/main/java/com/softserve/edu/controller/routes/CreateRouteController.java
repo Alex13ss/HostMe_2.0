@@ -1,5 +1,6 @@
 package com.softserve.edu.controller.routes;
 
+import com.softserve.edu.dto.RouteDto;
 import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.service.routes.PlaceService;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -23,22 +25,26 @@ public class CreateRouteController {
 
     @RequestMapping(value = "/createRoute", method = RequestMethod.GET)
     public String createRoute(Model model) {
-        Route route = new Route();
+        RouteDto route = new RouteDto();
         model.addAttribute("route", route);
+        model.addAttribute("places", placeService.getAllPlaces());
         return "createRoute";
     }
 
-    @RequestMapping(value = "/createRoute-getRoutes", method = RequestMethod.GET,
+    @RequestMapping(value = "/createRoute-getPlaces", method = RequestMethod.GET,
                         produces = "application/json")
     public @ResponseBody List<Place> createRoute() {
-        List<Place> routes = new ArrayList<>();
-        routes.addAll(placeService.getUserPlaces());
-        routes.addAll(placeService.getPlacesNearToUser());
-        return routes;
+        List<Place> places = new ArrayList<>();
+        places.addAll(placeService.getUserPlaces());
+        places.addAll(placeService.getAllPlaces());
+        return places;
     }
 
     @RequestMapping(value = "/createRoute", method = RequestMethod.POST)
-    public String addRoute(@ModelAttribute("route") Route route) {
+    public String addRoute(@ModelAttribute("route") RouteDto routeArrt) {
+        Route route = new Route();
+        route.setName(routeArrt.getName());
+        route.setDescription(routeArrt.getDescription());
         routesService.addRoute(route);
         return "redirect:/profile";
     }
