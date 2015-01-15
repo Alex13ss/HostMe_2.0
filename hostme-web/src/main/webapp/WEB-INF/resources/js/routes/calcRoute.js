@@ -1,4 +1,5 @@
-function calcRoute(directionsDisplay) {
+$(document).ready(function() {
+$("#googleCalculator").click(function (directionsDisplay) {
     var start = "Lviv";
     var end = "Kiev";
     var request = {
@@ -8,7 +9,8 @@ function calcRoute(directionsDisplay) {
     };
     directionsService.route(request, function (result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(result);
+            this.directionsDisplay.setDirections(result);
         }
     });
-}
+})
+});

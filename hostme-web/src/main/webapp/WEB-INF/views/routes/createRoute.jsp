@@ -8,36 +8,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
 
 <style type="text/css">
-    #map-canvas { height: 40%; margin: 0; padding: 0;}
+    #map-canvas { height: 40%; margin: 0; padding: 0}
 </style>
 
-<%--<link href="<c:url value="/resources/css/basicMap.css"/>"--%>
-      <%--rel="stylesheet" type="text/css" />--%>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiYncr79qu9wVjrwaSBHHTKMb3Dbo3Eo"></script>
+<script src="<c:url value="/resources/js/routes/initMaps.js"/>"></script>
 <script src="<c:url value="/resources/js/routes/calcRoute.js"/>"></script>
-
-<script type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiYncr79qu9wVjrwaSBHHTKMb3Dbo3Eo">
-</script>
-
-<script type="text/javascript">
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    var directionsService = new google.maps.DirectionsService();
-    var map;
-
-    function initialize() {
-        var chicago = new google.maps.LatLng(41.850033, -87.6500523);
-        var mapOptions = {
-            center: chicago,
-            zoom: 8
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
-        directionsDisplay.setMap(map);
-    }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-</script>
 
 <div class="simple-map" id="map-canvas" ></div>
 
@@ -49,44 +25,44 @@
                    enctype="multipart/form-data">
                 <div class="row col-lg-4" style="margin-top:1.5em; margin-bottom: 1.5em" >
                     <div class="row">
-                    <spring:message code="routes.createRouteName"/>
-                    <form:input path="name" type="text"
-                        class="form-control" id="name"
-                        name="name"
-                        placeholder="What's your tour name?" />
+                        <spring:message code="routes.createRouteName" />
+                        <form:input path="name" type="text"
+                            class="form-control" id="name"
+                            name="name"
+                            placeholder="What's your tour name?" />
                     </div>
                     <div class="row">
-                    <spring:message code="routes.createRouteDescription"/>
-                    <form:input path="description" type="text"
-                        class="form-control" id="description"
-                        name="description"
-                        placeholder="Share your thouts!" />
+                        <spring:message code="routes.createRouteDescription" />
+                        <form:input path="description" type="text"
+                            class="form-control" id="description"
+                            name="description"
+                            placeholder="Share your thouts!" />
                     </div>
                     <div class="row">
-                        <spring:message code="routes.createRoutePlaceFrom"/>
+                        <spring:message code="routes.createRoutePlaceFrom" />
                         <label>
-                            <input id="from" class="form-control" type="text" name="from">
+                            <input id="from" type="text">
                         </label>
                     </div>
                     <div class="row">
-                        <spring:message code="routes.createRoutePlaceTo"/>
+                        <spring:message code="routes.createRoutePlaceTo" />
                         <label>
-                            <input id="to" class="form-control" type="text" name="to">
+                            <input id="to" type="text">
                         </label>
                     </div>
                     <div class="row">
-                        <spring:message code="routes.createRouteWaypoint"/>
+                        <spring:message code="routes.createRouteWaypoint" />
                         <label>
-                            <input class="form-control" type="text" name="waypoint">
+                            <input id="waypoint" type="text">
                         </label>
                     </div>
                     <button class="btn btn-primary">
-                        Create route
+                        <spring:message code="routes.createRoute" />
                     </button>
                 </div>
             </form:form>
-            <button onclick="calcRoute(directionsDisplay)">
-                Show route
+            <button id="googleCalculator" class="btn btn-primary">
+                <spring:message code="routes.showRoute"/>
             </button>
         </div>
     </div>
