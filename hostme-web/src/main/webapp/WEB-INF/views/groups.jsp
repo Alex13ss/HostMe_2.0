@@ -92,7 +92,7 @@
 						<tr>
 							<th>Image of group</th>
 							<th>Group name</th>
-							<th>Published at</th>
+							<th>Published</th>
 							<th>Operations</th>
 						</tr>
 					</thead>
