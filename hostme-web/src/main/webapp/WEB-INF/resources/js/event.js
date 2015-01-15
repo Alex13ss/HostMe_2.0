@@ -169,15 +169,7 @@ $(document)
 																.split(" ")[0];
 													}
 												},
-												{
-													"mData" : "endDate",
-													"mRender" : function(data,
-															type, full) {
-														return new Date(data)
-																.toLocaleString()
-																.split(" ")[0];
-													}
-												},
+												
 												{
 													"mData" : "address",
 												},

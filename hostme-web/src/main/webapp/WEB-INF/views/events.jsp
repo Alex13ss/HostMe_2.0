@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
-<!--  <script src="resources/js/event.js" type="text/javascript"></script>-->
+<script src="resources/js/event.js" type="text/javascript"></script>
 <script src="resources/js/fnAjaxReload.js" type="text/javascript"></script>
 <script src="resources/js/dataTables.bootstrap.js"
 	type="text/javascript"></script>
@@ -72,24 +72,7 @@
 
 				</ul>
 
-				<div class="row">
-					<div class="col-xs-6">
-						<div id="example1_length" class="dataTables_length">
-							<label><select size="1" name="example1_length"
-								aria-controls="example1"><option value="10"
-										selected="selected">10</option>
-									<option value="25">25</option>
-									<option value="50">50</option>
-									<option value="100">100</option></select> records per page</label>
-						</div>
-					</div>
-					<div class="col-xs-6">
-						<div class="dataTables_filter" id="example1_filter">
-							<label>Search: <input type="text"
-								aria-controls="example1"></label>
-						</div>
-					</div>
-				</div>
+				
 
 				<div class="box-body table-responsive">
 					<table id="request_table_obtain"
@@ -98,15 +81,12 @@
 							<tr>
 								<th>Title</th>
 								<th>Starts</th>
-								<th>Ends</th>
 								<th>Location</th>
 								<th>Price</th>
 								<th>Website</th>
 								<th>Organizer</th>
-								<th>Status</th>
 								<th>Attendees</th>
 								<th>Comments</th>
-								<th>Photos</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -116,8 +96,7 @@
 										</c:out></td>
 									<td><c:out value="${events.startDate}">
 										</c:out></td>
-									<td><c:out value="${events.endDate}">
-										</c:out></td>
+
 									<td><c:out value="${events.address}">
 										</c:out></td>
 									<td><c:out
@@ -127,14 +106,12 @@
 										</c:out></td>
 									<td><c:out value="${events.owner.getLogin()}">
 										</c:out></td>
-									<td><c:out value="${events.status}">
-										</c:out></td>
+
 									<td><c:out value="${events.attendee}">
 										</c:out></td>
 									<td><c:out value="${events.comment}">
 										</c:out></td>
-									<td><c:out value="${events.comment}">
-										</c:out></td>
+									
 
 								</tr>
 							</c:forEach>
