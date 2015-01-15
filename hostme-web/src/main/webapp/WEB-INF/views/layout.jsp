@@ -34,7 +34,7 @@
             
         </div>
         
-        <tiles:insertAttribute name="footer" />
+        
     </security:authorize>
 
     <security:authorize access="! isAuthenticated()">

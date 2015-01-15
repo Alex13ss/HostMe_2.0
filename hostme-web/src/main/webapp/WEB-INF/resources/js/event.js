@@ -24,96 +24,94 @@ function allEvents(element) {
 
 }
 
-
-
 $(document)
 		.ready(
 				function() {
 
-					table = $("table.table-bordered")
-							.dataTable(
-									{
+					table = $("table.table-bordered").dataTable(
+							{
 
-										"sAjaxDataProp" : "",
+								"sAjaxDataProp" : "",
 
-										"fnInitComplete" : function(settings,
-												json) {
+								"fnInitComplete" : function(settings, json) {
 
-										},
+								},
 
-										"fnRowCallback" : function(nRow, aData,
-												iDisplayIndex,
-												iDisplayIndexFull) {
-											var ul = $("<ul/>", {
-												'class' : "dropdown-menu"
-											});
-											var li = $("<li/>"
+								"fnRowCallback" : function(nRow, aData,
+										iDisplayIndex, iDisplayIndexFull) {
+									var ul = $("<ul/>", {
+										'class' : "dropdown-menu"
+									});
+									var li = $("<li/>"
 
-											);
-											var div = $("<div/>", {
-												"class" : "input-group-btn"
-											});
-								
-
-										},
-
-										"bProcessing" : false,
-										"bServerSide" : false,
-										"sAjaxSource" : "all-events",
-										"aoColumns" : [
-												{
-													"mData" : "description",
-
-												},
-												{
-													"mData" : "startDate",
-													"mRender" : function(data,
-															type, full) {
-														return new Date(data)
-																.toLocaleString()
-																.split(" ")[0];
-													}
-												},
-												{
-													"mData" : "endDate",
-													"mRender" : function(data,
-															type, full) {
-														return new Date(data)
-																.toLocaleString()
-																.split(" ")[0];
-													}
-												},																				
-												
-												{
-													"mData" : "priceCategory",
-													"mRender" : function(data,
-															type, full) {
-														return data.priceCategory;
-													}
-												},
-												{
-													"mData" : "website"
-												},
-												{
-													"mData" : "status"
-												},
-												{
-													"mData" : "comment"
-												}												
-
-										]
+									);
+									var div = $("<div/>", {
+										"class" : "input-group-btn"
 									});
 
+								},
 
-					table.on( 'draw', function () {
-						if(table.fnSettings().sAjaxSource=="all-events"){
-							$('.dropdown-menu>li>a:contains("Reject"),a:contains("Approve")').hide();
-						 }else{
-							 $('.dropdown-menu>li>a:contains("Refuse"),a:contains("Send Again")').hide();
-					}	
-					}
-					 );
+								"bProcessing" : false,
+								"bServerSide" : false,
+								"sAjaxSource" : "all-events",
+								"aoColumns" : [
+
+										{
+											"mData" : "id",
+
+										},
+										{
+											"mData" : "description",
+
+										},
+										{
+											"mData" : "startDate",
+											"mRender" : function(data, type,
+													full) {
+												return new Date(data)
+														.toLocaleString()
+														.split(" ")[0];
+											}
+										},
+										{
+											"mData" : "endDate",
+											"mRender" : function(data, type,
+													full) {
+												return new Date(data)
+														.toLocaleString()
+														.split(" ")[0];
+											}
+										},
+
+										{
+											"mData" : "priceCategory",
+											"mRender" : function(data, type,
+													full) {
+												return data.priceCategory;
+											}
+										}, {
+											"mData" : "website"
+										}, {
+											"mData" : "status"
+										}, {
+											"mData" : "comment"
+										}
+
+								]
+							});
+
+					table
+							.on(
+									'draw',
+									function() {
+										if (table.fnSettings().sAjaxSource == "all-events") {
+											$(
+													'.dropdown-menu>li>a:contains("Reject"),a:contains("Approve")')
+													.hide();
+										} else {
+											$(
+													'.dropdown-menu>li>a:contains("Refuse"),a:contains("Send Again")')
+													.hide();
+										}
+									});
 				});
-
-
-

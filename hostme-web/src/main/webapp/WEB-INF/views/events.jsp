@@ -5,7 +5,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html style="min-height: 682px;">
+<html >
 <head>
 <meta charset="UTF-8">
 <link href="resources/css/dataTables.bootstrap.css" rel="stylesheet"
@@ -18,10 +18,6 @@
 <title>Events</title>
 </head>
 <body class="wysihtml5-supported">
-
-	<!--  	<video id="bgvid" autoplay loop poster="resources/images/nature.jpg">
-		<source src="resources/video/mp4/nature1.mp4" type="video/mp4">
-	</video> -->
 
 
 	<section class="content-header">
@@ -43,9 +39,9 @@
 					</h3>
 
 					<div id="addButtonEvent" style="margin-top: 10px;">
-						<a href="event-creation" class="btn btn-default btn-sm"><i
-							class="fa fa-fw fa-plus-square-o"></i> <spring:message
-								code="label.addEvent" /></a>
+						<a href="event-creation" class="btn btn-success btn-sm"><i
+							class="fa fa-fw fa-plus-square-o"></i> <b><spring:message
+								code="label.addEvent" /></b></a>
 
 						<button onclick="refresh()" class="btn btn-default btn-sm">
 							<i class="fa fa-fw fa-refresh"></i>
@@ -59,26 +55,21 @@
 				<!-- /.box-header -->
 				<ul class="nav nav-tabs">
 
-					<li id="all-events" class="active" 
-						onclick="allEvents(this)"><a
+					<li id="all-events" class="active" onclick="allEvents(this)"><a
 						href="#" data-toggle="tab"><spring:message code="label.events" /></a></li>
 
-					<!--  		<li class="" onclick="initialize_request_to_me(this)"><a
-						href="#" data-toggle="tab"><spring:message
-								code="label.Myevents" /></a></li>
-					<li class="" onclick="initialize_request_to_me(this)"><a
-						href="#" data-toggle="tab"><spring:message
-								code="label.SignedEvents" /></a></li> -->
+					
 
 				</ul>
 
-				
+
 
 				<div class="box-body table-responsive">
 					<table id="request_table_obtain"
 						class="table table-bordered table-striped">
 						<thead>
 							<tr>
+								<th>ID</th>
 								<th>Title</th>
 								<th>Starts</th>
 								<th>Ends</th>
@@ -89,33 +80,7 @@
 
 							</tr>
 						</thead>
-				<!-- 	<tbody>
-							<c:forEach var="events" items="${events}">
-								<tr>
-									<td><c:out value="${events.description}">
-										</c:out></td>
-									<td><c:out value="${events.startDate}">
-										</c:out></td>
 
-									<td><c:out value="${events.address}">
-										</c:out></td>
-									<td><c:out
-											value="${events.priceCategory.getPriceCategory()}">
-										</c:out></td>
-									<td><c:out value="${events.website}">
-										</c:out></td>
-									<td><c:out value="${events.owner.getLogin()}">
-										</c:out></td>
-
-									<td><c:out value="${events.attendee}">
-										</c:out></td>
-									<td><c:out value="${events.comment}">
-										</c:out></td>
-									
-
-								</tr>
-							</c:forEach>
-						</tbody>  -->	
 					</table>
 				</div>
 
