@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 /**
  * 
@@ -34,6 +35,7 @@ public class Group {
     @Column(name = "group_id", unique = true, nullable = false)
     private Long id;
 
+    @Size(min = 3, message = "Group name must be at least 3 characters!")
     @Column(name = "group_name")
     private String groupName;
     

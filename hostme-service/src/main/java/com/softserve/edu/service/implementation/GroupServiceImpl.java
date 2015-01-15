@@ -1,5 +1,6 @@
 package com.softserve.edu.service.implementation;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,13 +8,13 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.softserve.edu.model.Group;
 import com.softserve.edu.repositories.GroupRepository;
 import com.softserve.edu.service.GroupService;
 
-@Component
+@Service
 public class GroupServiceImpl implements GroupService {
 
     // @Autowired
@@ -43,6 +44,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void create(Group group, String name) {
+        group.setCreatedAt(new Date());
         groupRepository.save(group);
     }
 

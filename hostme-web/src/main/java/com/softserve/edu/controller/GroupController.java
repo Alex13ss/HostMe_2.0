@@ -34,6 +34,11 @@ public class GroupController {
     @Autowired
     private ConversationService conversationService;
 
+    @ModelAttribute("group")
+    public Group constructGroup() {
+        return new Group();
+    }
+
     @RequestMapping("/profile")
     public String profile(Model model, Principal principal) {
         String name = principal.getName();

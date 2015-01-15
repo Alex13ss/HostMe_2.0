@@ -32,7 +32,7 @@
 					and useful conversations!
 				</h3>
 
-				<form:form commandName="group">
+				<form:form commandName="group" cssClass="form-horizontal groupForm">
 					<!-- Modal -->
 					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 						aria-labelledby="myModalLabel" aria-hidden="true">
@@ -49,22 +49,20 @@
 								<div class="modal-body">
 
 									<div class="form-group">
-										<label for="name" class="col-sm-2 control-label">
+										<label for="groupName" class="col-sm-2 control-label">
 											Name: </label>
 										<div class="col-sm-10">
-											<!-- form:input path="groupName" cssClass="form-control" /-->
-											<!-- form:errors path="name" /-->
+											<form:input path="groupName" cssClass="form-control" />
+											<form:errors path="groupName" />
 										</div>
 									</div>
 
-									<br />
-
 									<div class="form-group">
 										<label for="name" class="col-sm-2 control-label">
-											etc.: </label>
+											Description: </label>
 										<div class="col-sm-10">
-											<!-- form:input path="url" cssClass="form-control" /-->
-											<!--form:errors path="url" /-->
+											<!-- form:input path="description" cssClass="form-control" /-->
+											<!-- form:errors path="description" /-->
 										</div>
 									</div>
 
