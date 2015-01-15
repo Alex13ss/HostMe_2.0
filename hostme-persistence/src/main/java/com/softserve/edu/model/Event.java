@@ -30,12 +30,12 @@ public class Event extends Place{
 	@Column(name = "end_date")
 	private Date endDate;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "priceCategory_id")
 	private PriceCategory priceCategory;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "status", nullable = false)
+	@Column(name = "status"/*, nullable = false*/)
 	private Status status;
 	
 	@Column(name = "comment")
@@ -46,6 +46,16 @@ public class Event extends Place{
 	
 	@OneToMany(mappedBy = "event", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Image> image;
+
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id"/*, nullable = false*/)
+	private User owner;
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendee")	
+	private Set<User> attendee;
+		
+
 
 	public Event() {
 		super();

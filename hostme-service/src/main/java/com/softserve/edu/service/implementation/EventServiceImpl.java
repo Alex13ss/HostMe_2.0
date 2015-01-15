@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.PriceCategory;
+import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
 import com.softserve.edu.repositories.EventRepository;
 import com.softserve.edu.service.EventService;
@@ -90,5 +91,12 @@ public class EventServiceImpl implements EventService {
 	public List<Event> getEventByWebSite(String website) {
 		return eventRepository.findByWebsite(website);
 	}
+	
+	@Override
+	@Transactional
+	public void saveEvent(Event event) {
+		eventRepository.save(event);
+	}
+
 
 }

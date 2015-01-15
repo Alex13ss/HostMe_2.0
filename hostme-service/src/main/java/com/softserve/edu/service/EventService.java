@@ -11,6 +11,8 @@ import com.softserve.edu.model.User;
 public interface EventService {
 
 	public Event addEvent(Event event);
+	
+	public void saveEvent(Event event);
 
 	public void updateEvent(Event event);
 
