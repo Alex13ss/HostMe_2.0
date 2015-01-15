@@ -161,48 +161,7 @@ public class Event extends Place{
 		this.attendee = attendee;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		if (!super.equals(o)) return false;
-
-		Event event = (Event) o;
-
-		if (attendee != null ? !attendee.equals(event.attendee) : event.attendee != null) return false;
-		if (!description.equals(event.description)) return false;
-		if (endDate != null ? !endDate.equals(event.endDate) : event.endDate != null) return false;
-		if (!owner.equals(event.owner)) return false;
-		if (!priceCategory.equals(event.priceCategory)) return false;
-		if (startDate != null ? !startDate.equals(event.startDate) : event.startDate != null) return false;
-		if (status != event.status) return false;
-		if (website != null ? !website.equals(event.website) : event.website != null) return false;
-
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		int result = super.hashCode();
-		result = 31 * result + description.hashCode();
-		result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
-		result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
-		result = 31 * result + priceCategory.hashCode();
-		result = 31 * result + status.hashCode();
-		result = 31 * result + (website != null ? website.hashCode() : 0);
-		result = 31 * result + owner.hashCode();
-		result = 31 * result + (attendee != null ? attendee.hashCode() : 0);
-		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "Event [description=" + description + ", startDate=" + startDate
-				+ ", endDate=" + endDate + ", priceCategory=" + priceCategory
-				+ ", status=" + status + ", comment=" + comment + ", website="
-				+ website + ", image=" + image + ", owner=" + owner
-				+ ", attendee=" + attendee + "]";
-	}
+	
 	
 	
 }
