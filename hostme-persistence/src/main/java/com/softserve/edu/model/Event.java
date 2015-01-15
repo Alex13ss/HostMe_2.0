@@ -8,9 +8,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.common.base.Objects;
-
 /**
  * 
  * @author Ronan Class for events, which contain all fields related to
@@ -49,14 +46,6 @@ public class Event extends Place{
 	
 	@OneToMany(mappedBy = "event", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Image> image;
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private User owner;
-
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendee")	
-	private Set<User> attendee;
-		
 
 	public Event() {
 		super();
@@ -141,27 +130,4 @@ public class Event extends Place{
 		this.image = image;
 	}
 
-
-	public User getOwner() {
-		return owner;
-	}
-
-
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
-
-
-	public Set<User> getAttendee() {
-		return attendee;
-	}
-
-
-	public void setAttendee(Set<User> attendee) {
-		this.attendee = attendee;
-	}
-
-	
-	
-	
 }

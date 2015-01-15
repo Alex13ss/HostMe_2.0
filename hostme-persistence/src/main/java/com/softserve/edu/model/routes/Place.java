@@ -2,6 +2,7 @@ package com.softserve.edu.model.routes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softserve.edu.model.City;
+import com.softserve.edu.model.User;
 
 import javax.persistence.*;
 
@@ -26,7 +27,14 @@ public class Place {
 
     @ManyToMany(mappedBy = "places", cascade = CascadeType.ALL)
     Set<Route> routes;
-   
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User owner;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendee")
+    private Set<User> attendee;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +67,19 @@ public class Place {
         this.routes = routes;
     }
 
-    
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Set<User> getAttendee() {
+        return attendee;
+    }
+
+    public void setAttendee(Set<User> attendee) {
+        this.attendee = attendee;
+    }
 }

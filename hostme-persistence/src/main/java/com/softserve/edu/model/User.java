@@ -26,6 +26,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
+import com.softserve.edu.model.routes.Place;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
@@ -98,6 +99,9 @@ public class User {
     private String region;
 
     @ManyToOne
+    private City city;
+
+    @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "role_id")
     private Role role;
@@ -140,12 +144,12 @@ public class User {
     private Set<Feedback> feedbacks = new HashSet<Feedback>();
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Event> owner;
+    private Set<Place> places;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
-    @JoinTable(name = "user_attendee", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "event_id"))
-    private Set<Event> attendee;
+    @JoinTable(name = "user_place", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
+    private Set<Place> attendee;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = javax.persistence.CascadeType.ALL)
     private Set<Route> routes = new HashSet<>();
@@ -269,6 +273,14 @@ public class User {
         this.region = region;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     public List<Language> getLanguages() {
         HashSet<Language> langs = new HashSet<Language>(languages);
         languages.clear();
@@ -296,11 +308,19 @@ public class User {
         return feedbacks;
     }
 
-    public Set<Event> getAttendee() {
+    public Set<Place> getAttendee() {
         return attendee;
     }
 
-    public void setAttendee(Set<Event> attendee) {
+    public Set<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(Set<Place> places) {
+        this.places = places;
+    }
+
+    public void setAttendee(Set<Place> attendee) {
         this.attendee = attendee;
     }
 
