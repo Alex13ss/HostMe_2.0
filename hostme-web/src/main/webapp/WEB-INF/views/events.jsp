@@ -90,7 +90,7 @@
 								<th>Photos</th>
 							</tr>
 						</thead>
-				<!--  	<tbody>
+				  	<tbody>
 							<c:forEach var="events" items="${events}">
 								<tr>
 									<td><c:out value="${events.description}">
@@ -119,7 +119,7 @@
 
 								</tr>
 							</c:forEach>
-						</tbody> -->	
+						</tbody> 	
 					</table>
 				</div>
 

@@ -12,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Request;
 import com.softserve.edu.model.User;
@@ -31,7 +33,21 @@ public class EventContoller {
 	@Autowired
 	ProfileService profileService;
 
+	 @RequestMapping(value = "/events", method = RequestMethod.GET)
+	    public String showEvents(Model model) {
+		 List<Event> events = eventService.getAllEvents();
+		model.addAttribute("events", events);
+		return "events";
+	    }
+	
+	@RequestMapping(value = "/events1", method = RequestMethod.GET)
+	public @ResponseBody List<Event> getAllEvents(){
 		
+		List<Event> events = eventService.getAllEvents();
+		return events;
+		
+	}
+/*		
 	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public @ResponseBody List<Event> getAllEvents(){
 		
@@ -39,6 +55,6 @@ public class EventContoller {
 		return events;
 		
 	}
-	
+	*/
 	
 }
