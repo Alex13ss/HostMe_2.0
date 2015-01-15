@@ -13,9 +13,6 @@ import java.util.List;
 @Controller
 public class CreateRouteController {
 
-    private final int USER_ROUTES = 0;
-    private final int OTHER_ROUTES = 1;
-
     @Autowired
     RoutesService routesService;
 
@@ -26,12 +23,12 @@ public class CreateRouteController {
         return "createRoute";
     }
 
-    @RequestMapping(value = "/createRoute", method = RequestMethod.GET,
+    @RequestMapping(value = "/createRoute-getRoutes", method = RequestMethod.GET,
                         produces = "application/json")
-    public @ResponseBody List<List<Route>> createRoute() {
-        List<List<Route>> routes = new ArrayList<>();
-        routes.set(USER_ROUTES, routesService.getCurrentUserRoutes());
-        routes.set(OTHER_ROUTES, routesService.getRoutesNearToUsers());
+    public @ResponseBody List<Route> createRoute() {
+        List<Route> routes = new ArrayList<>();
+        routes.addAll(routesService.getCurrentUserRoutes());
+        routes.addAll(routesService.getRoutesNearToUsers());
         return routes;
     }
 
