@@ -154,7 +154,7 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = javax.persistence.CascadeType.ALL)
     private Set<Route> routes = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
     @JoinTable(name = "user_groups", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<Group> groups;

@@ -39,6 +39,7 @@ public class Group {
     @Column(name = "group_name")
     private String groupName;
     
+    @Size(min = 5, message = "Group description must be at least 5 characters!")
     @Column(name = "group_description")
     private String groupDescription;
 

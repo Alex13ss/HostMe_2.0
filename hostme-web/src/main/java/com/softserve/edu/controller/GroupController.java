@@ -57,11 +57,17 @@ public class GroupController {
         groupService.create(group, name);
         return "redirect:/groups";
     }
+    
+    @RequestMapping("/groups/remove/{id}")
+    public String removeGroup(@PathVariable Long id) {
+        Group group = groupService.findOne(id);
+        groupService.delete(group);
+        return "redirect:/groups";
+    }
 
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
     public String groupCreationShow(Model model) {
         Set<Group> groups = groupService.findAll();
-        System.out.println(groups.size());
         model.addAttribute("groups", groups);
         return "groups";
     }
@@ -80,13 +86,6 @@ public class GroupController {
         Long conversationsSize = conversationService.countByGroupId(id);
         model.addAttribute("conversationDtos", conversations);
         model.addAttribute("conversationsSize", conversationsSize);
-    }
-
-    @RequestMapping("/groups/remove/{id}")
-    public String removeGroup(@PathVariable Long id) {
-        Group group = groupService.findOne(id);
-        groupService.delete(group);
-        return "redirect:/groups";
     }
 
 }

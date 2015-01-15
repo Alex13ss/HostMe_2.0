@@ -58,11 +58,11 @@
 									</div>
 
 									<div class="form-group">
-										<label for="name" class="col-sm-2 control-label">
+										<label for="groupDescription" class="col-sm-2 control-label">
 											Description: </label>
 										<div class="col-sm-10">
-											<!-- form:input path="description" cssClass="form-control" /-->
-											<!-- form:errors path="description" /-->
+											<form:input path="groupDescription" cssClass="form-control" />
+											<form:errors path="groupDescription" />
 										</div>
 									</div>
 
@@ -90,6 +90,7 @@
 				<table class="table table-bordered table-hover table-striped">
 					<thead>
 						<tr>
+							<th>Image of group</th>
 							<th>Group name</th>
 							<th>Published at</th>
 							<th>Operations</th>
@@ -98,11 +99,13 @@
 					<tbody>
 						<c:forEach items="${groups}" var="group">
 							<tr>
-								<td><a> <c:url var="groupUrl" value="/group">
-											<c:param name="id" value="${group.id}" />
-										</c:url> <a href="<c:out value="${groupUrl}"/>"><c:out
-												value="${group.groupName}" /></a> <br>
-								</a></td>
+								<td style="width: 150px;"><img
+									src="resources/images/group-default.jpg"></td>
+								<td><c:url var="groupUrl" value="/group">
+										<c:param name="id" value="${group.id}" />
+									</c:url><a href="<c:out value="${groupUrl}"/>"><strong> <c:out
+												value="${group.groupName}" /></strong></a><br /> <c:out
+										value="${group.groupDescription}" /></td>
 								<td>${group.createdAt}</td>
 								<td><a
 									href="<spring:url value="/groups/remove/${group.id}" />"

@@ -26,7 +26,7 @@
 	<section class="content">
 		<div class="row">
 			<security:authorize access="! isAuthenticated()">
-				<div class="col-lg-3 col-xs-6 col-md-offset-2">
+				<div class="col-lg-3 col-xs-6 col-md-offset-3">
 					<div class="btn small-box bg-aqua">
 						<div data-toggle="modal" data-target="#myModal" class="inner"
 							style="padding-top: 2em">
@@ -39,22 +39,6 @@
 						</div>
 					</div>
 				</div>
-
-
-				<div class="col-lg-3 col-xs-6">
-					<div data-toggle="modal" data-target=""
-						class="btn small-box bg-green">
-						<div class="inner" style="padding-top: 2em">
-							<h4>
-								<strong>Take a tour</strong>
-							</h4>
-						</div>
-						<div class="icon">
-							<i class="ion ion-search"></i>
-						</div>
-					</div>
-				</div>
-
 
 				<!-- ./col -->
 
