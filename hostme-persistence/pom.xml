@@ -14,7 +14,7 @@
 		<hibernateVersion>4.3.6.Final</hibernateVersion>
 		<jacsonVersion>2.4.2</jacsonVersion>
 		<springDataJpaVersion>1.7.1.RELEASE</springDataJpaVersion>
-		<jdbc.password>123456</jdbc.password>
+		<jdbc.password>admin</jdbc.password>
 	</properties>
 
 	<build>
@@ -48,6 +48,7 @@
 						<srcFile>src/main/resources/sql/priceCategories.sql</srcFile>
 						<srcFile>src/main/resources/sql/users.sql</srcFile>
 						<srcFile>src/main/resources/sql/events.sql</srcFile>
+						<srcFile>src/main/resources/sql/groups.sql</srcFile>
 						<srcFile>src/main/resources/sql/conversations.sql</srcFile>
 						<!--  <srcFile>src/main/resources/sql/sightseeings.sql</srcFile>-->
 					</srcFiles>

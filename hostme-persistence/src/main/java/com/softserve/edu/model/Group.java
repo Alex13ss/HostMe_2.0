@@ -8,11 +8,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,12 +29,16 @@ import javax.persistence.TemporalType;
 public class Group {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "groups_group_id_seq", sequenceName = "groups_group_id_seq", allocationSize = 30)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groups_group_id_seq")
     @Column(name = "group_id", unique = true, nullable = false)
     private Long id;
 
     @Column(name = "group_name")
     private String groupName;
+    
+    @Column(name = "group_description")
+    private String groupDescription;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
@@ -42,7 +48,7 @@ public class Group {
      * 
      * Contains images uploaded by this group
      */
-    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Image> images;
 
     /**
@@ -56,7 +62,7 @@ public class Group {
      * 
      * Contains list of users which have conversations in this group
      */
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users;
 
     /**
@@ -64,7 +70,7 @@ public class Group {
      * Contains list of tags which included by this group
      */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "group_tags", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JoinTable(name = "group_tags", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
 
     public Group() {
@@ -124,6 +130,14 @@ public class Group {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getGroupDescription() {
+        return groupDescription;
+    }
+
+    public void setGroupDescription(String groupDescription) {
+        this.groupDescription = groupDescription;
     }
 
     @Override
