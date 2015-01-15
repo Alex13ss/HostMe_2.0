@@ -5,11 +5,12 @@ import com.softserve.edu.model.routes.Place;
 import java.util.Set;
 
 import javax.persistence.*;
+import com.google.common.base.Objects;
 
 @Entity
 @Table(name = "Sightseeing", uniqueConstraints = { @UniqueConstraint(columnNames = "id") })
 @PrimaryKeyJoinColumn(name = "id")
-public class Sightseeing extends Place{
+public class Sightseeing extends Place {
 
 	@Column(name = "sightseeing_name", nullable = false)
 	private String name;
@@ -27,7 +28,7 @@ public class Sightseeing extends Place{
 	@Column(name = "description")
 	private String description;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "priceCategory_id")
 	private PriceCategory priceCategory;
 
@@ -111,6 +112,42 @@ public class Sightseeing extends Place{
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(super.hashCode(), name, sightseeingType,
+				rating, website, description, priceCategory, image, status,
+				comment);
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Sightseeing) {
+			if (!super.equals(object))
+				return false;
+			Sightseeing that = (Sightseeing) object;
+			return Objects.equal(this.name, that.name)
+					&& Objects
+							.equal(this.sightseeingType, that.sightseeingType)
+					&& Objects.equal(this.rating, that.rating)
+					&& Objects.equal(this.website, that.website)
+					&& Objects.equal(this.description, that.description)
+					&& Objects.equal(this.priceCategory, that.priceCategory)
+					&& Objects.equal(this.image, that.image)
+					&& Objects.equal(this.status, that.status)
+					&& Objects.equal(this.comment, that.comment);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Sightseeing [name=" + name + ", sightseeingType="
+				+ sightseeingType + ", rating=" + rating + ", website="
+				+ website + ", description=" + description + ", priceCategory="
+				+ priceCategory + ", image=" + image + ", status=" + status
+				+ ", comment=" + comment + "]";
 	}
 
 }

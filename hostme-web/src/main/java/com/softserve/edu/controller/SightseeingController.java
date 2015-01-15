@@ -45,12 +45,26 @@ public class SightseeingController {
 	@RequestMapping("/sightseeing/delete/{id}")
 	public String deleteSightseeing(@PathVariable("id") Integer id) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
-		sightseeingService.delete(sightseeing);
+		sightseeingService.deleteSightseeing(sightseeing);
 		return "redirect:/sightseeings";
 	}
+	
+	@RequestMapping(value = "/update-sightseeing", method = RequestMethod.GET)
+	public String editSightseeing(Model model) {
+		Sightseeing sightseeings = new Sightseeing();
+		model.addAttribute("sightseeings", sightseeings);
+		return "create-sightseeing";
+	}
+	
+//	@RequestMapping("/sightseeingEdit/{id}")
+//	public String changeSightseeing(@PathVariable("id") Integer id) {
+//		Sightseeing sightseeing = sightseeingService.findOne(id);
+//		sightseeingService.saveSightseeing(sightseeing);
+//		return "redirect:/sightseeings";
+//	}
 
 	@RequestMapping(value = "/sightseeingAdd", method = RequestMethod.POST)
-	public String addContact(@ModelAttribute("sightseeing") Sightseeing sightseeing,
+	public String addSightseeing(@ModelAttribute("sightseeing") Sightseeing sightseeing,
 			BindingResult result) {
 		sightseeingService.saveSightseeing(sightseeing);
 		return "redirect:/create-sightseeing";

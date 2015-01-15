@@ -34,7 +34,7 @@ public class SightseeingServiceImpl implements SightseeingService {
 	}
 
 	@Override
-	public void delete(Sightseeing sightseeing) {
+	public void deleteSightseeing(Sightseeing sightseeing) {
 		sightseeingRepository.delete(sightseeing);
 	}
 

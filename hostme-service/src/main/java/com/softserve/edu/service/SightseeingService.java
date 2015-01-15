@@ -9,7 +9,7 @@ public interface SightseeingService {
 
 	Sightseeing findOne(Integer id);
 
-	void delete(Sightseeing sightseeing);
+	void deleteSightseeing(Sightseeing sightseeing);
 
 	void saveSightseeing(Sightseeing sightseeing);
 }

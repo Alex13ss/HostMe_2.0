@@ -55,8 +55,12 @@
 									</c:out></td>
 								<td class=" "><a href="${image.link}"><img
 										width="150px" height="150px" src="${image.link}"></a></td>
-								<td class=" "><a href="sightseeing/delete/${sightseeing.id}"><i class="fa fa-fw fa-trash-o"></i></a></td>
-								<td class=" "><i class="fa fa-fw fa-pencil"></i></td>
+								<td class=" "><a
+									href="sightseeing/delete/${sightseeing.id}"><i
+										class="fa fa-fw fa-trash-o"></i></a></td>
+								<td class=" "><a
+									href="<c:url value='update-sightseeing' />"><i
+										class="fa fa-fw fa-pencil"></i></a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
