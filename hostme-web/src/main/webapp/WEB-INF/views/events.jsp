@@ -45,8 +45,8 @@
 
 					<div id="addButtonEvent" style="margin-top: 10px;">
 						<a href="event-creation" class="btn btn-default btn-sm"><i
-							class="fa fa-fw fa-plus-square-o"></i>
-						<spring:message code="label.addEvent" /></a>
+							class="fa fa-fw fa-plus-square-o"></i> <spring:message
+								code="label.addEvent" /></a>
 
 						<button onclick="refresh()" class="btn btn-default btn-sm">
 							<i class="fa fa-fw fa-refresh"></i>
@@ -60,17 +60,36 @@
 				<!-- /.box-header -->
 				<ul class="nav nav-tabs">
 
-					<li id="events" class="active"
-						onclick="events(this)"><a href="#"
-						data-toggle="tab"><spring:message code="label.events" /></a></li>
+					<li id="events" class="active" onclick="events(this)"><a
+						href="#" data-toggle="tab"><spring:message code="label.events" /></a></li>
 
-			<!--  		<li class="" onclick="initialize_request_to_me(this)"><a
+					<!--  		<li class="" onclick="initialize_request_to_me(this)"><a
 						href="#" data-toggle="tab"><spring:message
 								code="label.Myevents" /></a></li>
 					<li class="" onclick="initialize_request_to_me(this)"><a
 						href="#" data-toggle="tab"><spring:message
 								code="label.SignedEvents" /></a></li> -->
+
 				</ul>
+
+				<div class="row">
+					<div class="col-xs-6">
+						<div id="example1_length" class="dataTables_length">
+							<label><select size="1" name="example1_length"
+								aria-controls="example1"><option value="10"
+										selected="selected">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="100">100</option></select> records per page</label>
+						</div>
+					</div>
+					<div class="col-xs-6">
+						<div class="dataTables_filter" id="example1_filter">
+							<label>Search: <input type="text"
+								aria-controls="example1"></label>
+						</div>
+					</div>
+				</div>
 
 				<div class="box-body table-responsive">
 					<table id="request_table_obtain"
@@ -90,7 +109,7 @@
 								<th>Photos</th>
 							</tr>
 						</thead>
-				  	<tbody>
+						<tbody>
 							<c:forEach var="events" items="${events}">
 								<tr>
 									<td><c:out value="${events.description}">
@@ -119,7 +138,7 @@
 
 								</tr>
 							</c:forEach>
-						</tbody> 	
+						</tbody>
 					</table>
 				</div>
 
