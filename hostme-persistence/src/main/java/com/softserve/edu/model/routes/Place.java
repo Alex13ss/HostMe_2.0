@@ -19,17 +19,17 @@ public class Place {
     private Integer id;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "city_id", nullable = false)
+    @JoinColumn(name = "city_id")
     private City city;
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address")
     private String address;
 
     @ManyToMany(mappedBy = "places", cascade = CascadeType.ALL)
     Set<Route> routes;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     private User owner;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendee")
