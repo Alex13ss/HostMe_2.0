@@ -1,7 +1,5 @@
 package com.softserve.edu.model;
 
-import java.util.Set;
-
 import javax.persistence.*;
 
 @Entity
@@ -15,10 +13,6 @@ public class PriceCategory {
 
 	@Column(name = "description")
 	private String priceCategory;
-
-
-	@OneToMany(mappedBy = "priceCategory", fetch = FetchType.EAGER, orphanRemoval = true)
-	private Set<Sightseeing> sightseeing;
 
 	public PriceCategory() {
 		super();
@@ -39,15 +33,5 @@ public class PriceCategory {
 	public void setPriceCategory(String priceCategory) {
 		this.priceCategory = priceCategory;
 	}
-
-
-	public Set<Sightseeing> getSightseeing() {
-		return sightseeing;
-	}
-
-	public void setSightseeing(Set<Sightseeing> sightseeing) {
-		this.sightseeing = sightseeing;
-	}
-
 
 }
