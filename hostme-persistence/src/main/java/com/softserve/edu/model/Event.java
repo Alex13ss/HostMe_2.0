@@ -52,9 +52,7 @@ public class Event extends Place{
 	@JoinColumn(name = "user_id"/*, nullable = false*/)
 	private User owner;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendee")	
-	private Set<User> attendee;
-		
+	
 
 
 	public Event() {
