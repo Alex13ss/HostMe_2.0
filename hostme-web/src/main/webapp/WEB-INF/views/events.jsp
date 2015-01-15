@@ -85,8 +85,8 @@
 								<th>Price</th>
 								<th>Website</th>
 								<th>Status</th>
-								<th>Attendees</th>
-								<th>Comments</th>
+								<th>Comment</th>
+
 							</tr>
 						</thead>
 				<!-- 	<tbody>
