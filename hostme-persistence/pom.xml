@@ -49,7 +49,7 @@
 						<srcFile>src/main/resources/sql/users.sql</srcFile>
 						<srcFile>src/main/resources/sql/events.sql</srcFile>
 						<srcFile>src/main/resources/sql/conversations.sql</srcFile>
-						<srcFile>src/main/resources/sql/sightseeings.sql</srcFile>
+						<!--  <srcFile>src/main/resources/sql/sightseeings.sql</srcFile>-->
 					</srcFiles>
 				</configuration>
 
