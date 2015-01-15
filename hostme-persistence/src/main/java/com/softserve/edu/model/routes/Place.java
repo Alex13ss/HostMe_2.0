@@ -66,7 +66,7 @@ public class Place {
     public void setRoutes(Set<Route> routes) {
         this.routes = routes;
     }
-
+    @JsonIgnore
     public User getOwner() {
         return owner;
     }

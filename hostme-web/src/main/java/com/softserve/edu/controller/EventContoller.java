@@ -43,7 +43,7 @@ public class EventContoller {
 		return "events";
 	    }
 	
-	@RequestMapping(value = "/events1", method = RequestMethod.GET)
+	@RequestMapping(value = "/all-events", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Event> getAllEvents(){
 		
 		List<Event> events = eventService.getAllEvents();

@@ -47,13 +47,6 @@ public class Event extends Place{
 	@OneToMany(mappedBy = "event", fetch = FetchType.EAGER, orphanRemoval = true)
 	private Set<Image> image;
 
-	
-	@ManyToOne
-	@JoinColumn(name = "user_id"/*, nullable = false*/)
-	private User owner;
-
-	
-
 
 	public Event() {
 		super();

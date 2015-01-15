@@ -8,9 +8,8 @@
 <html style="min-height: 682px;">
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
-
+<link href="resources/css/dataTables.bootstrap.css" rel="stylesheet"
+	type="text/css" />
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/event.js" type="text/javascript"></script>
 <script src="resources/js/fnAjaxReload.js" type="text/javascript"></script>
@@ -60,7 +59,8 @@
 				<!-- /.box-header -->
 				<ul class="nav nav-tabs">
 
-					<li id="events" class="active" onclick="events(this)"><a
+					<li id="all-events" class="active" 
+						onclick="allEvents(this)"><a
 						href="#" data-toggle="tab"><spring:message code="label.events" /></a></li>
 
 					<!--  		<li class="" onclick="initialize_request_to_me(this)"><a
@@ -81,15 +81,15 @@
 							<tr>
 								<th>Title</th>
 								<th>Starts</th>
-								<th>Location</th>
+								<th>Ends</th>
 								<th>Price</th>
 								<th>Website</th>
-								<th>Organizer</th>
+								<th>Status</th>
 								<th>Attendees</th>
 								<th>Comments</th>
 							</tr>
 						</thead>
-						<tbody>
+				<!-- 	<tbody>
 							<c:forEach var="events" items="${events}">
 								<tr>
 									<td><c:out value="${events.description}">
@@ -115,7 +115,7 @@
 
 								</tr>
 							</c:forEach>
-						</tbody>
+						</tbody>  -->	
 					</table>
 				</div>
 
