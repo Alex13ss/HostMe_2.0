@@ -1,5 +1,6 @@
 package com.softserve.edu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softserve.edu.model.routes.Place;
 
 import java.util.Set;
@@ -17,7 +18,7 @@ public class City {
 	@Column(name = "city", length = 64)
 	private String city;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "country_id", nullable = false)
 	private Country country;
 
@@ -35,7 +36,7 @@ public class City {
 	public void setCityId(Integer cityId) {
 		this.cityId = cityId;
 	}
-
+	
 	public String getCity() {
 		return city;
 	}
@@ -44,6 +45,7 @@ public class City {
 		this.city = city;
 	}
 
+	@JsonIgnore
 	public Country getCountry() {
 		return country;
 	}
@@ -52,6 +54,7 @@ public class City {
 		this.country = country;
 	}
 
+	
 	public Set<Place> getPlaces() {
 		return places;
 	}
@@ -62,25 +65,32 @@ public class City {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
 		City city1 = (City) o;
 
-		if (!city.equals(city1.city)) return false;
-		if (!cityId.equals(city1.cityId)) return false;
-		if (!country.equals(city1.country)) return false;
-		if (places != null ? !places.equals(city1.places) : city1.places != null) return false;
+		if (!city.equals(city1.city))
+			return false;
+		if (!cityId.equals(city1.cityId))
+			return false;
+		if (!country.equals(city1.country))
+			return false;
+		if (places != null ? !places.equals(city1.places)
+				: city1.places != null)
+			return false;
 
 		return true;
 	}
 
-//	@Override
-//	public int hashCode() {
-//		int result = cityId.hashCode();
-//		result = 31 * result + city.hashCode();
-//		result = 31 * result + country.hashCode();
-//		result = 31 * result + (places != null ? places.hashCode() : 0);
-//		return result;
-//	}
+	// @Override
+	// public int hashCode() {
+	// int result = cityId.hashCode();
+	// result = 31 * result + city.hashCode();
+	// result = 31 * result + country.hashCode();
+	// result = 31 * result + (places != null ? places.hashCode() : 0);
+	// return result;
+	// }
 }

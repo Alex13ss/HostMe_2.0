@@ -24,8 +24,8 @@ public class Country {
 	@Column(name = "country", length = 64)
 	private String country;
 		
-	@OneToMany(mappedBy = "country", fetch = FetchType.LAZY, orphanRemoval = true)
-	private Set<City> city;
+//	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER, orphanRemoval = true)
+//	private Set<City> city;
 
 	public Country() {
 		super();
@@ -47,35 +47,15 @@ public class Country {
 		this.country = country;
 	}
 
-	public Set<City> getCity() {
-		return city;
-	}
+//	public Set<City> getCity() {
+//		return city;
+//	}
+//
+//	public void setCity(Set<City> city) {
+//		this.city = city;
+//	}
 
-	public void setCity(Set<City> city) {
-		this.city = city;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(countryId, country, city);
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		if (object instanceof Country) {
-			Country that = (Country) object;
-			return Objects.equal(this.countryId, that.countryId)
-					&& Objects.equal(this.country, that.country)
-					&& Objects.equal(this.city, that.city);
-		}
-		return false;
-	}
-
-	@Override
-	public String toString() {
-		return "Country [countryId=" + countryId + ", country=" + country
-				+ ", city=" + city + "]";
-	}
+	
 
 	
 	

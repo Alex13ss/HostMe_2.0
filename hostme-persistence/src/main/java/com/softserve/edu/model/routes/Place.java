@@ -1,5 +1,6 @@
 package com.softserve.edu.model.routes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softserve.edu.model.City;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class Place {
 
     @ManyToMany(mappedBy = "places", cascade = CascadeType.ALL)
     Set<Route> routes;
-
+   
     public Integer getId() {
         return id;
     }
@@ -33,7 +34,7 @@ public class Place {
     public void setId(Integer id) {
         this.id = id;
     }
-
+    @JsonIgnore
     public City getCity() {
         return city;
     }
@@ -41,7 +42,7 @@ public class Place {
     public void setCity(City city) {
         this.city = city;
     }
-
+    @JsonIgnore
     public String getAddress() {
         return address;
     }
@@ -49,7 +50,7 @@ public class Place {
     public void setAddress(String address) {
         this.address = address;
     }
-
+    @JsonIgnore
     public Set<Route> getRoutes() {
         return routes;
     }
@@ -58,26 +59,5 @@ public class Place {
         this.routes = routes;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Place place = (Place) o;
-
-        if (!address.equals(place.address)) return false;
-        if (!city.equals(place.city)) return false;
-        if (!id.equals(place.id)) return false;
-        if (routes != null ? !routes.equals(place.routes) : place.routes != null) return false;
-        return true;
-    }
-
-//    @Override
-//    public int hashCode() {
-//        int result = id.hashCode();
-//        result = 31 * result + city.hashCode();
-//        result = 31 * result + address.hashCode();
-//        result = 31 * result + (routes != null ? routes.hashCode() : 0);
-//        return result;
-//    }
+    
 }
