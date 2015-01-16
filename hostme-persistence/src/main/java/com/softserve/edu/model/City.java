@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Table(name = "CITIES", uniqueConstraints = { @UniqueConstraint(columnNames = "city_id") })
 public class City {
 	@Id
-	@GeneratedValue
+	@SequenceGenerator(name = "cities_country_id_seq", sequenceName = "cities_country_id_seq", allocationSize = 111)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cities_country_id_seq")
 	@Column(name = "city_id", unique = true, nullable = false)
 	private Integer cityId;
 

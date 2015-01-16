@@ -14,7 +14,8 @@ import java.util.Set;
 public class Place {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name = "place_id_seq", sequenceName = "place_id_seq", allocationSize = 111)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "place_id_seq")
     @Column
     private Integer id;
 

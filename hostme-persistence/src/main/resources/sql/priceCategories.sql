@@ -1,1 +1,1 @@
-INSERT INTO "pricecategories" (pricecategory_id,description) VALUES (1,'FREE'),(2,'1-50'),(3,'51-100'),(4,'101-200'),(5,'200-');
+INSERT INTO "pricecategories" (pricecategory_id,description) VALUES (1,'FREE'),(2,'1-50'),(3,'51-100'),(4,'101-200'),(5,'200-'),(6,'300-');

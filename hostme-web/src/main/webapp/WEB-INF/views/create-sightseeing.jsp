@@ -11,12 +11,10 @@
 	href="resources/css/sightseeing.css" />
 <title>Sightseeing</title>
 </head>
-<body class="skin-blue  pace-done" style="min-height: 1293px;">
-
-	<h1>Let's travel!!!</h1>
+<body class="skin-blue  pace-done"">
+	<h3>Create new sightseeing</h3>
 	<form:form method="post" action="sightseeingAdd"
 		commandName="sightseeings">
-
 		<table id="example1"
 			class="table table-bordered table-striped dataTable">
 			<tr>
@@ -75,8 +73,7 @@
 			</tr>
 			<tr>
 				<td colspan="2"><input type="submit"
-					value="<spring:message code="label.createSightseeing"/>" />
-					</td>
+					value="<spring:message code="label.createSightseeing"/>" /></td>
 			</tr>
 		</table>
 	</form:form>

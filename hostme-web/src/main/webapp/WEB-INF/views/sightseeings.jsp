@@ -45,7 +45,9 @@
 					<tbody>
 						<c:forEach var="sightseeing" items="${sightseeings}">
 							<tr
-								href="<c:url value="sightseeing"><c:param name="id" value="${sightseeing.id}" /></c:url>"
+								href="<c:url value="sightseeing">
+								<c:param name="id" value="${sightseeing.id}" />
+								</c:url>"
 								class="clickableRow" class="odd">
 								<td class=" "><c:out value="${sightseeing.name}">
 									</c:out></td>
@@ -59,8 +61,9 @@
 									href="sightseeing/delete/${sightseeing.id}"><i
 										class="fa fa-fw fa-trash-o"></i></a></td>
 								<td class=" "><a
-									href="<c:url value='update-sightseeing' />"><i
-										class="fa fa-fw fa-pencil"></i></a></td>
+									href="<c:url value="update-sightseeing"><c:param name="id" value="${sightseeing.id}" /></c:url>">
+										<i class="fa fa-fw fa-pencil"></i>
+								</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

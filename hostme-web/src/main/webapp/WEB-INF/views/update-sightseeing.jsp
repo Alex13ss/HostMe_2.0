@@ -13,9 +13,9 @@
 </head>
 <body class="skin-blue  pace-done" style="min-height: 1293px;">
 
-	<h1>Let's travel!!!</h1>
-	<form:form method="post" action="sightseeingAdd"
-		commandName="sightseeings">
+	<h3>Update Sightseeing ${sightseeing.id} </h3>
+	<form:form method="post" action="sightseeingEdit"
+		commandName="sightseeing">
 
 		<table id="example1"
 			class="table table-bordered table-striped dataTable">

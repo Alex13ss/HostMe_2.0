@@ -7,7 +7,8 @@ import javax.persistence.*;
 public class PriceCategory {
 
 	@Id
-	@GeneratedValue
+	@SequenceGenerator(name = "pricecategories_pricecategory_id_seq", sequenceName = "pricecategories_pricecategory_id_seq", allocationSize = 7)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pricecategories_pricecategory_id_seq")
 	@Column(name = "priceCategory_id", unique = true, nullable = false)
 	private Integer priceCategoryId;
 

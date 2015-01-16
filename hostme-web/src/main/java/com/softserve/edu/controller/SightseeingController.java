@@ -28,18 +28,18 @@ public class SightseeingController {
 		return "sightseeings";
 	}
 
-	@RequestMapping(value = "/create-sightseeing", method = RequestMethod.GET)
-	public String addSightseeing(Model model) {
-		Sightseeing sightseeings = new Sightseeing();
-		model.addAttribute("sightseeings", sightseeings);
-		return "create-sightseeing";
-	}
-
 	@RequestMapping(value = "/sightseeing", method = RequestMethod.GET)
-	public String showConversation(@RequestParam("id") int id, Model model) {
+	public String showSightseeing(@RequestParam("id") int id, Model model) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
 		model.addAttribute("sightseeing", sightseeing);
 		return "sightseeing";
+	}
+
+	@RequestMapping(value = "/create-sightseeing", method = RequestMethod.GET)
+	public String createSightseeing(Model model) {
+		Sightseeing sightseeings = new Sightseeing();
+		model.addAttribute("sightseeings", sightseeings);
+		return "create-sightseeing";
 	}
 
 	@RequestMapping("/sightseeing/delete/{id}")
@@ -48,25 +48,25 @@ public class SightseeingController {
 		sightseeingService.deleteSightseeing(sightseeing);
 		return "redirect:/sightseeings";
 	}
-	
+
 	@RequestMapping(value = "/update-sightseeing", method = RequestMethod.GET)
-	public String editSightseeing(Model model) {
-		Sightseeing sightseeings = new Sightseeing();
-		model.addAttribute("sightseeings", sightseeings);
-		return "create-sightseeing";
+	public String editSightseeing(@RequestParam("id") int id, Model model) {
+		model.addAttribute("sightseeing", new Sightseeing());
+		return "update-sightseeing";
 	}
-	
-//	@RequestMapping("/sightseeingEdit/{id}")
-//	public String changeSightseeing(@PathVariable("id") Integer id) {
-//		Sightseeing sightseeing = sightseeingService.findOne(id);
-//		sightseeingService.saveSightseeing(sightseeing);
-//		return "redirect:/sightseeings";
-//	}
 
 	@RequestMapping(value = "/sightseeingAdd", method = RequestMethod.POST)
-	public String addSightseeing(@ModelAttribute("sightseeing") Sightseeing sightseeing,
+	public String addSightseeing(
+			@ModelAttribute("sightseeing") Sightseeing sightseeing,
 			BindingResult result) {
 		sightseeingService.saveSightseeing(sightseeing);
 		return "redirect:/create-sightseeing";
+	}
+
+	@RequestMapping("/sightseeingEdit")
+	public String changeSightseeing(@ModelAttribute("sightseeing") Sightseeing sightseeing,
+			BindingResult result) {
+		sightseeingService.saveSightseeing(sightseeing);
+		return "redirect:/sightseeings";
 	}
 }
