@@ -70,9 +70,11 @@
             <div class="col-lg-4">
                 <table class="table table-bordered">
                     <c:forEach var="place" items="${places}">
-                        <td>
-                            <div class="drag" id="droppable">${place.address}</div>
-                        </td>
+                        <tr>
+                            <td>
+                                <div class="drag" id="droppable">${place.address}</div>
+                            </td>
+                        </tr>
                     </c:forEach>
                 </table>
             </div>
