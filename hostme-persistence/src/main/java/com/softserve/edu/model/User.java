@@ -46,7 +46,7 @@ import com.softserve.edu.model.routes.Route;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "users_user_id_seq", sequenceName = "users_user_id_seq", allocationSize = 100)
+    @SequenceGenerator(name = "users_user_id_seq", sequenceName = "users_user_id_seq", allocationSize = 101)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_user_id_seq")
     @Column(name = "user_id", unique = true, nullable = false)
     private Integer userId;
