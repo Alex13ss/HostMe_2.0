@@ -1,5 +1,7 @@
 package com.softserve.edu.model;
 
+import com.softserve.edu.model.routes.Place;
+
 import javax.persistence.*;
 
 @Entity
@@ -26,16 +28,12 @@ public class Image {
     private Feedback feedback;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @JoinColumn(name = "place_id")
+    private Place place;
 
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
-
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private Sightseeing sightseeing;
 
     public Image() {
     }
@@ -85,31 +83,26 @@ public class Image {
         this.feedback = feedback;
     }
 
-    public Sightseeing getSightseeing() {
-        return sightseeing;
+    public Place getPlace() {
+        return place;
     }
 
-    public void setSightseeing(Sightseeing sightseeing) {
-        this.sightseeing = sightseeing;
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override
     public String toString() {
         return "Image [imageId=" + imageId + ", link=" + link + "]";
     }
-
-    // @Override
-    // public int hashCode() {
-    // final int prime = 31;
-    // int result = 1;
-    // result = prime * result
-    // + ((feedback == null) ? 0 : feedback.hashCode());
-    // result = prime * result + ((hosting == null) ? 0 : hosting.hashCode());
-    // result = prime * result + ((imageId == null) ? 0 : imageId.hashCode());
-    // result = prime * result + ((link == null) ? 0 : link.hashCode());
-    // result = prime * result + ((user == null) ? 0 : user.hashCode());
-    // return result;
-    // }
 
     @Override
     public boolean equals(Object obj) {

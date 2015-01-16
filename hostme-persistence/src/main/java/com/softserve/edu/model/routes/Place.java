@@ -1,8 +1,7 @@
 package com.softserve.edu.model.routes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.softserve.edu.model.City;
-import com.softserve.edu.model.User;
+import com.softserve.edu.model.*;
 
 import javax.persistence.*;
 
@@ -19,22 +18,45 @@ public class Place {
     @Column
     private Integer id;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "city_id")
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column
+    private String comment;
+
+    @Column
+    private String website;
+
+    @OneToMany(mappedBy = "place", fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Image> image;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private PriceCategory priceCategory;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private City city;
 
-    @Column(name = "address")
+    @Column
     private String address;
 
     @ManyToMany(mappedBy = "places", cascade = CascadeType.ALL)
     Set<Route> routes;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User owner;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendee")
     private Set<User> attendee;
+
+    @Column
+    private Integer rating;
 
     public Integer getId() {
         return id;
@@ -43,6 +65,7 @@ public class Place {
     public void setId(Integer id) {
         this.id = id;
     }
+
     @JsonIgnore
     public City getCity() {
         return city;
@@ -51,6 +74,7 @@ public class Place {
     public void setCity(City city) {
         this.city = city;
     }
+
     @JsonIgnore
     public String getAddress() {
         return address;
@@ -59,6 +83,7 @@ public class Place {
     public void setAddress(String address) {
         this.address = address;
     }
+
     @JsonIgnore
     public Set<Route> getRoutes() {
         return routes;
@@ -67,6 +92,7 @@ public class Place {
     public void setRoutes(Set<Route> routes) {
         this.routes = routes;
     }
+
     @JsonIgnore
     public User getOwner() {
         return owner;
@@ -82,5 +108,69 @@ public class Place {
 
     public void setAttendee(Set<User> attendee) {
         this.attendee = attendee;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public Set<Image> getImage() {
+        return image;
+    }
+
+    public void setImage(Set<Image> image) {
+        this.image = image;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public PriceCategory getPriceCategory() {
+        return priceCategory;
+    }
+
+    public void setPriceCategory(PriceCategory priceCategory) {
+        this.priceCategory = priceCategory;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }

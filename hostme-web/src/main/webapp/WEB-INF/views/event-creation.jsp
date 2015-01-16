@@ -16,6 +16,14 @@
 		<table id="example1"
 			class="table table-bordered table-striped dataTable">
 			<tr>
+				<td>
+				<spring:message code="label.address" />
+				<form:input path="name" id="name"
+							class="form-control" type="text"
+							name="name" />
+				</td>
+			</tr>
+			<tr>
 				<td><form:label path="address">
 						<spring:message code="label.address" />
 					</form:label></td>
