@@ -10,6 +10,7 @@
 <style type="text/css">
     #map-canvas { height: 40%; margin: 0; padding: 0}
 </style>
+<link href="<c:url value="/resources/css/routes/dragndrop.css"/>" rel="stylesheet">
 
 <script src="<c:url value="/resources/js/jquery.validate.js"/>"></script>
 
@@ -42,14 +43,14 @@
                             placeholder="Share your thouts!" />
                     </div>
                     <div class="row">
-                        <spring:message code="routes.createRouteDescription" />
+                        <spring:message code="routes.createRoutePlaceFrom" />
                         <form:input path="beginPoint" id="beginPoint"
                             class="form-control" type="text"
                             name="beginPoint"
                             placeholder="Where do you wanna start?" />
                     </div>
                     <div class="row">
-                        <spring:message code="routes.createRouteDescription" />
+                        <spring:message code="routes.createRoutePlaceTo" />
                         <form:input path="endPoint" id="endPoint"
                             class="form-control" type="text"
                             name="endPoint"
@@ -63,15 +64,15 @@
                     <spring:message code="routes.showRoute"/>
                 </button>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-4" id="droppablePlace">
+                <p>Drop routes here!</p>
+            </div>
+            <div class="col-lg-4">
                 <table class="table table-bordered">
-                    <tr>
-                        <th>Adress</th>
-                    </tr>
                     <c:forEach var="place" items="${places}">
-                        <tr>
-                            <td>${place.address}</td>
-                        </tr>
+                        <td>
+                            <div class="drag" id="droppable">${place.address}</div>
+                        </td>
                     </c:forEach>
                 </table>
             </div>
