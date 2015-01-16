@@ -3,6 +3,7 @@ package com.softserve.edu.controller.routes;
 import com.softserve.edu.dto.RouteDto;
 import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.model.routes.Route;
+import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.routes.PlaceService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,23 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
 public class CreateRouteController {
 
     @Autowired
-    RoutesService routesService;
+    private RoutesService routesService;
 
     @Autowired
-    PlaceService placeService;
+    private PlaceService placeService;
 
     @RequestMapping(value = "/createRoute", method = RequestMethod.GET)
     public String createRoute(Model model) {
         RouteDto route = new RouteDto();
         model.addAttribute("route", route);
-        model.addAttribute("places", placeService.getAllPlaces());
+        model.addAttribute("allPlaces", placeService.getAllPlaces());
+        model.addAttribute("userPlaces", placeService.getUserPlaces());
         return "createRoute";
     }
 

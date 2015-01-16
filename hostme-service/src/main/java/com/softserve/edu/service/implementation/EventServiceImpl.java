@@ -3,6 +3,7 @@ package com.softserve.edu.service.implementation;
 import java.util.Date;
 import java.util.List;
 
+import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +22,13 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	EventRepository eventRepository;
 
+	@Autowired
+	ProfileService profileService;
+
 	@Override
 	@Transactional
 	public Event addEvent(Event event) {
-
+		event.setOwner(profileService.getCurrentUser());
 		return eventRepository.save(event);
 	}
 

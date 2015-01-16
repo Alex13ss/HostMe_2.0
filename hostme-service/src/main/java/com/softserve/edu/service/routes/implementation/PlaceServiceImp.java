@@ -4,6 +4,8 @@ import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.service.LoginService;
+import com.softserve.edu.service.ProfileService;
+import com.softserve.edu.service.UserService;
 import com.softserve.edu.service.routes.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,7 +18,7 @@ import java.util.List;
 public class PlaceServiceImp implements PlaceService{
 
     @Autowired
-    LoginService loginService;
+    ProfileService profileService;
 
     @Autowired
     PlaceRepository placeRepository;
@@ -43,6 +45,6 @@ public class PlaceServiceImp implements PlaceService{
     private User getCurrentUser() {
         String login = SecurityContextHolder.getContext().getAuthentication()
                 .getName();
-        return loginService.getUserByLogin(login);
+        return profileService.getUserByLogin(login);
     }
 }

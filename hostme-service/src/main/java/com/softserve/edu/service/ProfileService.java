@@ -10,6 +10,8 @@ public interface ProfileService {
 
 	public User getUserByLogin(String login);
 
+	public User getCurrentUser();
+
 	public int calcAge(User user);
 
 	public String receiveBirthday(Calendar birth);

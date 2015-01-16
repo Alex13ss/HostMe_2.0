@@ -4,6 +4,7 @@ import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,11 @@ public class ProfileServiceImpl implements ProfileService {
 	@Transactional
 	public User getUserByLogin(String login) {
 		return userDaoImpl.getUserByLogin(login);
+	}
+
+	public User getCurrentUser() {
+		return getUserByLogin(SecurityContextHolder.getContext().getAuthentication()
+				.getName());
 	}
 
 	public int calcAge(User user) {

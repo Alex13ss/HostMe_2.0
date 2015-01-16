@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.softserve.edu.model.User;
+import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,9 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	@Autowired
 	private SightseeingRepository sightseeingRepository;
+
+	@Autowired
+	private ProfileService profileService;
 
 	@Override
 	@Transactional
@@ -41,6 +46,7 @@ public class SightseeingServiceImpl implements SightseeingService {
 	@Override
 	@Transactional
 	public void saveSightseeing(Sightseeing sightseeing) {
+		sightseeing.setOwner(profileService.getCurrentUser());
 		sightseeingRepository.save(sightseeing);
 	}
 

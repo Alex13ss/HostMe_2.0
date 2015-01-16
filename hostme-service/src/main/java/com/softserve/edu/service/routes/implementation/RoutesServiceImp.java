@@ -6,6 +6,7 @@ import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.repositories.routes.RouteRepository;
 import com.softserve.edu.service.LoginService;
+import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,15 +24,15 @@ public class RoutesServiceImp implements RoutesService{
     RouteRepository routeRepository;
 
     @Autowired
-    LoginService loginService;
+    ProfileService profileService;
 
     public void addRoute(Route route) {
-        route.setUser(getCurrentUser());
+        route.setUser(profileService.getCurrentUser());
         routeRepository.save(route);
     }
 
     public List<Route> getCurrentUserRoutes() {
-        return new ArrayList<>(getCurrentUser().getRoutes());
+        return new ArrayList<>(profileService.getCurrentUser().getRoutes());
     }
 
     public List<Route> getRoutesNearToUsers() {
@@ -52,11 +53,5 @@ public class RoutesServiceImp implements RoutesService{
             }
         }
         return result;
-    }
-
-    private User getCurrentUser() {
-        String login = SecurityContextHolder.getContext().getAuthentication()
-                .getName();
-        return loginService.getUserByLogin(login);
     }
 }

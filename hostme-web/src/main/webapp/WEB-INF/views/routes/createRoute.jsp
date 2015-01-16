@@ -69,7 +69,7 @@
             </div>
             <div class="col-lg-4">
                 <table class="table table-bordered">
-                    <c:forEach var="place" items="${places}">
+                    <c:forEach var="place" items="${allPlaces}">
                         <tr>
                             <td>
                                 <div class="drag" id="droppable">${place.address}</div>
