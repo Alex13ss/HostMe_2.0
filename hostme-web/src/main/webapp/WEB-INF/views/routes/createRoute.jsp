@@ -10,7 +10,7 @@
 <style type="text/css">
     #map-canvas { height: 40%; margin: 0; padding: 0}
 </style>
-<link href="<c:url value="/resources/css/routes/dragndrop.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/routes/createRoute.css"/>" rel="stylesheet">
 
 <script src="<c:url value="/resources/js/jquery.validate.js"/>"></script>
 
@@ -24,60 +24,63 @@
 <section class="content">
     <div class="box box-primary">
         <div class="container-fluid " style="margin-left: 1.5em">
-            <div class="row col-lg-4" style="margin-top:1.5em; margin-bottom: 1.5em" >
-                <form:form method="post" action="createRoute"
-                   modelAttribute="route" id="routeCreationForm"
-                   enctype="multipart/form-data">
-                    <div class="row">
-                        <spring:message code="routes.createRouteName" />
-                        <form:input path="name" id="name"
-                            class="form-control" type="text"
-                            name="name"
-                            placeholder="What's your tour name?" />
+            <form:form method="post" action="createRoute"
+               modelAttribute="route" id="routeCreationForm"
+               enctype="multipart/form-data">
+                <div class="row">
+                    <spring:message code="routes.createRouteName" />
+                    <form:input path="name" id="name"
+                        class="form-control" type="text"
+                        name="name"
+                        placeholder="What's your tour name?" />
+                </div>
+                <div class="row">
+                    <spring:message code="routes.createRouteDescription" />
+                    <form:input path="description" id="description"
+                        class="form-control" type="text"
+                        name="description"
+                        placeholder="Share your thouts!" />
+                </div>
+                <div class="col-lg-4">
+                    <table class="table table-bordered">
+                        <c:forEach var="place" items="${userPlaces}">
+                            <tr>
+                                <td>
+                                    <div class="drag droppable">${place.address}</div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row dropArea" id="startPlaceDrop">
+                        <p></p>
                     </div>
-                    <div class="row">
-                        <spring:message code="routes.createRouteDescription" />
-                        <form:input path="description" id="description"
-                            class="form-control" type="text"
-                            name="description"
-                            placeholder="Share your thouts!" />
+                    <div class="row dropArea" id="waypointPlacesDrop">
+                        <p></p>
                     </div>
-                    <div class="row">
-                        <spring:message code="routes.createRoutePlaceFrom" />
-                        <form:input path="beginPoint" id="beginPoint"
-                            class="form-control" type="text"
-                            name="beginPoint"
-                            placeholder="Where do you wanna start?" />
+                    <div class="row dropArea" id="endPlaceDrop">
+                        <p></p>
                     </div>
-                    <div class="row">
-                        <spring:message code="routes.createRoutePlaceTo" />
-                        <form:input path="endPoint" id="endPoint"
-                            class="form-control" type="text"
-                            name="endPoint"
-                            placeholder="Place to end your trip!" />
-                    </div>
-                    <button class="btn btn-primary">
-                        <spring:message code="routes.createRoute" />
-                    </button>
-                </form:form>
-                <button id="googleCalculator" class="btn">
+                </div>
+                <div class="col-lg-4">
+                    <table class="table table-bordered">
+                        <c:forEach var="place" items="${allPlaces}">
+                            <tr>
+                                <td>
+                                    <div class="drag droppable">${place.address}</div>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+                <button id="googleCalculator" class="row btn">
                     <spring:message code="routes.showRoute"/>
                 </button>
-            </div>
-            <div class="col-lg-4" id="droppablePlace">
-                <p>Drop routes here!</p>
-            </div>
-            <div class="col-lg-4">
-                <table class="table table-bordered">
-                    <c:forEach var="place" items="${allPlaces}">
-                        <tr>
-                            <td>
-                                <div class="drag" id="droppable">${place.address}</div>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </div>
+                <button class="btn btn-primary">
+                    <spring:message code="routes.createRoute" />
+                </button>
+            </form:form>
         </div>
     </div>
 </section>

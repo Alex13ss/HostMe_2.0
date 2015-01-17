@@ -7,6 +7,7 @@ import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.routes.PlaceService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class CreateRouteController {
     public String createRoute(Model model) {
         RouteDto route = new RouteDto();
         model.addAttribute("route", route);
-        model.addAttribute("allPlaces", placeService.getAllPlaces());
+        model.addAttribute("allPlaces", placeService.getAllPlaces(new PageRequest(0, 10)));
         model.addAttribute("userPlaces", placeService.getUserPlaces());
         return "createRoute";
     }
@@ -37,7 +38,7 @@ public class CreateRouteController {
     public @ResponseBody List<Place> createRoute() {
         List<Place> places = new ArrayList<>();
         places.addAll(placeService.getUserPlaces());
-        places.addAll(placeService.getAllPlaces());
+        places.addAll(placeService.getAllPlaces(new PageRequest(0, 20)));
         return places;
     }
 

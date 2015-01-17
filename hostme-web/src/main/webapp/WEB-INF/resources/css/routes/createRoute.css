@@ -1,2 +1,4 @@
-#droppablePlace{height: 30%; background-color: #999999}
+#startPlaceDrop{height: 10%; background-color: lightseagreen}
+#waypointPlacesDrop{height: 20%; background-color: greenyellow}
+#endPlaceDrop{height: 10%; background-color: lightcoral}
 .droppable{background-color: #006dcc}

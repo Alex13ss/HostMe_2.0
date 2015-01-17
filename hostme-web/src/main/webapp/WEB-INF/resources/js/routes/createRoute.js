@@ -3,13 +3,19 @@ $(document).ready(function() {
         function (myData) {
             //TODO gen droppable elements
     });
-    $( ".drag" ).draggable();
-    $( "#droppablePlace" ).droppable({
-        drop: function (event, ui) {
-            $(this)
-                .addClass("ui-state-highlight")
-                .find("p")
-                .html("Dropped!");
+    $( ".drag" ).draggable({
+        revert: "invalid",
+        snap: ".dropArea",
+        snapMode: "inner"
+    });
+    $( ".dropArea" ).droppable({
+        accept: ".drag",
+        drop: function( event, ui ) {
+
+            $( this )
+                .addClass( "ui-state-highlight" )
+                .find( "p" )
+                .html( "Dropped!" );
         }
     });
 });
