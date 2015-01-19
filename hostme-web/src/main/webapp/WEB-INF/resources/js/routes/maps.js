@@ -14,7 +14,7 @@ $(document).ready(function() {
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
-    $("#googleCalculator").click(function (directionsDisplay) {
+    $("#googleCalculator").click(function () {
         var start = $("#beginPoint").val();
         var end = $("#endPoint").val();
         var request = {

@@ -3,6 +3,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <title>Create route</title>
 <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
@@ -13,6 +14,8 @@
 <link href="<c:url value="/resources/css/routes/createRoute.css"/>" rel="stylesheet">
 
 <script src="<c:url value="/resources/js/jquery.validate.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
+<script src="<c:url value="resources/js/fnAjaxReload.js"/>"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiYncr79qu9wVjrwaSBHHTKMb3Dbo3Eo"></script>
 <script src="<c:url value="/resources/js/routes/maps.js"/>"></script>
@@ -41,44 +44,15 @@
                         name="description"
                         placeholder="Share your thouts!" />
                 </div>
+                <div class="col-lg-4" id="userPlaces"></div>
                 <div class="col-lg-4">
-                    <table class="table table-bordered">
-                        <c:forEach var="place" items="${userPlaces}">
-                            <tr>
-                                <td>
-                                    <div class="drag droppable">${place.address}</div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
+                    <div class="row dropArea" id="originPlaceDrop"></div>
+                    <div class="row dropArea" id="waypointsPlacesDrop"></div>
+                    <div class="row dropArea" id="destinationPlaceDrop"></div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="row dropArea" id="startPlaceDrop">
-                        <p></p>
-                    </div>
-                    <div class="row dropArea" id="waypointPlacesDrop">
-                        <p></p>
-                    </div>
-                    <div class="row dropArea" id="endPlaceDrop">
-                        <p></p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <table class="table table-bordered">
-                        <c:forEach var="place" items="${allPlaces}">
-                            <tr>
-                                <td>
-                                    <div class="drag droppable">${place.address}</div>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </div>
+                <div class="col-lg-4" id="allPlaces"></div>
                 <button id="googleCalculator" class="row btn">
                     <spring:message code="routes.showRoute"/>
-                </button>
-                <button class="btn btn-primary">
-                    <spring:message code="routes.createRoute" />
                 </button>
             </form:form>
         </div>

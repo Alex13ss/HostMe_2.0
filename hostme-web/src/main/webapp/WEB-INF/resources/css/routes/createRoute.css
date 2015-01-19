@@ -1,4 +1,4 @@
-#startPlaceDrop{height: 10%; background-color: lightseagreen}
-#waypointPlacesDrop{height: 20%; background-color: greenyellow}
-#endPlaceDrop{height: 10%; background-color: lightcoral}
-.droppable{background-color: #006dcc}
+#originPlaceDrop{height: 10%; background-color: lightseagreen}
+#waypointsPlacesDrop{height: 20%; background-color: greenyellow}
+#destinationPlaceDrop{height: 10%; background-color: lightcoral}
+.dragPlace{height: 30px ;background-color: #006dcc}

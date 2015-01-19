@@ -3,8 +3,9 @@ package com.softserve.edu.dto;
 public class RouteDto {
     private String name;
     private String description;
-    private String beginPoint;
-    private String endPoint;
+    private String originPoint;
+    private String destinationPoint;
+    private String[] waypoints;
 
     public String getName() {
         return name;
@@ -22,19 +23,27 @@ public class RouteDto {
         this.description = description;
     }
 
-    public String getBeginPoint() {
-        return beginPoint;
+    public String getOriginPoint() {
+        return originPoint;
     }
 
-    public void setBeginPoint(String beginPoint) {
-        this.beginPoint = beginPoint;
+    public void setOriginPoint(String originPoint) {
+        this.originPoint = originPoint;
     }
 
-    public String getEndPoint() {
-        return endPoint;
+    public String getDestinationPoint() {
+        return destinationPoint;
     }
 
-    public void setEndPoint(String endPoint) {
-        this.endPoint = endPoint;
+    public void setDestinationPoint(String destinationPoint) {
+        this.destinationPoint = destinationPoint;
+    }
+
+    public String[] getWaypoints() {
+        return waypoints;
+    }
+
+    public void setWaypoints(String[] waypoints) {
+        this.waypoints = waypoints;
     }
 }

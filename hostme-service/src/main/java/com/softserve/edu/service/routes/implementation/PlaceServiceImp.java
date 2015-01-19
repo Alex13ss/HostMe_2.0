@@ -1,5 +1,6 @@
 package com.softserve.edu.service.routes.implementation;
 
+import com.softserve.edu.dto.PlaceDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.repositories.routes.PlaceRepository;
@@ -44,6 +45,14 @@ public class PlaceServiceImp implements PlaceService{
 
     public List<Place> getUserPlaces() {
         return new ArrayList<>(getCurrentUser().getPlaces());
+    }
+
+    public List<PlaceDto> placeToPlaceDto(List<Place> places) {
+        List<PlaceDto> result = new ArrayList<>();
+        for (Place place : places) {
+            result.add(new PlaceDto(place));
+        }
+        return result;
     }
 
     private User getCurrentUser() {
