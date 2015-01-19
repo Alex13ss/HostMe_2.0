@@ -13,8 +13,8 @@ $(document).ready(function() {
     var $originDropUi = $("#originPlaceDrop");
     var $waypointsDropUi = $("#waypointsPlacesDrop");
     var $destinationDropUi = $("#destinationPlaceDrop");
-    initDragElements(userPlacesUrl, $userPlacesUi);
-    initDragElements(popularPlacesUrl, $popularPlacesUi);
+    initDragPlaces(userPlacesUrl, $userPlacesUi);
+    initDragPlaces(popularPlacesUrl, $popularPlacesUi);
     $originDropUi.droppable({
         drop: function(event, ui) {
             $("#originPlaceDrop").droppable("disable");
@@ -61,7 +61,7 @@ $(document).ready(function() {
     });
 });
 
-function initDragElements(url, $ui) {
+function initDragPlaces(url, $ui) {
     $.ajax({
         url: url,
         dataType: "json",

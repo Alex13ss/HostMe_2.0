@@ -2,6 +2,7 @@ package com.softserve.edu.controller.routes;
 
 import com.softserve.edu.dto.PlaceDto;
 import com.softserve.edu.dto.RouteDto;
+import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.service.routes.PlaceService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class CreateRouteController {
+public class RouteController {
 
     @Autowired
     private RoutesService routesService;
@@ -44,5 +45,18 @@ public class CreateRouteController {
         ArrayList<PlaceDto> result = new ArrayList<>();
         result.addAll(placeService.placeToPlaceDto(placeService.getAllPlaces(new PageRequest(0, 20))));
         return result;
+    }
+
+    @RequestMapping(value = "/routeEdit")
+    public String editRoute(@RequestParam(value = "routeId") int routeId) {
+        return "editRoute";
+    }
+
+    @RequestMapping(value = "/routeDelete")
+    public String deleteRoute(@RequestParam(value = "routeId") int routeId) {
+        if (routesService.removeRoute(routeId)) {
+            return "redirect:/profile";
+        }
+        else return "redirect:/error";
     }
 }

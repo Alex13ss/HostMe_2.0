@@ -208,13 +208,12 @@
                                             <td>${hosting.city}</td>
                                             <td><a
                                                 href=<c:url value="hosting?hostingId=${hosting.hostingId}&&userId=${user.userId}"/>>${hosting.address}</a></td>
-                                            <td width="250px"><div
-                                                    class="tools">
+                                            <td width="200px"><div class="tools">
                                                     <a href=<c:url value="hosting-editing?hostingId=${hosting.hostingId}&&userId=${user.userId}"/>
-                                                        class="text-green"><spring:message
-                                                code="label.edit" />&nbsp;&nbsp;<span
-                                                        class="fa fa-edit"
-                                                        style="margin-right: 1em"></span></a>
+                                                        class="text-green">
+                                                        <spring:message code="label.edit"/>
+                                                        &nbsp;&nbsp;
+                                                        <span class="fa fa-edit" style="margin-right: 1em"></span></a>
                                                     <a href=<c:url value="hosting-delete?hostingId=${hosting.hostingId}"/>
                                                         class="text-red"><spring:message
                                                 code="label.delete" />&nbsp;&nbsp;<span
@@ -234,18 +233,25 @@
                                 </div>
                                 <table class="table table-bordered">
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Places</th>
+                                        <th><spring:message code="label.name" /></th>
+                                        <th><spring:message code="label.description" /></th>
+                                        <th><spring:message code="label.manage" /></th>
                                     </tr>
                                     <c:forEach var="route" items="${user.routes}">
                                         <tr>
                                             <td>${route.name}</td>
                                             <td>${route.description}</td>
-                                            <td>
-                                               <c:forEach var="place" items="${route.places}">
-                                                   ${place}
-                                               </c:forEach>
+                                            <td width="200px">
+                                                <a class="text-green" href=<c:url value="/routeEdit?routeId=${route.id}"/>>
+                                                    <spring:message code="label.edit"/>
+                                                    &nbsp;&nbsp;
+                                                    <span class="fa fa-edit" style="margin-right: 1em"></span>
+                                                </a>
+                                                <a class="text-red" href=<c:url value="/routeDelete?routeId=${route.id}"/>>
+                                                    <spring:message code="label.delete"/>
+                                                    &nbsp;&nbsp;
+                                                    <span class="fa fa-trash-o"></span>
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>

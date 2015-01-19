@@ -14,4 +14,6 @@ public interface RoutesService {
     public List<Route> getCurrentUserRoutes();
 
     public List<Route> getRoutesNearToUsers();
+
+    public boolean removeRoute(int id);
 }

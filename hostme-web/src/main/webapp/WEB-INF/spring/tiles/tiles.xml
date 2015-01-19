@@ -22,5 +22,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/routes/createRoute.jsp" />
 	</definition>
 
-
+	<definition name="editRoute" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/routes/editRoute.jsp" />
+	</definition>
 </tiles-definitions>
