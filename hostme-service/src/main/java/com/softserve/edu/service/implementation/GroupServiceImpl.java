@@ -43,7 +43,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void create(Group group, String name) {
+    public void create(Group group) {
         group.setCreatedAt(new Date());
         groupRepository.save(group);
     }

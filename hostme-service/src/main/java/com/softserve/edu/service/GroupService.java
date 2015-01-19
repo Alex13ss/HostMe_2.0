@@ -12,6 +12,6 @@ public interface GroupService {
 
     void delete(Group group);
 
-    void create(Group group, String name);
+    void create(Group group);
 
 }

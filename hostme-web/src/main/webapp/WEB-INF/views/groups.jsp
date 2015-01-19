@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html>
 <head>
 
@@ -13,110 +13,28 @@
 <title>Groups</title>
 
 </head>
-<body class="wysihtml5-supported">
 
-	<section class="content-header">
-		<h1>
-			Groups<small>Conversations with minded people</small>
-		</h1>
-	</section>
+<section class="content-header">
+	<h1>
+		Groups<small>Conversations with minded people</small>
+	</h1>
+</section>
 
-	<!-- Main content -->
-	<section class="content">
-		<div class="box box-primary">
+<!-- Main content -->
+<section class="content">
+	<div class="box box-primary">
 
-			<div class="box-header">
+		<div class="box-header">
 
-				<h3 class="box-title col-md-10">
-					<i class="fa fa-fw fa-list-alt"></i> Choose group and have a fun
-					and useful conversations!
-				</h3>
+			<h3 class="box-title col-md-10">
+				<i class="fa fa-fw fa-list-alt"></i> Choose group and have a fun and
+				useful conversations!
+			</h3>
 
-				<form:form commandName="group" cssClass="form-horizontal groupForm">
-					<!-- Modal -->
-					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-						aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-									<h4 class="modal-title" id="myModalLabel">Create a new
-										group</h4>
-								</div>
-								<div class="modal-body">
-
-									<div class="form-group">
-										<label for="groupName" class="col-sm-2 control-label">
-											Name: </label>
-										<div class="col-sm-10">
-											<form:input path="groupName" cssClass="form-control" />
-											<form:errors path="groupName" />
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label for="groupDescription" class="col-sm-2 control-label">
-											Description: </label>
-										<div class="col-sm-10">
-											<form:input path="groupDescription" cssClass="form-control" />
-											<form:errors path="groupDescription" />
-										</div>
-									</div>
-
-								</div>
-								<div class="modal-footer">
-									<input type="submit" class="btn btn-primary"
-										value="Create one!" />
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">Close</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</form:form>
-
-			</div>
-			<!-- /.box-header -->
-
-			<div class="box-body">
-
-				<div class="alert alert-info" style="margin-right: 15px;"
-					align="center">Find minded people and get some conversations!
-					You'll get many useful information here! Have a fun! ;)</div>
-
-				<table class="table table-bordered table-hover table-striped">
-					<thead>
-						<tr>
-							<th>Image of group</th>
-							<th>Group name</th>
-							<th>Published</th>
-							<th>Operations</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${groups}" var="group">
-							<tr>
-								<td style="width: 150px;"><img
-									src="resources/images/group-default.jpg"></td>
-								<td><c:url var="groupUrl" value="/group">
-										<c:param name="id" value="${group.id}" />
-									</c:url><a href="<c:out value="${groupUrl}"/>"><strong> <c:out
-												value="${group.groupName}" /></strong></a><br /> <c:out
-										value="${group.groupDescription}" /></td>
-								<td>${group.createdAt}</td>
-								<td><a
-									href="<spring:url value="/groups/remove/${group.id}" />"
-									class="btn btn-danger triggerRemove"> Remove </a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-
+			<form:form modelAttribute="group"
+				cssClass="form-horizontal groupForm">
 				<!-- Modal -->
-				<div class="modal fade" id="modalRemove" tabindex="-1" role="dialog"
+				<div class="modal fade" id="groupModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
@@ -125,34 +43,121 @@
 									aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
-								<h4 class="modal-title" id="myModalLabel">Remove group</h4>
+								<h4 class="modal-title" id="myModalLabel">Create a new
+									group</h4>
 							</div>
 							<div class="modal-body">
-								<div class="callout callout-danger" id="alert" align="center">
-									<font size="5">Are you sure you want to destroy this
-										group???</font>
+
+								<div class="form-group">
+									<label for="groupName" class="col-sm-2 control-label">
+										Name: </label>
+									<div class="col-sm-10">
+										<form:input path="groupName" cssClass="form-control" />
+										<form:errors path="groupName" />
+									</div>
 								</div>
+
+								<div class="form-group">
+									<label for="groupDescription" class="col-sm-2 control-label">
+										Description: </label>
+									<div class="col-sm-10">
+										<form:input path="groupDescription" cssClass="form-control" />
+										<form:errors path="groupDescription" />
+									</div>
+								</div>
+
 							</div>
 							<div class="modal-footer">
-								<a href="" class="btn btn-danger removeBtn">Remove</a>
+								<input type="submit" class="btn btn-primary" value="Create one!" />
 								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Cancel</button>
+									data-dismiss="modal">Close</button>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div align="right" style="margin-top: 21px;">
-					<button type="button" class="btn btn-primary btn-md"
-						data-toggle="modal" data-target="#myModal">Create a new
-						group</button>
-				</div>
-
-			</div>
-			<!-- /.box-body -->
+			</form:form>
 		</div>
-		<!-- /.box -->
-	</section>
+		<!-- /.box-header -->
+
+		<div class="box-body">
+
+			<div class="alert alert-info" style="margin-right: 15px;"
+				align="center">Find minded people and get some conversations!
+				You'll get many useful information here! Have a fun! ;)</div>
+			<c:if test="${groupNotCreated eq true}">
+				<div class="alert alert-danger" style="margin-right: 15px;"
+					align="center">
+					<h3>Oops... Wrong input data! Your group is NOT created.
+						Please try again!</h3>
+				</div>
+			</c:if>
+
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th>Image of group</th>
+						<th>Group name</th>
+						<th>Published</th>
+						<th>Operations</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${groups}" var="group">
+						<tr>
+							<td style="width: 150px;"><img
+								src="resources/images/group-default.jpg"></td>
+							<td><c:url var="groupUrl" value="/group">
+									<c:param name="id" value="${group.id}" />
+								</c:url><a href="<c:out value="${groupUrl}"/>"><strong> <c:out
+											value="${group.groupName}" /></strong></a><br /> <c:out
+									value="${group.groupDescription}" /></td>
+							<td>${group.createdAt}</td>
+							<td><a
+								href="<spring:url value="/groups/remove/${group.id}" />"
+								class="btn btn-danger triggerRemove"> Remove </a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+
+			<!-- Modal -->
+			<div class="modal fade" id="modalRemove" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Remove group</h4>
+						</div>
+						<div class="modal-body">
+							<div class="callout callout-danger" id="alert" align="center">
+								<font size="5">Are you sure you want to destroy this
+									group???</font>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<a href="" class="btn btn-danger removeBtn">Remove</a>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div align="right" style="margin-top: 21px;">
+				<button type="button" class="btn btn-primary btn-md"
+					data-toggle="modal" data-target="#groupModal">Create a new
+					group</button>
+			</div>
+
+		</div>
+		<!-- /.box-body -->
+	</div>
+	<!-- /.box -->
+</section>
 
 </body>
 </html>

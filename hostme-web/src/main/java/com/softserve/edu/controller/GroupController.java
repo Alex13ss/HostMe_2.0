@@ -1,9 +1,9 @@
 package com.softserve.edu.controller;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.service.ConversationService;
 import com.softserve.edu.service.GroupService;
-import com.softserve.edu.service.UserService;
 
 @Controller
 public class GroupController {
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private GroupService groupService;
@@ -39,25 +36,25 @@ public class GroupController {
         return new Group();
     }
 
-    @RequestMapping("/profile")
-    public String profile(Model model, Principal principal) {
-        String name = principal.getName();
-        model.addAttribute("user", userService.findOneWithGroups(name));
-        return "profile";
-    }
-
     @RequestMapping(value = "/groups", method = RequestMethod.POST)
     public String doAddGroup(Model model,
-            @Valid @ModelAttribute("group") Group group, BindingResult result,
-            Principal principal) {
+            @ModelAttribute("group") @Valid final Group group,
+            final BindingResult result, RedirectAttributes redirectAttributes,
+            HttpSession httpSession) {
         if (result.hasErrors()) {
-            return profile(model, principal);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.group",
+                    result);
+            redirectAttributes.addFlashAttribute("group", group);
+            redirectAttributes.addFlashAttribute("groupNotCreated", true);
+            return "redirect:/groups";
         }
-        String name = principal.getName();
-        groupService.create(group, name);
-        return "redirect:/groups";
+        groupService.create(group);
+        redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
+                "groupCreated", true);
+        return "redirect:/group?id={id}";
     }
-    
+
     @RequestMapping("/groups/remove/{id}")
     public String removeGroup(@PathVariable Long id) {
         Group group = groupService.findOne(id);

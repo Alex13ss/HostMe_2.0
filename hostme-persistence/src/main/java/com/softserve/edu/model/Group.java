@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 
  * @author Oleksandr Bandurka Entity-class for group
@@ -30,15 +32,17 @@ import javax.validation.constraints.Size;
 public class Group {
 
     @Id
-    @SequenceGenerator(name = "groups_group_id_seq", sequenceName = "groups_group_id_seq", allocationSize = 30)
+    @SequenceGenerator(name = "groups_group_id_seq", sequenceName = "groups_group_id_seq", allocationSize = 31)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groups_group_id_seq")
     @Column(name = "group_id", unique = true, nullable = false)
     private Long id;
 
+    @NotBlank(message = "?!.. You can't create group without name!")
     @Size(min = 3, message = "Group name must be at least 3 characters!")
     @Column(name = "group_name")
     private String groupName;
     
+    @NotBlank(message = "You need some cool description for your group! ;)")
     @Size(min = 5, message = "Group description must be at least 5 characters!")
     @Column(name = "group_description")
     private String groupDescription;
