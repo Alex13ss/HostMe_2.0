@@ -143,6 +143,7 @@ public class User {
     @OneToMany(mappedBy = "author", orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<Feedback> feedbacks = new HashSet<Feedback>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Place> places;
 
@@ -155,6 +156,7 @@ public class User {
     private Set<Route> routes = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
     @JoinTable(name = "user_groups", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<Group> groups;
