@@ -22,39 +22,31 @@
 <script src="<c:url value="/resources/js/routes/createRoute.js"/>"></script>
 <script src="<c:url value="/resources/js/routes/valCreateRoute.js"/>"></script>
 
-<div class="simple-map" id="map-canvas" ></div>
+<div class="simple-map" id="map-canvas"></div>
 
 <section class="content">
     <div class="box box-primary">
-        <div class="container-fluid " style="margin-left: 1.5em">
-            <form:form method="post" action="createRoute"
-               modelAttribute="route" id="routeCreationForm"
-               enctype="multipart/form-data">
-                <div class="row">
-                    <spring:message code="routes.createRouteName" />
-                    <form:input path="name" id="name"
-                        class="form-control" type="text"
-                        name="name"
-                        placeholder="What's your tour name?" />
-                </div>
-                <div class="row">
-                    <spring:message code="routes.createRouteDescription" />
-                    <form:input path="description" id="description"
-                        class="form-control" type="text"
-                        name="description"
-                        placeholder="Share your thouts!" />
-                </div>
+        <div class="container-fluid">
+            <div class="row">
+                <spring:message code="routes.createRouteName" />
+                <input id="name" class="form-control">
+            </div>
+            <div class="row">
+                <spring:message code="routes.createRouteDescription" />
+                <input id="description" class="form-control">
+            </div>
+            <div class="container-fluid" style="width: 100%">
                 <div class="col-lg-4" id="userPlaces"></div>
                 <div class="col-lg-4">
-                    <div class="row dropArea" id="originPlaceDrop"></div>
-                    <div class="row dropArea" id="waypointsPlacesDrop"></div>
-                    <div class="row dropArea" id="destinationPlaceDrop"></div>
+                    <div id="originPlaceDrop" class="row dropArea"></div>
+                    <div id="waypointsPlacesDrop" class="row dropArea"></div>
+                    <div id="destinationPlaceDrop" class="row dropArea"></div>
+                    <button id="createRoute" class="row btn" style="width: 100%">
+                        <spring:message code="routes.createRoute"/>
+                    </button>
                 </div>
                 <div class="col-lg-4" id="allPlaces"></div>
-                <button id="googleCalculator" class="row btn">
-                    <spring:message code="routes.showRoute"/>
-                </button>
-            </form:form>
+            </div>
         </div>
     </div>
 </section>

@@ -1,6 +1,10 @@
-var placeDto = [{
-        name: "Name"
-    }];
+var routeDto = {
+    name: "",
+    description: "",
+    originId: "",
+    destinationId: "",
+    waypointsId: []
+    };
 var userPlacesUrl = "getUserPlaces";
 var popularPlacesUrl = "getPopularPlaces";
 $(document).ready(function() {
@@ -11,32 +15,49 @@ $(document).ready(function() {
     var $destinationDropUi = $("#destinationPlaceDrop");
     initDragElements(userPlacesUrl, $userPlacesUi);
     initDragElements(popularPlacesUrl, $popularPlacesUi);
-    $(".places").droppable({
-        drop: function(event, ui) {
-
-        }
-    });
     $originDropUi.droppable({
         drop: function(event, ui) {
             $("#originPlaceDrop").droppable("disable");
-            alert(ui.draggable.data("Test"));
+            addOrigin = ui.draggable.data("Address");
+            routeDto.originId = ui.draggable.data("Id");
+            drawDestination();
         }
     });
     var waypointsCounter = 0;
     var waypointsMAX = 8;
     $waypointsDropUi.droppable({
         drop: function(event, ui) {
-            if (waypointsCounter == waypointsMAX) {
-                $("#waypointsPlacesDrop").droppable("disable");
-            } else {
+            if (waypointsCounter != waypointsMAX) {
                 waypointsCounter++;
+            } else {
+                $("#waypointsPlacesDrop").droppable("disable");
             }
         }
     });
     $destinationDropUi.droppable({
         drop: function(event, ui) {
             $("#destinationPlaceDrop").droppable("disable");
+            addDestination = ui.draggable.data("Address");
+            routeDto.destinationId = ui.draggable.data("Id");
+            drawDestination();
         }
+    });
+    $("#createRoute").click(function() {
+        routeDto.name = $("#name").val();
+        routeDto.description = $("#description").val();
+        $.ajax({
+            url: "/createRoute",
+            dataType: "json",
+            type: "POST",
+            data: JSON.stringify(routeDto),
+            contentType: 'application/json',
+            beforeSend: function() {
+
+            },
+            success: function() {
+
+            }
+        })
     });
 });
 
@@ -44,9 +65,6 @@ function initDragElements(url, $ui) {
     $.ajax({
         url: url,
         dataType: "json",
-        type: "POST",
-        data: JSON.stringify(placeDto),
-        contentType: 'application/json',
         beforeSend: function() {
             $ui.append("LOADING!");
         },
@@ -57,9 +75,9 @@ function initDragElements(url, $ui) {
             } else {
                 for (var i = 0; i < result.length; i++) {
                     $ui.append("<div class='dragPlace'>" + result[i].name + "</div>");
-                    $("#allPlaces div").last().data("Test", result[i].name);
+                    $ui.children().last().data("Id", result[i].id);
+                    $ui.children().last().data("Address", result[i].address);
                 }
-
                 initDrag();
             }
         }
@@ -71,6 +89,7 @@ function initDrag() {
         snap: ".dropArea",
         snapMode: "inner",
         revert: "invalid",
-        cursor: "move"
+        cursor: "move",
+        stack: "#originPlaceDrop"
     });
 }

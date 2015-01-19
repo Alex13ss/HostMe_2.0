@@ -3,9 +3,9 @@ package com.softserve.edu.dto;
 public class RouteDto {
     private String name;
     private String description;
-    private String originPoint;
-    private String destinationPoint;
-    private String[] waypoints;
+    private String originId;
+    private String destinationId;
+    private String[] waypointsId;
 
     public String getName() {
         return name;
@@ -23,27 +23,27 @@ public class RouteDto {
         this.description = description;
     }
 
-    public String getOriginPoint() {
-        return originPoint;
+    public String getOriginId() {
+        return originId;
     }
 
-    public void setOriginPoint(String originPoint) {
-        this.originPoint = originPoint;
+    public void setOriginId(String originId) {
+        this.originId = originId;
     }
 
-    public String getDestinationPoint() {
-        return destinationPoint;
+    public String getDestinationId() {
+        return destinationId;
     }
 
-    public void setDestinationPoint(String destinationPoint) {
-        this.destinationPoint = destinationPoint;
+    public void setDestinationId(String destinationId) {
+        this.destinationId = destinationId;
     }
 
-    public String[] getWaypoints() {
-        return waypoints;
+    public String[] getWaypointsId() {
+        return waypointsId;
     }
 
-    public void setWaypoints(String[] waypoints) {
-        this.waypoints = waypoints;
+    public void setWaypointsId(String[] waypointsId) {
+        this.waypointsId = waypointsId;
     }
 }

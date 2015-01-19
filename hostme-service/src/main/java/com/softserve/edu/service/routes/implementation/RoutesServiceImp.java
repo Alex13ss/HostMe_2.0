@@ -1,9 +1,11 @@
 package com.softserve.edu.service.routes.implementation;
 
+import com.softserve.edu.dto.RouteDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.model.routes.Route;
+import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.repositories.routes.RouteRepository;
 import com.softserve.edu.service.LoginService;
 import com.softserve.edu.service.ProfileService;
@@ -24,10 +26,27 @@ public class RoutesServiceImp implements RoutesService{
     RouteRepository routeRepository;
 
     @Autowired
+    PlaceRepository placeRepository;
+
+    @Autowired
     ProfileService profileService;
 
     public void addRoute(Route route) {
         route.setUser(profileService.getCurrentUser());
+        routeRepository.save(route);
+    }
+
+    public void addRoute(RouteDto routeDto) {
+        Route route = new Route();
+        route.setName(routeDto.getName());
+        route.setDescription(routeDto.getDescription());
+        Set<Place> places = new HashSet<>();
+        places.add(placeRepository.findOne(Integer.parseInt(routeDto.getOriginId())));
+        places.add(placeRepository.findOne(Integer.parseInt(routeDto.getDestinationId())));
+        for (String idPlace : routeDto.getWaypointsId()) {
+            places.add(placeRepository.findOne(Integer.parseInt(idPlace)));
+        }
+        route.setPlaces(places);
         routeRepository.save(route);
     }
 
