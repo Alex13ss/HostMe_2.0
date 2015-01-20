@@ -48,9 +48,12 @@
 				</security:authorize>
 
 				<security:authorize access="! isAuthenticated()">
-					<li><a href="#" data-toggle="modal"
+					<li>
+						<a href="#" data-toggle="modal"
 						data-target="#registrationModal" style="margin-left: 10px;"><i
-							class="fa fa-gear"></i> <spring:message code="label.register" /></a></li>
+							class="fa fa-gear"></i> <spring:message code="label.register" />
+						</a>
+					</li>
 				</security:authorize>
 
 				<security:authorize access="isAuthenticated()">
@@ -59,6 +62,15 @@
 								code="label.searchhosts" /></a></li>
 				</security:authorize>
 
+				<security:authorize access="hasRole('ADMIN')">
+					<li>
+						<a href='<c:url value="/usersManager"/>' style="margin-left: 10px;">
+							<i class="fa fa-male"></i>
+							<spring:message code="admin.usersManager" />
+						</a>
+					</li>
+				</security:authorize>
+				
 				<security:authorize access="isAuthenticated()">
 					<li><a href='<c:url value="profile"/>'
 						style="margin-left: 10px;"><i class="fa fa-male"></i> <spring:message

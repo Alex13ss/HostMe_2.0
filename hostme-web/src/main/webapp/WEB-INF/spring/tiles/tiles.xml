@@ -25,4 +25,8 @@
 	<definition name="editRoute" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/views/routes/editRoute.jsp" />
 	</definition>
+
+	<definition name="usersManager" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/admin/usersManager.jsp" />
+	</definition>
 </tiles-definitions>
