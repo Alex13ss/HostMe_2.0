@@ -21,14 +21,15 @@ if (element.className != 'active') {
 	table.fnAddData(all_events_data);
 
 }
-function myEvents(element) {
+}
+/*function myEvents(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
 		table.fnReloadAjax("my-events");
 
 	}
 
-}
+}*/
 
 $(document)
 	.ready(
@@ -81,7 +82,7 @@ $(document)
 											{
 												"mData" : function(data,
 														type, full) {
-													return data.city + ", "
+													return data.city.city + ", "
 															+ data.address;
 												}
 

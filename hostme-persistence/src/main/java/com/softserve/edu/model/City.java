@@ -24,6 +24,7 @@ public class City {
 	private Country country;
 
 	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER, orphanRemoval = true)
+	@JsonIgnore
 	private Set<Place> places;
 
 	public City() {

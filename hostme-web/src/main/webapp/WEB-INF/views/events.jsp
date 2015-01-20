@@ -32,11 +32,10 @@
 					<h3 class="box-title">
 						<i class="fa fa-plus-square"></i> Events management
 					</h3>
-					<div id="addButtonEvent" style="margin-top: 10px;">
-						<a href="event-creation" class="btn btn-success btn-sm"><i
-							class="fa fa-fw fa-plus-square-o"></i> <b><spring:message
-									code="label.addEvent" /></b></a>
-						<button onclick="refresh()" class="btn btn-default btn-sm">
+					<div style="margin-top: 10px;">
+						<a href="event-creation" class="btn btn-primary button" id="textColor"><i
+							class="fa fa-fw fa-plus-square-o"></i> <b></b></a>
+						<button onclick="refresh()" id="addButtonEvent" class="btn btn-default btn-sm">
 							<i class="fa fa-fw fa-refresh"></i>
 							<spring:message code="label.Refresh" />
 						</button>
@@ -47,9 +46,8 @@
 				<ul class="nav nav-tabs">
 					<li id="all-events" class="active" onclick="allEvents(this)"><a
 						href="#" data-toggle="tab"><spring:message code="label.events" /></a></li>
-					<li class="" onclick="initialize_request_to_me(this)"><a
-						href="#" data-toggle="tab"><spring:message
-								code="label.Myevents" /></a></li>
+					<li class="" onclick="myEvents(this)"><a href="#"
+						data-toggle="tab"><spring:message code="label.Myevents" /></a></li>
 				</ul>
 				<div class="box-body table-responsive">
 					<table id="request_table_obtain"
