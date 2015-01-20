@@ -50,7 +50,14 @@ $(document)
 										"sAjaxSource" : "all-events",
 										"aoColumns" : [
 												{
-													"mData" : "title"
+													"mData":function(data,type,full){
+														return '<a href=${pageContext.request.contextPath}/event?eventId='
+														+ data.id
+														+ '>'
+														+ data.title
+														+'</a>';
+													}
+																	
 												},
 												{
 													"mData" : "startDate",

@@ -2,6 +2,9 @@ package com.softserve.edu.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,9 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.Event;
+import com.softserve.edu.model.Group;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.EventService;
 import com.softserve.edu.service.ProfileService;
@@ -52,6 +57,28 @@ public class EventContoller {
 		model.addAttribute("event", event);
 		return "event-creation";
 	}
+	
+//	@RequestMapping(value = "/events", method = RequestMethod.POST)
+//    public String doAddGroup(Model model,
+//            @ModelAttribute("group") @Valid final Group group,
+//            final BindingResult result, RedirectAttributes redirectAttributes,
+//            HttpSession httpSession) {
+//        if (result.hasErrors()) {
+//            redirectAttributes.addFlashAttribute(
+//                    "org.springframework.validation.BindingResult.group",
+//                    result);
+//            redirectAttributes.addFlashAttribute("group", group);
+//            redirectAttributes.addFlashAttribute("groupNotCreated", true);
+//            return "redirect:/groups";
+//        }
+//        
+//        redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
+//                "groupCreated", true);
+//        return "redirect:/event?id={id}";
+//    }
+
+	
+	
 	/*
 	 * @RequestMapping(value = "/eventAdd", method = RequestMethod.POST) public
 	 * String addContact(@ModelAttribute("event") Event event, BindingResult

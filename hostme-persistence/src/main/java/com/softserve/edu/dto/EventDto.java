@@ -11,6 +11,7 @@ import com.softserve.edu.model.routes.Place;
 
 public class EventDto {
 
+	private Integer id;
 	private String title;
 	private Date startDate;
 	private Date endDate;
@@ -25,6 +26,7 @@ public class EventDto {
 
 	public EventDto(Event event, Place place) {
 		
+		this.id = place.getId();
 		this.title = place.getDescription();
 		this.startDate = event.getStartDate();
 		this.endDate = event.getEndDate();
@@ -38,6 +40,14 @@ public class EventDto {
 		this.attendee = place.getAttendee();
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
