@@ -10,6 +10,8 @@ import com.softserve.edu.model.User;
 
 public interface EventService {
 
+	public boolean haveEvent(int id);
+
 	public void addEvent(Event event);
 
 	public void removeEvent(Integer id);

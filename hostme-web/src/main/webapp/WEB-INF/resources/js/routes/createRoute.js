@@ -18,6 +18,7 @@ $(document).ready(function() {
     var $name = $("#name");
     var $description = $("#description");
     var $createRouteBtn = $("#createRoute");
+    var $savingStatus = $("#savingStatus");
     initDragPlaces(userPlacesUrl, $userPlacesUi);
     initDragPlaces(popularPlacesUrl, $popularPlacesUi);
     initDropPlaces($userPlacesUi);
@@ -58,6 +59,7 @@ $(document).ready(function() {
     });
     $createRouteBtn.click(function() {
         if (validateRouteCreation($name, $description)) {
+            var buttonName = $createRouteBtn.val();
             routeDto.name = $name.val();
             routeDto.description = $description.val();
             $.ajax({
@@ -67,10 +69,12 @@ $(document).ready(function() {
                 data: JSON.stringify(routeDto),
                 contentType: 'application/json',
                 beforeSend: function () {
-
+                    $savingStatus.html("Saving!");
+                    $createRouteBtn.attr("disabled", true);
                 },
                 success: function () {
-
+                    $savingStatus.html("Saved!");
+                    $createRouteBtn.attr("disabled", false);
                 }
             })
         } else {
@@ -102,7 +106,10 @@ function initDragPlaces(url, $ui) {
                 $ui.append("No data found")
             } else {
                 for (var i = 0; i < result.length; i++) {
-                    $ui.append("<div class='dragPlace'>" + result[i].name + "</div>");
+                    $ui.append("<div class='dragPlace'>" +
+                        '<a href = "'+ result[i].link + '">'
+                        + result[i].name + "</a>"
+                    + "</div>");
                     $ui.children().last().data("Id", result[i].id);
                     $ui.children().last().data("Address", result[i].address);
                 }

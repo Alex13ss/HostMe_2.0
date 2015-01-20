@@ -5,6 +5,9 @@ import java.util.Set;
 import com.softserve.edu.model.Sightseeing;
 
 public interface SightseeingService {
+
+	public boolean haveSight(int id);
+
 	Set<Sightseeing> findAll();
 
 	Sightseeing findOne(Integer id);

@@ -23,6 +23,10 @@ public class SightseeingServiceImpl implements SightseeingService {
 	@Autowired
 	private ProfileService profileService;
 
+	public boolean haveSight(int id) {
+		return sightseeingRepository.exists(id);
+	}
+
 	@Override
 	@Transactional
 	public Set<Sightseeing> findAll() {

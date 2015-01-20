@@ -26,6 +26,7 @@
 <section class="content">
     <div class="box box-primary">
         <div class="container-fluid">
+            <div id="savingStatus"></div>
             <div class="row">
                 <spring:message code="routes.createRouteName" />
                 <input id="name" class="form-control">

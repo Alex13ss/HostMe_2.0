@@ -27,6 +27,10 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	ProfileService profileService;
 
+	public boolean haveEvent(int id) {
+		return eventRepository.exists(id);
+	}
+
 	@Override
 	@Transactional
 	public void addEvent(Event event) {
