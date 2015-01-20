@@ -47,6 +47,9 @@
 				<ul class="nav nav-tabs">
 					<li id="all-events" class="active" onclick="allEvents(this)"><a
 						href="#" data-toggle="tab"><spring:message code="label.events" /></a></li>
+					<li class="" onclick="initialize_request_to_me(this)"><a
+						href="#" data-toggle="tab"><spring:message
+								code="label.Myevents" /></a></li>
 				</ul>
 				<div class="box-body table-responsive">
 					<table id="request_table_obtain"

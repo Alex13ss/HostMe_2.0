@@ -21,6 +21,12 @@ if (element.className != 'active') {
 	table.fnAddData(all_events_data);
 
 }
+function myEvents(element) {
+	if (element.className != 'active') {
+		table.fnClearTable();
+		table.fnReloadAjax("my-events");
+
+	}
 
 }
 
