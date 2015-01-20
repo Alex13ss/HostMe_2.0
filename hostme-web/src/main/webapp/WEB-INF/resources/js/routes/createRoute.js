@@ -7,59 +7,87 @@ var routeDto = {
     };
 var userPlacesUrl = "getUserPlaces";
 var popularPlacesUrl = "getPopularPlaces";
+var haveOriginPlace = false;
+var haveDestinationPlace = false;
 $(document).ready(function() {
     var $userPlacesUi = $("#userPlaces");
     var $popularPlacesUi = $("#allPlaces");
     var $originDropUi = $("#originPlaceDrop");
     var $waypointsDropUi = $("#waypointsPlacesDrop");
     var $destinationDropUi = $("#destinationPlaceDrop");
+    var $name = $("#name");
+    var $description = $("#description");
+    var $createRouteBtn = $("#createRoute");
     initDragPlaces(userPlacesUrl, $userPlacesUi);
     initDragPlaces(popularPlacesUrl, $popularPlacesUi);
+    initDropPlaces($userPlacesUi);
+    initDropPlaces($popularPlacesUi);
     $originDropUi.droppable({
+        out: function() {
+            haveOriginPlace = false;
+        },
         drop: function(event, ui) {
-            $("#originPlaceDrop").droppable("disable");
+            haveOriginPlace = true;
             addOrigin = ui.draggable.data("Address");
             routeDto.originId = ui.draggable.data("Id");
-            drawDestination();
+            ui.draggable.data("dropPlace", $originDropUi);
+            tryDrawDestination();
         }
     });
     var waypointsCounter = 0;
     var waypointsMAX = 8;
     $waypointsDropUi.droppable({
         drop: function(event, ui) {
-            if (waypointsCounter != waypointsMAX) {
-                waypointsCounter++;
-            } else {
-                $("#waypointsPlacesDrop").droppable("disable");
-            }
+            routeDto.waypointsId.push(ui.draggable.data("Id"));
+            waypts.push({
+                location: ui.draggable.data("Address")
+            });
+            tryDrawDestination();
         }
     });
     $destinationDropUi.droppable({
+        out: function() {
+            haveDestinationPlace = false;
+        },
         drop: function(event, ui) {
-            $("#destinationPlaceDrop").droppable("disable");
+            haveDestinationPlace = true;
             addDestination = ui.draggable.data("Address");
             routeDto.destinationId = ui.draggable.data("Id");
-            drawDestination();
+            tryDrawDestination();
         }
     });
-    $("#createRoute").click(function() {
-        routeDto.name = $("#name").val();
-        routeDto.description = $("#description").val();
-        $.ajax({
-            url: "/createRoute",
-            dataType: "json",
-            type: "POST",
-            data: JSON.stringify(routeDto),
-            contentType: 'application/json',
-            beforeSend: function() {
+    $createRouteBtn.click(function() {
+        if (validateRouteCreation($name, $description)) {
+            routeDto.name = $name.val();
+            routeDto.description = $description.val();
+            $.ajax({
+                url: "/createRoute",
+                dataType: "json",
+                type: "POST",
+                data: JSON.stringify(routeDto),
+                contentType: 'application/json',
+                beforeSend: function () {
 
-            },
-            success: function() {
+                },
+                success: function () {
 
-            }
-        })
+                }
+            })
+        } else {
+            alert("You have empty fields!");
+        }
+    });
+    $name.change(function() {
+        checkName($name);
+    });
+    $description.change(function() {
+        checkDescription($description);
     });
 });
+
+function initDropPlaces($ui) {
+    $ui.droppable();
+}
 
 function initDragPlaces(url, $ui) {
     $.ajax({
@@ -92,4 +120,10 @@ function initDrag() {
         cursor: "move",
         stack: "#originPlaceDrop"
     });
+}
+
+function tryDrawDestination() {
+    if (haveDestinationPlace && haveDestinationPlace) {
+        drawDestination()
+    }
 }

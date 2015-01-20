@@ -3,6 +3,7 @@ var directionsService = new google.maps.DirectionsService();
 var map;
 var addOrigin;
 var addDestination;
+var waypts = [];
 $(document).ready(function() {
     function initialize() {
         var chicago = new google.maps.LatLng(41.850033, -87.6500523);
@@ -21,6 +22,7 @@ function drawDestination() {
     var request = {
         origin: addOrigin,
         destination: addDestination,
+        waypoints:waypts,
         travelMode: google.maps.TravelMode.DRIVING
     };
     directionsService.route(request, function (result, status) {

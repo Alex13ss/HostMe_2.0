@@ -13,7 +13,6 @@
 </style>
 <link href="<c:url value="/resources/css/routes/createRoute.css"/>" rel="stylesheet">
 
-<script src="<c:url value="/resources/js/jquery.validate.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
 <script src="<c:url value="resources/js/fnAjaxReload.js"/>"></script>
 
@@ -35,17 +34,23 @@
                 <spring:message code="routes.createRouteDescription" />
                 <input id="description" class="form-control">
             </div>
-            <div class="container-fluid" style="width: 100%">
-                <div class="col-lg-4" id="userPlaces"></div>
+            <div class="container-fluid">
                 <div class="col-lg-4">
-                    <div id="originPlaceDrop" class="row dropArea"></div>
-                    <div id="waypointsPlacesDrop" class="row dropArea"></div>
-                    <div id="destinationPlaceDrop" class="row dropArea"></div>
-                    <button id="createRoute" class="row btn" style="width: 100%">
+                    <spring:message code="places.yourPlaces"/>
+                    <div id="userPlaces"></div>
+                </div>
+                <div class="col-lg-4">
+                    <div id="originPlaceDrop" class="dropArea"></div>
+                    <div id="waypointsPlacesDrop" class="dropArea"></div>
+                    <div id="destinationPlaceDrop" class="dropArea"></div>
+                    <button id="createRoute" class="btn" style="width: 100%">
                         <spring:message code="routes.createRoute"/>
                     </button>
                 </div>
-                <div class="col-lg-4" id="allPlaces"></div>
+                <div class="col-lg-4">
+                    <spring:message code="places.popularPlaces"/>
+                    <div id="allPlaces"></div>
+                </div>
             </div>
         </div>
     </div>
