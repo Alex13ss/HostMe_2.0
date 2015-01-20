@@ -55,7 +55,7 @@ public class GroupController {
         return "redirect:/group?id={id}";
     }
 
-    @RequestMapping("/groups/remove/{id}")
+    @RequestMapping("/group/remove/{id}")
     public String removeGroup(@PathVariable Long id) {
         Group group = groupService.findOne(id);
         groupService.delete(group);
