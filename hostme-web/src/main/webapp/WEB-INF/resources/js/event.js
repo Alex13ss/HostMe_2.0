@@ -6,19 +6,20 @@ var request_to_me_data;
 var request_from_me_url = "request-sent-history";
 var request_to_me_url = "request-obtain-history";
 
-function refresh() {
-if ($("#all-events").attr('class') != 'active') {
-	table.fnReloadAjax();
-} else {
-	table.fnReloadAjax("all-events");
-}
-
-}
+//function refresh() {
+//if ($("#all-events").attr('class') != 'active') {
+//	table.fnReloadAjax();
+//} else {
+//	table.fnReloadAjax("all-events");
+//}
+//
+//}
 
 function allEvents(element) {
 if (element.className != 'active') {
 	table.fnClearTable();
 	table.fnAddData(all_events_data);
+	table.fnReloadAjax("all-events");
 
 }
 }

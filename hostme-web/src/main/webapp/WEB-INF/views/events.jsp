@@ -26,50 +26,43 @@
 
 	<!-- Main content -->
 	<section class="content">
-		<div class="row">
-			<div class="box">
-				<div class="box-header">
-					<h3 class="box-title">
-						<i class="fa fa-plus-square"></i> Events management
-					</h3>
-					<div style="margin-top: 10px;">
-						<a href="event-creation" class="btn btn-primary button" id="textColor"><i
-							class="fa fa-fw fa-plus-square-o"></i> <b></b></a>
-						<button onclick="refresh()" id="addButtonEvent" class="btn btn-default btn-sm">
-							<i class="fa fa-fw fa-refresh"></i>
-							<spring:message code="label.Refresh" />
-						</button>
-					</div>
+		<div class="box box-primary">
+			<div class="box-header">
+				<h3 class="box-title">
+					<i class="fa fa-plus-square"></i> Events management
+				</h3>
+				<div style="margin-top: 10px;">
+					<a href="event-creation" class="btn btn-primary button"
+						id="textColor"><i class="fa fa-fw fa-plus-square-o"></i> <spring:message
+							code="label.addEvent" /><b></b></a>
+
 				</div>
-
-				<!-- /.box-header -->
-				<ul class="nav nav-tabs">
-					<li id="all-events" class="active" onclick="allEvents(this)"><a
-						href="#" data-toggle="tab"><spring:message code="label.events" /></a></li>
-					<li class="" onclick="myEvents(this)"><a href="#"
-						data-toggle="tab"><spring:message code="label.Myevents" /></a></li>
-				</ul>
-				<div class="box-body table-responsive">
-					<table id="request_table_obtain"
-						class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>Title</th>
-								<th>Starts</th>
-								<th>Location</th>
-								<th>Price</th>
-								<th>Website</th>
-								<th>Organizer</th>
-							</tr>
-						</thead>
-
-					</table>
-				</div>
-
 			</div>
-			<!-- /.box-body -->
+
+			<!-- /.box-header -->
+			<ul class="nav nav-tabs">
+				<li id="all-events" class="active" onclick="allEvents(this)"><a
+					href="#" data-toggle="tab"><spring:message code="label.events" /></a></li>
+				<li class="" onclick="myEvents(this)"><a href="#"
+					data-toggle="tab"><spring:message code="label.Myevents" /></a></li>
+			</ul>
+			<div class="box-body table-responsive">
+				<table id="request_table_obtain"
+					class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Title</th>
+							<th>Starts</th>
+							<th>Location</th>
+							<th>Price</th>
+							<th>Website</th>
+							<th>Organizer</th>
+						</tr>
+					</thead>
+
+				</table>
+			</div>
 		</div>
-		<!-- /.box -->
 
 	</section>
 	<!-- /.content -->

@@ -3914,9 +3914,10 @@ img.displayed {
 .optionsList {
 	padding-left: 0.5em;
 }
-button#addButtonEvent{
-	float:right;
-}
+
 a#textColor {
-	color:#FFF
+	color:#FFF;
+	float:right;
+	font-family: 'Source Sans Pro', sans-serif;
+	 margin: 5px;
 }
