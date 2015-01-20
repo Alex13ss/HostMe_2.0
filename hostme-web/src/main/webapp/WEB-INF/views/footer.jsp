@@ -44,6 +44,7 @@
         <ul style="list-style: none">
             <li><h4>Our E-mail:</h4></li>
             <li><a href="mailto:hostme@gmail.com">hostme@gmail.com</a></li>
+             <li>&copy;ShaurmTeam</li>
         </ul>
     </div>
 

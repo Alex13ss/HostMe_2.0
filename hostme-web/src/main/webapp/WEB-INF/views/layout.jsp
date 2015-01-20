@@ -26,16 +26,20 @@
 
         <div class="wrapper row-offcanvas row-offcanvas-left"
             style="min-height: 593px;">
-
             <tiles:insertAttribute name="sidebar" />
             <aside class="right-side">
                 <tiles:insertAttribute name="body" />
             </aside>
             
+                <tiles:insertAttribute name="footer" />
+            
         </div>
         
-        
     </security:authorize>
+
+           
+    
+
 
     <security:authorize access="! isAuthenticated()">
         <aside>
@@ -43,5 +47,7 @@
         </aside>
     </security:authorize>
 
+
+ 
 </body>
 </html>
