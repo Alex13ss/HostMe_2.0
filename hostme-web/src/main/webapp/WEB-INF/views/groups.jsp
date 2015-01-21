@@ -51,7 +51,7 @@
 					<tr>
 						<th>Image of group</th>
 						<th>Group name/description</th>
-						<th>Published</th>
+						<th>Publishing</th>
 						<th>Creator</th>
 					</tr>
 				</thead>
@@ -65,7 +65,10 @@
 								</c:url><a href="<c:out value="${groupUrl}"/>"><strong> <c:out
 											value="${group.groupName}" /></strong></a><br /> <c:out
 									value="${group.groupDescription}" /></td>
-							<td>${group.createdAt}</td>
+							<td><c:out value="Created: ${group.createdAt}" /> <p> <c:if
+									test="${!empty group.lastEditedAt}">
+									<c:out value="Last edited: ${group.lastEditedAt}" />
+								</c:if></td>
 							<td>N/A</td>
 						</tr>
 					</c:forEach>

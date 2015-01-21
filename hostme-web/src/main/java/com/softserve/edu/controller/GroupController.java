@@ -76,11 +76,14 @@ public class GroupController {
         addLatestConversationsByGroupId(model, id);
         return "group";
     }
-    
+
     @RequestMapping(value = "/group", method = RequestMethod.POST)
-    public String editGroup(@ModelAttribute("group") Group group) {
+    public String editGroup(@ModelAttribute("group") final Group group,
+            RedirectAttributes redirectAttributes) {
         groupService.update(group);
-        return "group";
+        redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
+                "groupEdited", true);
+        return "redirect:/group?id={id}";
     }
 
     private void addLatestConversationsByGroupId(Model model, Long id) {

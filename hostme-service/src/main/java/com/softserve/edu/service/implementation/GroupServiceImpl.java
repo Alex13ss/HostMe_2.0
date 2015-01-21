@@ -50,6 +50,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void update(Group group) {
+        group.setLastEditedAt(new Date());
         groupRepository.save(group);
     }
 

@@ -31,9 +31,15 @@
 	<div class="box box-primary">
 
 		<div class="box-header">
-			<h3 class="box-title col-md-10">
+			<h3 class="box-title col-md-9">
 				<i class="fa fa-fw fa-users"></i>
 				<c:out value="${group.groupName}" />
+			</h3>
+			<h3 class="box-title col-md-3">
+				<small><c:out value="Created: ${group.createdAt}" /> <br>
+					<c:if test="${!empty group.lastEditedAt}">
+						<c:out value="Last edited: ${group.lastEditedAt}" />
+					</c:if></small>
 			</h3>
 		</div>
 		<!-- /.box-header -->
@@ -47,9 +53,14 @@
 						fun! :)</h3>
 				</div>
 			</c:if>
+			<c:if test="${groupEdited eq true}">
+				<div class="alert alert-warning" style="margin-right: 15px;"
+					align="center">
+					<h3>Group editing was successful!</h3>
+				</div>
+			</c:if>
 
-			<div class="alert alert-info" style="margin-right: 15px;"
-				align="center">
+			<div class="alert alert-info" style="margin-right: 15px;">
 				<c:out value="${group.groupDescription}" />
 			</div>
 
