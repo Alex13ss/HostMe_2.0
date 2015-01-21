@@ -62,6 +62,12 @@
 								code="label.searchhosts" /></a></li>
 				</security:authorize>
 
+				<security:authorize access="isAuthenticated()">
+					<li><a href='<c:url value="/megaSearch"/>'
+						   style="margin-left: 10px;"><i class="fa fa-search"></i> <spring:message
+							code="label.searchhosts" /></a></li>
+				</security:authorize>
+
 				<security:authorize access="hasRole('ADMIN')">
 					<li>
 						<a href='<c:url value="/usersManager"/>' style="margin-left: 10px;">
@@ -78,17 +84,12 @@
 				</security:authorize>
 
 				<security:authorize access="isAuthenticated()">
-				<li class="treeview">
-					<a href="#" style="margin-left: 10px">
-						<i class="fa fa-arrows"></i>
-						<span><spring:message code="label.routes" /></span>
-						<i class="fa fa-angle-left pull-right"></i>
-					</a>
-					<ul class="treeview-menu">
-						<li><a href='<c:url value="/popularRoutes"/>'><i class="fa fa-angle-double-right"></i> Popular Routes</a></li>
-						<li><a href='<c:url value="/createRoute"/>'><i class="fa fa-angle-double-right"></i> Create Route</a></li>
-					</ul>
-				</li>
+					<li><a href='<c:url value="/createRoute"/>' style="margin-left: 10px;">
+							<i class="fa fa-arrows"></i>
+							<spring:message code="label.routes" />
+						</a>
+					</li>
+
 				</security:authorize>
 
 				<security:authorize access="isAuthenticated()">
@@ -96,6 +97,7 @@
 						style="margin-left: 10px;"><i class="fa fa-users"></i> <spring:message
 								code="label.groups" /></a></li>
 				</security:authorize>
+
 				<security:authorize access="isAuthenticated()">
 					<li><a href='<c:url value="events"/>'
 						style="margin-left: 10px;"><i class="fa fa-calendar"></i> <spring:message

@@ -107,7 +107,7 @@ function initDragPlaces(url, $ui) {
             } else {
                 for (var i = 0; i < result.length; i++) {
                     $ui.append("<div class='dragPlace'>" +
-                        '<a href = "'+ result[i].link + '">'
+                        '<a href = "place?placeId='+ result[i].id + '">'
                         + result[i].name + "</a>"
                     + "</div>");
                     $ui.children().last().data("Id", result[i].id);

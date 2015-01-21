@@ -14,8 +14,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
 
-	<definition name="popularRoutes" extends="baseLayout">
-		<put-attribute name="body" value="/WEB-INF/views/routes/popularRoutes.jsp" />
+	<definition name="megaSearch" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/megaSearch/megaSearch.jsp" />
 	</definition>
 
 	<definition name="createRoute" extends="baseLayout">

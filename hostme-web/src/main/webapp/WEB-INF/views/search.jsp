@@ -217,7 +217,7 @@
                                     style="margin-top: 20px;">
 
                                     <spring:message
-                                        code="label.searchHosting"
+                                        code="label.search"
                                         var="searchHosting" />
                                     <div class="col-md-2"
                                         style="padding-left: 0em;">

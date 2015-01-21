@@ -49,23 +49,10 @@ public class PlaceServiceImp implements PlaceService{
 
     public List<PlaceDto> placeToPlaceDto(List<Place> places) {
         List<PlaceDto> result = new ArrayList<>();
-        PlaceDto buffDto;
         for (Place place : places) {
-            buffDto = new PlaceDto(place);
-            buffDto.setLink(createLink(place.getId()));
-            result.add(buffDto);
+            result.add(new PlaceDto(place));
         }
         return result;
-    }
-
-    private final String LINK_BEGIN = "\\place?placeId=";
-    private final StringBuilder sb = new StringBuilder();
-    private final int EMPTY = 0;
-    private String createLink(int id) {
-        sb.setLength(EMPTY);
-        sb.append(LINK_BEGIN);
-        sb.append(id);
-        return sb.toString();
     }
 
     private User getCurrentUser() {
