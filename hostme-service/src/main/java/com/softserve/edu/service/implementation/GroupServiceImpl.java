@@ -48,6 +48,11 @@ public class GroupServiceImpl implements GroupService {
         groupRepository.save(group);
     }
 
+    @Override
+    public void update(Group group) {
+        groupRepository.saveAndFlush(group);
+    }
+
     // @Override
     // public void create(Group group, String name) {
     // User user = userRepository.findByName(name);

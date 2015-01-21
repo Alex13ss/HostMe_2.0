@@ -48,9 +48,14 @@
 				</div>
 			</c:if>
 
-			Here will be group info.
+			<div class="alert alert-info" style="margin-right: 15px;"
+				align="center">
+				<c:out value="${group.groupDescription}" />
+			</div>
 
 			<div align="right">
+				<button type="button" class="btn btn-success btn-md"
+					data-toggle="modal" data-target="#groupEditModal">Edit</button>
 				<a href="<spring:url value="/group/remove/${group.id}" />"
 					class="btn btn-danger triggerRemove"> Remove </a>
 			</div>
@@ -104,6 +109,50 @@
 	</c:url>
 	<%@ include file="conversations/latest.jsp"%>
 	<p>End Conversations block</p>
+
+	<form:form modelAttribute="group" cssClass="form-horizontal groupForm">
+		<!-- Modal -->
+		<div class="modal fade" id="groupEditModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Group editing...</h4>
+					</div>
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="groupName" class="col-sm-2 control-label">
+								Name: </label>
+							<div class="col-sm-10">
+								<form:input path="groupName" cssClass="form-control" />
+								<form:errors path="groupName" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="groupDescription" class="col-sm-2 control-label">
+								Description: </label>
+							<div class="col-sm-10">
+								<form:input path="groupDescription" cssClass="form-control" />
+								<form:errors path="groupDescription" />
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-success"
+							value="Finish editing!" />
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form:form>
 
 </body>
 </html>

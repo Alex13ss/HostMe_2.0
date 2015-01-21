@@ -13,5 +13,7 @@ public interface GroupService {
     void delete(Group group);
 
     void create(Group group);
+    
+    public void update(Group group);
 
 }
