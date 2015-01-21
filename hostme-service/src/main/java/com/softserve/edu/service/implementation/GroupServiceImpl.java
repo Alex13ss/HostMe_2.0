@@ -50,7 +50,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void update(Group group) {
-        groupRepository.saveAndFlush(group);
+        groupRepository.save(group);
     }
 
     // @Override

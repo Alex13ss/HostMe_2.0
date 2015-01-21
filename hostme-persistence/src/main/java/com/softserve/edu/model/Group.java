@@ -55,7 +55,7 @@ public class Group {
      * 
      * Contains images uploaded by this group
      */
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<Image> images;
 
     /**
