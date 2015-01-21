@@ -18,5 +18,3 @@ log/
 target/
 /bin/
 
-/jdbc.properties
-jdbc.properties

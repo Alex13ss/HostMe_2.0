@@ -51,7 +51,7 @@ $(document)
 										"aoColumns" : [
 												{
 													"mData":function(data,type,full){
-														return '<a href=${pageContext.request.contextPath}/event?eventId='
+														return '<a href=event?id='
 														+ data.id
 														+ '>'
 														+ data.title
