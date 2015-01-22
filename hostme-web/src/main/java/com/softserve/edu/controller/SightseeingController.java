@@ -1,5 +1,6 @@
 package com.softserve.edu.controller;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.softserve.edu.dto.EventDto;
+import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.service.SightseeingService;
 
@@ -23,10 +27,25 @@ public class SightseeingController {
 
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.GET)
 	public String showSightseeings(Model model) {
-		Set<Sightseeing> sightseeings = sightseeingService.findAll();
+		List<SightseeingDto> sightseeings = sightseeingService
+				.getAllSightseeings();
 		model.addAttribute("sightseeings", sightseeings);
 		return "sightseeings";
 	}
+
+	@RequestMapping(value = "/all-sightseeings", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<SightseeingDto> getAllSightseeings() {
+		List<SightseeingDto> sightseeings = sightseeingService
+				.getAllSightseeings();
+		return sightseeings;
+	}
+
+//	@RequestMapping(value = "/all-sightseeings", method = RequestMethod.GET, produces = "application/json")
+//	public @ResponseBody List<SightseeingDto> getFavouriteSightseeings() {
+//		List<SightseeingDto> sightseeings = sightseeingService
+//				.getAllSightseeings();
+//		return sightseeings;
+//	}
 
 	@RequestMapping(value = "/sightseeing", method = RequestMethod.GET)
 	public String showSightseeing(@RequestParam("id") int id, Model model) {
@@ -64,7 +83,8 @@ public class SightseeingController {
 	}
 
 	@RequestMapping("/sightseeingEdit")
-	public String changeSightseeing(@ModelAttribute("sightseeing") Sightseeing sightseeing,
+	public String changeSightseeing(
+			@ModelAttribute("sightseeing") Sightseeing sightseeing,
 			BindingResult result) {
 		sightseeingService.saveSightseeing(sightseeing);
 		return "redirect:/sightseeings";

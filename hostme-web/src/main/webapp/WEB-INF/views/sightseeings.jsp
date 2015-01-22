@@ -3,73 +3,63 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link type="text/css" rel="stylesheet"
 	href="resources/css/sightseeing.css" />
+<script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script type='text/javascript' src="resources/js/sightseeing.js"></script>
-<title>Sightseeing</title>
+<script src="resources/js/fnAjaxReload.js" type="text/javascript"></script>
+<script src="resources/js/dataTables.bootstrap.js"
+	type="text/javascript"></script>
+<title>Sightseeings</title>
 </head>
-<body class="skin-blue  pace-done">
-	<section class="content-header">
-	<h1>
-		<spring:message code="label.sightseeings" />
-	</h1>
-	</section>
-	<div class="box">
-		<section class="content-header">
-		<h3>List of all sightseeings</h3>
-		<ol class="breadcrumb">
-			<li><a href="<c:url value='create-sightseeing' />"><i
-					class="fa fa-fw fa-plus-square-o"></i> <spring:message
-						code="label.addSightseeing" /></a></li>
-		</ol>
-		</section>
-		<div class="box-body table-responsive">
-			<div id="example1_wrapper" class="dataTables_wrapper form-inline"
-				role="grid">
-				<table id="example1"
-					class="table table-bordered table-striped dataTable">
+
+<body class="wysihtml5-supported">
+
+	<section class="content">
+		<div class="box box-primary">
+			<div class="box-header">
+				<h3 class="box-title">
+					<i class="fa fa-camera-retro"></i>
+					<spring:message code="label.sightseeings" />
+				</h3>
+				<div style="margin-top: 10px;">
+					<a href="<c:url value='create-sightseeing' />"
+						class="btn btn-primary button" id="textColor"><i
+						class="fa fa-fw fa-plus-square-o"></i> <spring:message
+							code="label.addSightseeing" /><b></b></a>
+				</div>
+			</div>
+
+			<!-- /.box-header -->
+			<ul class="nav nav-tabs">
+				<li id="all-sightseeings" class="active"
+					onclick="allSightseeings(this)"><a href="#" data-toggle="tab"><spring:message
+							code="label.sightseeings" /></a></li>
+				<li class="" onclick="favouriteSightseeings(this)"><a href="#"
+					data-toggle="tab"><spring:message
+							code="label.favouriteSightseeings" /></a></li>
+			</ul>
+			<div class="box-body table-responsive">
+				<table id="request_table_obtain"
+					class="table table-bordered table-striped">
 					<thead>
-						<tr role="row">
+						<tr>
 							<th>Name</th>
 							<th>Description</th>
 							<th>City</th>
-							<th>Image</th>
-							<th>Delete</th>
-							<th>Edit</th>
+							<th>Price</th>
+							<th>Website</th>
+							<th>Sightseeing type</th>
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach var="sightseeing" items="${sightseeings}">
-							<tr
-								href="<c:url value="sightseeing">
-								<c:param name="id" value="${sightseeing.id}" />
-								</c:url>"
-								class="clickableRow" class="odd">
-								<td class=" "><c:out value="${sightseeing.name}">
-									</c:out></td>
-								<td class=" "><c:out value="${sightseeing.description}">
-									</c:out></td>
-								<td class=" "><c:out value="${sightseeing.city.city}">
-									</c:out></td>
-								<td class=" "><a href="${image.link}"><img
-										width="150px" height="150px" src="${image.link}"></a></td>
-								<td class=" "><a
-									href="sightseeing/delete/${sightseeing.id}"><i
-										class="fa fa-fw fa-trash-o"></i></a></td>
-								<td class=" "><a
-									href="<c:url value="update-sightseeing"><c:param name="id" value="${sightseeing.id}" /></c:url>">
-										<i class="fa fa-fw fa-pencil"></i>
-								</a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
 				</table>
 			</div>
 		</div>
-	</div>
+	</section>
 </body>
 </html>

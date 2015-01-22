@@ -1,17 +1,17 @@
 package com.softserve.edu.service.implementation;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import com.softserve.edu.model.User;
-import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.repositories.SightseeingRepository;
+import com.softserve.edu.repositories.routes.PlaceRepository;
+import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.SightseeingService;
 
 @Service
@@ -19,7 +19,8 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	@Autowired
 	private SightseeingRepository sightseeingRepository;
-
+	@Autowired
+	PlaceRepository placeRepository;
 	@Autowired
 	private ProfileService profileService;
 
@@ -29,11 +30,12 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	@Override
 	@Transactional
-	public Set<Sightseeing> findAll() {
-		List<Sightseeing> list = (List<Sightseeing>) sightseeingRepository
-				.findAll();
-		Set<Sightseeing> items = new HashSet<Sightseeing>(list);
-		return items;
+	public List<SightseeingDto> getAllSightseeings() {
+		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
+		for(Sightseeing sightseeing : sightseeingRepository.findAll()){
+			list.add(new SightseeingDto(sightseeing, placeRepository.findOne(sightseeing.getId())));
+		}
+		return list;
 	}
 
 	@Override
