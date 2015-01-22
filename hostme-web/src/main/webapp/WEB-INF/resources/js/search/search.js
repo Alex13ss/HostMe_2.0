@@ -16,6 +16,11 @@ $(document).ready(function() {
             timer = setTimeout(search,1000);
         }
     });
+    $type.change(function() {
+        if (inputLength($search, $underSearch)) {
+            search();
+        }
+    })
 });
 
 function search() {
@@ -33,16 +38,24 @@ function search() {
             $underSearch.html("");
             if (result.length == 0) {
                 $underSearch.html("Nothing found!");
-            }
-            for (var i = 0; i < result.length; i++) {
-                $underSearch.append("<div>" + result[i].name + "</div>")
+            } else {
+                fillData(result);
             }
         }
     });
 }
 
+function fillData(data) {
+    for (var i = 0; i < data.length; i++) {
+        $underSearch.append("<div class='dragPlace'>" +
+        '<a href = ' + data[i].link + '>'
+        + data[i].name + "</a>"
+        + "</div>")
+    }
+}
+
 function inputLength(input, $underSearch) {
-    if (input.val().length < 3){
+    if (input.val().length < 2){
         $underSearch.html("Need more symbols");
     } else {
         $underSearch.html("Loading");

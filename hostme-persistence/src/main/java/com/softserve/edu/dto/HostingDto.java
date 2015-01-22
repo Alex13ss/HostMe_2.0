@@ -5,6 +5,8 @@ import com.softserve.edu.model.User;
 
 public class HostingDto {
 
+    private String link;
+    private String name;
     private String country;
     private String region;
     private String city;
@@ -14,23 +16,41 @@ public class HostingDto {
     private Integer userId;
 
     public HostingDto(final Hosting hosting) {
-        this.country = hosting.getCountry();
-        this.region = hosting.getRegion();
-        this.city = hosting.getCity();
-        this.address = hosting.getAddress();
-        this.firstAndLastName = hosting.getOwner().getFirstName() + " " + hosting.getOwner().getLastName();
-        this.hostingId = hosting.getHostingId();
-        this.userId = hosting.getOwner().getUserId();
+        country = hosting.getCountry();
+        region = hosting.getRegion();
+        city = hosting.getCity();
+        address = hosting.getAddress();
+        firstAndLastName = hosting.getOwner().getFirstName() + " " + hosting.getOwner().getLastName();
+        hostingId = hosting.getHostingId();
+        link = "/hosting?hostingId=" + hostingId;
+        name = address;
+        userId = hosting.getOwner().getUserId();
     }
 
     public HostingDto(final Hosting hosting, final User user) {
-        this.country = hosting.getCountry();
-        this.region = hosting.getRegion();
-        this.city = hosting.getCity();
-        this.address = hosting.getAddress();
-        this.firstAndLastName = user.getFirstName() + " " + user.getLastName();
-        this.hostingId = hosting.getHostingId();
-        this.userId = user.getUserId();
+        country = hosting.getCountry();
+        region = hosting.getRegion();
+        city = hosting.getCity();
+        address = hosting.getAddress();
+        firstAndLastName = user.getFirstName() + " " + user.getLastName();
+        hostingId = hosting.getHostingId();
+        userId = user.getUserId();
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getHostingId() {
