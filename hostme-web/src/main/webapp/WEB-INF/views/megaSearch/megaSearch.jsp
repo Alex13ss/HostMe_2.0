@@ -20,7 +20,14 @@
   <div class="box box-primary">
     <div class="container-fluid">
       <div class="row">
-        <input id="search" class="form-control">
+        <select id="type" class="col-lg-2">
+          <option value="EVENT">Event</option>
+          <option value="SIGHT">Sight</option>
+          <option value="ROUTE">Route</option>
+          <option value="USER">User</option>
+          <option value="HOSTING">Hosting</option>
+        </select>
+        <input id="search" class="col-lg-10">
         <p id="searchReq"></p>
       </div>
       <div id="searchResult">

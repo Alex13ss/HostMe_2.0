@@ -57,15 +57,17 @@
 				</security:authorize>
 
 				<security:authorize access="isAuthenticated()">
-					<li><a href='<c:url value="search"/>'
-						style="margin-left: 10px;"><i class="fa fa-search"></i> <spring:message
-								code="label.searchhosts" /></a></li>
+					<li><a href='<c:url value="/megaSearch"/>' style="margin-left: 10px;">
+						<i class="fa fa-search"></i>
+						<spring:message code="label.searchall" />
+						</a>
+					</li>
 				</security:authorize>
 
 				<security:authorize access="isAuthenticated()">
-					<li><a href='<c:url value="/megaSearch"/>'
-						   style="margin-left: 10px;"><i class="fa fa-search"></i> <spring:message
-							code="label.searchhosts" /></a></li>
+					<li><a href='<c:url value="search"/>'
+						style="margin-left: 10px;"><i class="fa fa-search"></i> <spring:message
+								code="label.searchhosts" /></a></li>
 				</security:authorize>
 
 				<security:authorize access="hasRole('ADMIN')">

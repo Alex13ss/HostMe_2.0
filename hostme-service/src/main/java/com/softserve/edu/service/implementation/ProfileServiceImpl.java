@@ -2,6 +2,7 @@ package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.model.User;
+import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,9 @@ public class ProfileServiceImpl implements ProfileService {
 	@Autowired
 	private UserDao userDaoImpl;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	@Override
 	@Transactional
 	public User getUser(Integer id) {
@@ -28,8 +32,9 @@ public class ProfileServiceImpl implements ProfileService {
 	@Override
 	@Transactional
 	public User getUserByLogin(String login) {
-		return userDaoImpl.getUserByLogin(login);
+		return userRepository.findByLogin(login);
 	}
+
 
 	public User getCurrentUser() {
 		return getUserByLogin(SecurityContextHolder.getContext().getAuthentication()

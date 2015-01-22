@@ -1,11 +1,29 @@
 package com.softserve.edu.dto;
 
+import com.softserve.edu.model.routes.Place;
+import com.softserve.edu.model.routes.Route;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class RouteDto {
     private String name;
     private String description;
     private String originId;
     private String destinationId;
-    private String[] waypointsId;
+    private List<String> waypointsId = new ArrayList<>();
+
+    public RouteDto(Route route) {
+        name = route.getName();
+        description = route.getDescription();
+        Iterator<Place> places = route.getPlaces().iterator();
+        originId = String.valueOf(places.next().getId());
+        destinationId = String.valueOf(places.next().getId());
+        while (places.hasNext()) {
+            waypointsId.add(String.valueOf(places.next().getId()));
+        }
+    }
 
     public String getName() {
         return name;
@@ -39,11 +57,11 @@ public class RouteDto {
         this.destinationId = destinationId;
     }
 
-    public String[] getWaypointsId() {
+    public List<String> getWaypointsId() {
         return waypointsId;
     }
 
-    public void setWaypointsId(String[] waypointsId) {
+    public void setWaypointsId(List<String> waypointsId) {
         this.waypointsId = waypointsId;
     }
 }

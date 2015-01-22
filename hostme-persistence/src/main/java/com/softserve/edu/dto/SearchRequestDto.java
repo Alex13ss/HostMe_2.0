@@ -1,6 +1,6 @@
 package com.softserve.edu.dto;
 
-public class SearchDto {
+public class SearchRequestDto {
     String request;
     String type;
 

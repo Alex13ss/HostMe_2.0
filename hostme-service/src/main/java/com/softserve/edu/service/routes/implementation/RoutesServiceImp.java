@@ -52,6 +52,11 @@ public class RoutesServiceImp implements RoutesService{
         routeRepository.save(route);
     }
 
+    public List<Route> getRouteLike(String input) {
+        //TODO make this search!
+        return getCurrentUserRoutes();
+    }
+
     public List<Route> getCurrentUserRoutes() {
         return new ArrayList<>(profileService.getCurrentUser().getRoutes());
     }
@@ -72,6 +77,14 @@ public class RoutesServiceImp implements RoutesService{
                     result.add(route);
                 }
             }
+        }
+        return result;
+    }
+
+    public List<RouteDto> getRoutesDto(List<Route> routes) {
+        List<RouteDto> result = new ArrayList<>();
+        for (Route route : routes) {
+            result.add(new RouteDto(route));
         }
         return result;
     }

@@ -9,6 +9,10 @@ public interface RoutesService {
 
     public void addRoute(Route route);
 
+    public List<Route> getRouteLike(String name);
+
+    public List<RouteDto> getRoutesDto(List<Route> routes);
+
     public void addRoute(RouteDto routeDto);
 
     public List<Route> getCurrentUserRoutes();
