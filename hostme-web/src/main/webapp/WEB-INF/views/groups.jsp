@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 
 <script type="text/javascript" src="resources/js/group.js"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.js"></script>
@@ -33,11 +34,23 @@
 		</div>
 		<!-- /.box-header -->
 
-		<div class="box-body">
+		<div class="alert alert-info" style="margin-right: 15px;"
+			align="center">Find minded people and get some conversations!
+			You'll get many useful information here! Have a fun! ;)</div>
 
-			<div class="alert alert-info" style="margin-right: 15px;"
-				align="center">Find minded people and get some conversations!
-				You'll get many useful information here! Have a fun! ;)</div>
+		<ul class="nav nav-tabs">
+			<li id="all-groups" class="active" onclick="allGroups(this)"><a
+				href="#" data-toggle="tab"><spring:message
+						code="label.allGroups" /></a></li>
+			<li id="my-groups" class="" onclick="myGroups(this)"><a href="#"
+				data-toggle="tab"><spring:message code="label.myGroups" /></a></li>
+			<li id="interesting-groups" class=""
+				onclick="interestingGroups(this)"><a href="#" data-toggle="tab"><spring:message
+						code="label.interestingGroups" /></a></li>
+		</ul>
+
+		<div class="box-body ">
+
 			<c:if test="${groupNotCreated eq true}">
 				<div class="alert alert-danger" style="margin-right: 15px;"
 					align="center">
@@ -65,10 +78,11 @@
 								</c:url><a href="<c:out value="${groupUrl}"/>"><strong> <c:out
 											value="${group.groupName}" /></strong></a><br /> <c:out
 									value="${group.groupDescription}" /></td>
-							<td><c:out value="Created: ${group.createdAt}" /> <p> <c:if
-									test="${!empty group.lastEditedAt}">
-									<c:out value="Last edited: ${group.lastEditedAt}" />
-								</c:if></td>
+							<td><c:out value="Created: ${group.createdAt}" />
+								<p>
+									<c:if test="${!empty group.lastEditedAt}">
+										<c:out value="Last edited: ${group.lastEditedAt}" />
+									</c:if></td>
 							<td>N/A</td>
 						</tr>
 					</c:forEach>
@@ -83,6 +97,7 @@
 
 		</div>
 		<!-- /.box-body -->
+		
 	</div>
 	<!-- /.box -->
 </section>

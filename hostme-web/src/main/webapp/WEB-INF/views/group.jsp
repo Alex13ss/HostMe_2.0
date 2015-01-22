@@ -9,6 +9,7 @@
 <head>
 
 <script type="text/javascript" src="resources/js/group.js"></script>
+<script type="text/javascript" src="resources/js/jquery.validate.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="resources/css/conversations.css">
@@ -35,12 +36,6 @@
 				<i class="fa fa-fw fa-users"></i>
 				<c:out value="${group.groupName}" />
 			</h3>
-			<h3 class="box-title col-md-3">
-				<small><c:out value="Created: ${group.createdAt}" /> <br>
-					<c:if test="${!empty group.lastEditedAt}">
-						<c:out value="Last edited: ${group.lastEditedAt}" />
-					</c:if></small>
-			</h3>
 		</div>
 		<!-- /.box-header -->
 
@@ -60,8 +55,50 @@
 				</div>
 			</c:if>
 
-			<div class="alert alert-info" style="margin-right: 15px;">
-				<c:out value="${group.groupDescription}" />
+			<div class="row">
+				<div class="col-md-4">
+					<div class="box-body">
+						<div class="panel box box-success">
+							<h4>
+								<span>Funny group image</span>
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box box-solid bg-light-blue">
+						<div class="box-header">
+							<h3 class="box-title">
+								<spring:message code="label.description" />
+							</h3>
+						</div>
+						<div class="box-body">
+							<p>
+								<c:out value="${group.groupDescription}" />
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box-body">
+						<div class="panel box box-success">
+							<div class="box-header">
+								<h3 class="box-title">Publishing info:</h3>
+							</div>
+							<div class="box-body">
+								<p>
+									<c:out value="Created at: ${group.createdAt}" />
+									<br>
+									<c:out value="Created by:" />
+									<br>
+									<c:if test="${!empty group.lastEditedAt}">
+										<c:out value="Last edited: ${group.lastEditedAt}" />
+									</c:if>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div align="right">
@@ -101,14 +138,53 @@
 		</div>
 		<!-- /.box-body -->
 
-
-
-
-
 	</div>
 	<!-- /.box -->
-
 </section>
+
+<form:form modelAttribute="group" cssClass="form-horizontal groupForm">
+	<!-- Modal -->
+	<div class="modal fade" id="groupEditModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Group editing...</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="form-group">
+						<label for="groupName" class="col-sm-2 control-label">
+							Name: </label>
+						<div class="col-sm-10">
+							<form:input path="groupName" cssClass="form-control" />
+							<form:errors path="groupName" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="groupDescription" class="col-sm-2 control-label">
+							Description: </label>
+						<div class="col-sm-10">
+							<form:input path="groupDescription" cssClass="form-control" />
+							<form:errors path="groupDescription" />
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-success"
+						value="Finish editing!" />
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form:form>
 
 <body>
 
@@ -120,50 +196,6 @@
 	</c:url>
 	<%@ include file="conversations/latest.jsp"%>
 	<p>End Conversations block</p>
-
-	<form:form modelAttribute="group" cssClass="form-horizontal groupForm">
-		<!-- Modal -->
-		<div class="modal fade" id="groupEditModal" tabindex="-1"
-			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Group editing...</h4>
-					</div>
-					<div class="modal-body">
-
-						<div class="form-group">
-							<label for="groupName" class="col-sm-2 control-label">
-								Name: </label>
-							<div class="col-sm-10">
-								<form:input path="groupName" cssClass="form-control" />
-								<form:errors path="groupName" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="groupDescription" class="col-sm-2 control-label">
-								Description: </label>
-							<div class="col-sm-10">
-								<form:input path="groupDescription" cssClass="form-control" />
-								<form:errors path="groupDescription" />
-							</div>
-						</div>
-
-					</div>
-					<div class="modal-footer">
-						<input type="submit" class="btn btn-success"
-							value="Finish editing!" />
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</form:form>
 
 </body>
 </html>
