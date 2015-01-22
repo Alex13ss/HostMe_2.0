@@ -12,7 +12,7 @@ import com.softserve.edu.model.routes.Place;
 public class EventDto {
 
 	private Integer id;
-	private String title;
+	private String name;
 	private Date startDate;
 	private Date endDate;
 	private City city;
@@ -24,10 +24,16 @@ public class EventDto {
 	private Set<Image> image;
 	private Set<User> attendee;
 
+	public EventDto(Event event) {
+		id = event.getId();
+		name = event.getName();
+		address = event.getAddress();
+	}
+
 	public EventDto(Event event, Place place) {
 		
 		this.id = place.getId();
-		this.title = place.getDescription();
+		this.name = place.getDescription();
 		this.startDate = event.getStartDate();
 		this.endDate = event.getEndDate();
 		this.city = place.getCity();
@@ -48,12 +54,12 @@ public class EventDto {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getStartDate() {

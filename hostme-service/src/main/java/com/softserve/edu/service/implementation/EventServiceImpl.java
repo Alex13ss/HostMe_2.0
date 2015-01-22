@@ -45,6 +45,14 @@ public class EventServiceImpl implements EventService {
 		eventRepository.delete(id);
 	}
 
+	public List<EventDto> getEventsDtoList(List<Event> events) {
+		List<EventDto> result = new ArrayList<>();
+		for (Event event : events) {
+			result.add(new EventDto(event));
+		}
+		return result;
+	}
+
 	@Override
 	@Transactional
 	public List<EventDto> getAllEvents() {
@@ -72,6 +80,10 @@ public class EventServiceImpl implements EventService {
 			list.add(new EventDto(event, placeRepository.findOne(event.getId())));
 		}
 		return list;
+	}
+
+	public List<Event> getEventsLike(String searchingName) {
+		return eventRepository.findByNameContaining(searchingName);
 	}
 
 	@Override

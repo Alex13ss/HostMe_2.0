@@ -1,8 +1,10 @@
 package com.softserve.edu.service;
 
+import com.softserve.edu.dto.HostingDto;
 import com.softserve.edu.model.Hosting;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface HostingService {
 
@@ -16,4 +18,7 @@ public interface HostingService {
 
 	public void deleteHosting(Integer hostingId);
 
+	public List<HostingDto> getHostingDtoList(List<Hosting> hostings);
+
+	public List<Hosting> getHostingLike(String request);
 }

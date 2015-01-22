@@ -8,7 +8,9 @@ import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 
 public interface PlaceRepository extends PagingAndSortingRepository<Place, Integer> {
-    
+
+
+
 	public List<Place> findByOwnerNot(User owner);
 
     public List<Place> findByCity(City city);

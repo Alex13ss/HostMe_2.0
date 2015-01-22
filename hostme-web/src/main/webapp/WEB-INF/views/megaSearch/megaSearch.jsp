@@ -23,9 +23,9 @@
         <select id="type" class="col-lg-2">
           <option value="EVENT">Event</option>
           <option value="SIGHT">Sight</option>
+          <option value="HOSTING">Hosting</option>
           <option value="ROUTE">Route</option>
           <option value="USER">User</option>
-          <option value="HOSTING">Hosting</option>
         </select>
         <input id="search" class="col-lg-10">
         <p id="searchReq"></p>

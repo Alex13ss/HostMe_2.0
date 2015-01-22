@@ -81,7 +81,7 @@ public class RoutesServiceImp implements RoutesService{
         return result;
     }
 
-    public List<RouteDto> getRoutesDto(List<Route> routes) {
+    public List<RouteDto> getRoutesDtoList(List<Route> routes) {
         List<RouteDto> result = new ArrayList<>();
         for (Route route : routes) {
             result.add(new RouteDto(route));

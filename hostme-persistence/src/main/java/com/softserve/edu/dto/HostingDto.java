@@ -13,6 +13,16 @@ public class HostingDto {
     private Integer hostingId;
     private Integer userId;
 
+    public HostingDto(final Hosting hosting) {
+        this.country = hosting.getCountry();
+        this.region = hosting.getRegion();
+        this.city = hosting.getCity();
+        this.address = hosting.getAddress();
+        this.firstAndLastName = hosting.getOwner().getFirstName() + " " + hosting.getOwner().getLastName();
+        this.hostingId = hosting.getHostingId();
+        this.userId = hosting.getOwner().getUserId();
+    }
+
     public HostingDto(final Hosting hosting, final User user) {
         this.country = hosting.getCountry();
         this.region = hosting.getRegion();

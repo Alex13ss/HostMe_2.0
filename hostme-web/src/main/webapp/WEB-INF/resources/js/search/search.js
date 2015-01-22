@@ -14,7 +14,6 @@ $(document).ready(function() {
         if (inputLength($search, $underSearch)) {
             clearTimeout(timer);
             timer = setTimeout(search,1000);
-
         }
     });
 });
@@ -32,6 +31,9 @@ function search() {
         },
         success: function(result) {
             $underSearch.html("");
+            if (result.length == 0) {
+                $underSearch.html("Nothing found!");
+            }
             for (var i = 0; i < result.length; i++) {
                 $underSearch.append("<div>" + result[i].name + "</div>")
             }

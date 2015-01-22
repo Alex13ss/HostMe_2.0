@@ -6,7 +6,7 @@
 
 	<a class="conversations_header_link" href="<c:out value="${conversationsUrl}"/>">
 			<div class="conversations_header">
-				<spring:message code="conversations.title" />
+				<spring:message code="conversations.name" />
 				<span class="badge conversation_badge">${conversationsSize}</span> <span
 					class="badge conversation_badge  conversation_create_label">
 					<spring:message code="conversations.create" />

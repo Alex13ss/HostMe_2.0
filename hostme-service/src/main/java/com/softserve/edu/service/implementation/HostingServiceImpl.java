@@ -3,8 +3,10 @@ package com.softserve.edu.service.implementation;
 import com.softserve.edu.dao.HostingDao;
 import com.softserve.edu.dao.RequestDao;
 import com.softserve.edu.dao.UserDao;
+import com.softserve.edu.dto.HostingDto;
 import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.Request;
+import com.softserve.edu.repositories.hosting.HostingRepository;
 import com.softserve.edu.service.HostingService;
 import com.softserve.edu.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class HostingServiceImpl implements HostingService {
 
 	@Autowired
 	private HostingDao hostingDao;
+
+	@Autowired
+	private HostingRepository hostingRepository;
 
 	@Autowired
 	private UserDao userDao;
@@ -47,7 +52,19 @@ public class HostingServiceImpl implements HostingService {
 	public Hosting getHosting(int id) {
 		return hostingDao.read(id);
 	}
-	
+
+	public List<Hosting> getHostingLike(String request) {
+		return hostingRepository.findByCityLike(request);
+	}
+
+	public List<HostingDto> getHostingDtoList(List<Hosting> hostings) {
+		List<HostingDto> result = new ArrayList<>();
+		for (Hosting hosting : hostings) {
+			result.add(new HostingDto(hosting));
+		}
+		return result;
+	}
+
 	@Override
     @Transactional
 	public ArrayList<String> getNonAvailableDates(int hostingId) {

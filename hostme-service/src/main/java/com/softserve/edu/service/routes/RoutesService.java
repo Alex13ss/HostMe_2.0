@@ -11,7 +11,7 @@ public interface RoutesService {
 
     public List<Route> getRouteLike(String name);
 
-    public List<RouteDto> getRoutesDto(List<Route> routes);
+    public List<RouteDto> getRoutesDtoList(List<Route> routes);
 
     public void addRoute(RouteDto routeDto);
 
