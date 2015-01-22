@@ -1,6 +1,7 @@
 package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.UserDao;
+import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.UserService;
@@ -32,6 +33,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getAllUsers() {
 		return (List<User>)userRepository.findAll();
+	}
+
+	public List<UserDto> getUserDtoList(List<User> users) {
+		List<UserDto> result = new ArrayList<>();
+		for (User user : users) {
+			result.add(new UserDto(user));
+		}
+		return result;
+	}
+
+	@Override
+	public List<User> getUsersLike(String search) {
+		return userRepository.findByFirstNameContainingOrLastNameContaining(search, search);
+//		return null;
 	}
 
 	@Override

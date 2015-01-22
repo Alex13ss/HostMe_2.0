@@ -59,13 +59,12 @@ $(document).ready(function() {
     });
     $createRouteBtn.click(function() {
         if (validateRouteCreation($name, $description)) {
-            var buttonName = $createRouteBtn.val();
             routeDto.name = $name.val();
             routeDto.description = $description.val();
             $.ajax({
                 url: "/createRoute",
-                dataType: "json",
                 type: "POST",
+                dataType: "json",
                 data: JSON.stringify(routeDto),
                 contentType: 'application/json',
                 beforeSend: function () {

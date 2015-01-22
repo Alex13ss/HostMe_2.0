@@ -12,7 +12,11 @@ public class RouteDto {
     private String description;
     private String originId;
     private String destinationId;
-    private List<String> waypointsId = new ArrayList<>();
+    private final int MAX_WAYPOINTS = 8;
+    private String[] waypointsId = new String[MAX_WAYPOINTS];
+
+    public RouteDto() {
+    }
 
     public RouteDto(Route route) {
         name = route.getName();
@@ -20,8 +24,10 @@ public class RouteDto {
         Iterator<Place> places = route.getPlaces().iterator();
         originId = String.valueOf(places.next().getId());
         destinationId = String.valueOf(places.next().getId());
+        int count = 0;
         while (places.hasNext()) {
-            waypointsId.add(String.valueOf(places.next().getId()));
+            waypointsId[count] = String.valueOf(places.next().getId());
+            count++;
         }
     }
 
@@ -57,11 +63,11 @@ public class RouteDto {
         this.destinationId = destinationId;
     }
 
-    public List<String> getWaypointsId() {
+    public String[] getWaypointsId() {
         return waypointsId;
     }
 
-    public void setWaypointsId(List<String> waypointsId) {
+    public void setWaypointsId(String[] waypointsId) {
         this.waypointsId = waypointsId;
     }
 }

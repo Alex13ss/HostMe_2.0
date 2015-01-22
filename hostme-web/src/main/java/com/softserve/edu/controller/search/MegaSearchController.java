@@ -36,7 +36,7 @@ public class MegaSearchController {
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.HOSTING)) {
             return megaSearchService.searchHosting(searchRequestDto.getRequest());
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.USER)) {
-            return megaSearchService.searchHosting(searchRequestDto.getRequest());
+            return megaSearchService.searchUsers(searchRequestDto.getRequest());
         }
         return null;
     }

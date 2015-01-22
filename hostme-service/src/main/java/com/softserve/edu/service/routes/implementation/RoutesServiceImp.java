@@ -53,8 +53,7 @@ public class RoutesServiceImp implements RoutesService{
     }
 
     public List<Route> getRouteLike(String input) {
-        //TODO make this search!
-        return getCurrentUserRoutes();
+        return routeRepository.findByNameContaining(input);
     }
 
     public List<Route> getCurrentUserRoutes() {

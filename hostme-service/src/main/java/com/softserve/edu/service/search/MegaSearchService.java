@@ -1,9 +1,6 @@
 package com.softserve.edu.service.search;
 
-import com.softserve.edu.dto.EventDto;
-import com.softserve.edu.dto.HostingDto;
-import com.softserve.edu.dto.PlaceDto;
-import com.softserve.edu.dto.RouteDto;
+import com.softserve.edu.dto.*;
 
 import java.util.List;
 
@@ -15,7 +12,9 @@ public interface MegaSearchService {
 
     public List<EventDto> searchEvents(String input);
 
-    //TODO Sightseeing search
+    public List<UserDto> searchUsers(String input);
+
+//    public List<Sight>
     //TODO Groups search
 
     public List<HostingDto> searchHosting(String input);
