@@ -40,8 +40,10 @@
 							style="margin-top: 3em; padding-left: 0.3em;">
 							<div class="box-header">
 								<h4 class="box-title"
-									style="padding-top: 0.8em; padding-bottom: 0em;">General
-									information :</h4>
+									style="padding-top: 0.8em; padding-bottom: 0em;">
+									<spring:message code="label.genInfo" />
+									:
+								</h4>
 							</div>
 							<div id="collapseOne" class="panel-collapse in"
 								style="height: auto;">
@@ -49,40 +51,56 @@
 									style="padding-bottom: 0.5em; padding-left: 1.5em;">
 									<div class="row"
 										style="padding-top: 0.3em; padding-bottom: 0.3em">
-										<div class="col-md-4" style="padding-right: 0em;">Country:
+										<div class="col-md-4" style="padding-right: 0em;">
+											<spring:message code="label.country" />
+											:
 										</div>
 										<div class="col-md-8 selected">${event.city.country.country}</div>
 									</div>
 									<div class="row" style="padding-bottom: 0.3em">
-										<div class="col-md-4" style="padding-right: 0em;">City:</div>
+										<div class="col-md-4" style="padding-right: 0em;">
+											<spring:message code="label.city" />
+											:
+										</div>
 										<div class="col-md-8 selected">${event.city.city}</div>
 									</div>
 
 									<div class="row" style="padding-bottom: 0.3em">
-										<div class="col-md-4" style="padding-right: 0em;">Address:
+										<div class="col-md-4" style="padding-right: 0em;">
+											<spring:message code="label.address" />
+											:
 										</div>
 										<div class="col-md-8 selected">${event.address}</div>
 									</div>
 
 									<div class="row" style="padding-bottom: 0.3em">
 										<div class="col-md-4" style="padding-right: 0em;">
-											Start/End date:</div>
+											<spring:message code="label.start/end" />
+											:
+										</div>
 										<div class="col-md-8 selected">${event.startDate}/${event.endDate}</div>
 									</div>
 
 									<div class="row" style="padding-bottom: 0.3em">
-										<div class="col-md-4" style="padding-right: 0em;">Price
-											range</div>
+										<div class="col-md-4" style="padding-right: 0em;">
+											<spring:message code="label.price" />
+											:
+										</div>
 										<div class="col-md-8 selected">${event.priceCategory.priceCategory}</div>
 									</div>
 
 									<div class="row" style="padding-bottom: 0.3em">
 										<div class="col-md-4" style="padding-right: 0em;">
-											Website:</div>
+											<spring:message code="label.website" />
+											:
+										</div>
 										<div class="col-md-8 selected">${event.website}</div>
 									</div>
 									<div class="row" style="padding-bottom: 0.3em">
-										<div class="col-md-4" style="padding-right: 0em;">Owner</div>
+										<div class="col-md-4" style="padding-right: 0em;">
+											<spring:message code="label.owner" />
+											:
+										</div>
 										<div class="col-md-8 selected">${event.owner.firstName}&nbsp;${event.owner.lastName}</div>
 									</div>
 
@@ -94,12 +112,11 @@
 						<div class="row col-md-12" style="padding-top: 3em;">
 
 							<div class="callout callout-danger">
-								<h4>Description:</h4>
-								
+								<h4><spring:message code="label.description" />:</h4>
 								<p>${event.comment}</p>
 							</div>
 							<div class="callout callout-warning">
-								<h4>Attendees:</h4>
+								<h4><spring:message code="label.attendees" />:</h4>
 								<p>${event.attendee}</p>
 							</div>
 						</div>
@@ -111,9 +128,9 @@
 					<div class="col-md-12">
 						<div style="margin-top: 20px;">
 
-							<a href="" class="btn btn-primary button"><i class="fa fa-edit"></i>
-								Edit</a> <a href=""
-								class="btn btn-primary button"> Add to routes</a>
+							<a href="" class="btn btn-primary button"><i
+								class="fa fa-edit"></i> <spring:message code="label.edit" /></a> <a href=""
+								class="btn btn-primary button"> <spring:message code="label.addRoutes" /> </a>
 						</div>
 					</div>
 				</div>

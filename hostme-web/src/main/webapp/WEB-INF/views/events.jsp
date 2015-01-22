@@ -29,7 +29,7 @@
 		<div class="box box-primary">
 			<div class="box-header">
 				<h3 class="box-title">
-					<i class="fa fa-plus-square"></i> Events management
+					<i class="fa fa-plus-square"></i> <spring:message code="label.EventMang" />
 				</h3>
 				<div style="margin-top: 10px;">
 					<a href="event-creation" class="btn btn-primary button"
@@ -51,12 +51,12 @@
 					class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th>Title</th>
-							<th>Starts</th>
-							<th>Location</th>
-							<th>Price</th>
-							<th>Website</th>
-							<th>Organizer</th>
+							<th><spring:message code="label.title" /></th>
+							<th><spring:message code="label.startDate" /></th>
+							<th><spring:message code="label.location" /></th>
+							<th><spring:message code="label.price" /></th>
+							<th><spring:message code="label.website" /></th>
+							<th><spring:message code="label.organizer" /></th>
 						</tr>
 					</thead>
 
