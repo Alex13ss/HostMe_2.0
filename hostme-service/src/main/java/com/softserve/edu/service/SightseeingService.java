@@ -11,6 +11,10 @@ public interface SightseeingService {
 
 	List<SightseeingDto> getAllSightseeings();
 
+	List<SightseeingDto> getSightseeingsDtoList(List<Sightseeing> sightseeings);
+
+	List<Sightseeing> getSightseeingsLike(String search);
+
 	Sightseeing findOne(Integer id);
 
 	void deleteSightseeing(Sightseeing sightseeing);

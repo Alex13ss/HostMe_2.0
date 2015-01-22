@@ -32,7 +32,7 @@ public class MegaSearchController {
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.EVENT)) {
             return megaSearchService.searchEvents(searchRequestDto.getRequest());
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.SIGHT)) {
-            return megaSearchService.searchPlaces(searchRequestDto.getRequest());
+            return megaSearchService.searchSights(searchRequestDto.getRequest());
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.HOSTING)) {
             return megaSearchService.searchHosting(searchRequestDto.getRequest());
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.USER)) {

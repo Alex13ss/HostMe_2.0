@@ -40,8 +40,10 @@ public class MegaSearchServiceImp implements MegaSearchService {
         return routesService.getRoutesDtoList(routesService.getRouteLike(input));
     }
 
-//    @Override
-
+    @Override
+    public List<SightseeingDto> searchSights(String input) {
+        return sightseeingService.getSightseeingsDtoList(sightseeingService.getSightseeingsLike(input));
+    }
 
     @Override
     public List<EventDto> searchEvents(String input) {

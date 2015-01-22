@@ -39,6 +39,20 @@ public class SightseeingServiceImpl implements SightseeingService {
 	}
 
 	@Override
+	public List<SightseeingDto> getSightseeingsDtoList(List<Sightseeing> sightseeings) {
+		List<SightseeingDto> result = new ArrayList<>();
+		for (Sightseeing sightseeing : sightseeings) {
+			result.add(new SightseeingDto(sightseeing));
+		}
+		return result;
+	}
+
+	@Override
+	public List<Sightseeing> getSightseeingsLike(String search) {
+		return sightseeingRepository.findByNameContaining(search);
+	}
+
+	@Override
 	@Transactional
 	public Sightseeing findOne(Integer id) {
 		return sightseeingRepository.findOne(id);

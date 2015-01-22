@@ -14,7 +14,7 @@ public interface MegaSearchService {
 
     public List<UserDto> searchUsers(String input);
 
-//    public List<Sight>
+    public List<SightseeingDto> searchSights(String input);
     //TODO Groups search
 
     public List<HostingDto> searchHosting(String input);

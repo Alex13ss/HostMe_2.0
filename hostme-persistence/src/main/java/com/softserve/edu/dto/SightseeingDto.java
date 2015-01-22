@@ -22,6 +22,12 @@ public class SightseeingDto {
 	private Integer rating;
 	private SightseeingType sightseeingType;
 
+	public SightseeingDto(Sightseeing sightseeing) {
+		id = sightseeing.getId();
+		name = sightseeing.getName();
+		address = sightseeing.getAddress();
+	}
+
 	public SightseeingDto(Sightseeing sightseeing, Place place) {
 		this.id = place.getId();
 		this.name = place.getName();
