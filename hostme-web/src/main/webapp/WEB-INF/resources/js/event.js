@@ -54,7 +54,7 @@ $(document)
 														return '<a href=event?id='
 														+ data.id
 														+ '>'
-														+ data.title
+														+ data.name
 														+'</a>';
 													}
 																	

@@ -31,7 +31,7 @@
 					<div class="col-md-3">
 						<div class="row col-md-12" style="padding-bottom: 5px">
 							<h4>
-								<strong>${event.title}</strong>
+								<strong>${event.name}</strong>
 							</h4>
 						</div>
 					</div>
