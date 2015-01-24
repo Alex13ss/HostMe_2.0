@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.EventDto;
@@ -45,12 +46,24 @@ public class EventContoller {
 		return "event";
 	}
 
-//	@RequestMapping(value = "/event", method = RequestMethod.GET)
-//	public @ResponseBody EventDto showEvent(@RequestParam("id") Integer id) {
-//		EventDto eventDto = eventService.getEvent(id);
-//		model.addAttribute("event", eventDto);
-//		return "event";
-//	}
+	@RequestMapping(value = "/event-edit", method = RequestMethod.GET)
+	public String editEvent(@RequestParam("id") Integer id, Model model) {
+		EventDto eventDto = eventService.getEvent(id);
+		model.addAttribute("event-edit", eventDto);
+		return "event-edit";
+	}
+
+	@RequestMapping(value = "/event-edited", method = RequestMethod.POST)
+	public String editEventShow(@ModelAttribute("event") EventDto editedEventDto) {
+
+			
+		Event event = eventService.convertEventDtoToEvent(editedEventDto);
+		eventService.addEvent(event);
+
+		
+		return "redirect:/event?id=" + editedEventDto.getId();
+	}
+
 	@RequestMapping(value = "/all-events", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<EventDto> getAllEvents() {
 		List<EventDto> events = eventService.getAllEvents();

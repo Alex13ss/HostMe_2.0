@@ -112,11 +112,17 @@
 						<div class="row col-md-12" style="padding-top: 3em;">
 
 							<div class="callout callout-danger">
-								<h4><spring:message code="label.description" />:</h4>
+								<h4>
+									<spring:message code="label.description" />
+									:
+								</h4>
 								<p>${event.comment}</p>
 							</div>
 							<div class="callout callout-warning">
-								<h4><spring:message code="label.attendees" />:</h4>
+								<h4>
+									<spring:message code="label.attendees" />
+									:
+								</h4>
 								<p>${event.attendee}</p>
 							</div>
 						</div>
@@ -127,10 +133,15 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div style="margin-top: 20px;">
+							<a href=""
+								class="btn btn-primary button"> <i class="fa fa-edit"></i> <spring:message
+									code="label.edit" /></a>
+							
+							 <a href="event-edit?id="
+								class="btn btn-primary button"> <spring:message
+									code="label.addRoutes" />
+							</a>
 
-							<a href="" class="btn btn-primary button"><i
-								class="fa fa-edit"></i> <spring:message code="label.edit" /></a> <a href=""
-								class="btn btn-primary button"> <spring:message code="label.addRoutes" /> </a>
 						</div>
 					</div>
 				</div>

@@ -131,5 +131,27 @@ public class EventServiceImpl implements EventService {
 	public void saveEvent(Event event) {
 		eventRepository.save(event);
 	}
+	
+	@Override
+	@Transactional
+	public Event convertEventDtoToEvent(EventDto eventDto){
+		
+		Event event = new Event();
+		
+		event.setId(eventDto.getId());
+		event.setAddress(eventDto.getAddress());
+		event.setCity(eventDto.getCity());
+		event.setName(eventDto.getName());
+		event.setStartDate(eventDto.getStartDate());
+		event.setEndDate(eventDto.getEndDate());
+		event.setComment(eventDto.getComment());
+		event.setWebsite(eventDto.getWebsite());
+		event.setPriceCategory(eventDto.getPriceCategory());
+		event.setOwner(eventDto.getOwner());
+		event.setImage(eventDto.getImage());
+		event.setAttendee(eventDto.getAttendee());
+		
+		return event;
+	}
 
 }

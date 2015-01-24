@@ -35,6 +35,6 @@ public interface EventService {
 	public List<EventDto> getEventByWebSite(String website);
 	
 	public void saveEvent(Event event);
-
-
+	
+	public Event convertEventDtoToEvent(EventDto eventDto);
 }
