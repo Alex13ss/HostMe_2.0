@@ -39,27 +39,6 @@ public class EventContoller {
 		return "events";
 	}
 
-	@RequestMapping(value = "/event", method = RequestMethod.GET)
-	public String showEvent(@RequestParam("id") Integer id, Model model) {
-		EventDto eventDto = eventService.getEvent(id);
-		model.addAttribute("event", eventDto);
-		return "event";
-	}
-
-	@RequestMapping(value = "/event-edit", method = RequestMethod.GET)
-	public String editEvent(@RequestParam("id") Integer id, Model model) {
-		EventDto eventDto = eventService.getEvent(id);
-		model.addAttribute("event-edit", eventDto);
-		return "event-edit";
-	}
-
-	@RequestMapping(value = "/event-edited", method = RequestMethod.POST)
-	public String editEventShow(@ModelAttribute("event") EventDto editedEventDto) {
-		Event event = eventService.convertEventDtoToEvent(editedEventDto);
-		eventService.addEvent(event);
-		return "redirect:/event?id=" + editedEventDto.getId();
-	}
-
 	@RequestMapping(value = "/all-events", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<EventDto> getAllEvents() {
 		List<EventDto> events = eventService.getAllEvents();
@@ -74,36 +53,28 @@ public class EventContoller {
 		return events;
 	}
 
+	@RequestMapping(value = "/event", method = RequestMethod.GET)
+	public String showEvent(@RequestParam("id") Integer id, Model model) {
+		EventDto eventDto = eventService.getEvent(id);
+		model.addAttribute("event", eventDto);
+		return "event";
+	}
+
+	@RequestMapping(value = "/event", method = RequestMethod.POST)
+	public String editGroup(@ModelAttribute("event") final EventDto eventDto,
+			RedirectAttributes redirectAttributes) {
+		Event event = eventService.convertEventDtoToEvent(eventDto);
+		eventService.saveEvent(event);
+		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
+				"eventEdited", true);
+		return "redirect:/group?id={id}";
+	}
+
 	@RequestMapping(value = "/event-creation", method = RequestMethod.GET)
 	public String addEvent(Model model) {
 		Event event = new Event();
 		model.addAttribute("event", event);
 		return "event-creation";
 	}
-
-	// @RequestMapping(value = "/events", method = RequestMethod.POST)
-	// public String doAddGroup(Model model,
-	// @ModelAttribute("group") @Valid final Group group,
-	// final BindingResult result, RedirectAttributes redirectAttributes,
-	// HttpSession httpSession) {
-	// if (result.hasErrors()) {
-	// redirectAttributes.addFlashAttribute(
-	// "org.springframework.validation.BindingResult.group",
-	// result);
-	// redirectAttributes.addFlashAttribute("group", group);
-	// redirectAttributes.addFlashAttribute("groupNotCreated", true);
-	// return "redirect:/groups";
-	// }
-	//
-	// redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
-	// "groupCreated", true);
-	// return "redirect:/event?id={id}";
-	// }
-
-	/*
-	 * @RequestMapping(value = "/eventAdd", method = RequestMethod.POST) public
-	 * String addContact(@ModelAttribute("event") Event event, BindingResult
-	 * result) { eventService.saveEvent(event); return "redirect:/events"; }
-	 */
 
 }

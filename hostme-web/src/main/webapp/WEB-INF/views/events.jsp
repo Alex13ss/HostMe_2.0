@@ -51,7 +51,7 @@
 					class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th><spring:message code="label.title" /></th>
+							<th><spring:message code="label.eventTitle" /></th>
 							<th><spring:message code="label.startDate" /></th>
 							<th><spring:message code="label.location" /></th>
 							<th><spring:message code="label.price" /></th>

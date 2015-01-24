@@ -133,20 +133,143 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div style="margin-top: 20px;">
-							<a href=""
-								class="btn btn-primary button"> <i class="fa fa-edit"></i> <spring:message
-									code="label.edit" /></a>
-							
-							 <a href="event-edit?id="
-								class="btn btn-primary button"> <spring:message
+							<button type="button" class="btn btn-primary button"
+								data-toggle="modal" data-target="#eventEdit">
+								<i class="fa fa-edit"></i>
+								<spring:message code="label.edit" />
+							</button>
+
+							<a href="" class="btn btn-primary button"> <spring:message
 									code="label.addRoutes" />
 							</a>
 
 						</div>
 					</div>
 				</div>
+
+
+
 			</div>
 		</div>
 	</section>
+
+	<form:form modelAttribute="event" cssClass="form-horizontal eventForm">
+		<!-- Modal -->
+		<div class="modal fade" id="eventEdit" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							<spring:message code="label.edit" />
+						</h4>
+					</div>
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="name" class="col-sm-2 control-label"><spring:message
+									code="label.eventTitle" />: </label>
+							<div class="col-sm-10">
+								<form:input path="name" cssClass="form-control" />
+								<form:errors path="name" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="startDate" class="col-sm-2 control-label"> <spring:message
+									code="label.startDate" />:
+							</label>
+							<div class="col-sm-10">
+								<form:textarea id="group-dscrptn-textarea" path="startDate"
+									cssClass="form-control" />
+								<form:errors path="startDate" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="endDate" class="col-sm-2 control-label"><spring:message
+									code="label.endDate" />: </label>
+							<div class="col-sm-10">
+								<form:textarea id="group-dscrptn-textarea" path="endDate"
+									cssClass="form-control" />
+								<form:errors path="endDate" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="city" class="col-sm-2 control-label"><spring:message
+									code="label.city" />: </label>
+							<div class="col-sm-10">
+								<form:textarea id="group-dscrptn-textarea" path="city.city"
+									cssClass="form-control" />
+								<form:errors path="city" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="address" class="col-sm-2 control-label"> <spring:message
+									code="label.address" />:
+							</label>
+							<div class="col-sm-10">
+								<form:textarea id="group-dscrptn-textarea" path="address"
+									cssClass="form-control" />
+								<form:errors path="address" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="comment" class="col-sm-2 control-label"> <spring:message
+									code="label.comment" />:
+							</label>
+							<div class="col-sm-10">
+								<form:textarea id="group-dscrptn-textarea" path="comment"
+									cssClass="form-control" />
+								<form:errors path="comment" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="website" class="col-sm-2 control-label"> <spring:message
+									code="label.website" />:
+							</label>
+							<div class="col-sm-10">
+								<form:textarea id="group-dscrptn-textarea" path="website"
+									cssClass="form-control" />
+								<form:errors path="website" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="priceCategory" class="col-sm-2 control-label">
+								<spring:message code="label.priceCategory" />:
+							</label>
+							<div class="col-sm-10">
+								<form:textarea id="group-dscrptn-textarea"
+									path="priceCategory.priceCategory" cssClass="form-control" />
+								<form:errors path="priceCategory.priceCategory" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="owner" class="col-sm-2 control-label"> <spring:message
+									code="label.owner" />:
+							</label>
+							<div class="col-sm-10">
+								<form:input readonly="true" path="owner.login"
+									cssClass="form-control" />
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-success"
+							value=<spring:message code="label.save" />>
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<spring:message code="label.close" />
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form:form>
 </body>
 </html>

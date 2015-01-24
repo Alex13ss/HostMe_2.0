@@ -24,6 +24,12 @@ public class EventDto {
 	private Set<Image> image;
 	private Set<User> attendee;
 
+	
+	
+	public EventDto() {
+		super();
+	}
+
 	public EventDto(Event event) {
 		id = event.getId();
 		name = event.getName();

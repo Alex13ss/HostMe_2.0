@@ -131,13 +131,13 @@ public class EventServiceImpl implements EventService {
 	public void saveEvent(Event event) {
 		eventRepository.save(event);
 	}
-	
+
 	@Override
 	@Transactional
-	public Event convertEventDtoToEvent(EventDto eventDto){
-		
+	public Event convertEventDtoToEvent(EventDto eventDto) {
+
 		Event event = new Event();
-		
+
 		event.setId(eventDto.getId());
 		event.setAddress(eventDto.getAddress());
 		event.setCity(eventDto.getCity());
@@ -150,7 +150,7 @@ public class EventServiceImpl implements EventService {
 		event.setOwner(eventDto.getOwner());
 		event.setImage(eventDto.getImage());
 		event.setAttendee(eventDto.getAttendee());
-		
+
 		return event;
 	}
 
