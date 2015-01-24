@@ -55,12 +55,8 @@ public class EventContoller {
 
 	@RequestMapping(value = "/event-edited", method = RequestMethod.POST)
 	public String editEventShow(@ModelAttribute("event") EventDto editedEventDto) {
-
-			
 		Event event = eventService.convertEventDtoToEvent(editedEventDto);
 		eventService.addEvent(event);
-
-		
 		return "redirect:/event?id=" + editedEventDto.getId();
 	}
 

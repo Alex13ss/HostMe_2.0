@@ -26,6 +26,7 @@
 		<intercept-url pattern="/conversation" access="isAuthenticated()" />
 		<intercept-url pattern="/sightseeings" access="isAuthenticated()" />
 		<intercept-url pattern="/events" access="isAuthenticated()" />
+		<intercept-url pattern="/event" access="isAuthenticated()" />
 		<intercept-url pattern="/usersManager" access="hasRole('ADMIN')" />
 		<form-login login-page="/login" authentication-failure-url="/login?error=true" />
 		<logout logout-url="/logout" logout-success-url="/login?logout=true" />
