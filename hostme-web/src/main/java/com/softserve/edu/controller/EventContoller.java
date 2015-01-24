@@ -61,13 +61,10 @@ public class EventContoller {
 	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
-	public String editGroup(@ModelAttribute("event") final EventDto eventDto,
-			RedirectAttributes redirectAttributes) {
+	public String editEvent(@ModelAttribute("event") final EventDto eventDto) {
 		Event event = eventService.convertEventDtoToEvent(eventDto);
 		eventService.saveEvent(event);
-		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
-				"eventEdited", true);
-		return "redirect:/group?id={id}";
+		return "event";
 	}
 
 	@RequestMapping(value = "/event-creation", method = RequestMethod.GET)
