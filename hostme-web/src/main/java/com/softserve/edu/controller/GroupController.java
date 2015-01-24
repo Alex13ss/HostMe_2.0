@@ -1,5 +1,7 @@
 package com.softserve.edu.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -7,9 +9,12 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -92,6 +97,14 @@ public class GroupController {
         Long conversationsSize = conversationService.countByGroupId(id);
         model.addAttribute("conversationDtos", conversations);
         model.addAttribute("conversationsSize", conversationsSize);
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        String datePattern = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+                dateFormat, true));
     }
 
 }

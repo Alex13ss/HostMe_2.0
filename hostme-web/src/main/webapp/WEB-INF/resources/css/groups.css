@@ -1,0 +1,5 @@
+#group-dscrptn-textarea {
+	resize: none;
+	resize: vertical;
+	max-height: 255px;
+}

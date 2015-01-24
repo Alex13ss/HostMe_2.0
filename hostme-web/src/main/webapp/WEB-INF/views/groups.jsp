@@ -11,6 +11,7 @@
 
 <script type="text/javascript" src="resources/js/group.js"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/groups.css">
 
 <title>Groups</title>
 
@@ -97,7 +98,7 @@
 
 		</div>
 		<!-- /.box-body -->
-		
+
 	</div>
 	<!-- /.box -->
 </section>
@@ -130,7 +131,8 @@
 						<label for="groupDescription" class="col-sm-2 control-label">
 							Description: </label>
 						<div class="col-sm-10">
-							<form:input path="groupDescription" cssClass="form-control" />
+							<form:textarea id="group-dscrptn-textarea"
+								path="groupDescription" cssClass="form-control" />
 							<form:errors path="groupDescription" />
 						</div>
 					</div>

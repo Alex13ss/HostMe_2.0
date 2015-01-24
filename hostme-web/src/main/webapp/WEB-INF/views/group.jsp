@@ -10,7 +10,7 @@
 
 <script type="text/javascript" src="resources/js/group.js"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.js"></script>
-
+<link rel="stylesheet" type="text/css" href="resources/css/groups.css">
 <link rel="stylesheet" type="text/css"
 	href="resources/css/conversations.css">
 
@@ -57,8 +57,8 @@
 
 			<div class="row">
 				<div class="col-md-4">
-					<div class="box-body">
-						<div class="panel box box-success">
+					<div class="panel box box-success">
+						<div class="panel-body">
 							<h4>
 								<span>Funny group image</span>
 							</h4>
@@ -80,32 +80,30 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="box-body">
-						<div class="panel box box-success">
-							<div class="box-header">
-								<h3 class="box-title">Publishing info:</h3>
-							</div>
-							<div class="box-body">
-								<p>
-									<c:out value="Created at: ${group.createdAt}" />
-									<br>
-									<c:out value="Created by:" />
-									<br>
-									<c:if test="${!empty group.lastEditedAt}">
-										<c:out value="Last edited: ${group.lastEditedAt}" />
-									</c:if>
-								</p>
-							</div>
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">Publishing info:</h3>
+						</div>
+						<div class="panel-body">
+							<p>
+								<c:out value="Created at: ${group.createdAt}" />
+								<br>
+								<c:out value="Created by: N/A" />
+								<br>
+								<c:if test="${!empty group.lastEditedAt}">
+									<c:out value="Last edited: ${group.lastEditedAt}" />
+								</c:if>
+							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div align="right">
-				<button type="button" class="btn btn-success btn-md"
+				<button type="button" class="btn btn-success btn-xs"
 					data-toggle="modal" data-target="#groupEditModal">Edit</button>
 				<a href="<spring:url value="/group/remove/${group.id}" />"
-					class="btn btn-danger triggerRemove"> Remove </a>
+					class="btn btn-danger btn-xs triggerRemove"> Remove </a>
 			</div>
 
 			<!-- Modal -->
@@ -170,8 +168,26 @@
 						<label for="groupDescription" class="col-sm-2 control-label">
 							Description: </label>
 						<div class="col-sm-10">
-							<form:input path="groupDescription" cssClass="form-control" />
+							<form:textarea id="group-dscrptn-textarea"
+								path="groupDescription" cssClass="form-control" />
 							<form:errors path="groupDescription" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="createdAt" class="col-sm-2 control-label">
+							Created at: </label>
+						<div class="col-sm-10">
+							<form:input readonly="true" path="createdAt"
+								cssClass="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="createdAt" class="col-sm-2 control-label">
+							Creator: </label>
+						<div class="col-sm-10">
+							<form:input readonly="true" path="" cssClass="form-control" />
 						</div>
 					</div>
 
