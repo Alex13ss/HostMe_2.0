@@ -155,8 +155,18 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = javax.persistence.CascadeType.ALL)
     private Set<Route> routes = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    /**
+     * Contains groups which was created by this user
+     */
     @JsonIgnore
+    @OneToMany(mappedBy = "creatorUser", fetch = FetchType.LAZY)
+    private Set<Group> myGroups;
+
+    /**
+     * Contains groups submitted by this user
+     */
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
     @JoinTable(name = "user_groups", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<Group> groups;
@@ -375,6 +385,14 @@ public class User {
 
     public void setRoutes(Set<Route> routes) {
         this.routes = routes;
+    }
+
+    public Set<Group> getMyGroups() {
+        return myGroups;
+    }
+
+    public void setMyGroups(Set<Group> myGroups) {
+        this.myGroups = myGroups;
     }
 
     public Set<Group> getGroups() {

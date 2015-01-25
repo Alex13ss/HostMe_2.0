@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -41,7 +42,7 @@ public class Group {
     @Size(min = 3, message = "Group name must be at least 3 characters!")
     @Column(name = "group_name")
     private String groupName;
-    
+
     @NotBlank(message = "You need some cool description for your group! ;)")
     @Size(min = 5, message = "Group description must be at least 5 characters!")
     @Column(name = "group_description")
@@ -50,34 +51,34 @@ public class Group {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_edited_at")
     private Date lastEditedAt;
 
     /**
-     * 
      * Contains images uploaded by this group
      */
     @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<Image> images;
 
     /**
-     * 
      * Contains conversations created in this group
      */
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
     private Set<Conversation> conversations;
 
+    @ManyToOne
+    @JoinColumn(name = "creator_user")
+    private User creatorUser;
+
     /**
-     * 
      * Contains list of users which have conversations in this group
      */
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users;
 
     /**
-     * 
      * Contains list of tags which included by this group
      */
     @ManyToMany(fetch = FetchType.EAGER)
@@ -119,6 +120,14 @@ public class Group {
         this.conversations = conversations;
     }
 
+    public User getCreatorUser() {
+        return creatorUser;
+    }
+
+    public void setCreatorUser(User creatorUser) {
+        this.creatorUser = creatorUser;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -157,6 +166,16 @@ public class Group {
 
     public void setGroupDescription(String groupDescription) {
         this.groupDescription = groupDescription;
+    }
+
+    @Override
+    public String toString() {
+        return "Group [id=" + id + ", groupName=" + groupName
+                + ", groupDescription=" + groupDescription + ", createdAt="
+                + createdAt + ", lastEditedAt=" + lastEditedAt + ", images="
+                + images + ", conversations=" + conversations
+                + ", creatorUser=" + creatorUser + ", users=" + users
+                + ", tags=" + tags + "]";
     }
 
 }

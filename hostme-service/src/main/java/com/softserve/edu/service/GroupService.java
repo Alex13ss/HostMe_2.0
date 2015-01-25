@@ -6,14 +6,14 @@ import com.softserve.edu.model.Group;
 
 public interface GroupService {
 
-    Set<Group> findAll();
+    public Set<Group> findAll();
 
     public Group findOne(Long id);
 
-    void delete(Group group);
+    public void delete(Group group);
 
-    void create(Group group);
-    
+    public void create(Group group);
+
     public void update(Group group);
 
 }

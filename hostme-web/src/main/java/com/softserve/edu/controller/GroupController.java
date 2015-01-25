@@ -75,7 +75,7 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)
-    public String showGroups(@RequestParam("id") long id, Model model) {
+    public String showGroup(@RequestParam("id") long id, Model model) {
         Group group = groupService.findOne(id);
         model.addAttribute("group", group);
         addLatestConversationsByGroupId(model, id);

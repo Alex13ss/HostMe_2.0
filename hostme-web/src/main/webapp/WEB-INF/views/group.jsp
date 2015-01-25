@@ -88,7 +88,9 @@
 							<p>
 								<c:out value="Created at: ${group.createdAt}" />
 								<br>
-								<c:out value="Created by: N/A" />
+								<c:out
+									value="Created by: ${group.creatorUser.firstName} 
+									${group.creatorUser.lastName}" />
 								<br>
 								<c:if test="${!empty group.lastEditedAt}">
 									<c:out value="Last edited: ${group.lastEditedAt}" />

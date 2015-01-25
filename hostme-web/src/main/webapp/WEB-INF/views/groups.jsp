@@ -84,7 +84,7 @@
 									<c:if test="${!empty group.lastEditedAt}">
 										<c:out value="Last edited: ${group.lastEditedAt}" />
 									</c:if></td>
-							<td>N/A</td>
+							<td>${group.creatorUser.firstName} ${group.creatorUser.lastName}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
