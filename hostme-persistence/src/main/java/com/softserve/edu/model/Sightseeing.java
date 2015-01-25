@@ -1,11 +1,8 @@
 package com.softserve.edu.model;
 
-import com.softserve.edu.model.routes.Place;
-
-import java.util.Set;
-
 import javax.persistence.*;
-import com.google.common.base.Objects;
+
+import com.softserve.edu.model.routes.Place;
 
 @Entity
 @Table(name = "Sightseeing", uniqueConstraints = { @UniqueConstraint(columnNames = "id") })

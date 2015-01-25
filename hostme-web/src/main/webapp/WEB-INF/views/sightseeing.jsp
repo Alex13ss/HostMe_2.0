@@ -38,6 +38,13 @@
 							</c:forEach>
 						</div>
 					</div>
+					<div class="row col-md-12">
+						<a href="sightseeing/delete/${sightseeing.id}"><i
+							class="fa fa-fw fa-trash-o"></i></a> <a><i
+							class="fa fa-fw fa-pencil" button type="button"
+							class="btn btn-success btn-md" data-toggle="modal"
+							data-target="#sightseeingEdit"></i></a>
+					</div>
 					<div class="col-md-4">
 						<div class="box-header">
 							<h3 class="box-title"></h3>
@@ -125,6 +132,120 @@
 			<!-- /.box -->
 		</div>
 	</div>
-	</section>
+
+	<form:form modelAttribute="sightseeing"
+		cssClass="form-horizontal groupForm">
+		<!-- Modal -->
+		<div class="modal fade" id="sightseeingEdit" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							<spring:message code="label.editSightseeing" />
+						</h4>
+					</div>
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label for="name" class="col-sm-2 control-label"> <spring:message
+									code="label.sightseeingName" />
+							</label>
+							<div class="col-sm-10">
+								<form:input path="name" cssClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="address" class="col-sm-2 control-label">
+								Address </label>
+							<div class="col-sm-10">
+								<form:input path="address" cssClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="sightseeingType" class="col-sm-2 control-label">
+								Sightseeing type</label>
+							<div class="col-sm-10">
+								<form:select path="sightseeingType">
+									<option value="0">Sightseeing type</option>
+									<c:forEach items="${sType}" var="type">
+										<option value="${type}">${type}</option>
+									</c:forEach>
+								</form:select>
+							</div>
+						</div>
+						<div class="form-group">
+							<form:label path="city.country.country"
+								class="col-sm-2 control-label">
+									Country</form:label>
+							<div class="col-sm-10">
+								<form:select path="city.country.country">
+									<option value="0">Select Country</option>
+									<c:forEach items="${countries}" var="country">
+										<option value="${country.country}">${country.country}</option>
+									</c:forEach>
+								</form:select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<form:label path="city.city" class="col-sm-2 control-label">
+										City</form:label>
+							<div class="col-sm-10">
+								<form:select path="city.city">
+									<option value="0">Select city</option>
+									<c:forEach items="${cities}" var="city">
+										<option value="${city.city}">${city.city}</option>
+									</c:forEach>
+								</form:select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="website" class="col-sm-2 control-label">
+								Website </label>
+							<div class="col-sm-10">
+								<form:input path="website" cssClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="description" class="col-sm-2 control-label">
+								<spring:message code="label.sightseeingDescription" />
+							</label>
+							<div class="col-sm-10">
+								<form:input path="description" cssClass="form-control" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="priceCategory.priceCategory"
+								class="col-sm-2 control-label"> Price category </label>
+							<div class="col-sm-10">
+								<form:select path="priceCategory.priceCategory">
+									<option value="0">Select price category</option>
+									<c:forEach items="${priceCategories}" var="priceCategory">
+										<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
+									</c:forEach>
+								</form:select>
+							</div>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-success"
+							value="Edit" />
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form:form> </section>
 </body>
 </html>

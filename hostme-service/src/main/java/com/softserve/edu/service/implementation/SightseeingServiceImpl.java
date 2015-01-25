@@ -32,14 +32,16 @@ public class SightseeingServiceImpl implements SightseeingService {
 	@Transactional
 	public List<SightseeingDto> getAllSightseeings() {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
-		for(Sightseeing sightseeing : sightseeingRepository.findAll()){
-			list.add(new SightseeingDto(sightseeing, placeRepository.findOne(sightseeing.getId())));
+		for (Sightseeing sightseeing : sightseeingRepository.findAll()) {
+			list.add(new SightseeingDto(sightseeing, placeRepository
+					.findOne(sightseeing.getId())));
 		}
 		return list;
 	}
 
 	@Override
-	public List<SightseeingDto> getSightseeingsDtoList(List<Sightseeing> sightseeings) {
+	public List<SightseeingDto> getSightseeingsDtoList(
+			List<Sightseeing> sightseeings) {
 		List<SightseeingDto> result = new ArrayList<>();
 		for (Sightseeing sightseeing : sightseeings) {
 			result.add(new SightseeingDto(sightseeing));
@@ -70,4 +72,8 @@ public class SightseeingServiceImpl implements SightseeingService {
 		sightseeingRepository.save(sightseeing);
 	}
 
+	@Override
+	public void updateSightseeing(Sightseeing sightseeing) {
+		sightseeingRepository.save(sightseeing);
+	}
 }

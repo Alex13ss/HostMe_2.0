@@ -20,4 +20,6 @@ public interface SightseeingService {
 	void deleteSightseeing(Sightseeing sightseeing);
 
 	void saveSightseeing(Sightseeing sightseeing);
+
+	void updateSightseeing(Sightseeing sightseeing);
 }

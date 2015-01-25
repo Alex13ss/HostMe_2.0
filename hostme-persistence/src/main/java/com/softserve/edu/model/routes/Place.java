@@ -30,7 +30,7 @@ public class Place {
     @Column
     private String website;
 
-    @OneToMany(mappedBy = "place", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
     private Set<Image> image;
 
     @Column
