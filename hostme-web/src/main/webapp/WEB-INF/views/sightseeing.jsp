@@ -7,9 +7,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="resources/css/AdminLTE.css">
-<link rel="stylesheet" href="css/bootstrap-image-gallery.css">
-<title>Sightseeing: ${sightseeing.name}</title>
+<link href="<c:url value="/resources/css/AdminLTE.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap-image-gallery.css"/>" rel="stylesheet">
+<title><spring:message code="label.sightseeing" />:
+	${sightseeing.name}</title>
 </head>
 <body class="skin-blue  pace-done" style="min-height: 1293px;">
 	<section class="content-header">
@@ -97,7 +98,9 @@
 		<div class="col-md-13">
 			<div class="box box-solid">
 				<div class="box-header">
-					<h3 class="box-title">Sightseeing description</h3>
+					<h3 class="box-title">
+						<spring:message code="label.sightseeingDescription" />
+					</h3>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -112,7 +115,9 @@
 		<div class="col-md-13">
 			<div class="box box-solid">
 				<div class="box-header">
-					<h3 class="box-title">Photos</h3>
+					<h3 class="box-title">
+						<spring:message code="label.photos" />
+					</h3>
 				</div>
 				<!-- /.box-header -->
 				<div class="box-body">
@@ -161,8 +166,9 @@
 						</div>
 
 						<div class="form-group">
-							<label for="address" class="col-sm-2 control-label">
-								Address </label>
+							<label for="address" class="col-sm-2 control-label"> <spring:message
+									code="label.address" />
+							</label>
 							<div class="col-sm-10">
 								<form:input path="address" cssClass="form-control" />
 							</div>
@@ -170,10 +176,11 @@
 
 						<div class="form-group">
 							<label for="sightseeingType" class="col-sm-2 control-label">
-								Sightseeing type</label>
+								<spring:message code="label.sightseeingType" />
+							</label>
 							<div class="col-sm-10">
 								<form:select path="sightseeingType">
-									<option value="0">Sightseeing type</option>
+									<option value="0">${sightseeing.sightseeingType}</option>
 									<c:forEach items="${sType}" var="type">
 										<option value="${type}">${type}</option>
 									</c:forEach>
@@ -183,10 +190,11 @@
 						<div class="form-group">
 							<form:label path="city.country.country"
 								class="col-sm-2 control-label">
-									Country</form:label>
+								<spring:message code="label.country" />
+							</form:label>
 							<div class="col-sm-10">
 								<form:select path="city.country.country">
-									<option value="0">Select Country</option>
+									<option value="0">${sightseeing.city.country.country}</option>
 									<c:forEach items="${countries}" var="country">
 										<option value="${country.country}">${country.country}</option>
 									</c:forEach>
@@ -196,10 +204,11 @@
 
 						<div class="form-group">
 							<form:label path="city.city" class="col-sm-2 control-label">
-										City</form:label>
+								<spring:message code="label.city" />
+							</form:label>
 							<div class="col-sm-10">
 								<form:select path="city.city">
-									<option value="0">Select city</option>
+									<option value="0">${sightseeing.city.city}</option>
 									<c:forEach items="${cities}" var="city">
 										<option value="${city.city}">${city.city}</option>
 									</c:forEach>
@@ -208,8 +217,9 @@
 						</div>
 
 						<div class="form-group">
-							<label for="website" class="col-sm-2 control-label">
-								Website </label>
+							<label for="website" class="col-sm-2 control-label"> <spring:message
+									code="label.website" />
+							</label>
 							<div class="col-sm-10">
 								<form:input path="website" cssClass="form-control" />
 							</div>
@@ -226,10 +236,12 @@
 
 						<div class="form-group">
 							<label for="priceCategory.priceCategory"
-								class="col-sm-2 control-label"> Price category </label>
+								class="col-sm-2 control-label"> <spring:message
+									code="label.priceCategory" />
+							</label>
 							<div class="col-sm-10">
 								<form:select path="priceCategory.priceCategory">
-									<option value="0">Select price category</option>
+									<option value="0">${sightseeing.priceCategory.priceCategory}</option>
 									<c:forEach items="${priceCategories}" var="priceCategory">
 										<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
 									</c:forEach>
@@ -240,8 +252,10 @@
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-success"
-							value="Edit" />
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							value="<spring:message code="label.editSightseeing" />" />
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<spring:message code="label.close" />
+						</button>
 					</div>
 				</div>
 			</div>
