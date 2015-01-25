@@ -19,11 +19,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.EventDto;
+import com.softserve.edu.model.City;
+import com.softserve.edu.model.Country;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Group;
+import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Sightseeing;
+import com.softserve.edu.model.SightseeingType;
 import com.softserve.edu.model.User;
+import com.softserve.edu.service.CityService;
+import com.softserve.edu.service.CountryService;
 import com.softserve.edu.service.EventService;
+import com.softserve.edu.service.PriceCategoryService;
 import com.softserve.edu.service.ProfileService;
 
 @Controller
@@ -33,6 +40,12 @@ public class EventContoller {
 	EventService eventService;
 	@Autowired
 	ProfileService profileService;
+	@Autowired
+	private CountryService countryService;
+	@Autowired
+	private CityService cityService;
+	@Autowired
+	private PriceCategoryService priceCategoryService;
 
 	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public String showEvents(Model model) {
@@ -55,16 +68,23 @@ public class EventContoller {
 
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String showEvent(@RequestParam("id") Integer id, Model model) {
-		EventDto eventDto = eventService.getEvent(id);
-		model.addAttribute("event", eventDto);
+		Event event = eventService.findOne(id);
+		List<City> cities = cityService.getAllCity();
+		List<PriceCategory> priceCategories = priceCategoryService
+				.getAllPriceCategory();
+		model.addAttribute("event", event);
+		model.addAttribute("cities", cities);
+		model.addAttribute("priceCategories", priceCategories);
 		return "event";
 	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
-	public String editEvent(@ModelAttribute("event") final EventDto eventDto) {
-		Event event = eventService.convertEventDtoToEvent(eventDto);
-		eventService.saveEvent(event);
-		return "event";
+	public String editEvent(@ModelAttribute("event") final Event event,
+			RedirectAttributes redirectAttributes) {
+		eventService.updateEvent(event);
+		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
+				"eventEdited", true);
+		return "redirect:/event?id={id}";
 	}
 
 	@RequestMapping(value = "/event-creation", method = RequestMethod.GET)

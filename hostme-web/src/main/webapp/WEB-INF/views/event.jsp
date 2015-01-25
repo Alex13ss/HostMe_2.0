@@ -153,7 +153,8 @@
 		</div>
 	</section>
 
-	<form:form modelAttribute="event" cssClass="form-horizontal eventForm">
+	<form:form modelAttribute="event" method="post"
+		cssClass="form-horizontal groupForm">
 		<!-- Modal -->
 		<div class="modal fade" id="eventEdit" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -179,7 +180,7 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						<!--		<div class="form-group">
 							<label for="startDate" class="col-sm-2 control-label"> <spring:message
 									code="label.startDate" />:
 							</label>
@@ -197,14 +198,18 @@
 									cssClass="form-control" />
 								<form:errors path="endDate" />
 							</div>
-						</div>
+						</div>  
+						 -->
 						<div class="form-group">
-							<label for="city" class="col-sm-2 control-label"><spring:message
-									code="label.city" />: </label>
+							<form:label path="city.city" class="col-sm-2 control-label">
+								<spring:message code="label.city" />:</form:label>
 							<div class="col-sm-10">
-								<form:textarea id="group-dscrptn-textarea" path="city.city"
-									cssClass="form-control" />
-								<form:errors path="city" />
+								<form:select path="city.city">
+									<option value="0">Select city</option>
+									<c:forEach items="${cities}" var="city">
+										<option value="${city.city}">${city.city}</option>
+									</c:forEach>
+								</form:select>
 							</div>
 						</div>
 						<div class="form-group">
@@ -239,16 +244,20 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="priceCategory" class="col-sm-2 control-label">
-								<spring:message code="label.priceCategory" />:
-							</label>
+							<label for="priceCategory.priceCategory"
+								class="col-sm-2 control-label"> Price category </label>
 							<div class="col-sm-10">
-								<form:textarea id="group-dscrptn-textarea"
-									path="priceCategory.priceCategory" cssClass="form-control" />
-								<form:errors path="priceCategory.priceCategory" />
+								<form:select path="priceCategory.priceCategory">
+									<option value="0">Select price category</option>
+									<c:forEach items="${priceCategories}" var="priceCategory">
+										<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
+									</c:forEach>
+								</form:select>
 							</div>
 						</div>
 
+					</div>
+					<!--  	
 						<div class="form-group">
 							<label for="owner" class="col-sm-2 control-label"> <spring:message
 									code="label.owner" />:
@@ -257,19 +266,19 @@
 								<form:input readonly="true" path="owner.login"
 									cssClass="form-control" />
 							</div>
-						</div>
+						</div> -->
 
-					</div>
-					<div class="modal-footer">
-						<input type="submit" class="btn btn-success"
-							value=<spring:message code="label.save" />>
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							<spring:message code="label.close" />
-						</button>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-primary button"
+						value=<spring:message code="label.save" />>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<spring:message code="label.close" />
+					</button>
 				</div>
 			</div>
 		</div>
+
 	</form:form>
 </body>
 </html>

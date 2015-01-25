@@ -2,6 +2,7 @@ package com.softserve.edu.service;
 
 import java.util.Date;
 import java.util.List;
+
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
@@ -21,6 +22,8 @@ public interface EventService {
 	public List<EventDto> getEventsDtoList(List<Event> events);
 
 	public EventDto getEvent(Integer id);
+	
+	public Event findOne(Integer id);
 
 	public List<EventDto> getEventByStartDate(Date date);
 
@@ -37,4 +40,6 @@ public interface EventService {
 	public void saveEvent(Event event);
 	
 	public Event convertEventDtoToEvent(EventDto eventDto);
+	
+	public void updateEvent(Event event);
 }
