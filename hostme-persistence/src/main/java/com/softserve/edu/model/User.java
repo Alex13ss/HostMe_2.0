@@ -163,6 +163,13 @@ public class User {
     private Set<Group> myGroups;
 
     /**
+     * Contains groups which was edited (last editing) by this user
+     */
+    @JsonIgnore
+    @OneToMany(mappedBy = "lastEditor", fetch = FetchType.LAZY)
+    private Set<Group> meEditedGroups;
+
+    /**
      * Contains groups submitted by this user
      */
     @JsonIgnore
@@ -393,6 +400,14 @@ public class User {
 
     public void setMyGroups(Set<Group> myGroups) {
         this.myGroups = myGroups;
+    }
+
+    public Set<Group> getMeEditedGroups() {
+        return meEditedGroups;
+    }
+
+    public void setMeEditedGroups(Set<Group> meEditedGroups) {
+        this.meEditedGroups = meEditedGroups;
     }
 
     public Set<Group> getGroups() {

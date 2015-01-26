@@ -82,7 +82,21 @@
 				<div class="col-md-4">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<h3 class="panel-title">Publishing info:</h3>
+							<div class="panel-title">
+								<div class="row">
+									<div class="col-md-6">
+										<spring:message code="label.groupPubInfo" />
+									</div>
+									<div class="col-md-6">
+										<div align="right">
+											<button type="button" class="btn btn-success btn-xs"
+												data-toggle="modal" data-target="#groupEditModal">Edit</button>
+											<a href="<spring:url value="/group/remove/${group.id}" />"
+												class="btn btn-danger btn-xs triggerRemove"> Del </a>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="panel-body">
 							<p>
@@ -95,23 +109,17 @@
 								<c:if test="${!empty group.lastEditedAt}">
 									<c:out value="Last edited: ${group.lastEditedAt}" />
 								</c:if>
+								<br>
+								<c:if test="${!empty group.lastEditor}">
+									<c:out
+										value="Last editor: ${group.lastEditor.firstName} 
+									${group.lastEditor.lastName}" />
+								</c:if>
 							</p>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<div align="right">
-				<button type="button" class="btn btn-success btn-xs"
-					data-toggle="modal" data-target="#groupEditModal">Edit</button>
-				<a href="<spring:url value="/group/remove/${group.id}" />"
-					class="btn btn-danger btn-xs triggerRemove"> Remove </a>
-			</div>
-
-			<c:url var="conversationsUrl" value="/conversations">
-				<c:param name="group_id" value="${group.id}" />
-			</c:url>
-			<%@ include file="conversations/latest.jsp"%>
 
 			<!-- Modal -->
 			<div class="modal fade" id="modalRemove" tabindex="-1" role="dialog"
@@ -137,6 +145,15 @@
 								data-dismiss="modal">Cancel</button>
 						</div>
 					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<c:url var="conversationsUrl" value="/conversations">
+						<c:param name="group_id" value="${group.id}" />
+					</c:url>
+					<%@ include file="conversations/latest.jsp"%>
 				</div>
 			</div>
 
@@ -191,10 +208,11 @@
 					</div>
 
 					<div class="form-group">
-						<label for="createdAt" class="col-sm-2 control-label">
+						<label for="creator" class="col-sm-2 control-label">
 							Creator: </label>
 						<div class="col-sm-10">
-							<form:input readonly="true" path="" cssClass="form-control" />
+							<form:input readonly="true" path="creatorUser"
+								cssClass="form-control" />
 						</div>
 					</div>
 

@@ -13,12 +13,13 @@ import org.springframework.stereotype.Service;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.repositories.GroupRepository;
 import com.softserve.edu.service.GroupService;
+import com.softserve.edu.service.ProfileService;
 
 @Service
 public class GroupServiceImpl implements GroupService {
 
-    // @Autowired
-    // private UserRepository userRepository;
+    @Autowired
+    private ProfileService profileService;
 
     @Autowired
     private GroupRepository groupRepository;
@@ -45,12 +46,14 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public void create(Group group) {
         group.setCreatedAt(new Date());
+        group.setCreatorUser(profileService.getCurrentUser());
         groupRepository.save(group);
     }
 
     @Override
     public void update(Group group) {
         group.setLastEditedAt(new Date());
+        group.setLastEditor(profileService.getCurrentUser());
         groupRepository.save(group);
     }
 

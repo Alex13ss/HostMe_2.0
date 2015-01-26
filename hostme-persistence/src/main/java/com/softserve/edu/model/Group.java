@@ -72,6 +72,10 @@ public class Group {
     @JoinColumn(name = "creator_user")
     private User creatorUser;
 
+    @ManyToOne
+    @JoinColumn(name = "editor_user")
+    private User lastEditor;
+
     /**
      * Contains list of users which have conversations in this group
      */
@@ -128,6 +132,14 @@ public class Group {
         this.creatorUser = creatorUser;
     }
 
+    public User getLastEditor() {
+        return lastEditor;
+    }
+
+    public void setLastEditor(User lastEditor) {
+        this.lastEditor = lastEditor;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -174,8 +186,8 @@ public class Group {
                 + ", groupDescription=" + groupDescription + ", createdAt="
                 + createdAt + ", lastEditedAt=" + lastEditedAt + ", images="
                 + images + ", conversations=" + conversations
-                + ", creatorUser=" + creatorUser + ", users=" + users
-                + ", tags=" + tags + "]";
+                + ", creatorUser=" + creatorUser + ", lastEditor=" + lastEditor
+                + ", users=" + users + ", tags=" + tags + "]";
     }
 
 }

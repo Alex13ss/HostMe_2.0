@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
 		return userDaoImpl.create(user);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getAllUsers() {
 		return (List<User>)userRepository.findAll();
