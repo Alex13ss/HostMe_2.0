@@ -180,7 +180,7 @@
 							</div>
 						</div>
 
-						<!--		<div class="form-group">
+						<div class="form-group">
 							<label for="startDate" class="col-sm-2 control-label"> <spring:message
 									code="label.startDate" />:
 							</label>
@@ -198,8 +198,21 @@
 									cssClass="form-control" />
 								<form:errors path="endDate" />
 							</div>
-						</div>  
-						 -->
+						</div>
+						<div class="form-group">
+							<form:label path="city.country.country"
+								class="col-sm-2 control-label">
+								<spring:message code="label.country" />
+							</form:label>
+							<div class="col-sm-10">
+								<form:select path="city.country.country">
+									<option value="0">${event.city.country.country}</option>
+									<c:forEach items="${countries}" var="country">
+										<option value="${country.country}">${country.country}</option>
+									</c:forEach>
+								</form:select>
+							</div>
+						</div>
 						<div class="form-group">
 							<form:label path="city.city" class="col-sm-2 control-label">
 								<spring:message code="label.city" />:</form:label>
@@ -207,7 +220,7 @@
 								<form:select path="city.city">
 									<option value="0">Select city</option>
 									<c:forEach items="${cities}" var="city">
-										<option value="${city.city}">${city.city}</option>
+										<option value="${city}">${city.city}</option>
 									</c:forEach>
 								</form:select>
 							</div>
@@ -243,7 +256,7 @@
 								<form:errors path="website" />
 							</div>
 						</div>
-						<div class="form-group">
+						<!--		<div class="form-group">
 							<label for="priceCategory.priceCategory"
 								class="col-sm-2 control-label"> Price category </label>
 							<div class="col-sm-10">
@@ -254,31 +267,32 @@
 									</c:forEach>
 								</form:select>
 							</div>
-						</div>
-
-					</div>
-					<!--  	
-						<div class="form-group">
-							<label for="owner" class="col-sm-2 control-label"> <spring:message
-									code="label.owner" />:
-							</label>
-							<div class="col-sm-10">
-								<form:input readonly="true" path="owner.login"
-									cssClass="form-control" />
-							</div>
 						</div> -->
 
-				</div>
-				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary button"
-						value=<spring:message code="label.save" />>
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						<spring:message code="label.close" />
-					</button>
+
+
+						<!-- 	<div class="form-group">
+						<label for="owner" class="col-sm-2 control-label"> <spring:message
+								code="label.owner" />:
+						</label>
+						<div class="col-sm-10">
+							<form:input readonly="true" path="owner.login"
+								cssClass="form-control" />
+						</div>
+					</div>
+				</div> -->
+						<div class="modal-footer">
+							<input type="submit" class="btn btn-primary button"
+								value=<spring:message code="label.save" />>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">
+								<spring:message code="label.close" />
+							</button>
+						</div>
+					</div>
+
 				</div>
 			</div>
-		</div>
-
 	</form:form>
 </body>
 </html>

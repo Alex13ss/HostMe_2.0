@@ -1,15 +1,20 @@
 package com.softserve.edu.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,20 +73,23 @@ public class EventContoller {
 
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String showEvent(@RequestParam("id") Integer id, Model model) {
-		Event event = eventService.findOne(id);
+		EventDto eventDto = eventService.getEvent(id);
+		List<Country> countries = countryService.getAllCountry();
 		List<City> cities = cityService.getAllCity();
 		List<PriceCategory> priceCategories = priceCategoryService
 				.getAllPriceCategory();
-		model.addAttribute("event", event);
+		model.addAttribute("event", eventDto);
+		model.addAttribute("countries", countries);
 		model.addAttribute("cities", cities);
 		model.addAttribute("priceCategories", priceCategories);
 		return "event";
 	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
-	public String editEvent(@ModelAttribute("event") final Event event,
+	public String editEvent(@ModelAttribute("event") final EventDto eventDto,
 			RedirectAttributes redirectAttributes) {
-		eventService.updateEvent(event);
+		Event event = eventService.convertEventDtoToEvent(eventDto);
+		eventService.saveEvent(event);
 		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
 				"eventEdited", true);
 		return "redirect:/event?id={id}";
@@ -92,6 +100,14 @@ public class EventContoller {
 		Event event = new Event();
 		model.addAttribute("event", event);
 		return "event-creation";
+	}
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		String datePattern = "yyyy-MM-dd HH:mm:ss";
+		SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, true));
 	}
 
 }
