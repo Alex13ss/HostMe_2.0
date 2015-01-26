@@ -28,7 +28,7 @@ public class Country {
 	@Column(name = "country", length = 64)
 	private String country;
 		
-	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
 	private Set<City> city;
 
 	public Country() {

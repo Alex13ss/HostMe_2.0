@@ -220,7 +220,7 @@
 								<form:select path="city.city">
 									<option value="0">Select city</option>
 									<c:forEach items="${cities}" var="city">
-										<option value="${city}">${city.city}</option>
+										<option value="${city.city}">${city.city}</option>
 									</c:forEach>
 								</form:select>
 							</div>
@@ -256,7 +256,7 @@
 								<form:errors path="website" />
 							</div>
 						</div>
-						<!--		<div class="form-group">
+						<div class="form-group">
 							<label for="priceCategory.priceCategory"
 								class="col-sm-2 control-label"> Price category </label>
 							<div class="col-sm-10">
@@ -267,32 +267,20 @@
 									</c:forEach>
 								</form:select>
 							</div>
-						</div> -->
-
-
-
-						<!-- 	<div class="form-group">
-						<label for="owner" class="col-sm-2 control-label"> <spring:message
-								code="label.owner" />:
-						</label>
-						<div class="col-sm-10">
-							<form:input readonly="true" path="owner.login"
-								cssClass="form-control" />
 						</div>
-					</div>
-				</div> -->
-						<div class="modal-footer">
-							<input type="submit" class="btn btn-primary button"
-								value=<spring:message code="label.save" />>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">
-								<spring:message code="label.close" />
-							</button>
-						</div>
-					</div>
 
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-primary button"
+							value=<spring:message code="label.save" />>
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<spring:message code="label.close" />
+						</button>
+					</div>
 				</div>
+
 			</div>
+		</div>
 	</form:form>
 </body>
 </html>
