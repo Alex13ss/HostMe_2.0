@@ -108,6 +108,11 @@
 					class="btn btn-danger btn-xs triggerRemove"> Remove </a>
 			</div>
 
+			<c:url var="conversationsUrl" value="/conversations">
+				<c:param name="group_id" value="${group.id}" />
+			</c:url>
+			<%@ include file="conversations/latest.jsp"%>
+
 			<!-- Modal -->
 			<div class="modal fade" id="modalRemove" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
@@ -203,17 +208,4 @@
 		</div>
 	</div>
 </form:form>
-
-<body>
-
-	<br />
-
-	<p>Begin Conversations block</p>
-	<c:url var="conversationsUrl" value="/conversations">
-		<c:param name="group_id" value="${group.id}" />
-	</c:url>
-	<%@ include file="conversations/latest.jsp"%>
-	<p>End Conversations block</p>
-
-</body>
 </html>

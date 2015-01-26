@@ -1,17 +1,14 @@
 package com.softserve.edu.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.model.Conversation;
-import com.softserve.edu.model.Group;
 import com.softserve.edu.service.ConversationService;
 
 @Controller
