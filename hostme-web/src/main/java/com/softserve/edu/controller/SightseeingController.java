@@ -106,7 +106,10 @@ public class SightseeingController {
 	public String editSightseeing(
 			@ModelAttribute("sightseeing") final Sightseeing sightseeing,
 			RedirectAttributes redirectAttributes) {
-		sightseeingService.updateSightseeing(sightseeing);
+		String priceCategory = sightseeing.getPriceCategory()
+				.getPriceCategory();
+		String city = sightseeing.getCity().getCity();
+		sightseeingService.updateSightseeing(sightseeing, priceCategory, city);
 		redirectAttributes.addAttribute("id", sightseeing.getId())
 				.addFlashAttribute("sightseeingEdited", true);
 		return "redirect:/sightseeing?id={id}";

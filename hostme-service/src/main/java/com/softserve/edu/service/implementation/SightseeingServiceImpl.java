@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.Sightseeing;
+import com.softserve.edu.model.Status;
 import com.softserve.edu.repositories.CityRepository;
 import com.softserve.edu.repositories.CountryRepository;
 import com.softserve.edu.repositories.PriceCategoryRepository;
@@ -78,6 +79,7 @@ public class SightseeingServiceImpl implements SightseeingService {
 	@Transactional
 	public void saveSightseeing(Sightseeing sightseeing, String priceCategory, String city) {
 		sightseeing.setOwner(profileService.getCurrentUser());
+		sightseeing.setStatus(Status.PENDING);
 		Integer pcId = priceCategoryRepository.findByPriceCategory(priceCategory).getPriceCategoryId();
 		Integer cityId = cityRepository.findByCity(city).getCityId();
 		sightseeing.setPriceCategory(priceCategoryRepository.findOne(pcId));
@@ -86,7 +88,13 @@ public class SightseeingServiceImpl implements SightseeingService {
 	}
 
 	@Override
-	public void updateSightseeing(Sightseeing sightseeing) {
+	@Transactional
+	public void updateSightseeing(Sightseeing sightseeing, String priceCategory, String city) {
+		sightseeing.setOwner(profileService.getCurrentUser());
+		Integer pcId = priceCategoryRepository.findByPriceCategory(priceCategory).getPriceCategoryId();
+		Integer cityId = cityRepository.findByCity(city).getCityId();
+		sightseeing.setPriceCategory(priceCategoryRepository.findOne(pcId));
+		sightseeing.setCity(cityRepository.findOne(cityId));
 		sightseeingRepository.save(sightseeing);
 	}
 }

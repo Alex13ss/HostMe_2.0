@@ -47,7 +47,7 @@ $(document)
 														return '<a href=sightseeing?id='
 																+ data.id
 																+ '>'
-																+ data.description
+																+ data.name
 																+ '</a>';
 													}
 

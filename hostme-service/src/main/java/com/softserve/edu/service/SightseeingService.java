@@ -21,5 +21,5 @@ public interface SightseeingService {
 
 	void saveSightseeing(Sightseeing sightseeing, String priceCategory, String city);
 
-	void updateSightseeing(Sightseeing sightseeing);
+	void updateSightseeing(Sightseeing sightseeing, String priceCategory, String city);
 }
