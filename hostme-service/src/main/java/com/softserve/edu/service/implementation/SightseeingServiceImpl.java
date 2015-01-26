@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.Sightseeing;
+import com.softserve.edu.repositories.CityRepository;
+import com.softserve.edu.repositories.CountryRepository;
+import com.softserve.edu.repositories.PriceCategoryRepository;
 import com.softserve.edu.repositories.SightseeingRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.service.ProfileService;
@@ -23,7 +26,13 @@ public class SightseeingServiceImpl implements SightseeingService {
 	PlaceRepository placeRepository;
 	@Autowired
 	private ProfileService profileService;
-
+	@Autowired
+	private PriceCategoryRepository priceCategoryRepository;
+	@Autowired
+	private CityRepository cityRepository;
+	@Autowired
+	private CountryRepository countryRepository;
+	
 	public boolean haveSight(int id) {
 		return sightseeingRepository.exists(id);
 	}
@@ -67,8 +76,12 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	@Override
 	@Transactional
-	public void saveSightseeing(Sightseeing sightseeing) {
+	public void saveSightseeing(Sightseeing sightseeing, String priceCategory, String city) {
 		sightseeing.setOwner(profileService.getCurrentUser());
+		Integer pcId = priceCategoryRepository.findByPriceCategory(priceCategory).getPriceCategoryId();
+		Integer cityId = cityRepository.findByCity(city).getCityId();
+		sightseeing.setPriceCategory(priceCategoryRepository.findOne(pcId));
+		sightseeing.setCity(cityRepository.findOne(cityId));
 		sightseeingRepository.save(sightseeing);
 	}
 

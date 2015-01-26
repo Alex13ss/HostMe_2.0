@@ -5,8 +5,11 @@ import org.springframework.data.repository.CrudRepository;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Country;
 
-public interface CityRepsitory extends CrudRepository<City, Integer>  {
-	
+public interface CityRepository extends CrudRepository<City, Integer> {
+
 	public City findByCountry(Country country);
 
+	public City findByCity(String city);
+
+	public City findOne(Integer id);
 }

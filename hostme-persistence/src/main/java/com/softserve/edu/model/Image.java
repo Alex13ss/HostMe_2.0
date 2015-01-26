@@ -1,5 +1,6 @@
 package com.softserve.edu.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softserve.edu.model.routes.Place;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Image {
 
     @ManyToOne
     @JoinColumn(name = "place_id")
+    @JsonIgnore
     private Place place;
 
     @ManyToOne

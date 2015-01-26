@@ -126,6 +126,7 @@
 								</div>
 							</div>
 
+
 							<div class="form-group">
 								<form:label path="city.city" class="col-sm-2 control-label">
 									<spring:message code="label.city" />
@@ -178,8 +179,9 @@
 							<input type="submit" class="btn btn-success"
 								value="<spring:message code="label.addSightseeing" />" />
 							<button type="button" class="btn btn-default"
-								data-dismiss="modal"><spring:message
-										code="label.close" /></button>
+								data-dismiss="modal">
+								<spring:message code="label.close" />
+							</button>
 						</div>
 					</div>
 				</div>

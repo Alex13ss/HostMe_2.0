@@ -63,7 +63,10 @@ public class SightseeingController {
 			@ModelAttribute("sightseeing") @Valid Sightseeing sightseeing,
 			final BindingResult result, RedirectAttributes redirectAttributes,
 			HttpSession httpSession) {
-		sightseeingService.saveSightseeing(sightseeing);
+		String priceCategory = sightseeing.getPriceCategory()
+				.getPriceCategory();
+		String city = sightseeing.getCity().getCity();
+		sightseeingService.saveSightseeing(sightseeing, priceCategory, city);
 		return "redirect:/sightseeings";
 	}
 

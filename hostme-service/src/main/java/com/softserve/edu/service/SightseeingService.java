@@ -19,7 +19,7 @@ public interface SightseeingService {
 
 	void deleteSightseeing(Sightseeing sightseeing);
 
-	void saveSightseeing(Sightseeing sightseeing);
+	void saveSightseeing(Sightseeing sightseeing, String priceCategory, String city);
 
 	void updateSightseeing(Sightseeing sightseeing);
 }

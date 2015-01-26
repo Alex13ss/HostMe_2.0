@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Country;
-import com.softserve.edu.repositories.CityRepsitory;
+import com.softserve.edu.repositories.CityRepository;
 import com.softserve.edu.service.CityService;
 
 
@@ -17,7 +17,7 @@ public class CityServiceImpl implements CityService{
 
 	
 	@Autowired
-	CityRepsitory cityRepository;
+	CityRepository cityRepository;
 
 	@Override
 	@Transactional

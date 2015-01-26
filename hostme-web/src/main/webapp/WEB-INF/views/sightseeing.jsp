@@ -7,8 +7,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="<c:url value="/resources/css/AdminLTE.css"/>" rel="stylesheet">
-<link href="<c:url value="/resources/css/bootstrap-image-gallery.css"/>" rel="stylesheet">
+<link href="<c:url value="/resources/css/AdminLTE.css"/>"
+	rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap-image-gallery.css"/>"
+	rel="stylesheet">
 <title><spring:message code="label.sightseeing" />:
 	${sightseeing.name}</title>
 </head>
@@ -25,26 +27,25 @@
 		<div class="box box-primary">
 
 			<div class="box-body">
-
 				<div class="row">
-					<div class="col-md-3">
-						<div class="row col-md-12" style="padding-bottom: 5px">
-							<h4>
-								<strong>${sightseeing.name}</strong>
-							</h4>
-							<c:forEach var="image" items="${sightseeing.image}">
-								<a href="${image.link}" data-lightbox="images"> <img
-									src="${image.link}" />
-								</a>
-							</c:forEach>
+					<div class="row col-md-12"></div>
+					<div class="col-md-4">
+						<div class="box-header">
+							<h3 class="box-title"></h3>
 						</div>
-					</div>
-					<div class="row col-md-12">
-						<a href="sightseeing/delete/${sightseeing.id}"><i
-							class="fa fa-fw fa-trash-o"></i></a> <a><i
-							class="fa fa-fw fa-pencil" button type="button"
-							class="btn btn-success btn-md" data-toggle="modal"
-							data-target="#sightseeingEdit"></i></a>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="row col-md-12" style="padding-bottom: 5px">
+								<h4>
+									<strong>${sightseeing.name}</strong>
+								</h4>
+								<c:forEach var="image" items="${sightseeing.image}">
+									<a href="${image.link}" data-lightbox="images"> <img
+										src="${image.link}" />
+									</a>
+								</c:forEach>
+							</div>
+						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="box-header">
@@ -92,10 +93,19 @@
 						</div>
 					</div>
 				</div>
+				<div>
+					<a href="sightseeing/delete/${sightseeing.id}"><i
+						class="fa fa-fw fa-trash-o"></i>
+					<spring:message code="label.delete" /> </a> <a> <i
+						class="fa fa-fw fa-pencil"  button type="button"
+						class="btn btn-success btn-md" data-toggle="modal"
+						data-target="#sightseeingEdit"></i>
+					<spring:message code="label.editSightseeing" />
+					</a>
+				</div>
 			</div>
 		</div>
-
-		<div class="col-md-13">
+		<div class="col-md-12">
 			<div class="box box-solid">
 				<div class="box-header">
 					<h3 class="box-title">
@@ -112,7 +122,7 @@
 			</div>
 			<!-- /.box -->
 		</div>
-		<div class="col-md-13">
+		<div class="col-md-12">
 			<div class="box box-solid">
 				<div class="box-header">
 					<h3 class="box-title">
@@ -180,7 +190,7 @@
 							</label>
 							<div class="col-sm-10">
 								<form:select path="sightseeingType">
-									<option value="0">${sightseeing.sightseeingType}</option>
+									<option value="${sightseeing.sightseeingType}">${sightseeing.sightseeingType}</option>
 									<c:forEach items="${sType}" var="type">
 										<option value="${type}">${type}</option>
 									</c:forEach>
@@ -194,7 +204,7 @@
 							</form:label>
 							<div class="col-sm-10">
 								<form:select path="city.country.country">
-									<option value="0">${sightseeing.city.country.country}</option>
+									<option value="${sightseeing.city.country.country}">${sightseeing.city.country.country}</option>
 									<c:forEach items="${countries}" var="country">
 										<option value="${country.country}">${country.country}</option>
 									</c:forEach>
@@ -208,7 +218,7 @@
 							</form:label>
 							<div class="col-sm-10">
 								<form:select path="city.city">
-									<option value="0">${sightseeing.city.city}</option>
+									<option value="${sightseeing.city.city}">${sightseeing.city.city}</option>
 									<c:forEach items="${cities}" var="city">
 										<option value="${city.city}">${city.city}</option>
 									</c:forEach>
@@ -241,7 +251,7 @@
 							</label>
 							<div class="col-sm-10">
 								<form:select path="priceCategory.priceCategory">
-									<option value="0">${sightseeing.priceCategory.priceCategory}</option>
+									<option value="${sightseeing.priceCategory.priceCategory}">${sightseeing.priceCategory.priceCategory}</option>
 									<c:forEach items="${priceCategories}" var="priceCategory">
 										<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
 									</c:forEach>
