@@ -84,7 +84,8 @@
 									<c:if test="${!empty group.lastEditedAt}">
 										<c:out value="Last edited: ${group.lastEditedAt}" />
 									</c:if></td>
-							<td>${group.creatorUser.firstName} ${group.creatorUser.lastName}</td>
+							<td>${group.creatorUser.firstName}
+								${group.creatorUser.lastName}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -132,7 +133,7 @@
 							Description: </label>
 						<div class="col-sm-10">
 							<form:textarea id="group-dscrptn-textarea"
-								path="groupDescription" cssClass="form-control" />
+								path="groupDescription" cssClass="form-control" rows="5" />
 							<form:errors path="groupDescription" />
 						</div>
 					</div>

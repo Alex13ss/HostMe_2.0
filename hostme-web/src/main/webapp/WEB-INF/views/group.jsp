@@ -193,26 +193,27 @@
 							Description: </label>
 						<div class="col-sm-10">
 							<form:textarea id="group-dscrptn-textarea"
-								path="groupDescription" cssClass="form-control" />
+								path="groupDescription" cssClass="form-control" rows="5" />
 							<form:errors path="groupDescription" />
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="createdAt" class="col-sm-2 control-label">
-							Created at: </label>
-						<div class="col-sm-10">
-							<form:input readonly="true" path="createdAt"
-								cssClass="form-control" />
+					<div style="display: none;">
+						<div class="form-group">
+							<label for="createdAt" class="col-sm-2 control-label">
+								Created at: </label>
+							<div class="col-sm-10">
+								<form:input readonly="true" path="createdAt"
+									cssClass="form-control" />
+							</div>
 						</div>
-					</div>
-
-					<div class="form-group">
-						<label for="creator" class="col-sm-2 control-label">
-							Creator: </label>
-						<div class="col-sm-10">
-							<form:input readonly="true" path="creatorUser"
-								cssClass="form-control" />
+						<div class="form-group">
+							<label for="creator" class="col-sm-2 control-label">
+								Creator: </label>
+							<div class="col-sm-10">
+								<form:input readonly="true" path="creatorUser.userId"
+									cssClass="form-control" />
+							</div>
 						</div>
 					</div>
 
