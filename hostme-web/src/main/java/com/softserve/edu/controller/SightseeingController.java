@@ -58,6 +58,12 @@ public class SightseeingController {
 		return "sightseeings";
 	}
 
+	@RequestMapping(value = "/getAllCountries", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<Country> getAllCountries() {
+		List<Country> countries = countryService.getAllCountry();
+		return countries;
+	}
+
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.POST)
 	public String addSightseeing(Model model,
 			@ModelAttribute("sightseeing") @Valid Sightseeing sightseeing,

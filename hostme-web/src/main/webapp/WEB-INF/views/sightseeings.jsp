@@ -8,8 +8,6 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="<c:url value="/resources/css/sightseeing.css"/>"
-	rel="stylesheet">
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
 <script src="<c:url value="/resources/js/sightseeing.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
@@ -116,7 +114,7 @@
 									<spring:message code="label.country" />
 								</form:label>
 								<div class="col-sm-10">
-									<form:select path="city.country.country">
+									<form:select id="country" path="city.country.country">
 										<option value="0"><spring:message
 												code="label.countrySelect" /></option>
 										<c:forEach items="${countries}" var="country">
@@ -126,18 +124,14 @@
 								</div>
 							</div>
 
-
 							<div class="form-group">
 								<form:label path="city.city" class="col-sm-2 control-label">
 									<spring:message code="label.city" />
 								</form:label>
 								<div class="col-sm-10">
-									<form:select path="city.city">
-										<option value="0"><spring:message
+									<form:select id="city" path="city.city">
+									<option value="0"><spring:message
 												code="label.citySelect" /></option>
-										<c:forEach items="${cities}" var="city">
-											<option value="${city.city}">${city.city}</option>
-										</c:forEach>
 									</form:select>
 								</div>
 							</div>
@@ -173,7 +167,6 @@
 									</form:select>
 								</div>
 							</div>
-
 						</div>
 						<div class="modal-footer">
 							<input type="submit" class="btn btn-success"

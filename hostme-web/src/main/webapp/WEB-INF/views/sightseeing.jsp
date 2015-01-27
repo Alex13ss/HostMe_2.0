@@ -7,10 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="<c:url value="/resources/css/AdminLTE.css"/>"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/bootstrap-image-gallery.css"/>"
-	rel="stylesheet">
+<script src="<c:url value="/resources/js/sightseeing.js"/>"></script>
 <title><spring:message code="label.sightseeing" />:
 	${sightseeing.name}</title>
 </head>
@@ -95,12 +92,11 @@
 				</div>
 				<div>
 					<a href="sightseeing/delete/${sightseeing.id}"><i
-						class="fa fa-fw fa-trash-o"></i>
-					<spring:message code="label.delete" /> </a> <a> <i
-						class="fa fa-fw fa-pencil"  button type="button"
-						class="btn btn-success btn-md" data-toggle="modal"
-						data-target="#sightseeingEdit"></i>
-					<spring:message code="label.editSightseeing" />
+						class="fa fa-fw fa-trash-o"></i> <spring:message
+							code="label.delete" /> </a> <a> <i class="fa fa-fw fa-pencil"
+						button type="button" class="btn btn-success btn-md"
+						data-toggle="modal" data-target="#sightseeingEdit"></i> <spring:message
+							code="label.editSightseeing" />
 					</a>
 				</div>
 			</div>
@@ -203,7 +199,7 @@
 								<spring:message code="label.country" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select path="city.country.country">
+								<form:select id="country" path="city.country.country">
 									<option value="${sightseeing.city.country.country}">${sightseeing.city.country.country}</option>
 									<c:forEach items="${countries}" var="country">
 										<option value="${country.country}">${country.country}</option>
@@ -217,11 +213,9 @@
 								<spring:message code="label.city" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select path="city.city">
-									<option value="${sightseeing.city.city}">${sightseeing.city.city}</option>
-									<c:forEach items="${cities}" var="city">
-										<option value="${city.city}">${city.city}</option>
-									</c:forEach>
+								<form:select id="city" path="city.city">
+									<option value="0"><spring:message
+											code="label.citySelect" /></option>
 								</form:select>
 							</div>
 						</div>
