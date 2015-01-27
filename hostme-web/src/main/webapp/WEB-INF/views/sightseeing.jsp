@@ -214,8 +214,7 @@
 							</form:label>
 							<div class="col-sm-10">
 								<form:select id="city" path="city.city">
-									<option value="0"><spring:message
-											code="label.citySelect" /></option>
+									<option value="${sightseeing.city.city}">${sightseeing.city.city}</option>
 								</form:select>
 							</div>
 						</div>
