@@ -3921,3 +3921,7 @@ a#textColor {
 	font-family: 'Source Sans Pro', sans-serif;
 	margin: 5px;
 }
+#leftButtonPosition{
+	float:right;
+}
+}

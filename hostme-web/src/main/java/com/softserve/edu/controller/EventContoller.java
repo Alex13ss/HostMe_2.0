@@ -4,33 +4,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Country;
 import com.softserve.edu.model.Event;
-import com.softserve.edu.model.Group;
 import com.softserve.edu.model.PriceCategory;
-import com.softserve.edu.model.Sightseeing;
-import com.softserve.edu.model.SightseeingType;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.CityService;
 import com.softserve.edu.service.CountryService;
@@ -86,10 +79,14 @@ public class EventContoller {
 	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
-	public String editEvent(@ModelAttribute("event") final EventDto eventDto,
+	public String editEvent(@ModelAttribute("event") final Event event,
 			RedirectAttributes redirectAttributes) {
-		Event event = eventService.convertEventDtoToEvent(eventDto);
-		eventService.saveEvent(event);
+		String priceCategory = event.getPriceCategory()
+				.getPriceCategory();
+		String city = event.getCity().getCity();
+		event.setOwner(profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName()));
+		eventService.updateEvent(event, city, priceCategory);
 		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
 				"eventEdited", true);
 		return "redirect:/event?id={id}";
@@ -100,6 +97,13 @@ public class EventContoller {
 		Event event = new Event();
 		model.addAttribute("event", event);
 		return "event-creation";
+	}
+
+	@RequestMapping("/event/delete/{id}")
+	public String deleteEvent(@PathVariable("id") Integer id) {
+		Event event = eventService.findOne(id);
+		eventService.removeEvent(event);
+		return "redirect:/events";
 	}
 
 	@InitBinder

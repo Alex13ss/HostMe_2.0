@@ -3,16 +3,22 @@ package com.softserve.edu.service.implementation;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
+import com.softserve.edu.repositories.CityRepository;
+import com.softserve.edu.repositories.CountryRepository;
 import com.softserve.edu.repositories.EventRepository;
+import com.softserve.edu.repositories.PriceCategoryRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.service.EventService;
 import com.softserve.edu.service.ProfileService;
@@ -26,7 +32,13 @@ public class EventServiceImpl implements EventService {
 	PlaceRepository placeRepository;
 	@Autowired
 	ProfileService profileService;
-
+	@Autowired
+	PriceCategoryRepository priceCategoryRepository;
+	@Autowired
+	CityRepository cityRepository;
+	@Autowired
+	CountryRepository countryRepository;
+	
 	public boolean haveEvent(int id) {
 		return eventRepository.exists(id);
 	}
@@ -40,9 +52,8 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	@Transactional
-	public void removeEvent(Integer id) {
-		placeRepository.delete(id);
-		eventRepository.delete(id);
+	public void removeEvent(Event event) {
+		eventRepository.delete(event);
 	}
 
 	public List<EventDto> getEventsDtoList(List<Event> events) {
@@ -154,95 +165,18 @@ public class EventServiceImpl implements EventService {
 		event.setOwner(eventDto.getOwner());
 		event.setImage(eventDto.getImage());
 		event.setAttendee(eventDto.getAttendee());
+		event.setDescription(eventDto.getDescription());
+		event.setRating(eventDto.getRating());
 		return event;
 	}
 
 	@Override
 	@Transactional
-	public void updateEvent(Event event) {
-
-		Event transEvent = eventRepository.findOne(event.getId());
-		Place transPlace = placeRepository.findOne(event.getId());
-
-		if (event.getName() != null) {
-			transPlace.setName(event.getName());
-		} else {
-			transPlace.setName(transPlace.getName());
-		}
-		if (event.getDescription() != null) {
-			transPlace.setDescription(event.getDescription());
-		} else {
-			transPlace.setDescription(transPlace.getDescription());
-		}
-		if (event.getComment() != null) {
-			transPlace.setComment(event.getComment());
-		} else {
-			transPlace.setComment(transPlace.getComment());
-		}
-		if (event.getWebsite() != null) {
-			transPlace.setWebsite(event.getWebsite());
-		} else {
-			transPlace.setWebsite(transPlace.getWebsite());
-		}
-		if (event.getStatus() != null) {
-			transPlace.setStatus(event.getStatus());
-		} else {
-			transPlace.setStatus(transPlace.getStatus());
-		}
-		if (event.getPriceCategory() != null) {
-			transPlace.setPriceCategory(event.getPriceCategory());
-		} else {
-			transPlace.setPriceCategory(transPlace.getPriceCategory());
-		}
-		if (event.getCity() != null) {
-			transPlace.setCity(event.getCity());
-		} else {
-			transPlace.setCity(transPlace.getCity());
-		}
-		if (event.getAddress() != null) {
-			transPlace.setAddress(event.getAddress());
-		} else {
-			transPlace.setAddress(transPlace.getAddress());
-		}
-		if (event.getOwner() != null) {
-			transPlace.setOwner(event.getOwner());
-		} else {
-			transPlace.setOwner(transPlace.getOwner());
-		}
-
-		if (event.getRating() != null) {
-			transPlace.setRating(event.getRating());
-		} else {
-			transPlace.setRating(transPlace.getRating());
-		}
-		if (event.getAttendee() != null) {
-			transPlace.setAttendee(event.getAttendee());
-		} else {
-			transPlace.setAttendee(transPlace.getAttendee());
-		}
-		if (event.getRoutes() != null) {
-			transPlace.setRoutes(event.getRoutes());
-		} else {
-			transPlace.setRoutes(transPlace.getRoutes());
-		}
-		if (event.getImage() != null) {
-			transPlace.setImage(event.getImage());
-		} else {
-			transPlace.setImage(transPlace.getImage());
-		}
-		if (event.getStartDate() != null) {
-			transEvent.setStartDate(event.getStartDate());
-		} else {
-			transEvent.setStartDate(transEvent.getStartDate());
-		}
-		if (event.getEndDate() != null) {
-			transEvent.setEndDate(event.getEndDate());
-		} else {
-			transEvent.setEndDate(transEvent.getEndDate());
-		}
-
-		eventRepository.save(transEvent);
-		placeRepository.save(transPlace);
-
+	public void updateEvent(Event event, String city, String priceCategory) {
+		Integer pcId = priceCategoryRepository.findByPriceCategory(priceCategory).getPriceCategoryId();
+		Integer cityId = cityRepository.findByCity(city).getCityId();
+		event.setPriceCategory(priceCategoryRepository.findOne(pcId));
+		event.setCity(cityRepository.findOne(cityId));
+		eventRepository.save(event);
 	}
 }

@@ -21,7 +21,7 @@ public class Place {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private String description;
 
     @Column

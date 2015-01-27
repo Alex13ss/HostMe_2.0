@@ -13,19 +13,19 @@ public class EventDto {
 
 	private Integer id;
 	private String name;
+	private String description;
 	private Date startDate;
 	private Date endDate;
 	private City city;
 	private String address;
 	private String comment;
 	private String website;
+	private Integer rating;
 	private PriceCategory priceCategory;
 	private User owner;
 	private Set<Image> image;
 	private Set<User> attendee;
 
-	
-	
 	public EventDto() {
 		super();
 	}
@@ -37,21 +37,23 @@ public class EventDto {
 	}
 
 	public EventDto(Event event, Place place) {
-		
+
 		this.id = place.getId();
-		this.name = place.getDescription();
+		this.name = place.getName();
+		this.description = place.getDescription();
 		this.startDate = event.getStartDate();
 		this.endDate = event.getEndDate();
 		this.city = place.getCity();
 		this.address = place.getAddress();
 		this.comment = place.getComment();
 		this.website = place.getWebsite();
+		this.rating = place.getRating();
 		this.priceCategory = place.getPriceCategory();
 		this.owner = place.getOwner();
 		this.image = place.getImage();
 		this.attendee = place.getAttendee();
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -116,6 +118,14 @@ public class EventDto {
 		this.website = website;
 	}
 
+	public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+
 	public PriceCategory getPriceCategory() {
 		return priceCategory;
 	}
@@ -146,6 +156,14 @@ public class EventDto {
 
 	public void setAttendee(Set<User> attendee) {
 		this.attendee = attendee;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

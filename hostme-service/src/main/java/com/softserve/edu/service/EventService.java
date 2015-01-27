@@ -15,7 +15,7 @@ public interface EventService {
 
 	public void addEvent(Event event);
 
-	public void removeEvent(Integer id);
+	public void removeEvent(Event event);
 
 	public List<EventDto> getAllEvents();
 
@@ -41,5 +41,5 @@ public interface EventService {
 	
 	public Event convertEventDtoToEvent(EventDto eventDto);
 	
-	public void updateEvent(Event event);
+	public void updateEvent(Event event, String city, String priceCategory);
 }

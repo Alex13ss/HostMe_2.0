@@ -64,7 +64,6 @@
 										</div>
 										<div class="col-md-8 selected">${event.city.city}</div>
 									</div>
-
 									<div class="row" style="padding-bottom: 0.3em">
 										<div class="col-md-4" style="padding-right: 0em;">
 											<spring:message code="label.address" />
@@ -72,7 +71,6 @@
 										</div>
 										<div class="col-md-8 selected">${event.address}</div>
 									</div>
-
 									<div class="row" style="padding-bottom: 0.3em">
 										<div class="col-md-4" style="padding-right: 0em;">
 											<spring:message code="label.start/end" />
@@ -80,7 +78,6 @@
 										</div>
 										<div class="col-md-8 selected">${event.startDate}/${event.endDate}</div>
 									</div>
-
 									<div class="row" style="padding-bottom: 0.3em">
 										<div class="col-md-4" style="padding-right: 0em;">
 											<spring:message code="label.price" />
@@ -88,7 +85,6 @@
 										</div>
 										<div class="col-md-8 selected">${event.priceCategory.priceCategory}</div>
 									</div>
-
 									<div class="row" style="padding-bottom: 0.3em">
 										<div class="col-md-4" style="padding-right: 0em;">
 											<spring:message code="label.website" />
@@ -116,6 +112,11 @@
 									<spring:message code="label.description" />
 									:
 								</h4>
+								<p>${event.description}</p>
+								<h4>
+									<spring:message code="label.comment" />
+									:
+								</h4>
 								<p>${event.comment}</p>
 							</div>
 							<div class="callout callout-warning">
@@ -128,27 +129,22 @@
 						</div>
 					</div>
 				</div>
-
-
 				<div class="row">
 					<div class="col-md-12">
 						<div style="margin-top: 20px;">
-							<button type="button" class="btn btn-primary button"
-								data-toggle="modal" data-target="#eventEdit">
-								<i class="fa fa-edit"></i>
-								<spring:message code="label.edit" />
-							</button>
-
-							<a href="" class="btn btn-primary button"> <spring:message
-									code="label.addRoutes" />
+							<a type="button" data-toggle="modal" data-target="#eventEdit">
+								 <i class="fa fa-fw fa-pencil"></i> <spring:message
+									code="label.edit" />
+							</a> <a href="event/delete/${event.id}"><i
+								class="fa fa-fw fa-trash-o"></i> <spring:message
+									code="label.delete" /> </a> <a href=""
+								class="btn btn-primary button" id="leftButtonPosition"> <i
+								class="fa fa-plus"></i> <spring:message code="label.addRoutes" />
 							</a>
 
 						</div>
 					</div>
 				</div>
-
-
-
 			</div>
 		</div>
 	</section>
@@ -205,8 +201,8 @@
 								<spring:message code="label.country" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select path="city.country.country">
-									<option value="0">${event.city.country.country}</option>
+								<form:select id="country" path="city.country.country">
+									<option value="${event.city.country.country}">${event.city.country.country}</option>
 									<c:forEach items="${countries}" var="country">
 										<option value="${country.country}">${country.country}</option>
 									</c:forEach>
@@ -215,13 +211,12 @@
 						</div>
 						<div class="form-group">
 							<form:label path="city.city" class="col-sm-2 control-label">
-								<spring:message code="label.city" />:</form:label>
+								<spring:message code="label.city" />
+							</form:label>
 							<div class="col-sm-10">
-								<form:select path="city.city">
-									<option value="0">Select city</option>
-									<c:forEach items="${cities}" var="city">
-										<option value="${city.city}">${city.city}</option>
-									</c:forEach>
+								<form:select id="city" path="city.city">
+									<option value="0"><spring:message
+											code="label.citySelect" /></option>
 								</form:select>
 							</div>
 						</div>
@@ -235,7 +230,16 @@
 								<form:errors path="address" />
 							</div>
 						</div>
-
+						<div class="form-group">
+							<label for="description" class="col-sm-2 control-label"> <spring:message
+									code="label.description" />:
+							</label>
+							<div class="col-sm-10">
+								<form:textarea id="group-dscrptn-textarea" path="description"
+									cssClass="form-control" />
+								<form:errors path="description" />
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="comment" class="col-sm-2 control-label"> <spring:message
 									code="label.comment" />:
@@ -261,14 +265,13 @@
 								class="col-sm-2 control-label"> Price category </label>
 							<div class="col-sm-10">
 								<form:select path="priceCategory.priceCategory">
-									<option value="0">Select price category</option>
+									<option value="${event.priceCategory.priceCategory}">${event.priceCategory.priceCategory}</option>
 									<c:forEach items="${priceCategories}" var="priceCategory">
 										<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
 									</c:forEach>
 								</form:select>
 							</div>
 						</div>
-
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-primary button"
