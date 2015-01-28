@@ -56,7 +56,7 @@
 					</li>
 				</security:authorize>
 
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasRole('USER')">
 					<li><a href='<c:url value="/megaSearch"/>' style="margin-left: 10px;">
 						<i class="fa fa-search"></i>
 						<spring:message code="label.searchall" />
@@ -64,7 +64,7 @@
 					</li>
 				</security:authorize>
 
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasRole('USER')">
 					<li><a href='<c:url value="search"/>'
 						style="margin-left: 10px;"><i class="fa fa-search"></i> <spring:message
 								code="label.searchhosts" /></a></li>
@@ -79,13 +79,13 @@
 					</li>
 				</security:authorize>
 				
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasRole('USER')">
 					<li><a href='<c:url value="profile"/>'
 						style="margin-left: 10px;"><i class="fa fa-male"></i> <spring:message
 								code="label.myprofile" /></a></li>
 				</security:authorize>
 
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasRole('USER')">
 					<li><a href='<c:url value="/createRoute"/>' style="margin-left: 10px;">
 							<i class="fa fa-arrows"></i>
 							<spring:message code="label.routes" />
@@ -94,31 +94,31 @@
 
 				</security:authorize>
 
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasAnyRole('ADMIN', 'USER')">
 					<li><a href='<c:url value="groups"/>'
 						style="margin-left: 10px;"><i class="fa fa-users"></i> <spring:message
 								code="label.groups" /></a></li>
 				</security:authorize>
 
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasAnyRole('ADMIN', 'USER')">
 					<li><a href='<c:url value="events"/>'
 						style="margin-left: 10px;"><i class="fa fa-calendar"></i> <spring:message
 								code="label.events" /></a></li>
 				</security:authorize>
 
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasAnyRole('ADMIN', 'USER')">
 					<li><a href='<c:url value="sightseeings"/>'
 						style="margin-left: 10px;"><i class="fa fa-camera-retro"></i> <spring:message
 								code="label.sightseeings" /></a></li>
 				</security:authorize>
 
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasRole('USER')">
 					<li><a href='<c:url value="request"/>'
 						style="margin-left: 10px;"><i class="fa fa-question-circle"></i>
 							<spring:message code="label.requesthistory" /></a></li>
 				</security:authorize>
 
-				<security:authorize access="isAuthenticated()">
+				<security:authorize access="hasAnyRole('ADMIN', 'USER')">
 					<li><a href='<c:url value="logout"/>'
 						style="margin-left: 10px;"><i class="fa fa-sign-out"></i> <spring:message
 								code="label.logout" /></a></li>

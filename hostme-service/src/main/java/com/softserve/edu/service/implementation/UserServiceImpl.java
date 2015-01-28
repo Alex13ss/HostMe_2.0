@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDaoImpl;
 
 	@Autowired
-	private UserRepository userRepository;
+	UserRepository userRepository;
 
 	@Override
 	@Transactional
@@ -29,8 +29,9 @@ public class UserServiceImpl implements UserService {
 		return userDaoImpl.create(user);
 	}
 
-	@SuppressWarnings("unchecked")
+
 	@Override
+	@Transactional
 	public List<User> getAllUsers() {
 		return (List<User>)userRepository.findAll();
 	}

@@ -4,11 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -47,7 +51,26 @@ public class EventContoller {
 
 	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public String showEvents(Model model) {
+		List<EventDto> events = eventService.getAllEvents();
+		Event event = new Event();
+		List<Country> countries = countryService.getAllCountry();
+		List<City> cities = cityService.getAllCity();
+		List<PriceCategory> priceCategories = priceCategoryService.getAllPriceCategory();
+		model.addAttribute("events", events);
+		model.addAttribute("event", event);
+		model.addAttribute("countries", countries);
+		model.addAttribute("cities", cities);
+		model.addAttribute("priceCategories", priceCategories);
 		return "events";
+	}
+
+	@RequestMapping(value = "/events", method = RequestMethod.POST)
+	public String addEvent(Model model, @ModelAttribute("event") @Valid Event event, final BindingResult result,
+			RedirectAttributes redirectAttributes, HttpSession httpSession) {
+		User user = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+		event.setOwner(user);
+		eventService.saveEvent(event);
+		return "redirect:/events";
 	}
 
 	@RequestMapping(value = "/all-events", method = RequestMethod.GET, produces = "application/json")
@@ -58,8 +81,7 @@ public class EventContoller {
 
 	@RequestMapping(value = "/my-events", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<EventDto> getMyEvents() {
-		User user = profileService.getUserByLogin(SecurityContextHolder
-				.getContext().getAuthentication().getName());
+		User user = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 		List<EventDto> events = eventService.getEventByOwner(user);
 		return events;
 	}
@@ -69,8 +91,7 @@ public class EventContoller {
 		EventDto eventDto = eventService.getEvent(id);
 		List<Country> countries = countryService.getAllCountry();
 		List<City> cities = cityService.getAllCity();
-		List<PriceCategory> priceCategories = priceCategoryService
-				.getAllPriceCategory();
+		List<PriceCategory> priceCategories = priceCategoryService.getAllPriceCategory();
 		model.addAttribute("event", eventDto);
 		model.addAttribute("countries", countries);
 		model.addAttribute("cities", cities);
@@ -79,24 +100,13 @@ public class EventContoller {
 	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
-	public String editEvent(@ModelAttribute("event") final Event event,
-			RedirectAttributes redirectAttributes) {
-		String priceCategory = event.getPriceCategory()
-				.getPriceCategory();
+	public String editEvent(@ModelAttribute("event") final Event event, RedirectAttributes redirectAttributes) {
+		String priceCategory = event.getPriceCategory().getPriceCategory();
 		String city = event.getCity().getCity();
-		event.setOwner(profileService.getUserByLogin(SecurityContextHolder
-				.getContext().getAuthentication().getName()));
+		event.setOwner(profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
 		eventService.updateEvent(event, city, priceCategory);
-		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
-				"eventEdited", true);
+		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute("eventEdited", true);
 		return "redirect:/event?id={id}";
-	}
-
-	@RequestMapping(value = "/event-creation", method = RequestMethod.GET)
-	public String addEvent(Model model) {
-		Event event = new Event();
-		model.addAttribute("event", event);
-		return "event-creation";
 	}
 
 	@RequestMapping("/event/delete/{id}")
@@ -110,8 +120,7 @@ public class EventContoller {
 	public void initBinder(WebDataBinder binder) {
 		String datePattern = "yyyy-MM-dd HH:mm:ss";
 		SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				dateFormat, true));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
 }

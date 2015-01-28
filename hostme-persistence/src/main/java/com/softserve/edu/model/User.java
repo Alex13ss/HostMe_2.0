@@ -52,7 +52,6 @@ public class User {
     private Integer userId;
 
     @Size(min = 3, message = "Login must be at least 3 characters!")
-    @JsonIgnore
     @Column(name = "login", length = 50, updatable = false, unique = true)
     private String login;
 
@@ -102,7 +101,6 @@ public class User {
     private City city;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "role_id")
     private Role role;
 
