@@ -8,9 +8,9 @@
 <title>Create route</title>
 <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
 
-<style type="text/css">
-    #map-canvas { height: 40%; margin: 0; padding: 0}
-</style>
+<link rel="stylesheet" type="text/css"
+      href="<c:url value="/resources/css/maps/basicMap.css"/>"/>
+
 <link href="<c:url value="/resources/css/routes/createRoute.css"/>" rel="stylesheet">
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCiYncr79qu9wVjrwaSBHHTKMb3Dbo3Eo"></script>

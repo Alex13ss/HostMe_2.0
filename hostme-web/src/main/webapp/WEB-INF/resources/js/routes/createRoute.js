@@ -62,7 +62,7 @@ $(document).ready(function() {
             routeDto.name = $name.val();
             routeDto.description = $description.val();
             $.ajax({
-                url: "/createRoute",
+                url: "createRoute",
                 type: "POST",
                 dataType: "json",
                 data: JSON.stringify(routeDto),

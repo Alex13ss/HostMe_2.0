@@ -56,6 +56,9 @@ function detectData(data) {
         fillUserData(data)
     } else if ($searchType.val() == "ROUTE") {
         fillRouteData(data)
+    } else if ($searchType.val() == "EVENT" ||
+                $searchType.val() == "SIGHT") {
+        fillPlaceData(data)
     } else {
         for (var i = 0; i < data.length; i++) {
             $underSearch.append("<div>" +
@@ -63,6 +66,15 @@ function detectData(data) {
             + data[i].name + "</a>"
             + "</div>");
         }
+    }
+}
+
+function fillPlaceData(data) {
+    for (var i = 0; i < data.length; i++) {
+        $underSearch.append("<div>" +
+        '<a href = place?placeId=' + data[i].id+'>'
+        + data[i].name + "</a>"
+        + "</div>");
     }
 }
 
@@ -78,7 +90,7 @@ function fillUserData(data) {
 function fillRouteData(data) {
     for (var i = 0; i < data.length; i++) {
         $underSearch.append("<div>" +
-        '<a href = ' + data[i].link + '>'
+        '<a href =route?routeId='+ data[i].id + '>'
         + data[i].name + "</a>"
         + "</div>");
     }
