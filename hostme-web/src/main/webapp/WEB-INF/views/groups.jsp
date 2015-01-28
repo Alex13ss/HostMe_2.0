@@ -28,16 +28,24 @@
 	<div class="box box-primary">
 
 		<div class="box-header">
-			<h3 class="box-title col-md-10">
+			<div class="box-title col-md-9">
 				<i class="fa fa-fw fa-list-alt"></i> Choose group and have a fun and
 				useful conversations!
-			</h3>
+			</div>
+			<div class="box-title col-md-3" align="right">
+				<button type="button" class="btn btn-primary btn-sm"
+					data-toggle="modal" data-target="#groupModal">
+					<i class="fa fa-fw fa-plus-square-o"></i>
+					<spring:message code="label.addGroup" />
+				</button>
+			</div>
+			<div class="col-md-offset-2">
+				<div class="col-md-9 alert alert-info" align="center">Find
+					minded people and get some conversations! You'll get many useful
+					information here! Have a fun! ;)</div>
+			</div>
 		</div>
 		<!-- /.box-header -->
-
-		<div class="alert alert-info" style="margin-right: 15px;"
-			align="center">Find minded people and get some conversations!
-			You'll get many useful information here! Have a fun! ;)</div>
 
 		<ul class="nav nav-tabs">
 			<li id="all-groups" class="active" onclick="allGroups(this)"><a
@@ -66,7 +74,6 @@
 						<th>Image of group</th>
 						<th>Group name/description</th>
 						<th>Publishing</th>
-						<th>Creator</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -84,19 +91,10 @@
 									<c:if test="${!empty group.lastEditedAt}">
 										<c:out value="Last edited: ${group.lastEditedAt}" />
 									</c:if></td>
-							<td>${group.creatorUser.firstName}
-								${group.creatorUser.lastName}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-
-			<div align="right" style="margin-top: 21px;">
-				<button type="button" class="btn btn-primary btn-md"
-					data-toggle="modal" data-target="#groupModal">Create a new
-					group</button>
-			</div>
-
 		</div>
 		<!-- /.box-body -->
 

@@ -32,10 +32,28 @@
 	<div class="box box-primary">
 
 		<div class="box-header">
-			<h3 class="box-title col-md-9">
+			<div class="box-title col-md-8">
 				<i class="fa fa-fw fa-users"></i>
 				<c:out value="${group.groupName}" />
-			</h3>
+			</div>
+			<div class="box-title col-md-4">
+				<div align="right">
+					<button type="button" class="btn btn-default btn-sm"
+						data-toggle="modal" data-target="#">
+						<i class="fa fa-fw fa-check-square-o"></i>
+						<spring:message code="label.approveGroup" />
+					</button>
+					<button type="button" class="btn btn-default btn-sm"
+						data-toggle="modal" data-target="#groupEditModal">
+						<i class="fa fa-fw fa-edit"></i>
+						<spring:message code="label.editGroup" />
+					</button>
+					<a href="<spring:url value="/group/remove/${group.id}" />"
+						class="btn btn-default btn-sm triggerRemove"><i
+						class="fa fa-fw fa-trash-o"></i> <spring:message
+							code="label.removeGroup" /> </a>
+				</div>
+			</div>
 		</div>
 		<!-- /.box-header -->
 
@@ -56,16 +74,14 @@
 			</c:if>
 
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<div class="panel box box-success">
 						<div class="panel-body">
-							<h4>
-								<span>Funny group image</span>
-							</h4>
+							<img src="resources/images/group-default.jpg">
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<div class="box box-solid bg-light-blue">
 						<div class="box-header">
 							<h3 class="box-title">
@@ -82,40 +98,26 @@
 				<div class="col-md-4">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<div class="panel-title">
-								<div class="row">
-									<div class="col-md-6">
-										<spring:message code="label.groupPubInfo" />
-									</div>
-									<div class="col-md-6">
-										<div align="right">
-											<button type="button" class="btn btn-success btn-xs"
-												data-toggle="modal" data-target="#groupEditModal">Edit</button>
-											<a href="<spring:url value="/group/remove/${group.id}" />"
-												class="btn btn-danger btn-xs triggerRemove"> Del </a>
-										</div>
-									</div>
-								</div>
-							</div>
+							<h3 class="panel-title">
+								<spring:message code="label.groupPubInfo" />
+							</h3>
 						</div>
 						<div class="panel-body">
-							<p>
-								<c:out value="Created at: ${group.createdAt}" />
-								<br>
-								<c:out
-									value="Created by: ${group.creatorUser.firstName} 
+							<c:out value="Created at: ${group.createdAt}" />
+							<br>
+							<c:out
+								value="Created by: ${group.creatorUser.firstName} 
 									${group.creatorUser.lastName}" />
-								<br>
-								<c:if test="${!empty group.lastEditedAt}">
-									<c:out value="Last edited: ${group.lastEditedAt}" />
-								</c:if>
-								<br>
-								<c:if test="${!empty group.lastEditor}">
-									<c:out
-										value="Last editor: ${group.lastEditor.firstName} 
+							<br>
+							<c:if test="${!empty group.lastEditedAt}">
+								<c:out value="Last edited: ${group.lastEditedAt}" />
+							</c:if>
+							<br>
+							<c:if test="${!empty group.lastEditor}">
+								<c:out
+									value="Last editor: ${group.lastEditor.firstName} 
 									${group.lastEditor.lastName}" />
-								</c:if>
-							</p>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -135,12 +137,12 @@
 						</div>
 						<div class="modal-body">
 							<div class="callout callout-danger" id="alert" align="center">
-								<font size="5">Are you sure you want to destroy this
-									group???</font>
+								<font size="5">Are you sure you want to remove this
+									group?</font>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<a href="" class="btn btn-danger removeBtn">Remove</a>
+							<a href="" class="btn btn-primary removeBtn">Remove</a>
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Cancel</button>
 						</div>
@@ -219,7 +221,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-success"
+					<input type="submit" class="btn btn-primary"
 						value="Finish editing!" />
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>

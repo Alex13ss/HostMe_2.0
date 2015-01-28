@@ -14,7 +14,7 @@
 		<hibernateVersion>4.3.6.Final</hibernateVersion>
 		<jacsonVersion>2.4.2</jacsonVersion>
 		<springDataJpaVersion>1.7.1.RELEASE</springDataJpaVersion>
-		<jdbc.password>11071990</jdbc.password>
+		<jdbc.password>hostme</jdbc.password>
 	</properties>
 
 	<build>
@@ -35,7 +35,7 @@
 				<configuration>
 					<driver>org.postgresql.Driver</driver>
 					<url>jdbc:postgresql://localhost:5432/hostme</url>
-					<username>postgres</username>
+					<username>hostme</username>
 					<password>${jdbc.password}</password>
 					<autocommit>true</autocommit>
 					<onError>continue</onError>

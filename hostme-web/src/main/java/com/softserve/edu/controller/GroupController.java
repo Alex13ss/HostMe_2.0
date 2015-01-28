@@ -1,11 +1,10 @@
-package com.softserve.edu.controller.groups;
+package com.softserve.edu.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,7 +13,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,7 +24,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.model.Group;
-import com.softserve.edu.model.User;
 import com.softserve.edu.service.ConversationService;
 import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.ProfileService;
@@ -116,13 +113,6 @@ public class GroupController {
         SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(
                 dateFormat, true));
-    }
-
-    @InitBinder
-    protected void initBinder(HttpServletRequest request,
-            ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(User.class,
-                new UserEditor(this.userService));
     }
 
 }
