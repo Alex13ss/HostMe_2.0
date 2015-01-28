@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,7 @@
 								<strong>${event.name}</strong>
 							</h4>
 						</div>
+
 					</div>
 					<div class="col-md-4" style="padding-left: 0em;">
 						<div class="panel box box-warning col-md-12"
@@ -105,8 +107,16 @@
 						</div>
 					</div>
 					<div class="col-md-5">
-						<div class="row col-md-12" style="padding-top: 3em;">
-
+						<div>
+							<a href="event/delete/${event.id}" id="editbutton"><i
+								class="fa fa-fw fa-trash-o"></i> <spring:message
+									code="label.delete" /> </a> <a type="button" data-toggle="modal"
+								data-target="#eventEdit" id="editbutton"> <i
+								class="fa fa-fw fa-pencil"></i> <spring:message
+									code="label.edit" />
+							</a>
+						</div>
+						<div class="row col-md-12">
 							<div class="callout callout-danger">
 								<h4>
 									<spring:message code="label.description" />
@@ -124,7 +134,15 @@
 									<spring:message code="label.attendees" />
 									:
 								</h4>
-								<p>${event.attendee}</p>
+								<c:set var="leng" value="${fn:length(event.attendee)}" />
+								<c:forEach var="attendee" items="${event.attendee}"
+									varStatus="counter">
+									<c:out value="${attendee.firstName} ${attendee.lastName}"></c:out>
+									<c:if test="${counter.count lt leng}">
+										<c:out value=","></c:out>
+									</c:if>
+
+								</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -132,15 +150,9 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div style="margin-top: 20px;">
-							<a type="button" data-toggle="modal" data-target="#eventEdit">
-								 <i class="fa fa-fw fa-pencil"></i> <spring:message
-									code="label.edit" />
-							</a> 
-							<a href="event/delete/${event.id}"><i
-								class="fa fa-fw fa-trash-o"></i> <spring:message
-									code="label.delete" /> </a> <a href=""
-								class="btn btn-primary button" id="leftButtonPosition"> <i
-								class="fa fa-plus"></i> <spring:message code="label.addRoutes" />
+							<a href="" class="btn btn-primary button" id="leftButtonPosition">
+								<i class="fa fa-plus"></i> <spring:message
+									code="label.addRoutes" />
 							</a>
 
 						</div>
@@ -232,8 +244,8 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="description" class="col-sm-2 control-label"> <spring:message
-									code="label.description" />:
+							<label for="description" class="col-sm-2 control-label">
+								<spring:message code="label.description" />:
 							</label>
 							<div class="col-sm-10">
 								<form:textarea id="group-dscrptn-textarea" path="description"

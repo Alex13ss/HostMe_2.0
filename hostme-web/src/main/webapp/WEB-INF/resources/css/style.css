@@ -3924,4 +3924,8 @@ a#textColor {
 #leftButtonPosition{
 	float:right;
 }
+#editbutton{
+	float:right;
+	margin-bottom: 20px;
+	
 }

@@ -153,6 +153,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
+    @JsonIgnore
     @JoinTable(name = "user_place", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Place> attendee;
 
