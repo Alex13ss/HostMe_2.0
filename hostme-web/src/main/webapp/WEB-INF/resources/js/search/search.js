@@ -95,7 +95,7 @@ function inputLength(input, $underSearch) {
 
 function initSearchType(){
     $.ajax({
-        url: "/searchType",
+        url: "searchType",
         dataType: "json",
         success: function(searchTypes) {
             for (var i = 0; i < searchTypes.length; i++) {
