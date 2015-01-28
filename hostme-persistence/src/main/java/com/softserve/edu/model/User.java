@@ -148,6 +148,7 @@ public class User {
     private Set<Place> places;
 
     @OneToMany
+    @JsonIgnore
     private Set<Place> bookedPlaces;
 
     @ManyToMany(fetch = FetchType.EAGER)

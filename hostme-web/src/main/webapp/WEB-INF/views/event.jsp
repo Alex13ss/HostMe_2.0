@@ -135,7 +135,8 @@
 							<a type="button" data-toggle="modal" data-target="#eventEdit">
 								 <i class="fa fa-fw fa-pencil"></i> <spring:message
 									code="label.edit" />
-							</a> <a href="event/delete/${event.id}"><i
+							</a> 
+							<a href="event/delete/${event.id}"><i
 								class="fa fa-fw fa-trash-o"></i> <spring:message
 									code="label.delete" /> </a> <a href=""
 								class="btn btn-primary button" id="leftButtonPosition"> <i
