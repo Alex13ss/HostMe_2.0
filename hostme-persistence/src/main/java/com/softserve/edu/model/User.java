@@ -432,6 +432,50 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) return false;
+        if (city != null ? !city.equals(user.city) : user.city != null) return false;
+        if (country != null ? !country.equals(user.country) : user.country != null) return false;
+        if (description != null ? !description.equals(user.description) : user.description != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (gender != user.gender) return false;
+        if (hobby != null ? !hobby.equals(user.hobby) : user.hobby != null) return false;
+        if (!lastName.equals(user.lastName)) return false;
+        if (!login.equals(user.login)) return false;
+        if (region != null ? !region.equals(user.region) : user.region != null) return false;
+        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+        if (!userId.equals(user.userId)) return false;
+        if (userState != user.userState) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userId.hashCode();
+        result = 31 * result + login.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + gender.hashCode();
+        result = 31 * result + (userState != null ? userState.hashCode() : 0);
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (hobby != null ? hobby.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (region != null ? region.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "User [userId=" + userId + ", login=" + login + ", password="
                 + password + ", firstName=" + firstName + ", lastName="

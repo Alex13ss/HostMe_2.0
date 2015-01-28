@@ -15,11 +15,18 @@
     <h1>
         <spring:message code="routes.routeInfo"/>
     </h1>
+    <c:if test="${route.user == currentUser}">
+        <a href="<c:url value='routeEdit?routeId=${route.id}'/>"
+           class="btn btn-primary button">
+            Edit
+        </a>
+    </c:if>
 </section>
 
 <section class="content">
     <div class="box box-primary">
         <div class="container-fluid">
+
             <div class="col-lg-4">
                 <h4>
                     <spring:message code="label.name"/>
@@ -66,7 +73,6 @@
                 </a>
                 <br>
                 <div id="originAddress">${origin.address}</div>
-                <br>
                 ${origin.description}
                 <br>
                 PRICE
@@ -80,7 +86,6 @@
                 </a>
                 <br>
                 <div id="destinationAddress">${destination.address}</div>
-                <br>
                 ${destination.description}
                 <br>
                 PRICE

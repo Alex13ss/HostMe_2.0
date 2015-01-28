@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
    addOrigin = $("#originAddress").text();
    addDestination = $("#destinationAddress").text();
    var addresses = $(".waypointAddress");

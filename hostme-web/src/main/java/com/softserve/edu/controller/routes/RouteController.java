@@ -3,6 +3,7 @@ package com.softserve.edu.controller.routes;
 import com.softserve.edu.dto.PlaceDto;
 import com.softserve.edu.dto.RouteDto;
 import com.softserve.edu.model.routes.Route;
+import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.routes.PlaceService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class RouteController {
     @Autowired
     private PlaceService placeService;
 
+    @Autowired
+    private ProfileService profileService;
+
     @RequestMapping(value = "/route")
     public String showRoute(@RequestParam(value = "routeId") int routeId, Model model) {
         Route route = routesService.findRoute(routeId);
@@ -30,6 +34,7 @@ public class RouteController {
         model.addAttribute("origin", routesService.getRouteOrigin(route));
         model.addAttribute("destination", routesService.getRouteDestination(route));
         model.addAttribute("waypoints", routesService.getRouteWaypoints(route));
+        model.addAttribute("currentUser", profileService.getCurrentUser());
         return "showRoute";
     }
 
