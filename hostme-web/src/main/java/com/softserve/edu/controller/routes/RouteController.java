@@ -8,6 +8,7 @@ import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,16 @@ public class RouteController {
 
     @Autowired
     private PlaceService placeService;
+
+    @RequestMapping(value = "/route")
+    public String showRoute(@RequestParam(value = "routeId") int routeId, Model model) {
+        Route route = routesService.findRoute(routeId);
+        model.addAttribute("route", route);
+        model.addAttribute("origin", routesService.getRouteOrigin(route));
+        model.addAttribute("destination", routesService.getRouteDestination(route));
+        model.addAttribute("waypoints", routesService.getRouteWaypoints(route));
+        return "showRoute";
+    }
 
     @RequestMapping(value = "/createRoute", method = RequestMethod.GET)
     public String createRoute() {

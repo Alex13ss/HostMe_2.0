@@ -7,17 +7,13 @@ import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.repositories.routes.RouteRepository;
-import com.softserve.edu.service.LoginService;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RoutesServiceImp implements RoutesService{
@@ -36,13 +32,42 @@ public class RoutesServiceImp implements RoutesService{
         routeRepository.save(route);
     }
 
+    public Route findRoute(int id) {
+        return routeRepository.findOne(id);
+    }
+
+    @Override
+    public Place getRouteOrigin(Route route) {
+        final int ORIGIN = 0;
+        return route.getPlaces().get(ORIGIN);
+    }
+
+    @Override
+    public Place getRouteDestination(Route route) {
+        final int DESTINATION = 1;
+        return route.getPlaces().get(DESTINATION);
+    }
+
+    @Override
+    public List<Place> getRouteWaypoints(Route route) {
+        final int HAVE_WAYPOINTS = 2;
+        if (route.getPlaces().size() < HAVE_WAYPOINTS) {
+            return null;
+        }
+        List<Place> result = new ArrayList<>();
+        for (int i = 2; i < route.getPlaces().size(); i++) {
+            result.add(route.getPlaces().get(i));
+        }
+        return result;
+    }
+
     public void addRoute(RouteDto routeDto) {
         Route route = new Route();
         User user = getCurrentUser();
         route.setUser(user);
         route.setName(routeDto.getName());
         route.setDescription(routeDto.getDescription());
-        Set<Place> places = new HashSet<>();
+        List<Place> places = new ArrayList<>();
         places.add(placeRepository.findOne(Integer.parseInt(routeDto.getOriginId())));
         places.add(placeRepository.findOne(Integer.parseInt(routeDto.getDestinationId())));
         for (String idPlace : routeDto.getWaypointsId()) {

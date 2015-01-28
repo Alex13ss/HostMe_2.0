@@ -24,6 +24,8 @@ public class PlaceController {
     public String showPlace(@RequestParam(value = "placeId") int placeId) {
         if (sightseeingService.haveSight(placeId)) {
             return "redirect:sightseeing?id=" + placeId;
+        } else if (eventService.haveEvent(placeId)) {
+            return "redirect:event?id=" + placeId;
         }
         return "redirect:profile";
     }

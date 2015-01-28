@@ -3,6 +3,7 @@ package com.softserve.edu.model.routes;
 import com.softserve.edu.model.User;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,7 +27,7 @@ public class Route {
     @JoinTable(name = "routes_places",
         joinColumns = {@JoinColumn(name = "route_id")},
         inverseJoinColumns = {@JoinColumn(name = "place_id")})
-    private Set<Place> places;
+    private List<Place> places;
 
     public int getId() {
         return id;
@@ -60,11 +61,11 @@ public class Route {
         this.user = user;
     }
 
-    public Set<Place> getPlaces() {
+    public List<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(Set<Place> places) {
+    public void setPlaces(List<Place> places) {
         this.places = places;
     }
 

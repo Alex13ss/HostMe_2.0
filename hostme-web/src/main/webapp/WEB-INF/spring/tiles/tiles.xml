@@ -26,6 +26,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/routes/editRoute.jsp" />
 	</definition>
 
+
+	<definition name="showRoute" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/routes/showRoute.jsp" />
+	</definition>
+
 	<definition name="usersManager" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/views/admin/usersManager.jsp" />
 	</definition>

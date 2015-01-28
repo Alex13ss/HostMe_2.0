@@ -40,4 +40,9 @@ public class MegaSearchController {
         }
         return null;
     }
+
+    @RequestMapping(value = "/searchType")
+    public @ResponseBody SearchTypes[] setSearchTypes(){
+        return SearchTypes.values();
+    }
 }

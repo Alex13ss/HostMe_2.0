@@ -5,18 +5,23 @@ var searchValue = {
 var timer;
 var $underSearch;
 var $search;
-var $type;
+var $searchType;
+var $resultName;
+var $test;
 $(document).ready(function() {
     $search = $("#search");
     $underSearch = $("#searchReq");
-    $type= $("#type");
+    $resultName = $("#searchResult > #name");
+    $test = $("#searchResult > #secondName");
+    $searchType= $("#searchType");
+    initSearchType();
     $search.keypress(function() {
         if (inputLength($search, $underSearch)) {
             clearTimeout(timer);
             timer = setTimeout(search,1000);
         }
     });
-    $type.change(function() {
+    $searchType.change(function() {
         if (inputLength($search, $underSearch)) {
             search();
         }
@@ -25,9 +30,10 @@ $(document).ready(function() {
 
 function search() {
     searchValue.request = $search.val();
-    searchValue.type = $type.val();
+    searchValue.type = $searchType.val();
     $.ajax({
         url: "superMegaSearch",
+
         type: "POST",
         data: JSON.stringify(searchValue),
         dataType: "json",
@@ -39,18 +45,42 @@ function search() {
             if (result.length == 0) {
                 $underSearch.html("Nothing found!");
             } else {
-                fillData(result);
+                detectData(result);
             }
         }
     });
 }
 
-function fillData(data) {
+function detectData(data) {
+    if ($searchType.val() == "USER") {
+        fillUserData(data)
+    } else if ($searchType.val() == "ROUTE") {
+        fillRouteData(data)
+    } else {
+        for (var i = 0; i < data.length; i++) {
+            $underSearch.append("<div>" +
+            '<a href = ' + data[i].link + '>'
+            + data[i].name + "</a>"
+            + "</div>");
+        }
+    }
+}
+
+function fillUserData(data) {
     for (var i = 0; i < data.length; i++) {
-        $underSearch.append("<div class='dragPlace'>" +
+        $underSearch.append("<div>" +
+        '<a href = hoster?hosterId=' + data[i].id+'>'
+        + data[i].name + "</a>"
+        + "</div>");
+    }
+}
+
+function fillRouteData(data) {
+    for (var i = 0; i < data.length; i++) {
+        $underSearch.append("<div>" +
         '<a href = ' + data[i].link + '>'
         + data[i].name + "</a>"
-        + "</div>")
+        + "</div>");
     }
 }
 
@@ -61,4 +91,16 @@ function inputLength(input, $underSearch) {
         $underSearch.html("Loading");
         return true;
     }
+}
+
+function initSearchType(){
+    $.ajax({
+        url: "/searchType",
+        dataType: "json",
+        success: function(searchTypes) {
+            for (var i = 0; i < searchTypes.length; i++) {
+                $searchType.append("<option value=" + searchTypes[i] + ">" + searchTypes[i] + "</option>");
+            }
+        }
+    })
 }

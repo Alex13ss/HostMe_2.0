@@ -239,7 +239,11 @@
                                     </tr>
                                     <c:forEach var="route" items="${user.routes}">
                                         <tr>
-                                            <td>${route.name}</td>
+                                            <td>
+                                                <a href=<c:url value="/route?routeId=${route.id}"/>>
+                                                    ${route.name}
+                                                </a>
+                                            </td>
                                             <td>${route.description}</td>
                                             <td width="200px">
                                                 <a class="text-green" href=<c:url value="/routeEdit?routeId=${route.id}"/>>
