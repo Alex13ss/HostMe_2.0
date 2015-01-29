@@ -2,6 +2,7 @@ package com.softserve.edu.dto;
 
 import java.util.Date;
 import java.util.Set;
+
 import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Image;
@@ -34,19 +35,6 @@ public class GroupDto {
         this.conversations = group.getConversations();
         this.creatorFNandLN = group.getCreatorUser().getFirstName() + " "
                 + group.getCreatorUser().getLastName();
-        this.users = group.getUsers();
-        this.tags = group.getTags();
-    }
-
-    public GroupDto(Group group, User user) {
-        this.id = group.getId();
-        this.groupName = group.getGroupName();
-        this.groupDescription = group.getGroupDescription();
-        this.createdAt = group.getCreatedAt();
-        this.lastEditedAt = group.getLastEditedAt();
-        this.images = group.getImages();
-        this.conversations = group.getConversations();
-        this.creatorFNandLN = user.getFirstName() + " " + user.getLastName();
         this.users = group.getUsers();
         this.tags = group.getTags();
     }

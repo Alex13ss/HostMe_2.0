@@ -4,10 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -20,9 +18,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.ConversationDto;
+import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.service.ConversationService;
 import com.softserve.edu.service.GroupService;
@@ -77,9 +77,15 @@ public class GroupController {
 
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
     public String groupCreationShow(Model model) {
-        Set<Group> groups = groupService.findAll();
+        Set<GroupDto> groups = groupService.findAll();
         model.addAttribute("groups", groups);
         return "groups";
+    }
+
+    @RequestMapping(value = "/all-groups", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Set<GroupDto> findAll() {
+        Set<GroupDto> groups = groupService.findAll();
+        return groups;
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)

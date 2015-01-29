@@ -3,3 +3,15 @@
 	resize: vertical;
 	max-height: 255px;
 }
+
+.modal {
+	padding-top: 5%;
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: rgba(222, 222, 222, .8) 50% 50%
+}

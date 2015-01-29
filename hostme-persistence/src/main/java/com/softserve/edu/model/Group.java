@@ -59,13 +59,13 @@ public class Group {
     /**
      * Contains images uploaded by this group
      */
-    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
     private Set<Image> images;
 
     /**
      * Contains conversations created in this group
      */
-    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Conversation> conversations;
 
     @ManyToOne
@@ -79,7 +79,7 @@ public class Group {
     /**
      * Contains list of users which have conversations in this group
      */
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
     private Set<User> users;
 
     /**

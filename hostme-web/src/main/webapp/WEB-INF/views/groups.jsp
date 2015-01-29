@@ -12,6 +12,14 @@
 <script type="text/javascript" src="resources/js/group.js"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/groups.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/dataTables.bootstrap.css" />
+<script type="text/javascript" src="resources/js/jquery.dataTables.js"></script>
+<script type="text/javascript"
+	src="resources/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="resources/js/fnAjaxReload.js"></script>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>Groups</title>
 
@@ -32,6 +40,7 @@
 				<i class="fa fa-fw fa-list-alt"></i> Choose group and have a fun and
 				useful conversations!
 			</div>
+
 			<div class="box-title col-md-3" align="right">
 				<button type="button" class="btn btn-primary btn-sm"
 					data-toggle="modal" data-target="#groupModal">
@@ -39,6 +48,13 @@
 					<spring:message code="label.addGroup" />
 				</button>
 			</div>
+			<c:if test="${groupNotCreated eq true}">
+				<div class="box-title col-md-12 alert alert-danger"
+					style="margin-bottom: 13px;" align="center">
+					<h3>Oops... Wrong input data! Your group is NOT created.
+						Please try again!</h3>
+				</div>
+			</c:if>
 			<div class="col-md-offset-2">
 				<div class="col-md-9 alert alert-info" align="center">Find
 					minded people and get some conversations! You'll get many useful
@@ -58,17 +74,8 @@
 						code="label.interestingGroups" /></a></li>
 		</ul>
 
-		<div class="box-body ">
-
-			<c:if test="${groupNotCreated eq true}">
-				<div class="alert alert-danger" style="margin-right: 15px;"
-					align="center">
-					<h3>Oops... Wrong input data! Your group is NOT created.
-						Please try again!</h3>
-				</div>
-			</c:if>
-
-			<table class="table table-bordered table-hover table-striped">
+		<div class="box-body table-responsive">
+			<table id="groups-table" class="table table-bordered table-hover">
 				<thead>
 					<tr>
 						<th>Image of group</th>
@@ -76,24 +83,6 @@
 						<th>Publishing</th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:forEach items="${groups}" var="group">
-						<tr>
-							<td style="width: 150px;"><img
-								src="resources/images/group-default.jpg"></td>
-							<td><c:url var="groupUrl" value="/group">
-									<c:param name="id" value="${group.id}" />
-								</c:url><a href="<c:out value="${groupUrl}"/>"><strong> <c:out
-											value="${group.groupName}" /></strong></a><br /> <c:out
-									value="${group.groupDescription}" /></td>
-							<td><c:out value="Created: ${group.createdAt}" />
-								<p>
-									<c:if test="${!empty group.lastEditedAt}">
-										<c:out value="Last edited: ${group.lastEditedAt}" />
-									</c:if></td>
-						</tr>
-					</c:forEach>
-				</tbody>
 			</table>
 		</div>
 		<!-- /.box-body -->

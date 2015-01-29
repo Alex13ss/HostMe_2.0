@@ -2,7 +2,6 @@ package com.softserve.edu.service.implementation;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -10,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.repositories.GroupRepository;
 import com.softserve.edu.service.GroupService;
@@ -26,10 +26,12 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public Set<Group> findAll() {
-        List<Group> list = (List<Group>) groupRepository.findAll();
-        Set<Group> items = new HashSet<Group>(list);
-        return items;
+    public Set<GroupDto> findAll() {
+        Set<GroupDto> list = new HashSet<GroupDto>();
+        for (Group group : groupRepository.findAll()) {
+            list.add(new GroupDto(group));
+        }
+        return list;
     }
 
     @Override
