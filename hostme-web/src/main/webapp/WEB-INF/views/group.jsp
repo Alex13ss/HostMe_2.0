@@ -40,8 +40,9 @@
 				<div align="right">
 					<button type="button" class="btn btn-default btn-sm"
 						data-toggle="modal" data-target="#">
-						<i class="fa fa-fw fa-check-square-o"></i>
+						<i class="fa fa-fw fa-gear"></i>
 						<spring:message code="label.approveGroup" />
+						<i class="fa fa-caret-down"></i>
 					</button>
 					<button type="button" class="btn btn-default btn-sm"
 						data-toggle="modal" data-target="#groupEditModal">
