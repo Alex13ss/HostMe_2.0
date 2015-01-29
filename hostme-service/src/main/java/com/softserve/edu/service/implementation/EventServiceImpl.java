@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +40,7 @@ public class EventServiceImpl implements EventService {
 	CityRepository cityRepository;
 	@Autowired
 	CountryRepository countryRepository;
-	
+
 	public boolean haveEvent(int id) {
 		return eventRepository.exists(id);
 	}
@@ -68,11 +70,23 @@ public class EventServiceImpl implements EventService {
 	@Transactional
 	public List<EventDto> getAllEvents() {
 		List<EventDto> list = new ArrayList<EventDto>();
-		for (Event event : eventRepository.findAll()) {
+		for (Event event : eventRepository.findAll(new PageRequest(1, 20))) {
 			list.add(new EventDto(event, placeRepository.findOne(event.getId())));
 		}
 		return list;
 	}
+//	@Override
+//	@Transactional
+//	public List<EventDto> getAllEvents(Integer pageNumber) {
+//		final int PAGE_SIZE = 50;
+//		PageRequest pageRequest = new PageRequest(pageNumber, PAGE_SIZE);
+//		
+//		List<EventDto> list = new ArrayList<EventDto>();
+//		for (Event event : eventRepository.findAll(pageRequest)) {
+//			list.add(new EventDto(event, placeRepository.findOne(event.getId())));
+//		}
+//		return list;
+//	}
 
 	@Override
 	@Transactional
@@ -173,7 +187,8 @@ public class EventServiceImpl implements EventService {
 	@Override
 	@Transactional
 	public void updateEvent(Event event, String city, String priceCategory) {
-		Integer pcId = priceCategoryRepository.findByPriceCategory(priceCategory).getPriceCategoryId();
+		Integer pcId = priceCategoryRepository.findByPriceCategory(
+				priceCategory).getPriceCategoryId();
 		Integer cityId = cityRepository.findByCity(city).getCityId();
 		event.setPriceCategory(priceCategoryRepository.findOne(pcId));
 		event.setCity(cityRepository.findOne(cityId));

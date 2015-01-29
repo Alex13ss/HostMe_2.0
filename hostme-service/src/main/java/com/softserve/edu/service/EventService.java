@@ -3,6 +3,8 @@ package com.softserve.edu.service;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
@@ -42,4 +44,5 @@ public interface EventService {
 	public Event convertEventDtoToEvent(EventDto eventDto);
 	
 	public void updateEvent(Event event, String city, String priceCategory);
+	//public Page<EventDto> getAllEvents(Integer pageNumber);
 }

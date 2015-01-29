@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -78,6 +79,21 @@ public class EventContoller {
 		List<EventDto> events = eventService.getAllEvents();
 		return events;
 	}
+	
+//	@RequestMapping(value = "/all-events/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
+//	public String getAllEvents(@PathVariable Integer pageNumber, Model model) {
+//		Page<EventDto> events = eventService.getAllEvents(pageNumber);
+//		
+//		int current = events.getNumber() + 1;
+//	    int begin = Math.max(1, current - 5);
+//	    int end = Math.min(begin + 10, events.getTotalPages());
+//
+//	    model.addAttribute("all_events", events);
+//	    model.addAttribute("beginIndex", begin);
+//	    model.addAttribute("endIndex", end);
+//	    model.addAttribute("currentIndex", current);
+//		return all_events;
+//	}
 
 	@RequestMapping(value = "/my-events", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<EventDto> getMyEvents() {
