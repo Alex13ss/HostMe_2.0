@@ -3,11 +3,9 @@ package com.softserve.edu.dto;
 import java.util.Date;
 import java.util.Set;
 
-import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Image;
 import com.softserve.edu.model.Tag;
-import com.softserve.edu.model.User;
 
 public class GroupDto {
 
@@ -17,9 +15,7 @@ public class GroupDto {
     private Date createdAt;
     private Date lastEditedAt;
     private Set<Image> images;
-    private Set<Conversation> conversations;
     private String creatorFNandLN;
-    private Set<User> users;
     private Set<Tag> tags;
 
     public GroupDto() {
@@ -32,10 +28,8 @@ public class GroupDto {
         this.createdAt = group.getCreatedAt();
         this.lastEditedAt = group.getLastEditedAt();
         this.images = group.getImages();
-        this.conversations = group.getConversations();
         this.creatorFNandLN = group.getCreatorUser().getFirstName() + " "
                 + group.getCreatorUser().getLastName();
-        this.users = group.getUsers();
         this.tags = group.getTags();
     }
 
@@ -87,28 +81,12 @@ public class GroupDto {
         this.images = images;
     }
 
-    public Set<Conversation> getConversations() {
-        return conversations;
-    }
-
-    public void setConversations(Set<Conversation> conversations) {
-        this.conversations = conversations;
-    }
-
     public String getCreatorFNandLN() {
         return creatorFNandLN;
     }
 
     public void setCreatorFNandLN(String creatorFNandLN) {
         this.creatorFNandLN = creatorFNandLN;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public Set<Tag> getTags() {

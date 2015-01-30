@@ -65,7 +65,7 @@ public class Group {
     /**
      * Contains conversations created in this group
      */
-    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Conversation> conversations;
 
     @ManyToOne
@@ -79,7 +79,7 @@ public class Group {
     /**
      * Contains list of users which have conversations in this group
      */
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
     private Set<User> users;
 
     /**

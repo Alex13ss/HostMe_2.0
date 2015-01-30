@@ -170,14 +170,9 @@ $(document)
 										"bServerSide" : false,
 										"sAjaxSource" : "all-groups",
 										"aoColumns" : [
-										               	{
-										             	"mData" : "creatorFNandLN",
-										             "mRender" : function(data,
-										          		type, full) {
-										           			return 
-										           		data.creatorFNandLN
-										          		}
-										               	},
+												{
+													"mData" : "creatorFNandLN",
+												},
 												{
 													"mData" : function(data,
 															type, full) {
@@ -195,8 +190,7 @@ $(document)
 													"mRender" : function(data,
 															type, full) {
 														return new Date(data)
-																.toLocaleString()
-																.split(" ")[0];
+																.toLocaleString();
 													}
 												} ]
 									});

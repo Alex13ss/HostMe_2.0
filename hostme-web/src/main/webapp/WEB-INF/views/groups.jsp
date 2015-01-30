@@ -105,7 +105,6 @@
 					<h4 class="modal-title" id="myModalLabel">Create a new group</h4>
 				</div>
 				<div class="modal-body">
-
 					<div class="form-group">
 						<label for="groupName" class="col-sm-2 control-label">
 							Name: </label>
@@ -114,7 +113,6 @@
 							<form:errors path="groupName" />
 						</div>
 					</div>
-
 					<div class="form-group">
 						<label for="groupDescription" class="col-sm-2 control-label">
 							Description: </label>
@@ -124,7 +122,6 @@
 							<form:errors path="groupDescription" />
 						</div>
 					</div>
-
 				</div>
 				<div class="modal-footer">
 					<input type="submit" class="btn btn-primary" value="Create one!" />

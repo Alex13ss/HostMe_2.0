@@ -4,10 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.ConversationService;
 import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.ProfileService;
@@ -85,6 +89,14 @@ public class GroupController {
     @RequestMapping(value = "/all-groups", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Set<GroupDto> findAll() {
         Set<GroupDto> groups = groupService.findAll();
+        return groups;
+    }
+
+    @RequestMapping(value = "/my-groups", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Set<GroupDto> getMyGroups() {
+        User user = profileService.getUserByLogin(SecurityContextHolder
+                .getContext().getAuthentication().getName());
+        Set<GroupDto> groups = groupService.getGroupByCreator(user);
         return groups;
     }
 
