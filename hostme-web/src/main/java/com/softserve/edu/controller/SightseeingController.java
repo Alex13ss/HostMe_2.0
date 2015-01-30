@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,9 +24,11 @@ import com.softserve.edu.model.Country;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.SightseeingType;
+import com.softserve.edu.model.User;
 import com.softserve.edu.service.CityService;
 import com.softserve.edu.service.CountryService;
 import com.softserve.edu.service.PriceCategoryService;
+import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.SightseeingService;
 
 @Controller
@@ -39,7 +42,9 @@ public class SightseeingController {
 	private CityService cityService;
 	@Autowired
 	private PriceCategoryService priceCategoryService;
-
+	@Autowired
+	private ProfileService profileService;
+	
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.GET)
 	public String showSightseeings(Model model) {
 		List<SightseeingDto> sightseeings = sightseeingService
@@ -83,14 +88,11 @@ public class SightseeingController {
 		return sightseeings;
 	}
 
-	// @RequestMapping(value = "/favourite-sightseeings", method =
-	// RequestMethod.GET,
-	// produces = "application/json")
-	// public @ResponseBody List<SightseeingDto> getFavouriteSightseeings() {
-	// List<SightseeingDto> sightseeings = sightseeingService
-	// .getAllSightseeings();
-	// return sightseeings;
-	// }
+	@RequestMapping(value = "/favourite-sightseeings", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<SightseeingDto> getFavouriteSightseeings() {
+		User liker = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+		return sightseeingService.getFavouriteSightseeings(liker);
+	}
 
 	@RequestMapping(value = "/sightseeing", method = RequestMethod.GET)
 	public String showSightseeing(@RequestParam("id") int id, Model model) {
@@ -128,4 +130,13 @@ public class SightseeingController {
 		return "redirect:/sightseeings";
 	}
 
+	@RequestMapping("/addToFavourite/{id}")
+	public String addToFavourite(@PathVariable("id") Integer id) {
+		Sightseeing sightseeing = sightseeingService.findOne(id);
+		User user = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+		sightseeingService.saveLikerforSightseing(user, sightseeing);
+		return "redirect:/sightseeing?id={id}";
+	}
+	
+	
 }

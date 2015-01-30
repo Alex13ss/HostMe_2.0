@@ -11,10 +11,10 @@
 <title><spring:message code="label.sightseeing" />:
 	${sightseeing.name}</title>
 </head>
-<body class="skin-blue  pace-done" style="min-height: 1293px;">
+<body class="skin-blue pace-done">
 	<section class="content-header">
 	<h1>
-		<spring:message code="label.sightseeing" />
+		<strong>${sightseeing.name}</strong>
 	</h1>
 	</section>
 	<!-- Main content -->
@@ -22,82 +22,84 @@
 
 	<div>
 		<div class="box box-primary">
+			<div class="box-header">
+				<div class="box-title col-md-6"></div>
+
+				<div class="box-title col-md-6">
+					<div align="right">
+						<button type="button" class="btn btn-default btn-sm"
+							data-toggle="modal" data-target="#">
+							<i class="fa fa-fw fa-gear"></i>
+							<spring:message code="label.changeStatus" />
+							<i class="fa fa-caret-down"></i>
+						</button>
+						<button type="button" class="btn btn-default btn-sm"
+							data-toggle="modal" data-target="#sightseeingEdit">
+							<i class="fa fa-fw fa-edit"></i>
+							<spring:message code="label.editSightseeing" />
+						</button>
+						<a
+							href="<spring:url value="sightseeing/delete/${sightseeing.id}" />"
+							class="btn btn-default btn-sm triggerRemove"><i
+							class="fa fa-fw fa-trash-o"></i> <spring:message
+								code="label.delete" /> </a>
+					</div>
+				</div>
+			</div>
 
 			<div class="box-body">
-				<div class="row">
-					<div class="row col-md-12"></div>
-					<div class="col-md-4">
-						<div class="box-header">
-							<h3 class="box-title"></h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<div class="row col-md-12" style="padding-bottom: 5px">
-								<h4>
-									<strong>${sightseeing.name}</strong>
-								</h4>
-								<c:forEach var="image" items="${sightseeing.image}">
-									<a href="${image.link}" data-lightbox="images"> <img
-										src="${image.link}" />
-									</a>
-								</c:forEach>
-							</div>
+				<div class="col-md-4">
+					<div class="panel-body">
+						<c:forEach var="image" items="${sightseeing.image}">
+							<a href="${image.link}" data-lightbox="images"> <img
+								src="${image.link}" />
+							</a>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box-body">
+						<div class="callout callout-info">
+							<h4>
+								<spring:message code="label.country" />
+							</h4>
+							<p>${sightseeing.city.country.country}</p>
+							<h4>
+								<spring:message code="label.city" />
+							</h4>
+							<p>${sightseeing.city.city}</p>
+							<h4>
+								<spring:message code="label.address" />
+							</h4>
+							<p>${sightseeing.address}</p>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="box-header">
-							<h3 class="box-title"></h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<div class="callout callout-info">
-								<h4>
-									<spring:message code="label.country" />
-								</h4>
-								<p>${sightseeing.city.country.country}</p>
-								<h4>
-									<spring:message code="label.city" />
-								</h4>
-								<p>${sightseeing.city.city}</p>
-								<h4>
-									<spring:message code="label.address" />
-								</h4>
-								<p>${sightseeing.address}</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="box-header">
-							<h3 class="box-title"></h3>
-						</div>
-						<div class="box-body">
-							<div class="callout callout-info">
-								<h4>
-									<spring:message code="label.sightseeingType" />
-								</h4>
-								<p>${sightseeing.sightseeingType}</p>
-								<h4>
-									<spring:message code="label.priceCategory" />
-								</h4>
-								<p>${sightseeing.priceCategory.priceCategory}</p>
-								<h4>
-									<spring:message code="label.website" />
-								</h4>
-								<p>
-									<a href="${sightseeing.website}">${sightseeing.website}</a>
-								</p>
-							</div>
+				</div>
+				<div class="col-md-4">
+					<div class="box-body">
+						<div class="callout callout-info">
+							<h4>
+								<spring:message code="label.sightseeingType" />
+							</h4>
+							<p>${sightseeing.sightseeingType}</p>
+							<h4>
+								<spring:message code="label.priceCategory" />
+							</h4>
+							<p>${sightseeing.priceCategory.priceCategory}</p>
+							<h4>
+								<spring:message code="label.website" />
+							</h4>
+							<p>
+								<a href="${sightseeing.website}">${sightseeing.website}</a>
+							</p>
 						</div>
 					</div>
 				</div>
 				<div>
-					<a href="sightseeing/delete/${sightseeing.id}"><i
-						class="fa fa-fw fa-trash-o"></i> <spring:message
-							code="label.delete" /> </a> <a> <i class="fa fa-fw fa-pencil"
-						button type="button" class="btn btn-success btn-md"
-						data-toggle="modal" data-target="#sightseeingEdit"></i> <spring:message
-							code="label.editSightseeing" />
-					</a>
+					<button type="button" class="btn btn-default btn-sm">
+							<a href="addToFavourite/${sightseeing.id}"><spring:message
+							code="label.like" /><i class="fa fa-star-o"></i>${sightseeing.rating}</a>
+						</button>
 				</div>
 			</div>
 		</div>

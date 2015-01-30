@@ -154,6 +154,11 @@ public class User {
     @JsonIgnore
     @JoinTable(name = "user_place", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Place> attendee;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @JoinTable(name = "favourite_sightseeing", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
+    private Set<Sightseeing> favouriveSights;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = javax.persistence.CascadeType.ALL)
     private Set<Route> routes = new HashSet<>();
@@ -429,7 +434,15 @@ public class User {
         this.groups = groups;
     }
 
-    @Override
+    public Set<Sightseeing> getFavouriveSights() {
+		return favouriveSights;
+	}
+
+	public void setFavouriveSights(Set<Sightseeing> favouriveSights) {
+		this.favouriveSights = favouriveSights;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

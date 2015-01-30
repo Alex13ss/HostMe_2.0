@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.Sightseeing;
+import com.softserve.edu.model.User;
 
 public interface SightseeingService {
 
@@ -19,7 +20,14 @@ public interface SightseeingService {
 
 	void deleteSightseeing(Sightseeing sightseeing);
 
-	void saveSightseeing(Sightseeing sightseeing, String priceCategory, String city);
+	void saveSightseeing(Sightseeing sightseeing, String priceCategory,
+			String city);
 
-	void updateSightseeing(Sightseeing sightseeing, String priceCategory, String city);
+	void updateSightseeing(Sightseeing sightseeing, String priceCategory,
+			String city);
+
+	void saveLikerforSightseing(User user, Sightseeing sightseeing);
+	
+	List<SightseeingDto> getFavouriteSightseeings(User liker);
+	
 }

@@ -3,6 +3,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 <!DOCTYPE html>
 <html>
 
@@ -16,16 +18,20 @@
 </head>
 
 <body class="wysihtml5-supported">
-
+	<section class="content-header">
+		<h1>
+			<spring:message code="label.sightseeings" />
+		</h1>
+	</section>
 	<section class="content">
 		<div class="box box-primary">
 			<div class="box-header">
-				<h3 class="box-title">
+				<div class="box-title col-md-9">
 					<i class="fa fa-camera-retro"></i>
 					<spring:message code="label.sightseeings" />
-				</h3>
-				<div style="margin-top: 10px;">
-					<button type="button" class="btn btn-primary button" id="textColor"
+				</div>
+				<div class="box-title col-md-3" align="right">
+					<button type="button" class="btn btn-primary btn-sm"
 						data-toggle="modal" data-target="#sightseeingCreate">
 						<i class="fa fa-fw fa-plus-square-o"></i>
 						<spring:message code="label.addSightseeing" />
@@ -53,6 +59,7 @@
 							<th><spring:message code="label.priceCategory" /></th>
 							<th><spring:message code="label.website" /></th>
 							<th><spring:message code="label.sightseeingType" /></th>
+							<th><spring:message code="label.delete" /></th>
 						</tr>
 					</thead>
 				</table>
@@ -130,7 +137,7 @@
 								</form:label>
 								<div class="col-sm-10">
 									<form:select id="city" path="city.city">
-									<option value="0"><spring:message
+										<option value="0"><spring:message
 												code="label.citySelect" /></option>
 									</form:select>
 								</div>

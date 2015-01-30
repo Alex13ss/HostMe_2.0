@@ -25,6 +25,7 @@
 		<intercept-url pattern="/conversations" access="isAuthenticated()" />
 		<intercept-url pattern="/conversation" access="isAuthenticated()" />
 		<intercept-url pattern="/sightseeings" access="isAuthenticated()" />
+		<intercept-url pattern="/sightseeing" access="isAuthenticated()" />
 		<intercept-url pattern="/events" access="isAuthenticated()" />
 		<intercept-url pattern="/event" access="isAuthenticated()" />
 		<intercept-url pattern="/usersManager" access="hasRole('ADMIN')" />
