@@ -14,8 +14,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.google.common.base.Objects;
-
 @Entity
 @Table(name = "COUNTRIES", uniqueConstraints = { @UniqueConstraint(columnNames = "country_id") })
 public class Country {

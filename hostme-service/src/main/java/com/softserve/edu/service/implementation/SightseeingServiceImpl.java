@@ -89,7 +89,8 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	@Override
 	public void deleteSightseeing(Sightseeing sightseeing) {
-		 sightseeingRepository.delete(sightseeing);
+		sightseeingRepository.deleteLikefromSightseeing(sightseeing.getId());
+		sightseeingRepository.delete(sightseeing);
 	}
 
 	@Override
@@ -130,7 +131,6 @@ public class SightseeingServiceImpl implements SightseeingService {
 		favouriveSights.add(sightseeing);
 		user.setFavouriveSights(favouriveSights);
 		sightseeing.setRating(sightseeing.getLikers().size());
-		System.out.println(sightseeing.getRating());
 		sightseeingRepository.save(sightseeing);
 		userRepository.save(user);
 	}
