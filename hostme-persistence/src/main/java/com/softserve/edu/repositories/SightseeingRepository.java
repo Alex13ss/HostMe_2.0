@@ -1,11 +1,16 @@
 package com.softserve.edu.repositories;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.softserve.edu.model.Sightseeing;
-
-import java.util.List;
+import com.softserve.edu.model.User;
 
 public interface SightseeingRepository extends CrudRepository<Sightseeing, Integer> {
     public List<Sightseeing> findByNameContaining(String name);
+
+	public Set<Sightseeing> findByLikers(User user);
+    
 }
