@@ -44,7 +44,7 @@
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#">
 							<i class="fa fa-fw fa-gear"></i>
-							<spring:message code="label.approveGroup" />
+							<spring:message code="label.moderatingGroup" />
 							<i class="fa fa-caret-down"></i>
 						</button>
 					</sec:authorize>

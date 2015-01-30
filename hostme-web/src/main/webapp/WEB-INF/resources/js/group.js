@@ -179,13 +179,18 @@ $(document)
 											}
 
 										},
-
+										"bJQueryUI" : true,
 										"bProcessing" : false,
 										"bServerSide" : false,
+										"bAutoWidth" : false,
 										"sAjaxSource" : "all-groups",
 										"aoColumns" : [
 												{
-													"mData" : "creatorFNandLN",
+													"sWidth" : "13%",
+													"mData" : function(data,
+															type, row) {
+														return "<img src='resources/images/group-default.jpg'/>";
+													}
 												},
 												{
 													"mData" : function(data,
@@ -199,7 +204,11 @@ $(document)
 																+ data.groupDescription;
 													}
 												},
+												// {
+												// "mData" : "creatorFNandLN",
+												// },
 												{
+													"sWidth" : "10%",
 													"mData" : "createdAt",
 													"mRender" : function(data,
 															type, full) {
