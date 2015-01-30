@@ -3,6 +3,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <!DOCTYPE html>
 <html>
@@ -81,6 +83,9 @@
 						<th>Image of group</th>
 						<th>Group name/description</th>
 						<th>Publishing</th>
+						<sec:authorize access="hasRole('ADMIN')">
+							<th>Actions</th>
+						</sec:authorize>
 					</tr>
 				</thead>
 			</table>

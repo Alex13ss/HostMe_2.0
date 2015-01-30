@@ -96,7 +96,7 @@ public class GroupController {
     public @ResponseBody Set<GroupDto> getMyGroups() {
         User user = profileService.getUserByLogin(SecurityContextHolder
                 .getContext().getAuthentication().getName());
-        Set<GroupDto> groups = groupService.getGroupByCreator(user);
+        Set<GroupDto> groups = groupService.getGroupsByCreator(user);
         return groups;
     }
 

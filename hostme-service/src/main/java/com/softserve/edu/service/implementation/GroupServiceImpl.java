@@ -33,7 +33,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Set<GroupDto> getGroupByCreator(User creatorUser) {
+    public Set<GroupDto> getGroupsByCreator(User creatorUser) {
         Set<GroupDto> list = new HashSet<GroupDto>();
         for (Group group : groupRepository.findAllByCreatorUser(creatorUser)) {
             list.add(new GroupDto(group));

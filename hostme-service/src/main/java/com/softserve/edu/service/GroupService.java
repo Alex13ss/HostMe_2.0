@@ -18,6 +18,6 @@ public interface GroupService {
 
     public void update(Group group);
 
-    public Set<GroupDto> getGroupByCreator(User creatorUser);
+    public Set<GroupDto> getGroupsByCreator(User creatorUser);
 
 }
