@@ -58,16 +58,16 @@ public class Hosting {
 	private User owner;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "hosting", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "hosting", orphanRemoval = true)
 	@Cascade({ CascadeType.DELETE, CascadeType.PERSIST, CascadeType.SAVE_UPDATE })
 	private Set<Image> images = new HashSet<Image>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "hosting", fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany(mappedBy = "hosting", orphanRemoval = true)
 	private Set<Feedback> feedbacks = new HashSet<Feedback>();
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "hosting", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "hosting")
 	private Set<Request> requests = new HashSet<Request>();
 
 	public Hosting() {

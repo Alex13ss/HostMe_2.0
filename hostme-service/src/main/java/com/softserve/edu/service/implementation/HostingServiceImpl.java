@@ -6,9 +6,11 @@ import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.dto.HostingDto;
 import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.Request;
+import com.softserve.edu.model.User;
 import com.softserve.edu.repositories.hosting.HostingRepository;
 import com.softserve.edu.service.HostingService;
 import com.softserve.edu.service.ImageService;
+import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -30,7 +32,7 @@ public class HostingServiceImpl implements HostingService {
 	private HostingRepository hostingRepository;
 
 	@Autowired
-	private UserDao userDao;
+	private ProfileService profileService;
 	
 	@Autowired
         private RequestDao requestDao;
@@ -41,9 +43,8 @@ public class HostingServiceImpl implements HostingService {
 	@Override
 	@Transactional
 	public void addHosting(Hosting hosting) {
-		String login = SecurityContextHolder.getContext().getAuthentication()
-				.getName();
-		hosting.setOwner(userDao.getUserByLogin(login));
+		User user = profileService.getCurrentUser();
+		hosting.setOwner(user);
 		hostingDao.create(hosting);
 	}
 
