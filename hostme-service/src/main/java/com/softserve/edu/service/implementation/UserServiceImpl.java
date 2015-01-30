@@ -3,9 +3,12 @@ package com.softserve.edu.service.implementation;
 import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
+import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.repositories.user.UserRepository;
+import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.UserService;
 
+import com.softserve.edu.service.routes.PlaceService;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,7 +25,13 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDaoImpl;
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
+
+	@Autowired
+	private ProfileService profileService;
+
+	@Autowired
+	private PlaceService placeService;
 
 	@Override
 	@Transactional
@@ -59,6 +69,21 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User getUser(Integer id) {
 		return userDaoImpl.read(id);
+	}
+
+	@Override
+	public Set<Place> getBookedPlaces(int userId) {
+		return userRepository.findOne(userId).getBookedPlaces();
+	}
+
+	@Override
+	@Transactional
+	public void addBookedPlace(int placeId) {
+		User user = profileService.getCurrentUser();
+		Set<Place> places = getBookedPlaces(user.getUserId());
+		Place selectedPlace = placeService.getPlace(placeId);
+		places.add(selectedPlace);
+		System.out.println("Done");
 	}
 
 	@Override

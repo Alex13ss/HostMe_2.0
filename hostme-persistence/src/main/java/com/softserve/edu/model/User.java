@@ -147,7 +147,7 @@ public class User {
 
     @OneToMany
     @JsonIgnore
-    private Set<Place> bookedPlaces;
+    private Set<Place> bookedPlaces = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
@@ -469,8 +469,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = userId.hashCode();
-        result = 31 * result + login.hashCode();
+        int result = 31 * login.hashCode();
         result = 31 * result + firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + gender.hashCode();

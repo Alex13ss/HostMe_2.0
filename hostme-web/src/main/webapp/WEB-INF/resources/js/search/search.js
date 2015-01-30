@@ -10,14 +10,12 @@ var $resultName;
 var $searchResult;
 var $test;
 var $btnShowLoc;
+var $btnBookPlace;
 $(document).ready(function() {
     $search = $("#search");
     $underSearch = $("#searchReq");
     $searchResult = $("#searchResult");
-    $resultName = $("#searchResult > #name");
-    $test = $("#searchResult > #secondName");
     $searchType = $("#searchType");
-    $btnShowLoc = $("#showLocation");
     initSearchType();
     $search.keypress(function() {
         if (inputLength($search, $underSearch)) {
@@ -29,7 +27,7 @@ $(document).ready(function() {
         if (inputLength($search, $underSearch)) {
             search();
         }
-    })
+    });
 });
 
 function search() {
@@ -37,7 +35,6 @@ function search() {
     searchValue.type = $searchType.val();
     $.ajax({
         url: "superMegaSearch",
-
         type: "POST",
         data: JSON.stringify(searchValue),
         dataType: "json",
@@ -75,16 +72,29 @@ function detectData(data) {
 
 function fillPlaceData(data) {
     for (var i = 0; i < data.length; i++) {
-        $searchResult.append("<tr class='placeResult'>"
-            + "<td>" + "<a href = place?placeId=" + data[i].id + ">" + data[i].name + "</a>" + "</td>"
-            + "<td class='miniInfo'>" + "price" + "</td>"
-            + "<td class='miniInfo'>" + data[i].rating + "</td>"
-            + "<td>" + data[i].description + "</td>"
-            + "<td>" + data[i].sightseeingType + "</td>"
-            + "<td class='utilsBtn'>" + "<button id='showLocation' class='btn btn-primary'>" + "Map" + "</button>" + "</td>"
-            + "<td class='utilsBtn'>" + "<button id='bookToRout' class='btn btn-primary'>" + "Book" + "</button>" + "</td>"
-        + "</tr>");
+        $searchResult.append("<div class='placeResult'>"
+            + "<div class='col-lg-3'>" + "<a href = place?placeId=" + data[i].id + ">" + data[i].name + "</a>" + "</div>"
+            + "<div class='col-lg-1'>" + "price" + "</div>"
+            + "<div class='col-lg-1'>" + data[i].rating + "</div>"
+            + "<div class='col-lg-4'>" + data[i].description + "</div>"
+            + "<div class='col-lg-1'>" + data[i].sightseeingType + "</div>"
+            + "<div class='col-lg-1'>" + "<button class='btn btn-primary showLocation'>" + "Map" + "</button>" + "</div>"
+            + "<div class='col-lg-1'>" + "<button class='btn btn-primary bookPlace'>" + "Book" + "</button>" + "</div>"
+        + "</div>");
+        $("#searchResult").children().last().find(".bookPlace").data("placeId", data[i].id);
     }
+    $btnShowLoc = $(".showLocation");
+    $btnBookPlace = $(".bookPlace");
+    $btnBookPlace.click(function(event) {
+        $.ajax({
+            url: "addBookedPlace",
+            method: "POST",
+            data: JSON.stringify($(event.target).data("placeId")),
+            success: function() {
+                $(event.target).attr("disabled", true);
+            }
+        })
+    });
 }
 
 function fillUserData(data) {

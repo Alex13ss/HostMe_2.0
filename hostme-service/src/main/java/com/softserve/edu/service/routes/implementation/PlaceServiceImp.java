@@ -25,6 +25,11 @@ public class PlaceServiceImp implements PlaceService{
     @Autowired
     PlaceRepository placeRepository;
 
+    @Override
+    public Place getPlace(int placeId) {
+        return placeRepository.findOne(placeId);
+    }
+
     public List<Place> getAllPlaces(Pageable pageable) {
         return placeRepository.findAll(pageable).getContent();
     }

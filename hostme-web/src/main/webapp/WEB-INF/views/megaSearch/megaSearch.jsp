@@ -22,7 +22,7 @@
         <select id="searchType" class="col-lg-2" style="height: 3%"></select>
         <input id="search" class="col-lg-10" style="height: 3%">
         <p id="searchReq"></p>
-        <table id="searchResult" class="col-lg-12"></table>
+        <div id="searchResult" class="col-lg-12"></div>
     </div>
 </section>
 

@@ -10,6 +10,8 @@ import java.util.Set;
 
 public interface PlaceService {
 
+    public Place getPlace(int placeId);
+
     public List<Place> getAllPlaces(Pageable pageable);
 
     public Set<Place> getBookedPlaces();
