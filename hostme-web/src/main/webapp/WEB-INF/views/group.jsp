@@ -3,6 +3,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 
 <!DOCTYPE html>
 <html>
@@ -38,21 +40,25 @@
 			</div>
 			<div class="box-title col-md-4">
 				<div align="right">
-					<button type="button" class="btn btn-default btn-sm"
-						data-toggle="modal" data-target="#">
-						<i class="fa fa-fw fa-gear"></i>
-						<spring:message code="label.approveGroup" />
-						<i class="fa fa-caret-down"></i>
-					</button>
-					<button type="button" class="btn btn-default btn-sm"
-						data-toggle="modal" data-target="#groupEditModal">
-						<i class="fa fa-fw fa-edit"></i>
-						<spring:message code="label.editGroup" />
-					</button>
-					<a href="<spring:url value="/group/remove/${group.id}" />"
-						class="btn btn-default btn-sm triggerRemove"><i
-						class="fa fa-fw fa-trash-o"></i> <spring:message
-							code="label.removeGroup" /> </a>
+					<sec:authorize access="hasRole('ADMIN')">
+						<button type="button" class="btn btn-default btn-sm"
+							data-toggle="modal" data-target="#">
+							<i class="fa fa-fw fa-gear"></i>
+							<spring:message code="label.approveGroup" />
+							<i class="fa fa-caret-down"></i>
+						</button>
+					</sec:authorize>
+					<sec:authorize access="hasAnyRole('ADMIN','USER')">
+						<button type="button" class="btn btn-default btn-sm"
+							data-toggle="modal" data-target="#groupEditModal">
+							<i class="fa fa-fw fa-edit"></i>
+							<spring:message code="label.editGroup" />
+						</button>
+						<a href="<spring:url value="/group/remove/${group.id}" />"
+							class="btn btn-default btn-sm triggerRemove"><i
+							class="fa fa-fw fa-trash-o"></i> <spring:message
+								code="label.removeGroup" /> </a>
+					</sec:authorize>
 				</div>
 			</div>
 		</div>

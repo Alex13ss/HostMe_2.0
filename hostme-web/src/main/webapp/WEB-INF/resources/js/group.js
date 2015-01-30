@@ -23,6 +23,20 @@ function interestingGroups(element) {
 	}
 }
 
+function updatesGroups(element) {
+	if (element.className != 'active') {
+		table.fnClearTable();
+		table.fnReloadAjax("updates-groups");
+	}
+}
+
+function needActionsGroups(element) {
+	if (element.className != 'active') {
+		table.fnClearTable();
+		table.fnReloadAjax("need-act-groups");
+	}
+}
+
 $(document)
 		.ready(
 				function() {

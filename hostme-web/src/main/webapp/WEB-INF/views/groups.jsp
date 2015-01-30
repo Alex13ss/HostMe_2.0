@@ -43,37 +43,53 @@
 				useful conversations!
 			</div>
 
-			<div class="box-title col-md-3" align="right">
-				<button type="button" class="btn btn-primary btn-sm"
-					data-toggle="modal" data-target="#groupModal">
-					<i class="fa fa-fw fa-plus-square-o"></i>
-					<spring:message code="label.addGroup" />
-				</button>
-			</div>
-			<c:if test="${groupNotCreated eq true}">
-				<div class="box-title col-md-12 alert alert-danger"
-					style="margin-bottom: 13px;" align="center">
-					<h3>Oops... Wrong input data! Your group is NOT created.
-						Please try again!</h3>
+			<sec:authorize access="hasRole('USER')">
+				<div class="box-title col-md-3" align="right">
+					<button type="button" class="btn btn-primary btn-sm"
+						data-toggle="modal" data-target="#groupModal">
+						<i class="fa fa-fw fa-plus-square-o"></i>
+						<spring:message code="label.addGroup" />
+					</button>
 				</div>
-			</c:if>
-			<div class="col-md-offset-2">
-				<div class="col-md-9 alert alert-info" align="center">Find
-					minded people and get some conversations! You'll get many useful
-					information here! Have a fun! ;)</div>
-			</div>
+				<c:if test="${groupNotCreated eq true}">
+					<div class="box-title col-md-12 alert alert-danger"
+						style="margin-bottom: 13px;" align="center">
+						<h3>Oops... Wrong input data! Your group is NOT created.
+							Please try again!</h3>
+					</div>
+				</c:if>
+				<div class="col-md-offset-2">
+					<div class="col-md-9 alert alert-info" align="center">Find
+						minded people and get some conversations! You'll get many useful
+						information here! Have a fun! ;)</div>
+				</div>
+			</sec:authorize>
 		</div>
 		<!-- /.box-header -->
 
 		<ul class="nav nav-tabs">
-			<li id="all-groups" class="active" onclick="allGroups(this)"><a
-				href="#" data-toggle="tab"><spring:message
-						code="label.allGroups" /></a></li>
-			<li id="my-groups" class="" onclick="myGroups(this)"><a href="#"
-				data-toggle="tab"><spring:message code="label.myGroups" /></a></li>
-			<li id="interesting-groups" class=""
-				onclick="interestingGroups(this)"><a href="#" data-toggle="tab"><spring:message
-						code="label.interestingGroups" /></a></li>
+			<sec:authorize access="hasAnyRole('USER','ADMIN')">
+				<li id="all-groups" class="active" onclick="allGroups(this)"><a
+					href="#" data-toggle="tab"><spring:message
+							code="label.allGroups" /></a></li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('USER')">
+				<li id="my-groups" class="" onclick="myGroups(this)"><a
+					href="#" data-toggle="tab"><spring:message
+							code="label.myGroups" /></a></li>
+				<li id="interesting-groups" class=""
+					onclick="interestingGroups(this)"><a href="#"
+					data-toggle="tab"><spring:message
+							code="label.interestingGroups" /></a></li>
+				<li id="updates-groups" class="" onclick="updatesGroups(this)"><a
+					href="#" data-toggle="tab"><spring:message
+							code="label.updatesGroups" /></a></li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ADMIN')">
+				<li id="need-act-groups" class="" onclick="needActionsGroups(this)"><a
+					href="#" data-toggle="tab"><spring:message
+							code="label.needActionsGroups" /></a></li>
+			</sec:authorize>
 		</ul>
 
 		<div class="box-body table-responsive">
@@ -84,6 +100,7 @@
 						<th>Group name/description</th>
 						<th>Publishing</th>
 						<sec:authorize access="hasRole('ADMIN')">
+							<th>Status</th>
 							<th>Actions</th>
 						</sec:authorize>
 					</tr>
