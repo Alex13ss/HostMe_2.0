@@ -56,6 +56,13 @@ public class RouteController {
         return result;
     }
 
+    @RequestMapping(value = "/getUserBookedPlaces")
+    public @ResponseBody List<PlaceDto> getBookedPlaces() {
+        ArrayList<PlaceDto> result = new ArrayList<>();
+        result.addAll(placeService.placeToPlaceDto(placeService.getBookedPlaces()));
+        return result;
+    }
+
     @RequestMapping(value = "/getPopularPlaces")
     public @ResponseBody List<PlaceDto> getPopularPlaces() {
         ArrayList<PlaceDto> result = new ArrayList<>();

@@ -25,6 +25,10 @@ public class SightseeingDto {
 	public SightseeingDto(Sightseeing sightseeing) {
 		id = sightseeing.getId();
 		name = sightseeing.getName();
+		description = sightseeing.getDescription();
+		rating = sightseeing.getRating();
+		priceCategory = sightseeing.getPriceCategory();
+		sightseeingType = sightseeing.getSightseeingType();
 		address = sightseeing.getAddress();
 	}
 

@@ -2,6 +2,7 @@ package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.model.User;
+import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 @Service
 public class ProfileServiceImpl implements ProfileService {
@@ -27,6 +29,11 @@ public class ProfileServiceImpl implements ProfileService {
 	@Transactional
 	public User getUser(Integer id) {
 		return userDaoImpl.read(id);
+	}
+
+	@Override
+	public List<Place> getBookedPlaces() {
+		return null;
 	}
 
 	@Override

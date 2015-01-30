@@ -7,13 +7,17 @@ var $underSearch;
 var $search;
 var $searchType;
 var $resultName;
+var $searchResult;
 var $test;
+var $btnShowLoc;
 $(document).ready(function() {
     $search = $("#search");
     $underSearch = $("#searchReq");
+    $searchResult = $("#searchResult");
     $resultName = $("#searchResult > #name");
     $test = $("#searchResult > #secondName");
-    $searchType= $("#searchType");
+    $searchType = $("#searchType");
+    $btnShowLoc = $("#showLocation");
     initSearchType();
     $search.keypress(function() {
         if (inputLength($search, $underSearch)) {
@@ -71,25 +75,30 @@ function detectData(data) {
 
 function fillPlaceData(data) {
     for (var i = 0; i < data.length; i++) {
-        $underSearch.append("<div>" +
-        '<a href = place?placeId=' + data[i].id+'>'
-        + data[i].name + "</a>"
-        + "</div>");
+        $searchResult.append("<tr class='placeResult'>"
+            + "<td>" + "<a href = place?placeId=" + data[i].id + ">" + data[i].name + "</a>" + "</td>"
+            + "<td class='miniInfo'>" + "price" + "</td>"
+            + "<td class='miniInfo'>" + data[i].rating + "</td>"
+            + "<td>" + data[i].description + "</td>"
+            + "<td>" + data[i].sightseeingType + "</td>"
+            + "<td class='utilsBtn'>" + "<button id='showLocation' class='btn btn-primary'>" + "Map" + "</button>" + "</td>"
+            + "<td class='utilsBtn'>" + "<button id='bookToRout' class='btn btn-primary'>" + "Book" + "</button>" + "</td>"
+        + "</tr>");
     }
 }
 
 function fillUserData(data) {
     for (var i = 0; i < data.length; i++) {
-        $underSearch.append("<div>" +
-        '<a href = hoster?hosterId=' + data[i].id+'>'
-        + data[i].name + "</a>"
+        $searchResult.append("<div class='userResult'>" +
+            "<a href = hoster?hosterId=" + data[i].id+'>'
+            + data[i].name + "</a>"
         + "</div>");
     }
 }
 
 function fillRouteData(data) {
     for (var i = 0; i < data.length; i++) {
-        $underSearch.append("<div>" +
+        $searchResult.append("<div class='routeResult'>" +
         '<a href =route?routeId='+ data[i].id + '>'
         + data[i].name + "</a>"
         + "</div>");

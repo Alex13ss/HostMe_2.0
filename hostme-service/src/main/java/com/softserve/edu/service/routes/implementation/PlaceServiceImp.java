@@ -12,7 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class PlaceServiceImp implements PlaceService{
@@ -25,6 +27,11 @@ public class PlaceServiceImp implements PlaceService{
 
     public List<Place> getAllPlaces(Pageable pageable) {
         return placeRepository.findAll(pageable).getContent();
+    }
+
+    @Override
+    public Set<Place> getBookedPlaces() {
+        return profileService.getCurrentUser().getBookedPlaces();
     }
 
     public List<Place> getAllNotUserPlaces() {
@@ -47,7 +54,7 @@ public class PlaceServiceImp implements PlaceService{
         return new ArrayList<>(getCurrentUser().getPlaces());
     }
 
-    public List<PlaceDto> placeToPlaceDto(List<Place> places) {
+    public List<PlaceDto> placeToPlaceDto(Collection<Place> places) {
         List<PlaceDto> result = new ArrayList<>();
         for (Place place : places) {
             result.add(new PlaceDto(place));

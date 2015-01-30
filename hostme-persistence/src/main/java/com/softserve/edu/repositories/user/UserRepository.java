@@ -1,6 +1,7 @@
 package com.softserve.edu.repositories.user;
 
 import com.softserve.edu.model.User;
+import com.softserve.edu.model.routes.Place;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
