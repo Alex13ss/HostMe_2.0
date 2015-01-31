@@ -154,7 +154,7 @@ public class User {
     @JsonIgnore
     @JoinTable(name = "user_place", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Place> attendee;
-    
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
     @JoinTable(name = "favourite_sightseeing", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
@@ -178,13 +178,12 @@ public class User {
     private Set<Group> meEditedGroups;
 
     /**
-     * Contains groups submitted by this user
+     * Contains interesting groups, submitted by this user
      */
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
-    @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
-    @JoinTable(name = "user_groups", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private Set<Group> groups;
+    @JoinTable(name = "interesting_groups", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<Group> interestingGroups;
 
     public User() {
     }
@@ -426,43 +425,62 @@ public class User {
         this.meEditedGroups = meEditedGroups;
     }
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Set<Group> getInterestingGroups() {
+        return interestingGroups;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+    public void setInterestingGroups(Set<Group> interestingGroups) {
+        this.interestingGroups = interestingGroups;
     }
 
     public Set<Sightseeing> getFavouriveSights() {
-		return favouriveSights;
-	}
+        return favouriveSights;
+    }
 
-	public void setFavouriveSights(Set<Sightseeing> favouriveSights) {
-		this.favouriveSights = favouriveSights;
-	}
+    public void setFavouriveSights(Set<Sightseeing> favouriveSights) {
+        this.favouriveSights = favouriveSights;
+    }
 
-	@Override
+    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         User user = (User) o;
 
-        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) return false;
-        if (city != null ? !city.equals(user.city) : user.city != null) return false;
-        if (country != null ? !country.equals(user.country) : user.country != null) return false;
-        if (description != null ? !description.equals(user.description) : user.description != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (!firstName.equals(user.firstName)) return false;
-        if (gender != user.gender) return false;
-        if (hobby != null ? !hobby.equals(user.hobby) : user.hobby != null) return false;
-        if (!lastName.equals(user.lastName)) return false;
-        if (!login.equals(user.login)) return false;
-        if (region != null ? !region.equals(user.region) : user.region != null) return false;
-        if (role != null ? !role.equals(user.role) : user.role != null) return false;
-        if (!userId.equals(user.userId)) return false;
-        if (userState != user.userState) return false;
+        if (birthday != null ? !birthday.equals(user.birthday)
+                : user.birthday != null)
+            return false;
+        if (city != null ? !city.equals(user.city) : user.city != null)
+            return false;
+        if (country != null ? !country.equals(user.country)
+                : user.country != null)
+            return false;
+        if (description != null ? !description.equals(user.description)
+                : user.description != null)
+            return false;
+        if (email != null ? !email.equals(user.email) : user.email != null)
+            return false;
+        if (!firstName.equals(user.firstName))
+            return false;
+        if (gender != user.gender)
+            return false;
+        if (hobby != null ? !hobby.equals(user.hobby) : user.hobby != null)
+            return false;
+        if (!lastName.equals(user.lastName))
+            return false;
+        if (!login.equals(user.login))
+            return false;
+        if (region != null ? !region.equals(user.region) : user.region != null)
+            return false;
+        if (role != null ? !role.equals(user.role) : user.role != null)
+            return false;
+        if (!userId.equals(user.userId))
+            return false;
+        if (userState != user.userState)
+            return false;
 
         return true;
     }
@@ -477,7 +495,8 @@ public class User {
         result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (hobby != null ? hobby.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result
+                + (description != null ? description.hashCode() : 0);
         result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (region != null ? region.hashCode() : 0);
         result = 31 * result + (city != null ? city.hashCode() : 0);

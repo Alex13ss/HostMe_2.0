@@ -24,7 +24,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * 
  * @author Oleksandr Bandurka Entity-class for group
  * 
  */
@@ -77,10 +76,11 @@ public class Group {
     private User lastEditor;
 
     /**
-     * Contains list of users which have conversations in this group
+     * Contains list of users who assumes that this group is interesting for
+     * them
      */
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "groups")
-    private Set<User> users;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "interestingGroups")
+    private Set<User> interestedUsers;
 
     /**
      * Contains list of tags which included by this group
@@ -156,12 +156,12 @@ public class Group {
         this.lastEditedAt = lastEditedAt;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<User> getInterestedUsers() {
+        return interestedUsers;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setInterestedUsers(Set<User> interestedUsers) {
+        this.interestedUsers = interestedUsers;
     }
 
     public Set<Tag> getTags() {
@@ -187,7 +187,8 @@ public class Group {
                 + createdAt + ", lastEditedAt=" + lastEditedAt + ", images="
                 + images + ", conversations=" + conversations
                 + ", creatorUser=" + creatorUser + ", lastEditor=" + lastEditor
-                + ", users=" + users + ", tags=" + tags + "]";
+                + ", interestedUsers=" + interestedUsers + ", tags=" + tags
+                + "]";
     }
 
 }
