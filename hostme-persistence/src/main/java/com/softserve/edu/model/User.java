@@ -183,7 +183,7 @@ public class User {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "interesting_groups", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private Set<Group> interestingGroups;
+    private List<Group> interestingGroups;
 
     public User() {
     }
@@ -425,11 +425,11 @@ public class User {
         this.meEditedGroups = meEditedGroups;
     }
 
-    public Set<Group> getInterestingGroups() {
+    public List<Group> getInterestingGroups() {
         return interestingGroups;
     }
 
-    public void setInterestingGroups(Set<Group> interestingGroups) {
+    public void setInterestingGroups(List<Group> interestingGroups) {
         this.interestingGroups = interestingGroups;
     }
 

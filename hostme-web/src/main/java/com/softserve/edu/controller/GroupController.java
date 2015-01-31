@@ -117,6 +117,15 @@ public class GroupController {
         return "redirect:/group?id={id}";
     }
 
+    @RequestMapping("/group/interesting/{id}")
+    public String addToInteresting(@PathVariable("id") Long id) {
+        Group group = groupService.findOne(id);
+        User user = profileService.getUserByLogin(SecurityContextHolder
+                .getContext().getAuthentication().getName());
+        groupService.saveInterestedUser(user, group);
+        return "redirect:/group?id={id}";
+    }
+
     private void addLatestConversationsByGroupId(Model model, Long id) {
         List<ConversationDto> conversations = conversationService
                 .findLatestConversationsDtoByGroupId(id);

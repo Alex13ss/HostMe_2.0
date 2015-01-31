@@ -20,4 +20,6 @@ public interface GroupService {
 
     public Set<GroupDto> getGroupsByCreator(User creatorUser);
 
+    public void saveInterestedUser(User user, Group group);
+
 }

@@ -1,6 +1,7 @@
 package com.softserve.edu.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -80,7 +81,7 @@ public class Group {
      * them
      */
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "interestingGroups")
-    private Set<User> interestedUsers;
+    private List<User> interestedUsers;
 
     /**
      * Contains list of tags which included by this group
@@ -156,11 +157,11 @@ public class Group {
         this.lastEditedAt = lastEditedAt;
     }
 
-    public Set<User> getInterestedUsers() {
+    public List<User> getInterestedUsers() {
         return interestedUsers;
     }
 
-    public void setInterestedUsers(Set<User> interestedUsers) {
+    public void setInterestedUsers(List<User> interestedUsers) {
         this.interestedUsers = interestedUsers;
     }
 

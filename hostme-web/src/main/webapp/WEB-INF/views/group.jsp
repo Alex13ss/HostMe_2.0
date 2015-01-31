@@ -40,6 +40,11 @@
 			</div>
 			<div class="box-title col-md-4">
 				<div align="right">
+					<sec:authorize access="hasRole('USER')">
+						<a href="<spring:url value="/group/interesting/${group.id}" />"
+							class="btn btn-default btn-sm"><i class="fa fa-fw fa-check"></i>
+							<spring:message code="label.addGroupToInteresting" /> </a>
+					</sec:authorize>
 					<sec:authorize access="hasRole('ADMIN')">
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#">

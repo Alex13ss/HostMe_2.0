@@ -1,12 +1,15 @@
 package com.softserve.edu.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.User;
 
-public interface GroupRepository extends JpaRepository<Group, Long> {
-    
-    Iterable<Group> findAllByCreatorUser(User creatorUser);
+public interface GroupRepository extends
+        PagingAndSortingRepository<Group, Long> {
+
+    public Iterable<Group> findAllByCreatorUser(User creatorUser);
+
+    public Iterable<Group> findAllByInterestedUsers(User interestedUsers);
 
 }
