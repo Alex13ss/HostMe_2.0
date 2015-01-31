@@ -6,9 +6,7 @@ var timer;
 var $underSearch;
 var $search;
 var $searchType;
-var $resultName;
 var $searchResult;
-var $test;
 var $btnShowLoc;
 var $btnBookPlace;
 $(document).ready(function() {

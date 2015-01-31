@@ -147,7 +147,7 @@ public class User {
 
     @OneToMany
     @JsonIgnore
-    private Set<Place> bookedPlaces = new HashSet<>();
+    private Set<Place> bookedPlaces;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })

@@ -72,6 +72,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
+	public Set<Place> getBookedPlaces() {
+		User currentUser = profileService.getCurrentUser();
+		return userRepository.findByUserIdAndFetchBookedPlacesEagerly(currentUser.getUserId()).getBookedPlaces();
+	}
+
+	@Override
 	public Set<Place> getBookedPlaces(int userId) {
 		return userRepository.findOne(userId).getBookedPlaces();
 	}

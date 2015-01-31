@@ -21,9 +21,11 @@ public interface UserService {
 
     public User getUser(Integer id);
 
-    public Set<Place> getBookedPlaces(int userId);
-
     public void addBookedPlace(int placeId);
+
+    public Set<Place> getBookedPlaces();
+
+    public Set<Place> getBookedPlaces(int userId);
 
     public void removeUser(Integer id);
 

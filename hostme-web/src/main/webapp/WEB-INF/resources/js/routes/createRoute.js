@@ -6,11 +6,13 @@ var routeDto = {
     waypointsId: []
     };
 var userPlacesUrl = "getUserPlaces";
+var userBookedPlacesUlr = "getBookedPlaces";
 var popularPlacesUrl = "getPopularPlaces";
 var haveOriginPlace = false;
 var haveDestinationPlace = false;
 $(document).ready(function() {
     var $userPlacesUi = $("#userPlaces");
+    var $userBookedPlacesUi = $("#userBookedPlaces");
     var $popularPlacesUi = $("#allPlaces");
     var $originDropUi = $("#originPlaceDrop");
     var $waypointsDropUi = $("#waypointsPlacesDrop");
@@ -19,8 +21,11 @@ $(document).ready(function() {
     var $description = $("#description");
     var $createRouteBtn = $("#createRoute");
     var $savingStatus = $("#savingStatus");
+    var $userTabs = $("#userTabs");
+    $userTabs.tabs();
     initDragPlaces(userPlacesUrl, $userPlacesUi);
     initDragPlaces(popularPlacesUrl, $popularPlacesUi);
+    initDragPlaces(userBookedPlacesUlr, $userBookedPlacesUi);
     initDropPlaces($userPlacesUi);
     initDropPlaces($popularPlacesUi);
     $originDropUi.droppable({
