@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +41,8 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	CountryRepository countryRepository;
 
+	public static Long amountOfOwnerEvents;
+
 	public boolean haveEvent(int id) {
 		return eventRepository.exists(id);
 	}
@@ -70,23 +72,30 @@ public class EventServiceImpl implements EventService {
 	@Transactional
 	public List<EventDto> getAllEvents() {
 		List<EventDto> list = new ArrayList<EventDto>();
-		for (Event event : eventRepository.findAll(new PageRequest(1, 20))) {
+		for (Event event : eventRepository.findAll()) {
 			list.add(new EventDto(event, placeRepository.findOne(event.getId())));
 		}
 		return list;
 	}
-//	@Override
-//	@Transactional
-//	public List<EventDto> getAllEvents(Integer pageNumber) {
-//		final int PAGE_SIZE = 50;
-//		PageRequest pageRequest = new PageRequest(pageNumber, PAGE_SIZE);
-//		
-//		List<EventDto> list = new ArrayList<EventDto>();
-//		for (Event event : eventRepository.findAll(pageRequest)) {
-//			list.add(new EventDto(event, placeRepository.findOne(event.getId())));
-//		}
-//		return list;
-//	}
+
+	@Override
+	@Transactional
+	public List<EventDto> getAllEventsPaging(Integer page, Integer size,
+			String orderBy, String orderType) {
+		List<EventDto> list = new ArrayList<EventDto>();
+		PageRequest pageRequsetObj;
+		if (orderType.equals("ASC")) {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.ASC, orderBy);
+		} else {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.DESC, orderBy);
+		}
+		for (Event event : eventRepository.findAll(pageRequsetObj)) {
+			list.add(new EventDto(event, placeRepository.findOne(event.getId())));
+		}
+		return list;
+	}
 
 	@Override
 	@Transactional
@@ -130,11 +139,23 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	@Transactional
-	public List<EventDto> getEventByOwner(User owner) {
+	public List<EventDto> getEventByOwner(Integer page, Integer size,
+			String orderBy, String orderType) {
 		List<EventDto> list = new ArrayList<EventDto>();
-		for (Place place : placeRepository.findByOwner(owner)) {
+		User owner = profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName());
+		PageRequest pageRequsetObj;
+		if (orderType.equals("ASC")) {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.ASC, orderBy);
+		} else {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.DESC, orderBy);
+		}
+		for (Place place : placeRepository.findByOwner(owner, pageRequsetObj)) {
 			list.add(new EventDto(eventRepository.findOne(place.getId()), place));
 		}
+		amountOfOwnerEvents = (long) list.size();
 		return list;
 	}
 

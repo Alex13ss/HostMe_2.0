@@ -54,6 +54,10 @@ public class EventDto {
 		this.attendee = place.getAttendee();
 	}
 
+	public EventDto(Integer dataBaseSize) {
+
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -133,6 +137,7 @@ public class EventDto {
 	public void setPriceCategory(PriceCategory priceCategory) {
 		this.priceCategory = priceCategory;
 	}
+
 
 	public User getOwner() {
 		return owner;

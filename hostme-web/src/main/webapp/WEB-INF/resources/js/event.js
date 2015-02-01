@@ -1,25 +1,95 @@
-var table, row;
-var test, test1, test2;
-var action_list;
-var all_events_data;
-var request_to_me_data;
-var request_from_me_url = "request-sent-history";
-var request_to_me_url = "request-obtain-history";
+var table;
+var size;
+var page;
+var selectedTablePage = 1;
+var eventsType = "all-events";
+var order = {
+	by : "name",
+	type : "ASC"
+};
 
-function allEvents(element) {
-	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("all-events");
+function getEventsParameters() {
+	return eventsType + "?size=" + size + "&page=" + selectedTablePage
+			+ "&orderType=" + order.type + "&orderBy=" + order.by;
+}
 
+function eventsAjaxCallback() {
+	setupPaging();
+	calendarUpdate();
+
+}
+
+function calendarUpdate() {
+	if (eventsType != "all-events") {
+		$('#calendar').fullCalendar('removeEvents');
+		tableEvents = table.fnGetData();
+		var calendarEvents = [];
+		for (eventNum in tableEvents) {
+
+			calendarEvents.push({
+				title : tableEvents[eventNum].name,
+				start : tableEvents[eventNum].startDate,
+				end : tableEvents[eventNum].endDate,
+				url : 'event?id=' + tableEvents[eventNum].id,
+			});
+		}
+
+		$('#calendar').fullCalendar({
+			allDayDefault : 'false',
+			events : calendarEvents,
+		});
 	}
 }
-function myEvents(element) {
-	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("my-events");
 
+function showEvents() {
+	if (eventsType == "all-events") {
+		$("#calendar").fullCalendar('destroy');
 	}
+	table.fnClearTable();
+	table.fnReloadAjax(getEventsParameters(), eventsAjaxCallback);
+}
 
+function setupPaging() {
+	$
+			.ajax({
+				type : 'GET',
+				dataType : "json",
+				data : {
+					size : size,
+					sender : eventsType
+				},
+				url : 'paging',
+				success : function(numberOfPages) {
+					$("#table_pages").empty();
+					$("#table_pages").append(
+							'<li class="previousPage"><a>«</a></li>');
+					for (number = 1; number <= numberOfPages; number++) {
+						$("#table_pages").append(
+								'<li class="pageNumberButton"><a>' + number
+										+ '</a></li>');
+					}
+					$("#table_pages").append(
+							'<li class="nextPage"><a>»</a></li>');
+
+					$("#table_pages > li")
+							.click(
+									function(element) {
+										if ($(this).attr("class") == "previousPage"
+												&& selectedTablePage != 1) {
+											selectedTablePage--;
+											showEvents();
+										} else if ($(this).attr("class") == "nextPage"
+												&& selectedTablePage != numberOfPages) {
+											selectedTablePage++;
+											showEvents();
+										} else if ($(this).attr("class") == "pageNumberButton") {
+											selectedTablePage = $(this).text();
+											showEvents();
+										}
+									});
+
+				}
+			});
 }
 
 jQuery()
@@ -56,12 +126,16 @@ jQuery()
 $(document)
 		.ready(
 				function() {
+
+					size = $("#request_size").val();
+
 					table = $("table.table-bordered")
 							.dataTable(
 									{
 										"sAjaxDataProp" : "",
 										"fnInitComplete" : function(settings,
 												json) {
+											eventsAjaxCallback();
 										},
 										"fnRowCallback" : function(nRow, aData,
 												iDisplayIndex,
@@ -77,7 +151,15 @@ $(document)
 
 										"bProcessing" : false,
 										"bServerSide" : false,
-										"sAjaxSource" : "all-events",
+										"bPaginate" : false,
+										"bFilter" : false,
+										"bInfo" : false,
+										"bSort" : false,
+										"sAjaxSource" : eventsType + "?size="
+												+ size + "&page="
+												+ selectedTablePage
+												+ "&orderType=" + order.type
+												+ "&orderBy=" + order.by,
 										"aoColumns" : [
 												{
 													"mData" : function(data,
@@ -130,7 +212,8 @@ $(document)
 							.on(
 									'draw',
 									function() {
-										if (table.fnSettings().sAjaxSource == "all-events") {
+										if (table.fnSettings().sAjaxSource
+												.indexOf("all-events") > -1) {
 											$(
 													'.dropdown-menu>li>a:contains("Reject"),a:contains("Approve")')
 													.hide();
@@ -140,4 +223,35 @@ $(document)
 													.hide();
 										}
 									});
+
+					$("#request_size ").change(function() {
+						size = $(this).val();
+						selectedTablePage = 1;
+						showEvents();
+					});
+
+					$("#eventsTypesNav > li").click(function() {
+						eventsType = $(this).attr("id");
+						showEvents();
+					});
+
+					$("#eventsTableHeader > th").addClass(
+							"custom_sorting_enabled");
+
+					$("#eventsTableHeader > th").click(function() {
+						currentOrderBy = order.by;
+						order.by = $(this).attr("headers");
+						if (currentOrderBy == order.by) {
+							if (order.type == "DESC") {
+								order.type = "ASC";
+							} else {
+								order.type = "DESC";
+							}
+						} else {
+							order.type = "ASC";
+						}
+						console.log(order.type);
+						showEvents();
+					});
+
 				});

@@ -8,13 +8,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="resources/css/dataTables.bootstrap.css" rel="stylesheet"
+<link rel='stylesheet' href='resources/css/fullcalendar.min.css' />
+<link rel="stylesheet" href="resources/css/dataTables.bootstrap.css"
 	type="text/css" />
+<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
+
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/event.js" type="text/javascript"></script>
 <script src="resources/js/fnAjaxReload.js" type="text/javascript"></script>
 <script src="resources/js/dataTables.bootstrap.js"
 	type="text/javascript"></script>
+<script src='resources/js/moment.min.js'></script>
+<script src='resources/js/fullcalendar.min.js'></script>
 <title>Events</title>
 </head>
 <body class="wysihtml5-supported">
@@ -23,7 +28,6 @@
 			<spring:message code="label.events" />
 		</h1>
 	</section>
-
 	<!-- Main content -->
 	<section class="content">
 		<div class="box box-primary">
@@ -43,27 +47,43 @@
 			</div>
 
 			<!-- /.box-header -->
-			<ul class="nav nav-tabs">
-				<li id="all-events" class="active" onclick="allEvents(this)"><a
-					href="#" data-toggle="tab"><spring:message code="label.events" /></a></li>
-				<li class="" onclick="myEvents(this)"><a href="#"
-					data-toggle="tab"><spring:message code="label.Myevents" /></a></li>
+			<ul id="eventsTypesNav" class="nav nav-tabs">
+				<li id="all-events" class="active"><a href="#"
+					data-toggle="tab"><spring:message code="label.events" /></a></li>
+				<li id="my-events"><a href="#" data-toggle="tab"><spring:message
+							code="label.Myevents" /></a></li>
+				<li id="signed-events"><a href="#" data-toggle="tab"><spring:message
+							code="label.SignedEvents" /></a></li>
 			</ul>
 			<div class="box-body table-responsive">
+				<select id="request_size" class="dataTableDropDown">
+					<option value="10" selected="selected">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
 				<table id="request_table_obtain"
 					class="table table-bordered table-striped">
+
 					<thead>
-						<tr>
-							<th><spring:message code="label.eventTitle" /></th>
-							<th><spring:message code="label.startDate" /></th>
-							<th><spring:message code="label.location" /></th>
-							<th><spring:message code="label.price" /></th>
-							<th><spring:message code="label.website" /></th>
-							<th><spring:message code="label.organizer" /></th>
+						<tr id="eventsTableHeader">
+							<th headers="name"><spring:message code="label.eventTitle" /></th>
+							<th headers="startDate"><spring:message
+									code="label.startDate" /></th>
+							<th headers="address"><spring:message code="label.location" /></th>
+							<th headers="priceCategory"><spring:message
+									code="label.price" /></th>
+							<th headers="website"><spring:message code="label.website" /></th>
+							<th headers="owner"><spring:message code="label.organizer" /></th>
 						</tr>
 					</thead>
-
 				</table>
+				<div class="box-footer clearfix">
+					<ul id="table_pages"
+						class="pagination pagination-sm no-margin pull-right">
+					</ul>
+				</div>
+				<div id='calendar'></div>
 			</div>
 		</div>
 		<form:form modelAttribute="event" cssClass="form-horizontal groupForm">
@@ -178,7 +198,5 @@
 		</form:form>
 	</section>
 	<!-- /.content -->
-
-
 </body>
 </html>

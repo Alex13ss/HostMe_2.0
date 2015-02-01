@@ -3915,7 +3915,7 @@ img.displayed {
 	padding-left: 0.5em;
 }
 
-a#textColor {
+#textColor {
 	color:#FFF;
 	float:right;
 	font-family: 'Source Sans Pro', sans-serif;
@@ -3928,4 +3928,12 @@ a#textColor {
 	float:right;
 	margin-bottom: 20px;
 	
+}
+select.dataTableDropDown{
+	margin-top:10px;
+	margin-bottom:15px;
+}
+
+th.custom_sorting_enabled{
+	cursor:pointer;
 }

@@ -1,7 +1,10 @@
 package com.softserve.edu.repositories.routes;
 
 import java.util.List;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.User;
@@ -13,7 +16,7 @@ public interface PlaceRepository extends PagingAndSortingRepository<Place, Integ
 
     public List<Place> findByCity(City city);
 	
-	public List<Place> findByOwner(User owner);
+	public List<Place> findByOwner(User owner, Pageable peagelbe);
 	
 	public List<Place> findByPriceCategory(PriceCategory priceCategory);
 	

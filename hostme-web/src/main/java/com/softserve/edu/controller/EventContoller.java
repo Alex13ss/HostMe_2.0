@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,11 +29,13 @@ import com.softserve.edu.model.Country;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.User;
+import com.softserve.edu.repositories.EventRepository;
 import com.softserve.edu.service.CityService;
 import com.softserve.edu.service.CountryService;
 import com.softserve.edu.service.EventService;
 import com.softserve.edu.service.PriceCategoryService;
 import com.softserve.edu.service.ProfileService;
+import com.softserve.edu.service.implementation.EventServiceImpl;
 
 @Controller
 public class EventContoller {
@@ -44,11 +45,13 @@ public class EventContoller {
 	@Autowired
 	ProfileService profileService;
 	@Autowired
-	private CountryService countryService;
+	CountryService countryService;
 	@Autowired
-	private CityService cityService;
+	CityService cityService;
 	@Autowired
-	private PriceCategoryService priceCategoryService;
+	PriceCategoryService priceCategoryService;
+	@Autowired
+	EventRepository eventRepository;
 
 	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public String showEvents(Model model) {
@@ -56,7 +59,8 @@ public class EventContoller {
 		Event event = new Event();
 		List<Country> countries = countryService.getAllCountry();
 		List<City> cities = cityService.getAllCity();
-		List<PriceCategory> priceCategories = priceCategoryService.getAllPriceCategory();
+		List<PriceCategory> priceCategories = priceCategoryService
+				.getAllPriceCategory();
 		model.addAttribute("events", events);
 		model.addAttribute("event", event);
 		model.addAttribute("countries", countries);
@@ -66,39 +70,63 @@ public class EventContoller {
 	}
 
 	@RequestMapping(value = "/events", method = RequestMethod.POST)
-	public String addEvent(Model model, @ModelAttribute("event") @Valid Event event, final BindingResult result,
-			RedirectAttributes redirectAttributes, HttpSession httpSession) {
-		User user = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+	public String addEvent(Model model,
+			@ModelAttribute("event") @Valid Event event,
+			final BindingResult result, RedirectAttributes redirectAttributes,
+			HttpSession httpSession) {
+		User user = profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName());
 		event.setOwner(user);
 		eventService.saveEvent(event);
 		return "redirect:/events";
 	}
 
-	@RequestMapping(value = "/all-events", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<EventDto> getAllEvents() {
-		List<EventDto> events = eventService.getAllEvents();
+	@RequestMapping(value = "/all-events", params = { "page", "size",
+			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<EventDto> getAllEventsPaging(
+			@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size,
+			@RequestParam(value = "orderBy") String orderBy,
+			@RequestParam(value = "orderType") String orderType) {
+		List<EventDto> events = eventService.getAllEventsPaging(page, size,
+				orderBy, orderType);
 		return events;
 	}
-	
-//	@RequestMapping(value = "/all-events/{pageNumber}", method = RequestMethod.GET, produces = "application/json")
-//	public String getAllEvents(@PathVariable Integer pageNumber, Model model) {
-//		Page<EventDto> events = eventService.getAllEvents(pageNumber);
-//		
-//		int current = events.getNumber() + 1;
-//	    int begin = Math.max(1, current - 5);
-//	    int end = Math.min(begin + 10, events.getTotalPages());
-//
-//	    model.addAttribute("all_events", events);
-//	    model.addAttribute("beginIndex", begin);
-//	    model.addAttribute("endIndex", end);
-//	    model.addAttribute("currentIndex", current);
-//		return all_events;
-//	}
 
-	@RequestMapping(value = "/my-events", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<EventDto> getMyEvents() {
-		User user = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-		List<EventDto> events = eventService.getEventByOwner(user);
+	@RequestMapping(value = "/paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Long getAllEventsPaging(
+			@RequestParam(value = "size") Long size,
+			@RequestParam(value = "sender") String sender) {
+		Long amount;
+		if (sender.equals("all-events")) {
+			Long dataBaseSize = eventRepository.count();
+			if (dataBaseSize % size == 0) {
+				amount = dataBaseSize / size;
+			} else {
+				amount = dataBaseSize / size + 1;
+			}
+		} else if (sender.equals("my-events")) {
+			Long dataOwnreSize = EventServiceImpl.amountOfOwnerEvents;
+			if (dataOwnreSize % size == 0l) {
+				amount = dataOwnreSize / size;
+			} else {
+				amount = dataOwnreSize / size + 1;
+			}
+		} else {
+			amount = 3L;
+		}
+		return amount;
+	}
+
+	@RequestMapping(value = "/my-events", params = { "page", "size", "orderBy",
+			"orderType" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<EventDto> getMyEvents(
+			@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size,
+			@RequestParam(value = "orderBy") String orderBy,
+			@RequestParam(value = "orderType") String orderType) {
+		List<EventDto> events = eventService.getEventByOwner(page, size,
+				orderBy, orderType);
 		return events;
 	}
 
@@ -107,7 +135,8 @@ public class EventContoller {
 		EventDto eventDto = eventService.getEvent(id);
 		List<Country> countries = countryService.getAllCountry();
 		List<City> cities = cityService.getAllCity();
-		List<PriceCategory> priceCategories = priceCategoryService.getAllPriceCategory();
+		List<PriceCategory> priceCategories = priceCategoryService
+				.getAllPriceCategory();
 		model.addAttribute("event", eventDto);
 		model.addAttribute("countries", countries);
 		model.addAttribute("cities", cities);
@@ -116,12 +145,15 @@ public class EventContoller {
 	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.POST)
-	public String editEvent(@ModelAttribute("event") final Event event, RedirectAttributes redirectAttributes) {
+	public String editEvent(@ModelAttribute("event") final Event event,
+			RedirectAttributes redirectAttributes) {
 		String priceCategory = event.getPriceCategory().getPriceCategory();
 		String city = event.getCity().getCity();
-		event.setOwner(profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName()));
+		event.setOwner(profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName()));
 		eventService.updateEvent(event, city, priceCategory);
-		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute("eventEdited", true);
+		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
+				"eventEdited", true);
 		return "redirect:/event?id={id}";
 	}
 
@@ -136,7 +168,8 @@ public class EventContoller {
 	public void initBinder(WebDataBinder binder) {
 		String datePattern = "yyyy-MM-dd HH:mm:ss";
 		SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, true));
 	}
 
 }

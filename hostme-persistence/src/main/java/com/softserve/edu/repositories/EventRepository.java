@@ -13,4 +13,6 @@ public interface EventRepository extends JpaRepository<Event, Integer>  {
 	public List<Event> findByStartDate(Date date);
 
 	public List<Event> findByNameContaining(String name);
+	
+	public Integer countById(Integer id);
 }
