@@ -53,11 +53,7 @@ public class EventDto {
 		this.image = place.getImage();
 		this.attendee = place.getAttendee();
 	}
-
-	public EventDto(Integer dataBaseSize) {
-
-	}
-
+	
 	public Integer getId() {
 		return id;
 	}
