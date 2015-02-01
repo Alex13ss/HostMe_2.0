@@ -51,9 +51,8 @@
 				<div class="col-md-4">
 					<div class="panel-body">
 						<c:forEach var="image" items="${sightseeing.image}">
-							<a href="${image.link}" data-lightbox="images"> <img
-								src="${image.link}" />
-							</a>
+							<a href="${image_url}${image.link}" data-lightbox="images"> <img
+								src="${image_url}${image.link}" /></a>
 						</c:forEach>
 					</div>
 				</div>
@@ -96,10 +95,11 @@
 					</div>
 				</div>
 				<div>
-					<button type="button" class="btn btn-default btn-sm">
-							<a href="addToFavourite/${sightseeing.id}"><spring:message
-							code="label.like" /><i class="fa fa-star-o"></i>${sightseeing.rating}</a>
-						</button>
+					<a href="addToFavourite/${sightseeing.id}"><button
+							type="button" class="btn btn-default btn-sm">
+							<spring:message code="label.like" />
+							<i class="fa fa-star-o"></i>${sightseeing.rating}
+						</button></a>
 				</div>
 			</div>
 		</div>
@@ -131,13 +131,36 @@
 				<div class="box-body">
 					<dl>
 						<dd>
-							<div id="links">
+							<div>
 								<c:forEach var="image" items="${sightseeing.image}">
-									<a href="${image.link}"><img width="150px" height="150px"
-										src="${image.link}"></a>
+									<a href="${image_url}${image.link}" data-lightbox="images">
+										<img src="${image_url}${image.link}" />
+									</a>
 								</c:forEach>
 							</div>
 						</dd>
+					</dl>
+					<dl>
+						<form:form method="post" action="addPhotosToSight"
+							modelAttribute="sightseeing" enctype="multipart/form-data">
+							<input type="hidden" value="${sightseeing.id}" name="id" />
+							<div class="form-group">
+								<label for="exampleInputFile">
+									<h4>
+										<spring:message code="label.addPhotos" />
+									</h4>
+									<h5>
+										(
+										<spring:message code="label.savePhotoHotKey" />
+										)
+									</h5>
+								</label> <br> <input type="file" name="file" class="multi" multiple
+									accept="gif|jpg|png" data-maxfile="10000" data-maxsize="50000" />
+							</div>
+							<button type="submit" class="btn btn-primary">
+								<spring:message code="label.savePhotos" />
+							</button>
+						</form:form>
 					</dl>
 				</div>
 				<!-- /.box-body -->

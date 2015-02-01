@@ -155,7 +155,7 @@ public class User {
     @JoinTable(name = "user_place", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Place> attendee;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinTable(name = "favourite_sightseeing", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Sightseeing> favouriveSights;

@@ -106,12 +106,9 @@
 									<spring:message code="label.sightseeingType" />
 								</label>
 								<div class="col-sm-10">
-									<form:select path="sightseeingType">
+									<form:select id="sstype" path="sightseeingType">
 										<option value="0"><spring:message
 												code="label.sightseeingTypeSelect" /></option>
-										<c:forEach items="${sType}" var="type">
-											<option value="${type}">${type}</option>
-										</c:forEach>
 									</form:select>
 								</div>
 							</div>
@@ -165,12 +162,9 @@
 									class="col-sm-2 control-label"><spring:message
 										code="label.priceCategory" /></label>
 								<div class="col-sm-10">
-									<form:select path="priceCategory.priceCategory">
+									<form:select id="price" path="priceCategory.priceCategory">
 										<option value="0"><spring:message
 												code="label.priceCategorySelect" /></option>
-										<c:forEach items="${priceCategories}" var="priceCategory">
-											<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
-										</c:forEach>
 									</form:select>
 								</div>
 							</div>

@@ -31,7 +31,7 @@ public class Place {
 	@Column
 	private String website;
 
-	@OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "place", fetch = FetchType.EAGER, orphanRemoval=true)
 	private Set<Image> image;
 
 	@Column
@@ -56,7 +56,7 @@ public class Place {
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "attendee")
 	private Set<User> attendee;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "favouriveSights")
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "favouriveSights")
 	private Set<User> likers;
 
 	@Column

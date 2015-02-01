@@ -3,9 +3,11 @@ package com.softserve.edu.service.implementation;
 import com.softserve.edu.dao.ImageDao;
 import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.Image;
+import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.SystemPropertiesService;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -134,5 +136,32 @@ public class ImageServiceImpl implements ImageService {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	@Override
+	@Transactional
+	public void addImagesToSightseeing(MultipartFile[] files,
+			Sightseeing sightseeing) {
+		if (filesNotEmpty(files))
+			for (int i = 0; i < files.length; i++) {
+				saveImage(files[i], buildPath(sightseeing));
+				addImageToSight(files[i], sightseeing);
+			}
+	}
+
+	private String buildPath(Sightseeing sightseeing) {
+		return systemPropertiesService.getImagePath() + File.separator
+				+ "Sightseeings" + File.separator + sightseeing.getId();
+	}
+
+	@Transactional
+	private void addImageToSight(MultipartFile multipartFile,
+			Sightseeing sightseeing) {
+		Image image = new Image();
+		image.setLink("Sightseeings/" + sightseeing.getId() + "/"
+				+ multipartFile.getOriginalFilename());
+		image.setPlace(sightseeing);
+		imageDao.create(image);
+
 	}
 }

@@ -23,7 +23,7 @@ public class City {
 	@JoinColumn(name = "country_id", nullable = false)
 	private Country country;
 
-	@OneToMany(mappedBy = "city", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<Place> places;
 

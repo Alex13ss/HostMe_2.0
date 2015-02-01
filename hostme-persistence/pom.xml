@@ -50,6 +50,7 @@
 						<srcFile>src/main/resources/sql/groups.sql</srcFile>
 						<srcFile>src/main/resources/sql/conversations.sql</srcFile>
 						<srcFile>src/main/resources/sql/sightseeings.sql</srcFile>
+						<srcFile>src/main/resources/sql/system_properties.sql</srcFile>
 					</srcFiles>
 				</configuration>
 

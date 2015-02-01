@@ -7,7 +7,6 @@ function allSightseeings(element) {
 
 	}
 }
-
 function favouriteSightseeings(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
@@ -16,14 +15,53 @@ function favouriteSightseeings(element) {
 	}
 }
 
+jQuery().ready(
+		function() {
+			var priceCategories = [];
+			$.getJSON('getPriceCategories', function(data) {
+				$.each(data, function(index, val) {
+					priceCategories[index] = val;
+				});
+				var $priceOption = '<option value="0">Select price category</option>';
+				for (var i = 0; i < priceCategories.length; i++) {
+					var price = priceCategories[i].priceCategory;
+					$priceOption += '<option value="' + price + '">'
+							+ price + '</option>';
+				};
+				$('#price').html($priceOption);
+			});
+		});
+jQuery().ready(
+		function() {
+			var types = [];
+			$.getJSON('getAllTypes', function(data) {
+				$.each(data, function(index, val) {
+					types[index] = val;
+				});
+				var $typeOption = '<option value="0">Select sightseeing type</option>';
+				for (var i = 0; i < types.length; i++) {
+					var type = types[i];
+					$typeOption += '<option value="' + type + '">'
+							+ type + '</option>';
+				};
+				$('#sstype').html($typeOption);
+			});
+		});
 jQuery()
 		.ready(
 				function() {
 					var tabCountry = [];
-					$.getJSON('getAllCountries.json', function(data) {
+					$.getJSON('getAllCountries', function(data) {
 						$.each(data, function(index, val) {
 							tabCountry[index] = val;
 						});
+						var $countryOption = '<option value="0">Select country</option>';
+					for (var i = 0; i < tabCountry.length; i++) {
+						var country = tabCountry[i].country;
+						$countryOption += '<option value="' + country + '">'
+								+ country + '</option>';
+					};
+					$('#country').html($countryOption);
 					});
 					$('#country')
 							.change(
@@ -39,7 +77,6 @@ jQuery()
 															+ '">'
 															+ town
 															+ '</option>';
-													console.log($htmlOption);
 												}
 											}
 										}
@@ -101,11 +138,23 @@ $(document)
 															type, full) {
 														return data.priceCategory;
 													}
-												}, {
+												},
+												{
 													"mData" : "website"
-												}, {
+												},
+												{
 													"mData" : "sightseeingType"
-												}, ]
+												},
+												{
+													"mData" : function(data,
+															type, full) {
+														return '<a href="sightseeing/delete/'
+																+ data.id
+																+ '" class="text-red"/>'
+																+ 'Delete'
+																+ '<span class="fa fa-trash-o"></span></a>'
+													}
+												} ]
 									});
 					table
 							.on(

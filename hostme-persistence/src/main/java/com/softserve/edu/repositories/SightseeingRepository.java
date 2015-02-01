@@ -5,14 +5,14 @@ import java.util.Set;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
 
 public interface SightseeingRepository extends
-		CrudRepository<Sightseeing, Integer> {
+		PagingAndSortingRepository<Sightseeing, Integer> {
 	public List<Sightseeing> findByNameContaining(String name);
 
 	public Set<Sightseeing> findByLikers(User user);

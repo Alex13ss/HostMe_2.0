@@ -2,20 +2,17 @@ package com.softserve.edu.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.SightseeingDto;
@@ -27,6 +24,7 @@ import com.softserve.edu.model.SightseeingType;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.CityService;
 import com.softserve.edu.service.CountryService;
+import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.PriceCategoryService;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.SightseeingService;
@@ -44,23 +42,20 @@ public class SightseeingController {
 	private PriceCategoryService priceCategoryService;
 	@Autowired
 	private ProfileService profileService;
-	
+	@Autowired
+	private ImageService imageService;
+
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.GET)
 	public String showSightseeings(Model model) {
-		List<SightseeingDto> sightseeings = sightseeingService
-				.getAllSightseeings();
-		Sightseeing sightseeing = new Sightseeing();
-		List<Country> countries = countryService.getAllCountry();
-		List<City> cities = cityService.getAllCity();
+		model.addAttribute("sightseeing", new Sightseeing());
+		return "sightseeings";
+	}
+
+	@RequestMapping(value = "/getPriceCategories", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<PriceCategory> getAllPriceCategories() {
 		List<PriceCategory> priceCategories = priceCategoryService
 				.getAllPriceCategory();
-		model.addAttribute("sightseeings", sightseeings);
-		model.addAttribute("sightseeing", sightseeing);
-		model.addAttribute("countries", countries);
-		model.addAttribute("cities", cities);
-		model.addAttribute("priceCategories", priceCategories);
-		model.addAttribute("sType", SightseeingType.values());
-		return "sightseeings";
+		return priceCategories;
 	}
 
 	@RequestMapping(value = "/getAllCountries", method = RequestMethod.GET, produces = "application/json")
@@ -69,11 +64,15 @@ public class SightseeingController {
 		return countries;
 	}
 
+	@RequestMapping(value = "/getAllTypes", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody SightseeingType[] getAllTypes() {
+		SightseeingType[] types = SightseeingType.values();
+		return types;
+	}
+
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.POST)
 	public String addSightseeing(Model model,
-			@ModelAttribute("sightseeing") @Valid Sightseeing sightseeing,
-			final BindingResult result, RedirectAttributes redirectAttributes,
-			HttpSession httpSession) {
+			@ModelAttribute("sightseeing") Sightseeing sightseeing) {
 		String priceCategory = sightseeing.getPriceCategory()
 				.getPriceCategory();
 		String city = sightseeing.getCity().getCity();
@@ -90,7 +89,8 @@ public class SightseeingController {
 
 	@RequestMapping(value = "/favourite-sightseeings", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<SightseeingDto> getFavouriteSightseeings() {
-		User liker = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+		User liker = profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName());
 		return sightseeingService.getFavouriteSightseeings(liker);
 	}
 
@@ -123,6 +123,16 @@ public class SightseeingController {
 		return "redirect:/sightseeing?id={id}";
 	}
 
+	@RequestMapping(value = "/addPhotosToSight", method = RequestMethod.POST)
+	public String addPhotoToSight(@RequestParam("file") MultipartFile[] files,
+			@ModelAttribute("sightseeing") final Sightseeing sightseeing,
+			RedirectAttributes redirectAttributes) {
+		redirectAttributes.addAttribute("id", sightseeing.getId())
+				.addFlashAttribute("sightseeingEdited", true);
+		imageService.addImagesToSightseeing(files, sightseeing);
+		return "redirect:/sightseeing?id={id}";
+	}
+
 	@RequestMapping("/sightseeing/delete/{id}")
 	public String deleteSightseeing(@PathVariable("id") Integer id) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
@@ -133,10 +143,10 @@ public class SightseeingController {
 	@RequestMapping("/addToFavourite/{id}")
 	public String addToFavourite(@PathVariable("id") Integer id) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
-		User user = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+		User user = profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName());
 		sightseeingService.saveLikerforSightseing(user, sightseeing);
 		return "redirect:/sightseeing?id={id}";
 	}
-	
-	
+
 }

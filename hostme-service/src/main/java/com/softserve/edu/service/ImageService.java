@@ -1,7 +1,9 @@
 package com.softserve.edu.service;
 
 import com.softserve.edu.model.Hosting;
+import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageService {
@@ -18,5 +20,7 @@ public interface ImageService {
 	void deleteImagesForHosting(Hosting hosting);
 
 	String getImagePath();
+	
+	void addImagesToSightseeing(MultipartFile[] files, Sightseeing sightseeing);
 
 }
