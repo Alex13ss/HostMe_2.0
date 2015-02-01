@@ -1,5 +1,5 @@
 /**
- * JavaScript for page with groups Created by Oleksandr Bandurka
+ * @author Oleksandr Bandurka JavaScript for page with groups
  */
 
 function allGroups(element) {
@@ -40,37 +40,6 @@ function needActionsGroups(element) {
 $(document)
 		.ready(
 				function() {
-					$(".triggerRemove").click(
-							function(e) {
-								e.preventDefault();
-								$("#modalRemove .removeBtn").attr("href",
-										$(this).attr("href"));
-								$("#modalRemove").modal();
-							});
-					$(".groupForm").validate(
-							{
-								rules : {
-									groupName : {
-										required : true,
-										minlength : 3
-									},
-									groupDescription : {
-										required : true,
-										minlength : 5
-									}
-								},
-								highlight : function(element) {
-									$(element).closest('.form-group')
-											.removeClass('has-success')
-											.addClass('has-error');
-								},
-								unhighlight : function(element) {
-									$(element).closest('.form-group')
-											.removeClass('has-error').addClass(
-													'has-success');
-								}
-							});
-
 					table = $("table.table-bordered")
 							.dataTable(
 									{
@@ -92,7 +61,6 @@ $(document)
 											function html_element(aData, status) {
 												var parent_element = $("<a/>",
 														{
-
 															"href" : "#"
 														})
 														.click(
@@ -106,14 +74,11 @@ $(document)
 																				url : 'request-update',
 																				'dataType' : 'json',
 																				beforeSend : function() {
-
 																				},
 																				contentType : "application/json",
 																				"type" : "POST",
-
 																				data : JSON
 																						.stringify(aData),
-
 																				success : function(
 																						response) {
 																					$(
@@ -121,15 +86,12 @@ $(document)
 																							nRow)
 																							.html(
 																									response.status);
-
 																				}
-
 																			});
 																});
 												return parent_element;
 											}
 											;
-
 											var button = $(
 													"<button/>",
 													{
@@ -137,7 +99,6 @@ $(document)
 														"type" : "button",
 														"data-toggle" : "dropdown",
 														"class" : "btn btn-default dropdown-toggle",
-
 													});
 
 											function form_element(aData) {
@@ -167,7 +128,6 @@ $(document)
 																				approve)
 																		.append(
 																				refuse)));
-
 												return final_element;
 											}
 											var currentDate = new Date();
@@ -175,10 +135,9 @@ $(document)
 													.getMilliseconds()) {
 												row = $('td:eq(6)', nRow).html(
 														form_element(aData));
-
 											}
-
 										},
+
 										"bJQueryUI" : true,
 										"bProcessing" : false,
 										"bServerSide" : false,

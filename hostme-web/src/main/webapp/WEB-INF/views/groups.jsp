@@ -11,7 +11,8 @@
 <head>
 <meta charset="UTF-8">
 
-<script type="text/javascript" src="resources/js/group.js"></script>
+<script type="text/javascript" src="resources/js/groups/group.js"></script>
+<script type="text/javascript" src="resources/js/groups/groups.js"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/groups.css">
 <link rel="stylesheet" type="text/css"
