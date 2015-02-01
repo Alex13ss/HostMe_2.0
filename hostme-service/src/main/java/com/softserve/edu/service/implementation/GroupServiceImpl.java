@@ -1,5 +1,6 @@
 package com.softserve.edu.service.implementation;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -42,16 +43,6 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public Set<GroupDto> getGroupsByCreator(User creatorUser) {
-        Set<GroupDto> list = new HashSet<GroupDto>();
-        for (Group group : groupRepository.findAllByCreatorUser(creatorUser)) {
-            list.add(new GroupDto(group));
-        }
-        return list;
-    }
-
-    @Override
-    @Transactional
     public Group findOne(Long id) {
         return groupRepository.findOne(id);
     }
@@ -80,6 +71,16 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
+    public Set<GroupDto> getGroupsByCreator(User creatorUser) {
+        Set<GroupDto> list = new HashSet<GroupDto>();
+        for (Group group : groupRepository.findAllByCreatorUser(creatorUser)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
+    }
+
+    @Override
+    @Transactional
     public void saveInterestedUser(User user, Group group) {
         List<User> interestedUsers = (List<User>) userRepository
                 .findAllByInterestingGroups(group);
@@ -91,6 +92,17 @@ public class GroupServiceImpl implements GroupService {
         user.setInterestingGroups(interestingGroups);
         groupRepository.save(group);
         userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public List<GroupDto> getGroupsByInterestedUser(User interestedUser) {
+        List<GroupDto> list = new ArrayList<GroupDto>();
+        for (Group group : groupRepository
+                .findAllByInterestedUsers(interestedUser)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
     }
 
 }

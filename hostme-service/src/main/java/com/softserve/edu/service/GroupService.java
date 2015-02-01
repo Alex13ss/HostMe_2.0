@@ -1,5 +1,6 @@
 package com.softserve.edu.service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.softserve.edu.dto.GroupDto;
@@ -21,5 +22,7 @@ public interface GroupService {
     public Set<GroupDto> getGroupsByCreator(User creatorUser);
 
     public void saveInterestedUser(User user, Group group);
+
+    public List<GroupDto> getGroupsByInterestedUser(User interestedUser);
 
 }

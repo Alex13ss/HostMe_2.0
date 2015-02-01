@@ -100,6 +100,14 @@ public class GroupController {
         return groups;
     }
 
+    @RequestMapping(value = "/interesting-groups", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<GroupDto> getInterestingGroups() {
+        User interestedUser = profileService
+                .getUserByLogin(SecurityContextHolder.getContext()
+                        .getAuthentication().getName());
+        return groupService.getGroupsByInterestedUser(interestedUser);
+    }
+
     @RequestMapping(value = "/group", method = RequestMethod.GET)
     public String showGroup(@RequestParam("id") long id, Model model) {
         Group group = groupService.findOne(id);
