@@ -19,12 +19,16 @@ public interface GroupService {
 
     public void update(Group group);
 
-    public Set<GroupDto> getGroupsByCreator(User creatorUser);
-
     public void saveInterestedUser(User user, Group group);
+
+    public void removeInterestingRelationship(User user, Group group);
+
+    public Set<GroupDto> getGroupsByCreator(User creatorUser);
 
     public List<GroupDto> getGroupsByInterestedUser(User interestedUser);
 
     public boolean checkInterestedByGroupAndUser(Group group, User user);
+
+    public boolean checkIsItGroupCreator(Group group, User user);
 
 }

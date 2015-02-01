@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -56,6 +58,10 @@ public class Group {
     @Column(name = "last_edited_at")
     private Date lastEditedAt;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     /**
      * Contains images uploaded by this group
      */
@@ -81,7 +87,7 @@ public class Group {
      * them
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "interesting_groups", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "interesting_groups", joinColumns = @JoinColumn(name = "group_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false))
     private List<User> interestedUsers;
 
     /**
@@ -158,6 +164,14 @@ public class Group {
         this.lastEditedAt = lastEditedAt;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public List<User> getInterestedUsers() {
         return interestedUsers;
     }
@@ -186,11 +200,11 @@ public class Group {
     public String toString() {
         return "Group [id=" + id + ", groupName=" + groupName
                 + ", groupDescription=" + groupDescription + ", createdAt="
-                + createdAt + ", lastEditedAt=" + lastEditedAt + ", images="
-                + images + ", conversations=" + conversations
-                + ", creatorUser=" + creatorUser + ", lastEditor=" + lastEditor
-                + ", interestedUsers=" + interestedUsers + ", tags=" + tags
-                + "]";
+                + createdAt + ", lastEditedAt=" + lastEditedAt + ", status="
+                + status + ", images=" + images + ", conversations="
+                + conversations + ", creatorUser=" + creatorUser
+                + ", lastEditor=" + lastEditor + ", interestedUsers="
+                + interestedUsers + ", tags=" + tags + "]";
     }
 
 }

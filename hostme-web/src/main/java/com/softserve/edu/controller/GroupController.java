@@ -112,9 +112,10 @@ public class GroupController {
         User user = profileService.getCurrentUser();
         boolean isInterested = groupService.checkInterestedByGroupAndUser(
                 group, user);
-        System.out.println(isInterested);
+        boolean isCreator = groupService.checkIsItGroupCreator(group, user);
         model.addAttribute("group", group);
         model.addAttribute("isInterested", isInterested);
+        model.addAttribute("isCreator", isCreator);
         addLatestConversationsByGroupId(model, id);
         return "group";
     }
@@ -128,12 +129,22 @@ public class GroupController {
         return "redirect:/group?id={id}";
     }
 
-    @RequestMapping("/group/interesting/{id}")
+    @RequestMapping("/group/add-to-interesting/{id}")
     public String addToInteresting(@PathVariable("id") Long id) {
         Group group = groupService.findOne(id);
         User user = profileService.getUserByLogin(SecurityContextHolder
                 .getContext().getAuthentication().getName());
         groupService.saveInterestedUser(user, group);
+        return "redirect:/group?id={id}";
+    }
+
+    @RequestMapping("/group/remove-from-interesting/{id}")
+    public String removeFromInteresting(@PathVariable("id") Long id) {
+        Group group = groupService.findOne(id);
+        User user = profileService.getUserByLogin(SecurityContextHolder
+                .getContext().getAuthentication().getName());
+        System.out.println("\n*\n**\n***\nSad smile from Controller.");
+        groupService.removeInterestingRelationship(user, group);
         return "redirect:/group?id={id}";
     }
 

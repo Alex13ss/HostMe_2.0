@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
+import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.repositories.GroupRepository;
 import com.softserve.edu.repositories.user.UserRepository;
@@ -67,6 +68,7 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     public void create(Group group) {
         group.setCreatedAt(new Date());
+        group.setStatus(Status.PENDING);
         group.setCreatorUser(profileService.getCurrentUser());
         groupRepository.save(group);
     }
@@ -96,6 +98,18 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
+    public void removeInterestingRelationship(User user, Group group) {
+        /***/
+        // Hibernate.initialize(group.getInterestedUsers());
+        // Hibernate.initialize(user.getInterestingGroups());
+        System.out.println("Sad smile from ServiceImpl.\n***\n**\n*\n");
+        // group.getInterestedUsers().remove(user);
+        // user.getInterestingGroups().remove(group);
+        /***/
+    }
+
+    @Override
+    @Transactional
     public List<GroupDto> getGroupsByInterestedUser(User interestedUser) {
         List<GroupDto> list = new ArrayList<GroupDto>();
         for (Group group : groupRepository
@@ -110,8 +124,17 @@ public class GroupServiceImpl implements GroupService {
     public boolean checkInterestedByGroupAndUser(Group group, User user) {
         Group groupFound = groupRepository.findOne(group.getId());
         List<User> interestedUsers = groupFound.getInterestedUsers();
-        System.out.println(interestedUsers.toString());
         if (interestedUsers.contains(user)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkIsItGroupCreator(Group group, User user) {
+        Group groupFound = groupRepository.findOne(group.getId());
+        User creatorUser = groupFound.getCreatorUser();
+        if (creatorUser.equals(user)) {
             return true;
         }
         return false;

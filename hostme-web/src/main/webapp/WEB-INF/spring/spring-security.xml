@@ -21,6 +21,7 @@
 		<intercept-url pattern="/megaSearch" access="isAuthenticated()" />
 		<intercept-url pattern="/createRoute" access="isAuthenticated()" />
 		<intercept-url pattern="/groups" access="isAuthenticated()" />
+		<intercept-url pattern="/group" access="isAuthenticated()" />
 		<intercept-url pattern="/profile" access="isAuthenticated()" />
 		<intercept-url pattern="/conversations" access="isAuthenticated()" />
 		<intercept-url pattern="/conversation" access="isAuthenticated()" />
@@ -43,9 +44,9 @@
 		<authentication-provider>
 			<password-encoder hash="bcrypt"></password-encoder>
 			<jdbc-user-service data-source-ref="dataSource"
-							   authorities-by-username-query="select
+				authorities-by-username-query="select
 								   login, role from users join roles on users.role_id=roles.role_id where users.login=?"
-							   users-by-username-query="select
+				users-by-username-query="select
 								   login, password, 1 from users where login = ?" />
 		</authentication-provider>
 	</authentication-manager>

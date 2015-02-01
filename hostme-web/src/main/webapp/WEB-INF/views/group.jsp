@@ -42,9 +42,16 @@
 				<div align="right">
 					<sec:authorize access="hasRole('USER')">
 						<c:if test="${isInterested eq false}">
-							<a href="<spring:url value="/group/interesting/${group.id}" />"
+							<a
+								href="<spring:url value="/group/add-to-interesting/${group.id}" />"
 								class="btn btn-default btn-sm"><i class="fa fa-fw fa-check"></i>
 								<spring:message code="label.addGroupToInteresting" /> </a>
+						</c:if>
+						<c:if test="${isInterested eq true}">
+							<a
+								href="<spring:url value="/group/remove-from-interesting/${group.id}" />"
+								class="btn btn-default btn-sm"><i class="fa fa-fw fa-times"></i>
+								<spring:message code="label.delGroupFromInteresting" /> </a>
 						</c:if>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ADMIN')">
@@ -54,8 +61,6 @@
 							<spring:message code="label.moderatingGroup" />
 							<i class="fa fa-caret-down"></i>
 						</button>
-					</sec:authorize>
-					<sec:authorize access="hasAnyRole('ADMIN','USER')">
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#groupEditModal">
 							<i class="fa fa-fw fa-edit"></i>
@@ -66,6 +71,17 @@
 							class="fa fa-fw fa-trash-o"></i> <spring:message
 								code="label.removeGroup" /> </a>
 					</sec:authorize>
+					<c:if test="${isCreator eq true}">
+						<button type="button" class="btn btn-default btn-sm"
+							data-toggle="modal" data-target="#groupEditModal">
+							<i class="fa fa-fw fa-edit"></i>
+							<spring:message code="label.editGroup" />
+						</button>
+						<a href="<spring:url value="/group/remove/${group.id}" />"
+							class="btn btn-default btn-sm triggerRemove"><i
+							class="fa fa-fw fa-trash-o"></i> <spring:message
+								code="label.removeGroup" /> </a>
+					</c:if>
 				</div>
 			</div>
 		</div>
