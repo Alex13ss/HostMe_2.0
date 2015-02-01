@@ -8,13 +8,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "conversations")
 public class Conversation {
+    
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "title")
+    private String title;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "createdAt")
@@ -25,13 +26,13 @@ public class Conversation {
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User ownerUser;
+    @JoinColumn(name = "owner_id")
+    private User owner;
 
     @OneToMany(fetch = FetchType.EAGER)
     private Set<User> moderators;
 
-    @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
     private Set<Post> posts;
 
     public Long getId() {
@@ -42,12 +43,12 @@ public class Conversation {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Calendar getCreatedAt() {
@@ -58,12 +59,20 @@ public class Conversation {
         this.createdAt = createdAt;
     }
 
-    public User getOwnerUser() {
-        return ownerUser;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setOwnerUser(User ownerUser) {
-        this.ownerUser = ownerUser;
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
     public Set<User> getModerators() {

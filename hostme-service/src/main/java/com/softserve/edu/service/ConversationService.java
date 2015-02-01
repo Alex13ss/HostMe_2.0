@@ -22,5 +22,7 @@ public interface ConversationService {
     
     List<ConversationDto> findLatestConversationsDtoByGroupId(Long id);
     
+    Conversation save(Conversation conversation);
+    
     //List<Conversation> findAllConversationsByGroupId(Long id);
 }

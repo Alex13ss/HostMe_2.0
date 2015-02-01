@@ -3,8 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<script type="text/javascript"
-	src="resources/js/conversations/conversations.js"></script>
+<script type="text/javascript" src="resources/js/conversations/conversations.js"></script>
 
 <div class="panel panel-info">
 	<div class="panel-heading conversations_header">
@@ -12,7 +11,7 @@
 			<div class="panel-title">
 				<spring:message code="conversations.title" />
 				<span class="badge conversation_badge">${conversationsSize}</span> 
-				<span class="badge conversation_badge  conversation_create_label">
+				<span class="badge conversation_badge  conversation_create_label" >
 					<spring:message code="conversations.create" />
 				</span>
 			</div>
@@ -29,7 +28,7 @@
 
 			<a href="<c:out value="${conversationUrl}"/>">
 				<div class="conversation">
-					<div class="conversation_title">${conversationDto.conversation.name}</div>
+					<div class="conversation_title">${conversationDto.conversation.title}</div>
 					<div class="last_post">Останнє повідомлення від
 						${conversationDto.lastPost.author.login}.
 						${conversationDto.lastPostDate } о ${conversationDto.lastPostTime}</div>
@@ -37,4 +36,7 @@
 			</a>
 		</c:forEach>
 	</div>
+	
+	<%@ include file="createConversationModal.jsp"%>
+	
 </div>
