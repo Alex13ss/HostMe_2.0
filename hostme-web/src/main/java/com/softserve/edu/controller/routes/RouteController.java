@@ -2,6 +2,7 @@ package com.softserve.edu.controller.routes;
 
 import com.softserve.edu.dto.PlaceDto;
 import com.softserve.edu.dto.RouteDto;
+import com.softserve.edu.dto.RoutePagingDto;
 import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.routes.PlaceService;
@@ -49,25 +50,30 @@ public class RouteController {
         return true;
     }
 
-    @RequestMapping(value = "/getUserPlaces")
-    public @ResponseBody List<PlaceDto> getUserPlaces() {
+    @RequestMapping(value = "/getUserPlaces", method = RequestMethod.POST)
+    public @ResponseBody List<PlaceDto> getUserPlaces(@RequestBody RoutePagingDto routeRequest) {
         ArrayList<PlaceDto> result = new ArrayList<>();
         result.addAll(placeService.placeToPlaceDto(placeService.getUserPlaces()));
         return result;
     }
 
-    @RequestMapping(value = "/getUserBookedPlaces")
-    public @ResponseBody List<PlaceDto> getBookedPlaces() {
+    @RequestMapping(value = "/getUserBookedPlaces", method = RequestMethod.POST)
+    public @ResponseBody List<PlaceDto> getBookedPlaces(@RequestBody RoutePagingDto routeRequest) {
         ArrayList<PlaceDto> result = new ArrayList<>();
         result.addAll(placeService.placeToPlaceDto(placeService.getBookedPlaces()));
         return result;
     }
 
-    @RequestMapping(value = "/getPopularPlaces")
-    public @ResponseBody List<PlaceDto> getPopularPlaces() {
+    @RequestMapping(value = "/getPopularPlaces", method = RequestMethod.POST)
+    public @ResponseBody List<PlaceDto> getPopularPlaces(@RequestBody RoutePagingDto routeRequest) {
         ArrayList<PlaceDto> result = new ArrayList<>();
-        result.addAll(placeService.placeToPlaceDto(placeService.getAllPlaces(new PageRequest(0, 20))));
+        result.addAll(placeService.placeToPlaceDto(placeService.getAllPlaces(new PageRequest(0, 5))));
         return result;
+    }
+
+    @RequestMapping(value = "/getPlaceDispNumber")
+    public @ResponseBody int[] getPlaceDispNumber() {
+        return new int[]{5, 10, 15};
     }
 
     @RequestMapping(value = "/routeEdit")

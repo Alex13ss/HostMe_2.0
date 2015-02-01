@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -75,7 +76,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public Set<Place> getBookedPlaces() {
 		User currentUser = profileService.getCurrentUser();
-		return userRepository.findByUserIdAndFetchBookedPlacesEagerly(currentUser.getUserId()).getBookedPlaces();
+		User user = userRepository.findByUserIdAndFetchBookedPlacesEagerly(currentUser.getUserId());
+		if (user == null) {
+			return new HashSet<>();
+		} else {
+			return user.getBookedPlaces();
+		}
 	}
 
 	@Override

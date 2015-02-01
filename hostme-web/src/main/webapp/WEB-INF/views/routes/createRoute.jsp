@@ -31,8 +31,9 @@
             <spring:message code="routes.createRouteDescription" />
             <input id="description" class="form-control">
             <div class="container-fluid">
-                <div id="userTabs" class="col-lg-4">
+                <div id="userTabs" class="col-sm-4">
                     <spring:message code="places.yourPlaces"/>
+                    <select id="userPlaceNumber"></select>
                     <ul>
                         <li><a href="#userBookedPlaces">Booked</a></li>
                         <li><a href="#userPlaces">Your</a></li>
@@ -40,17 +41,26 @@
                     <div id="userBookedPlaces"></div>
                     <div id="userPlaces"></div>
                 </div>
-                <div class="col-lg-4">
-                    <div id="originPlaceDrop" class="dropArea"></div>
-                    <div id="waypointsPlacesDrop" class="dropArea"></div>
-                    <div id="destinationPlaceDrop" class="dropArea"></div>
-                    <button id="createRoute" class="btn" style="width: 100%">
+                <div class="col-sm-4">
+                    <div id="originPlaceDrop" class="dropArea">
+                        <div class="hint">Add Origin</div>
+                    </div>
+                    <div id="waypointsPlacesDrop" class="dropArea">
+                        <div class="hint">Add waypoints</div>
+                    </div>
+                    <div id="destinationPlaceDrop" class="dropArea">
+                        <div class="hint">Add destination</div>
+                    </div>
+                    <button id="createRoute" class="btn btn-primary" style="width: 100%">
                         <spring:message code="routes.createRoute"/>
                     </button>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-sm-4">
                     <spring:message code="places.popularPlaces"/>
+                    <select id="popularPlaceNumber"></select>
                     <div id="allPlaces"></div>
+                    <div class="col-sm-6 btn btn-primary"><<</div>
+                    <div class="col-sm-6 btn btn-primary">>></div>
                 </div>
             </div>
         </div>

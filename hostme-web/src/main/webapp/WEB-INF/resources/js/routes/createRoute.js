@@ -5,15 +5,24 @@ var routeDto = {
     destinationId: "",
     waypointsId: []
     };
+var pageIndex = 1;
+var userPlaces = [];
+var bookedPlaces = [];
+var popularPlaces = [];
 var userPlacesUrl = "getUserPlaces";
 var userBookedPlacesUlr = "getBookedPlaces";
 var popularPlacesUrl = "getPopularPlaces";
 var haveOriginPlace = false;
 var haveDestinationPlace = false;
+var $userPlacesUi;
+var $userBookedPlacesUi;
+var $popularPlacesUi;
+var $userPlaceNumber;
+var $popularPlaceNumber;
 $(document).ready(function() {
-    var $userPlacesUi = $("#userPlaces");
-    var $userBookedPlacesUi = $("#userBookedPlaces");
-    var $popularPlacesUi = $("#allPlaces");
+    $userPlacesUi = $("#userPlaces");
+    $userBookedPlacesUi = $("#userBookedPlaces");
+    $popularPlacesUi = $("#allPlaces");
     var $originDropUi = $("#originPlaceDrop");
     var $waypointsDropUi = $("#waypointsPlacesDrop");
     var $destinationDropUi = $("#destinationPlaceDrop");
@@ -22,17 +31,24 @@ $(document).ready(function() {
     var $createRouteBtn = $("#createRoute");
     var $savingStatus = $("#savingStatus");
     var $userTabs = $("#userTabs");
+    $userPlaceNumber = $("#userPlaceNumber");
+    $popularPlaceNumber = $("#popularPlaceNumber");
     $userTabs.tabs();
-    initDragPlaces(userPlacesUrl, $userPlacesUi);
-    initDragPlaces(popularPlacesUrl, $popularPlacesUi);
-    initDragPlaces(userBookedPlacesUlr, $userBookedPlacesUi);
+    initListSize($userPlaceNumber);
+    initListSize($popularPlaceNumber);
+    getPlaces(userPlacesUrl, $userPlacesUi);
+    getPlaces(userBookedPlacesUlr, $userBookedPlacesUi);
+    getPlaces(popularPlacesUrl, $popularPlacesUi);
     initDropPlaces($userPlacesUi);
     initDropPlaces($popularPlacesUi);
     $originDropUi.droppable({
         out: function() {
             haveOriginPlace = false;
+            $originDropUi.append(
+                "<div class='hint'>" + "Picture" + "</div>");
         },
         drop: function(event, ui) {
+            $originDropUi.find(".hint").remove();
             haveOriginPlace = true;
             addOrigin = ui.draggable.data("Address");
             routeDto.originId = ui.draggable.data("Id");
@@ -50,12 +66,18 @@ $(document).ready(function() {
             });
             tryDrawDestination();
         }
+    }).sortable({
+        items: $(".dragPlace"),
+        sort: function() {
+            //TODO imp Sort
+        }
     });
     $destinationDropUi.droppable({
         out: function() {
             haveDestinationPlace = false;
         },
         drop: function(event, ui) {
+            $destinationDropUi.find(".hint").remove();
             haveDestinationPlace = true;
             addDestination = ui.draggable.data("Address");
             routeDto.destinationId = ui.draggable.data("Id");
@@ -93,34 +115,99 @@ $(document).ready(function() {
     });
 });
 
+function initListSize($ui) {
+    $.ajax({
+        url: "getPlaceDispNumber",
+        dataType: "json",
+        success: function(data) {
+            for(var i = 0; i < data.length; i++) {
+                $ui.append("<option>"
+                    + data[i]
+                    + "</option>"
+                )
+            }
+        }
+    })
+}
+
 function initDropPlaces($ui) {
     $ui.droppable();
 }
 
-function initDragPlaces(url, $ui) {
+function getPlaces(url, $ui, pageIndex, placeSize) {
+    var obj = {
+        pageIndex: pageIndex,
+        placeSize: placeSize};
     $.ajax({
         url: url,
         dataType: "json",
+        type: "POST",
+        data: JSON.stringify(obj),
+        contentType : 'application/json; charset=utf-8',
         beforeSend: function() {
-            $ui.append("LOADING!");
+            $ui.append("<div class='ion-loading-c'/>");
         },
-        success: function(result) {
-            $ui.html("");
-            if (result.length == 0) {
-                $ui.append("No data found")
+        success: function(data) {
+            $ui.find(".ion-loading-c").remove();
+            if ($ui === $userPlacesUi) {
+                fillPlaces(data, userPlaces);
+                drawPlaces($ui, userPlaces)
+            } else if ($ui === $userBookedPlacesUi) {
+                fillPlaces(data, bookedPlaces);
+                drawPlaces($ui, bookedPlaces)
             } else {
-                for (var i = 0; i < result.length; i++) {
-                    $ui.append("<div class='dragPlace'>" +
-                        '<a href = "place?placeId='+ result[i].id + '">'
-                        + result[i].name + "</a>"
-                    + "</div>");
-                    $ui.children().last().data("Id", result[i].id);
-                    $ui.children().last().data("Address", result[i].address);
-                }
-                initDrag();
+                fillPlaces(data, popularPlaces);
+                drawPlaces($ui, popularPlaces)
+            }
+            initDrag();
+            if ($ui === $userBookedPlacesUi &&
+                    $userBookedPlacesUi.children().length == 0) {
+                $userBookedPlacesUi.append(ifBookedPlacesEmpty());
+            } else if ($ui === $userPlacesUi &&
+                $userPlacesUi.children().length == 0) {
+                $userPlacesUi.append(ifUserPlacesEmpty());
             }
         }
     });
+}
+
+function fillPlaces(data, target) {
+    for (var i = 0; i < data.length; i++) {
+        target.push(data[i]);
+    }
+}
+
+function drawPlaces($ui, data) {
+    for (var i = 0; i < data.length; i++) {
+        $ui.append("<div class='dragPlace'>" +
+        '<a href = "place?placeId=' + data[i].id + '">'
+        + data[i].name + "</a>"
+        + "</div>");
+        $ui.children().last().data("Id", data[i].id);
+        $ui.children().last().data("Address", data[i].address);
+    }
+}
+
+//TODO Booked Spec response
+function ifBookedPlacesEmpty() {
+    return "<div>"
+        + "<a href='megaSearch'>"
+        + "<div class='btn btn-primary'>"
+        + "Press"
+        + "</div>"
+        + "</a>"
+        + "</div>"
+}
+
+//TODO User Spec response
+function ifUserPlacesEmpty() {
+    return "<div>"
+        + "<a href='profile'>"
+        + "<div class='btn btn-primary'>"
+        + "Press"
+        + "</div>"
+        + "</a>"
+        + "</div>"
 }
 
 function initDrag() {
