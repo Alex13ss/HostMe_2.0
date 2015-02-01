@@ -25,4 +25,6 @@ public interface GroupService {
 
     public List<GroupDto> getGroupsByInterestedUser(User interestedUser);
 
+    public boolean checkInterestedByGroupAndUser(Group group, User user);
+
 }

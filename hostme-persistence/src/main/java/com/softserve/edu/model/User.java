@@ -26,12 +26,12 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
-import com.softserve.edu.model.routes.Place;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.model.routes.Route;
 
 /**
@@ -181,8 +181,7 @@ public class User {
      * Contains interesting groups, submitted by this user
      */
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "interesting_groups", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "interestedUsers")
     private List<Group> interestingGroups;
 
     public User() {

@@ -43,6 +43,16 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
+    public Set<GroupDto> getGroupsByCreator(User creatorUser) {
+        Set<GroupDto> list = new HashSet<GroupDto>();
+        for (Group group : groupRepository.findAllByCreatorUser(creatorUser)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
+    }
+
+    @Override
+    @Transactional
     public Group findOne(Long id) {
         return groupRepository.findOne(id);
     }
@@ -71,16 +81,6 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public Set<GroupDto> getGroupsByCreator(User creatorUser) {
-        Set<GroupDto> list = new HashSet<GroupDto>();
-        for (Group group : groupRepository.findAllByCreatorUser(creatorUser)) {
-            list.add(new GroupDto(group));
-        }
-        return list;
-    }
-
-    @Override
-    @Transactional
     public void saveInterestedUser(User user, Group group) {
         List<User> interestedUsers = (List<User>) userRepository
                 .findAllByInterestingGroups(group);
@@ -103,6 +103,18 @@ public class GroupServiceImpl implements GroupService {
             list.add(new GroupDto(group));
         }
         return list;
+    }
+
+    @Override
+    @Transactional
+    public boolean checkInterestedByGroupAndUser(Group group, User user) {
+        Group groupFound = groupRepository.findOne(group.getId());
+        List<User> interestedUsers = groupFound.getInterestedUsers();
+        System.out.println(interestedUsers.toString());
+        if (interestedUsers.contains(user)) {
+            return true;
+        }
+        return false;
     }
 
 }

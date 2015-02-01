@@ -80,9 +80,7 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
-    public String groupCreationShow(Model model) {
-        Set<GroupDto> groups = groupService.findAll();
-        model.addAttribute("groups", groups);
+    public String groupCreationShow() {
         return "groups";
     }
 
@@ -94,9 +92,9 @@ public class GroupController {
 
     @RequestMapping(value = "/my-groups", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Set<GroupDto> getMyGroups() {
-        User user = profileService.getUserByLogin(SecurityContextHolder
+        User creatorUser = profileService.getUserByLogin(SecurityContextHolder
                 .getContext().getAuthentication().getName());
-        Set<GroupDto> groups = groupService.getGroupsByCreator(user);
+        Set<GroupDto> groups = groupService.getGroupsByCreator(creatorUser);
         return groups;
     }
 
@@ -111,7 +109,12 @@ public class GroupController {
     @RequestMapping(value = "/group", method = RequestMethod.GET)
     public String showGroup(@RequestParam("id") long id, Model model) {
         Group group = groupService.findOne(id);
+        User user = profileService.getCurrentUser();
+        boolean isInterested = groupService.checkInterestedByGroupAndUser(
+                group, user);
+        System.out.println(isInterested);
         model.addAttribute("group", group);
+        model.addAttribute("isInterested", isInterested);
         addLatestConversationsByGroupId(model, id);
         return "group";
     }

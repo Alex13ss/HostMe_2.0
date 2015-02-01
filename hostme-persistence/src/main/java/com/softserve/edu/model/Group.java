@@ -80,7 +80,8 @@ public class Group {
      * Contains list of users who assumes that this group is interesting for
      * them
      */
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "interestingGroups")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "interesting_groups", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> interestedUsers;
 
     /**
