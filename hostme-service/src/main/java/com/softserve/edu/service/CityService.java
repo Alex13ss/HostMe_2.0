@@ -12,7 +12,9 @@ public interface CityService {
 	public void updateCity(City city);
 
 	public void removeCity(Integer id);
-	
+
+	public List<City> searchCitiesByName(String name);
+
 	public List<City> getAllCity();
 
 	public City getCity(Integer id);

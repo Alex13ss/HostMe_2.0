@@ -55,6 +55,11 @@ public class CityServiceImpl implements CityService{
 	}
 
 	@Override
+	public List<City> searchCitiesByName(String cityName) {
+		return cityRepository.findByCityContainingIgnoreCase(cityName);
+	}
+
+	@Override
 	@Transactional
 	public City getCity(Integer id) {
 		return cityRepository.findOne(id);

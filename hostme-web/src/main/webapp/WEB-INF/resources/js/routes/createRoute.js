@@ -5,12 +5,13 @@ var routeDto = {
     destinationId: "",
     waypointsId: []
     };
-var pageIndex = 1;
+var userPlacesIndex = 0;
+var popularPlacesIndex = 0;
 var userPlaces = [];
 var bookedPlaces = [];
 var popularPlaces = [];
 var userPlacesUrl = "getUserPlaces";
-var userBookedPlacesUlr = "getBookedPlaces";
+var userBookedPlacesUlr = "getUserBookedPlaces";
 var popularPlacesUrl = "getPopularPlaces";
 var haveOriginPlace = false;
 var haveDestinationPlace = false;
@@ -36,9 +37,6 @@ $(document).ready(function() {
     $userTabs.tabs();
     initListSize($userPlaceNumber);
     initListSize($popularPlaceNumber);
-    getPlaces(userPlacesUrl, $userPlacesUi);
-    getPlaces(userBookedPlacesUlr, $userBookedPlacesUi);
-    getPlaces(popularPlacesUrl, $popularPlacesUi);
     initDropPlaces($userPlacesUi);
     initDropPlaces($popularPlacesUi);
     $originDropUi.droppable({
@@ -125,6 +123,12 @@ function initListSize($ui) {
                     + data[i]
                     + "</option>"
                 )
+            }
+            if ($ui === $userPlaceNumber) {
+                getPlaces(userPlacesUrl, $userPlacesUi, userPlacesIndex, $userPlaceNumber.val());
+                getPlaces(userBookedPlacesUlr, $userBookedPlacesUi, userPlacesIndex, $userPlaceNumber.val());
+            } else {
+                getPlaces(popularPlacesUrl, $popularPlacesUi, popularPlacesIndex, $popularPlaceNumber.val());
             }
         }
     })

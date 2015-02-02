@@ -5,6 +5,7 @@ import com.softserve.edu.dto.RouteDto;
 import com.softserve.edu.dto.RoutePagingDto;
 import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.service.ProfileService;
+import com.softserve.edu.service.UserService;
 import com.softserve.edu.service.routes.PlaceService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class RouteController {
 
     @Autowired
     private ProfileService profileService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/route")
     public String showRoute(@RequestParam(value = "routeId") int routeId, Model model) {
@@ -52,23 +56,18 @@ public class RouteController {
 
     @RequestMapping(value = "/getUserPlaces", method = RequestMethod.POST)
     public @ResponseBody List<PlaceDto> getUserPlaces(@RequestBody RoutePagingDto routeRequest) {
-        ArrayList<PlaceDto> result = new ArrayList<>();
-        result.addAll(placeService.placeToPlaceDto(placeService.getUserPlaces()));
-        return result;
+        return placeService.placeToPlaceDto(placeService.getUserPlaces());
     }
 
     @RequestMapping(value = "/getUserBookedPlaces", method = RequestMethod.POST)
     public @ResponseBody List<PlaceDto> getBookedPlaces(@RequestBody RoutePagingDto routeRequest) {
-        ArrayList<PlaceDto> result = new ArrayList<>();
-        result.addAll(placeService.placeToPlaceDto(placeService.getBookedPlaces()));
-        return result;
+        return placeService.placeToPlaceDto(userService.getBookedPlaces());
     }
 
     @RequestMapping(value = "/getPopularPlaces", method = RequestMethod.POST)
     public @ResponseBody List<PlaceDto> getPopularPlaces(@RequestBody RoutePagingDto routeRequest) {
-        ArrayList<PlaceDto> result = new ArrayList<>();
-        result.addAll(placeService.placeToPlaceDto(placeService.getAllPlaces(new PageRequest(0, 5))));
-        return result;
+        return placeService.placeToPlaceDto(placeService.getAllPlaces(
+                new PageRequest(routeRequest.getPageIndex(), routeRequest.getPlaceSize())));
     }
 
     @RequestMapping(value = "/getPlaceDispNumber")

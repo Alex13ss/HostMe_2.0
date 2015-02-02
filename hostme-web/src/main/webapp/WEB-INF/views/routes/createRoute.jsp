@@ -40,6 +40,8 @@
                     </ul>
                     <div id="userBookedPlaces"></div>
                     <div id="userPlaces"></div>
+                    <div class="col-sm-6 btn btn-primary"><<</div>
+                    <div class="col-sm-6 btn btn-primary">>></div>
                 </div>
                 <div class="col-sm-4">
                     <div id="originPlaceDrop" class="dropArea">

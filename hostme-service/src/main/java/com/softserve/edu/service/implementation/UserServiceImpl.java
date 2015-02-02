@@ -96,7 +96,6 @@ public class UserServiceImpl implements UserService {
 		Set<Place> places = getBookedPlaces(user.getUserId());
 		Place selectedPlace = placeService.getPlace(placeId);
 		places.add(selectedPlace);
-		System.out.println("Done");
 	}
 
 	@Override
