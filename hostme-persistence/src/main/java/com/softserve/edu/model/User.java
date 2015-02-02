@@ -184,6 +184,13 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "interestedUsers")
     private List<Group> interestingGroups;
 
+    /**
+     * Contains notifications of group, submitted by this user
+     */
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "toReceiveUsers")
+    private List<Notification> receivedNotifications;
+
     public User() {
     }
 
@@ -430,6 +437,14 @@ public class User {
 
     public void setInterestingGroups(List<Group> interestingGroups) {
         this.interestingGroups = interestingGroups;
+    }
+
+    public List<Notification> getReceivedNotifications() {
+        return receivedNotifications;
+    }
+
+    public void setReceivedNotifications(List<Notification> receivedNotifications) {
+        this.receivedNotifications = receivedNotifications;
     }
 
     public Set<Sightseeing> getFavouriveSights() {

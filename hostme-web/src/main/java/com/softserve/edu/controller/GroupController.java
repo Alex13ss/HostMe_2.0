@@ -80,7 +80,7 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
-    public String groupCreationShow() {
+    public String groupsCreationShow() {
         return "groups";
     }
 
@@ -105,6 +105,19 @@ public class GroupController {
                         .getAuthentication().getName());
         return groupService.getGroupsByInterestedUser(interestedUser);
     }
+
+    /**
+     * MustTODO!!! ^_^
+     */
+//    @RequestMapping(value = "/updates-of-groups", method = RequestMethod.GET, produces = "application/json")
+//    public @ResponseBody List<GroupDto> getUpdatedInterestingGroups() {
+//        User interestedUser = profileService
+//                .getUserByLogin(SecurityContextHolder.getContext()
+//                        .getAuthentication().getName());
+//        List<Notification> notifications = interestedUser
+//                .getReceivedNotifications();
+//        return groupService.getAllGroupsByNotification(notifications);
+//    }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)
     public String showGroup(@RequestParam("id") long id, Model model) {

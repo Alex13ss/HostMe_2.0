@@ -82,7 +82,7 @@
 					onclick="interestingGroups(this)"><a href="#"
 					data-toggle="tab"><spring:message
 							code="label.interestingGroups" /></a></li>
-				<li id="updates-groups" class="" onclick="updatesGroups(this)"><a
+				<li id="updates-of-groups" class="" onclick="updatesGroups(this)"><a
 					href="#" data-toggle="tab"><spring:message
 							code="label.updatesGroups" /></a></li>
 			</sec:authorize>

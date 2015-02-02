@@ -26,7 +26,7 @@ function interestingGroups(element) {
 function updatesGroups(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
-		table.fnReloadAjax("updates-groups");
+		table.fnReloadAjax("updates-of-groups");
 	}
 }
 

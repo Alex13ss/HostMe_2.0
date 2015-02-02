@@ -1,11 +1,11 @@
 package com.softserve.edu.service;
 
+import java.util.List;
+import java.util.Set;
+
 import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
-
-import java.util.List;
-import java.util.Set;
 
 public interface UserService {
 

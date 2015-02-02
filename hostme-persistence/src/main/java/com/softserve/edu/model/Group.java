@@ -91,6 +91,14 @@ public class Group {
     private List<User> interestedUsers;
 
     /**
+     * Contains list of notifications for users who assumes that this group is
+     * interesting for them
+     */
+    @OneToMany(mappedBy = "updatedGroup", fetch = FetchType.LAZY, cascade = {
+            CascadeType.REMOVE, CascadeType.PERSIST })
+    private List<Notification> notifications;
+
+    /**
      * Contains list of tags which included by this group
      */
     @ManyToMany(fetch = FetchType.EAGER)
@@ -178,6 +186,14 @@ public class Group {
 
     public void setInterestedUsers(List<User> interestedUsers) {
         this.interestedUsers = interestedUsers;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     public Set<Tag> getTags() {
