@@ -10,6 +10,9 @@ public class ConversationDto {
     private Conversation conversation;
 
     private Post lastPost;
+    
+    //soon will be used
+    //private Boolean isEditable;
 
     public ConversationDto() {
 

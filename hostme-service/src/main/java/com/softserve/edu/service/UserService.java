@@ -16,6 +16,8 @@ public interface UserService {
     public List<UserDto> getUserDtoList(List<User> users);
 
     public List<User> getUsersLike(String search);
+    
+    public List<User> findUsersByNamesOrLogin(String input);
 
     public void updateUser(User user);
 

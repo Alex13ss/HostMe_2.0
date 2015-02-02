@@ -20,9 +20,11 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 
     public List<User> findByFirstNameContainingOrLastNameContaining(String first, String lastname);
 
-	public Set<User> findByFavouriveSights(Sightseeing sightseeing);
+    public Set<User> findByFavouriveSights(Sightseeing sightseeing);
 
     public Iterable<User> findAllByInterestingGroups(Group interestingGroups);
+    
+    public Iterable<User> findByFirstNameContainingOrLastNameContainingOrLoginContainingAllIgnoreCase(String firstName, String lastName, String login);
 
     @Query("SELECT p FROM User p JOIN FETCH p.bookedPlaces WHERE p.userId = (:id)")
     public User findByUserIdAndFetchBookedPlacesEagerly(@Param("id") int id);

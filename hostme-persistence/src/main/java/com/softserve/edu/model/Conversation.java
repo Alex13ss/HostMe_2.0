@@ -29,7 +29,11 @@ public class Conversation {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(
+        name="conversations_moderators",
+        joinColumns={@JoinColumn(name="conversation_id")},
+        inverseJoinColumns={@JoinColumn(name="moderator_id")})
     private Set<User> moderators;
 
     @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
