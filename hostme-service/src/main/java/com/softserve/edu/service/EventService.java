@@ -2,6 +2,7 @@ package com.softserve.edu.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
@@ -33,6 +34,8 @@ public interface EventService {
 	public List<EventDto> getEventByCity(City city);
 
 	public List<EventDto> getEventByOwner(Integer page, Integer size, String orderBy, String orderType);
+	
+	public List<EventDto> getByAttendee(Integer page, Integer size, String orderBy, String orderType);
 
 	public List<EventDto> getEventByPriceCategory(PriceCategory priceCategory);
 

@@ -3,6 +3,7 @@ var size;
 var page;
 var selectedTablePage = 1;
 var eventsType = "all-events";
+var currentEventType = "my-events";
 var order = {
 	by : "name",
 	type : "ASC"
@@ -21,7 +22,8 @@ function eventsAjaxCallback() {
 
 function calendarUpdate() {
 	if (eventsType != "all-events") {
-		$('#calendar').fullCalendar('removeEvents');
+//		$("#calendar").fullCalendar('removeEvents');
+//		$('#calendar').fullCalendar('rerenderEvents' );
 		tableEvents = table.fnGetData();
 		var calendarEvents = [];
 		for (eventNum in tableEvents) {
@@ -36,6 +38,7 @@ function calendarUpdate() {
 
 		$('#calendar').fullCalendar({
 			allDayDefault : 'false',
+			eventLimit : 6,
 			events : calendarEvents,
 		});
 	}
@@ -228,11 +231,13 @@ $(document)
 						size = $(this).val();
 						selectedTablePage = 1;
 						showEvents();
+
 					});
 
 					$("#eventsTypesNav > li").click(function() {
 						eventsType = $(this).attr("id");
 						showEvents();
+
 					});
 
 					$("#eventsTableHeader > th").addClass(
@@ -250,7 +255,6 @@ $(document)
 						} else {
 							order.type = "ASC";
 						}
-						console.log(order.type);
 						showEvents();
 					});
 

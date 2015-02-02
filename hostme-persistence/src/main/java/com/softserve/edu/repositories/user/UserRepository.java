@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Set;
 
 import com.softserve.edu.model.Group;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
+import com.softserve.edu.model.routes.Place;
+
 import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends PagingAndSortingRepository<User, Integer>{
@@ -22,4 +26,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 
     @Query("SELECT p FROM User p JOIN FETCH p.bookedPlaces WHERE p.userId = (:id)")
     public User findByUserIdAndFetchBookedPlacesEagerly(@Param("id") int id);
+    
+    
+      
 }

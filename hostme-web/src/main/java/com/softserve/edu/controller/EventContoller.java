@@ -3,6 +3,7 @@ package com.softserve.edu.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -106,14 +107,19 @@ public class EventContoller {
 				amount = dataBaseSize / size + 1;
 			}
 		} else if (sender.equals("my-events")) {
-			Long dataOwnreSize = EventServiceImpl.amountOfOwnerEvents;
-			if (dataOwnreSize % size == 0l) {
+			Long dataOwnreSize = EventServiceImpl.amountOfOwnerEvents + 1;
+			if (dataOwnreSize % size == 0) {
 				amount = dataOwnreSize / size;
 			} else {
 				amount = dataOwnreSize / size + 1;
 			}
 		} else {
-			amount = 3L;
+			Long dataAttendeeSize = EventServiceImpl.amountOfAttendeeEvents + 1;
+			if (dataAttendeeSize % size == 0) {
+				amount = dataAttendeeSize / size;
+			} else {
+				amount = dataAttendeeSize / size + 1;
+			}
 		}
 		return amount;
 	}
@@ -127,6 +133,18 @@ public class EventContoller {
 			@RequestParam(value = "orderType") String orderType) {
 		List<EventDto> events = eventService.getEventByOwner(page, size,
 				orderBy, orderType);
+		return events;
+	}
+
+	@RequestMapping(value = "/signed-events", params = { "page", "size",
+			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<EventDto> getSignedEvents(
+			@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size,
+			@RequestParam(value = "orderBy") String orderBy,
+			@RequestParam(value = "orderType") String orderType) {
+		List<EventDto> events = eventService.getByAttendee(page, size, orderBy,
+				orderType);
 		return events;
 	}
 

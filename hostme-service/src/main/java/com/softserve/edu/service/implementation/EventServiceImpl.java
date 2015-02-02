@@ -2,7 +2,9 @@ package com.softserve.edu.service.implementation;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +24,7 @@ import com.softserve.edu.repositories.CountryRepository;
 import com.softserve.edu.repositories.EventRepository;
 import com.softserve.edu.repositories.PriceCategoryRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
+import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.EventService;
 import com.softserve.edu.service.ProfileService;
 
@@ -40,8 +43,11 @@ public class EventServiceImpl implements EventService {
 	CityRepository cityRepository;
 	@Autowired
 	CountryRepository countryRepository;
+	@Autowired
+	UserRepository userRepository;
 
 	public static Long amountOfOwnerEvents;
+	public static Long amountOfAttendeeEvents;
 
 	public boolean haveEvent(int id) {
 		return eventRepository.exists(id);
@@ -156,6 +162,33 @@ public class EventServiceImpl implements EventService {
 			list.add(new EventDto(eventRepository.findOne(place.getId()), place));
 		}
 		amountOfOwnerEvents = (long) list.size();
+		return list;
+	}
+	
+	@Override
+	@Transactional
+	public List<EventDto> getByAttendee(Integer page, Integer size,
+			String orderBy, String orderType) {
+		List<EventDto> list = new ArrayList<EventDto>();
+		User owner = profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName());
+		PageRequest pageRequsetObj;
+		if (orderType.equals("ASC")) {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.ASC, orderBy);
+		} else {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.DESC, orderBy);
+		}
+		User attendee = profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName());
+		
+		//Set<Place> attendeeUser = attendee.getAttendee();
+		
+		for (Place place : placeRepository.findByAttendee(owner, pageRequsetObj)) {
+			list.add(new EventDto(eventRepository.findOne(place.getId()), place));
+		}
+		amountOfAttendeeEvents = (long) list.size();
 		return list;
 	}
 
