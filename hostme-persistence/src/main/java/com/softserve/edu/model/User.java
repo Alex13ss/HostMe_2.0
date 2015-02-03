@@ -19,7 +19,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,8 +45,7 @@ import com.softserve.edu.model.routes.Route;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "users_user_id_seq", sequenceName = "users_user_id_seq", allocationSize = 101)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_user_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true, nullable = false)
     private Integer userId;
 
@@ -443,7 +441,8 @@ public class User {
         return receivedNotifications;
     }
 
-    public void setReceivedNotifications(List<Notification> receivedNotifications) {
+    public void setReceivedNotifications(
+            List<Notification> receivedNotifications) {
         this.receivedNotifications = receivedNotifications;
     }
 

@@ -24,13 +24,14 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Groups</title>
+<title><spring:message code="label.groups" /></title>
 
 </head>
 
 <section class="content-header">
 	<h1>
-		Groups<small>Conversations with minded people</small>
+		<spring:message code="label.groups" />
+		<small>Conversations with minded people</small>
 	</h1>
 </section>
 
@@ -129,8 +130,9 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="groupName" class="col-sm-2 control-label">
-							Name: </label>
+						<label for="groupName" class="col-sm-2 control-label"> <spring:message
+								code="label.name" />:
+						</label>
 						<div class="col-sm-10">
 							<form:input path="groupName" cssClass="form-control" />
 							<form:errors path="groupName" />

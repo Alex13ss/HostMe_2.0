@@ -18,7 +18,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,8 +34,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Group {
 
     @Id
-    @SequenceGenerator(name = "groups_group_id_seq", sequenceName = "groups_group_id_seq", allocationSize = 31)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groups_group_id_seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_id", unique = true, nullable = false)
     private Long id;
 

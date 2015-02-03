@@ -18,13 +18,14 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Group</title>
+<title><spring:message code="label.group" /></title>
 
 </head>
 
 <section class="content-header">
 	<h1>
-		Group<small>Have a fun!</small>
+		<spring:message code="label.group" />
+		<small>Have a fun!</small>
 	</h1>
 </section>
 
@@ -64,23 +65,23 @@
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#groupEditModal">
 							<i class="fa fa-fw fa-edit"></i>
-							<spring:message code="label.editGroup" />
+							<spring:message code="label.edit" />
 						</button>
 						<a href="<spring:url value="/group/remove/${group.id}" />"
 							class="btn btn-default btn-sm triggerRemove"><i
 							class="fa fa-fw fa-trash-o"></i> <spring:message
-								code="label.removeGroup" /> </a>
+								code="label.delete" /> </a>
 					</sec:authorize>
 					<c:if test="${isCreator eq true}">
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#groupEditModal">
 							<i class="fa fa-fw fa-edit"></i>
-							<spring:message code="label.editGroup" />
+							<spring:message code="label.edit" />
 						</button>
 						<a href="<spring:url value="/group/remove/${group.id}" />"
 							class="btn btn-default btn-sm triggerRemove"><i
 							class="fa fa-fw fa-trash-o"></i> <spring:message
-								code="label.removeGroup" /> </a>
+								code="label.delete" /> </a>
 					</c:if>
 				</div>
 			</div>
@@ -172,7 +173,8 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<a href="" class="btn btn-primary removeBtn">Remove</a>
+							<a href="" class="btn btn-primary removeBtn"><spring:message
+									code="label.delete" /></a>
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">Cancel</button>
 						</div>
@@ -182,11 +184,11 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<c:set var="groupId" value="${group.id}"/>
+					<c:set var="groupId" value="${group.id}" />
 					<c:url var="conversationsUrl" value="/conversations">
 						<c:param name="group_id" value="${groupId}" />
 					</c:url>
-					  
+
 					<%@ include file="conversations/latest.jsp"%>
 				</div>
 			</div>
@@ -214,8 +216,9 @@
 				<div class="modal-body">
 
 					<div class="form-group">
-						<label for="groupName" class="col-sm-2 control-label">
-							Name: </label>
+						<label for="groupName" class="col-sm-2 control-label"> <spring:message
+								code="label.name" />:
+						</label>
 						<div class="col-sm-10">
 							<form:input path="groupName" cssClass="form-control" />
 							<form:errors path="groupName" />

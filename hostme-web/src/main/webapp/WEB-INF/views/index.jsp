@@ -14,8 +14,8 @@
 	name='viewport'>
 <script type="text/javascript"
 	src="../resources/js/bootstrap-datepicker.js"></script>
-<script type="text/javascript" src="../resources/js/jquery.validate.js"></script>
-<script type="text/javascript" src="../resources/js/validation.js"></script>
+<script type="text/javascript" src="resources/js/jquery.validate.js"></script>
+<script type="text/javascript" src="resources/js/validation.js"></script>
 <script type="text/javascript" src="../resources/js/registration.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="../resources/css/datepicker.css">
@@ -169,7 +169,8 @@
 									</div>
 
 									<div class="form-group">
-										<div class="row" style="margin-left: auto;"> Your gender:
+										<div class="row" style="margin-left: auto;">
+											Your gender:
 											<form:radiobutton class="radio inline" path="gender"
 												value="FEMALE" />
 											Female
