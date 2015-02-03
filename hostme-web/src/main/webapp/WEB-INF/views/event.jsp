@@ -113,8 +113,33 @@
 									code="label.delete" /> </a> <a type="button" data-toggle="modal"
 								data-target="#eventEdit" id="editbutton"> <i
 								class="fa fa-fw fa-pencil"></i> <spring:message
-									code="label.edit" />
-							</a>
+									code="label.edit" /></a>
+						<!--  	<div class="btn-group">
+								<button type="button" class="btn btn-default">
+									<spring:message code="label.changeStatus" />
+								</button>
+								<button type="button" class="btn btn-default dropdown-toggle"
+									data-toggle="dropdown">
+									<span class="caret"></span> <span class="sr-only">Toggle
+										Dropdown</span>
+								</button>
+								<ul class="dropdown-menu" id="status_change"role="menu">
+									<li><a href="#">Approved</a></li>
+									<li><a href="#">Pending</a></li>
+									<li><a href="#">Refuse</a></li>
+									
+								</ul>
+							</div>
+							<select id="status_change" class="dataTableDropDown">
+								<option value="APPROVED">Approved</option>
+								<option value="PENDING">Pending</option>
+								<option value="REFUSE">Refuse</option>
+							</select>-->
+							<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#">
+							<i class="fa fa-fw fa-gear"></i>
+							Change status
+							<i class="fa fa-caret-down"></i>
+						</button>
 						</div>
 						<div class="row col-md-12">
 							<div class="callout callout-danger">

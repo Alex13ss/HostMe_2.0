@@ -3,7 +3,7 @@ var size;
 var page;
 var selectedTablePage = 1;
 var eventsType = "all-events";
-var currentEventType = "my-events";
+var eventStatus;
 var order = {
 	by : "name",
 	type : "ASC"
@@ -146,6 +146,56 @@ $(document)
 											var div = $("<div/>", {
 												"class" : "input-group-btn"
 											});
+											function html_element(aData, status) {
+												var parent_element = $("<a/>",
+														{
+															"href" : "#"
+														}).click(aData, function(e) {
+																	aData.status = status;
+																	e.preventDefault();
+																	$.ajax({
+																		    url : 'event-update',
+																			dataType : 'json',
+																	        beforeSend : function() {
+ 																			},
+																			contentType : "application/json",
+																			"type" : "POST",
+																			data : JSON.stringify(aData),
+																			success : function(response) {
+																					$('td:eq(6)',nRow).html(response.status);
+																				}
+																			});
+																});
+												return parent_element;
+											};
+
+											var button = $(
+													"<button/>",
+													{
+														text : "Change status",
+														"type" : "button",
+														"data-toggle" : "dropdown",
+														"class" : "btn btn-default dropdown-toggle",
+													});
+
+											function form_element(aData) {
+												var approve = html_element(aData, "APPROVED");
+												var pending = html_element(aData, "PENDING");
+												var refuse = html_element(aData, "REFUSED");
+												approve.html("Approve");
+												pending.html("Pending");
+												refuse.html("Refuse");
+											
+												var final_element = div.append(button);
+												final_element.append(ul.append(li
+																		.append(approve)
+																		.append(pending)
+																		.append(refuse)));
+												return final_element;
+											}
+											
+											row = $('td:eq(7)', nRow).html(form_element(aData));
+
 										},
 
 										"bProcessing" : false,
@@ -205,22 +255,13 @@ $(document)
 																+ " "
 																+ data.owner.lastName;
 													}
-												} ]
-									});
-					table
-							.on(
-									'draw',
-									function() {
-										if (table.fnSettings().sAjaxSource
-												.indexOf("all-events") > -1) {
-											$(
-													'.dropdown-menu>li>a:contains("Reject"),a:contains("Approve")')
-													.hide();
-										} else {
-											$(
-													'.dropdown-menu>li>a:contains("Refuse"),a:contains("Send Again")')
-													.hide();
-										}
+												}, {
+													"mData" : "status"
+												} ,
+												{
+													"mData" : "id"
+
+												}]
 									});
 
 					$("#request_size ").change(function() {

@@ -75,6 +75,8 @@
 									code="label.price" /></th>
 							<th headers="website"><spring:message code="label.website" /></th>
 							<th headers="owner"><spring:message code="label.organizer" /></th>
+							<th headers="state"><spring:message code="user.state" /></th>
+							<th headers=""><spring:message code="label.action" /></th>
 						</tr>
 					</thead>
 				</table>

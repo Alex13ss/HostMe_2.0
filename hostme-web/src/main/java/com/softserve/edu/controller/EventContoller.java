@@ -10,6 +10,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +31,11 @@ import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Country;
 import com.softserve.edu.model.Event;
+import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.PriceCategory;
+import com.softserve.edu.model.Request;
 import com.softserve.edu.model.User;
+import com.softserve.edu.model.exceptions.RequestAlreadySentException;
 import com.softserve.edu.repositories.EventRepository;
 import com.softserve.edu.service.CityService;
 import com.softserve.edu.service.CountryService;
@@ -181,7 +187,20 @@ public class EventContoller {
 		eventService.removeEvent(event);
 		return "redirect:/events";
 	}
-
+	
+	@RequestMapping(value = "/event-update", method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Event updateEventStatus(
+			@RequestBody Event event) {
+		Event newEvent = eventService.findOne(event.getId());
+		event.setAddress(newEvent.getAddress());
+		event.setOwner(newEvent.getOwner());
+		event.setCity(newEvent.getCity());
+		event.setRating(newEvent.getRating());
+		eventService.saveEvent(event);
+		return event;
+	}
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		String datePattern = "yyyy-MM-dd HH:mm:ss";

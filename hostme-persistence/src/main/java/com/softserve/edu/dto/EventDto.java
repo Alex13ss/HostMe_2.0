@@ -2,10 +2,12 @@ package com.softserve.edu.dto;
 
 import java.util.Date;
 import java.util.Set;
+
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Image;
 import com.softserve.edu.model.PriceCategory;
+import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 
@@ -23,6 +25,7 @@ public class EventDto {
 	private Integer rating;
 	private PriceCategory priceCategory;
 	private User owner;
+	private Status status;
 	private Set<Image> image;
 	private Set<User> attendee;
 
@@ -50,6 +53,7 @@ public class EventDto {
 		this.rating = place.getRating();
 		this.priceCategory = place.getPriceCategory();
 		this.owner = place.getOwner();
+		this.status = place.getStatus();
 		this.image = place.getImage();
 		this.attendee = place.getAttendee();
 	}
@@ -141,6 +145,14 @@ public class EventDto {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public Set<Image> getImage() {
