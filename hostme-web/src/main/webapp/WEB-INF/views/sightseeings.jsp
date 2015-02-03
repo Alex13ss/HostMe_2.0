@@ -14,6 +14,8 @@
 <script src="<c:url value="/resources/js/sightseeing.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
 <script src="<c:url value="/resources/js/dataTables.bootstrap.js"/>"></script>
+
+<link href="resources/css/style.css" rel="stylesheet" type="text/css" />
 <title><spring:message code="label.sightseeings" /></title>
 </head>
 
@@ -38,31 +40,46 @@
 					</button>
 				</div>
 			</div>
-
-			<!-- /.box-header -->
-			<ul class="nav nav-tabs">
-				<li id="all-sightseeings" class="active"
-					onclick="allSightseeings(this)"><a href="#" data-toggle="tab"><spring:message
-							code="label.sightseeings" /></a></li>
-				<li class="" onclick="favouriteSightseeings(this)"><a href="#"
-					data-toggle="tab"><spring:message
-							code="label.favouriteSightseeings" /></a></li>
+			<ul id="sightseeingsTypesNav" class="nav nav-tabs">
+				<security:authorize access="hasRole('ADMIN')">
+				<li id="all-sightseeings" class="active"><a href="#"
+					data-toggle="tab"><spring:message code="label.sightseeings" /></a></li>
+				</security:authorize>
+				<security:authorize access="hasRole('USER')">
+					<li id="favourite-sightseeings"><a href="#" data-toggle="tab"><spring:message
+								code="label.favouriteSightseeings" /></a></li>
+				</security:authorize>
 			</ul>
 			<div class="box-body table-responsive">
+				<select id="request_size" class="dataTableDropDown">
+					<option value="10" selected="selected">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
 				<table id="request_table_obtain"
 					class="table table-bordered table-striped">
+
 					<thead>
-						<tr>
-							<th><spring:message code="label.sightseeingName" /></th>
-							<th><spring:message code="label.sightseeingDescription" /></th>
-							<th><spring:message code="label.city" /></th>
-							<th><spring:message code="label.priceCategory" /></th>
-							<th><spring:message code="label.website" /></th>
-							<th><spring:message code="label.sightseeingType" /></th>
-							<th><spring:message code="label.delete" /></th>
+						<tr id="sightseeingsTableHeader">
+							<th headers="name"><spring:message
+									code="label.sightseeingName" /></th>
+							<th headers="description"><spring:message
+									code="label.sightseeingDescription" /></th>
+							<th headers="address"><spring:message code="label.location" /></th>
+							<th headers="priceCategory"><spring:message
+									code="label.priceCategory" /></th>
+							<th headers="website"><spring:message code="label.website" /></th>
+							<th headers="sightseeingType"><spring:message
+									code="label.sightseeingType" /></th>
 						</tr>
 					</thead>
 				</table>
+				<div class="box-footer clearfix">
+					<ul id="table_pages"
+						class="pagination pagination-sm no-margin pull-right">
+					</ul>
+				</div>
 			</div>
 		</div>
 		<form:form modelAttribute="sightseeing"

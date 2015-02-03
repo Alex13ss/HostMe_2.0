@@ -10,7 +10,8 @@ public interface SightseeingService {
 
 	public boolean haveSight(int id);
 
-	List<SightseeingDto> getAllSightseeings();
+	List<SightseeingDto> getAllSightseeingsPaging(Integer page, Integer size,
+			String orderBy, String orderType);
 
 	List<SightseeingDto> getSightseeingsDtoList(List<Sightseeing> sightseeings);
 
@@ -27,7 +28,16 @@ public interface SightseeingService {
 			String city);
 
 	void saveLikerforSightseing(User user, Sightseeing sightseeing);
-	
+
 	List<SightseeingDto> getFavouriteSightseeings(User liker);
-	
+
+	List<SightseeingDto> getFavouriteSightseeingsPaging(User liker,
+			Integer page, Integer size, String orderBy, String orderType);
+
+	Long getSightseeingsPaging(Long size, String sender, User liker);
+
+	boolean favouriteCheck(Sightseeing sightseeing, User liker);
+
+	void unlikeSightseeing(Integer id, User liker);
+
 }

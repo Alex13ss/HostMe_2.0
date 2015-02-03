@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,7 @@ import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.repositories.CityRepository;
 import com.softserve.edu.repositories.CountryRepository;
+import com.softserve.edu.repositories.ImageRepository;
 import com.softserve.edu.repositories.PriceCategoryRepository;
 import com.softserve.edu.repositories.SightseeingRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
@@ -39,6 +42,9 @@ public class SightseeingServiceImpl implements SightseeingService {
 	private CountryRepository countryRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private ImageRepository imageRepository;
+	private Long favouriteSize;
 
 	public boolean haveSight(int id) {
 		return sightseeingRepository.exists(id);
@@ -46,9 +52,19 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	@Override
 	@Transactional
-	public List<SightseeingDto> getAllSightseeings() {
+	public List<SightseeingDto> getAllSightseeingsPaging(Integer page,
+			Integer size, String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
-		for (Sightseeing sightseeing : sightseeingRepository.findAll()) {
+		PageRequest pageRequsetObj;
+		if (orderType.equals("ASC")) {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.ASC, orderBy);
+		} else {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.DESC, orderBy);
+		}
+		for (Sightseeing sightseeing : sightseeingRepository
+				.findAll(pageRequsetObj)) {
 			list.add(new SightseeingDto(sightseeing, placeRepository
 					.findOne(sightseeing.getId())));
 		}
@@ -63,6 +79,25 @@ public class SightseeingServiceImpl implements SightseeingService {
 			list.add(new SightseeingDto(sightseeingRepository.findOne(place
 					.getId()), place));
 		}
+		return list;
+	}
+
+	public List<SightseeingDto> getFavouriteSightseeingsPaging(User liker,
+			Integer page, Integer size, String orderBy, String orderType) {
+		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
+		PageRequest pageRequsetObj;
+		if (orderType.equals("ASC")) {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.ASC, orderBy);
+		} else {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.DESC, orderBy);
+		}
+		for (Place place : placeRepository.findByLikers(liker, pageRequsetObj)) {
+			list.add(new SightseeingDto(sightseeingRepository.findOne(place
+					.getId()), place));
+		}
+		favouriteSize = (long) list.size();
 		return list;
 	}
 
@@ -116,8 +151,11 @@ public class SightseeingServiceImpl implements SightseeingService {
 		Integer pcId = priceCategoryRepository.findByPriceCategory(
 				priceCategory).getPriceCategoryId();
 		Integer cityId = cityRepository.findByCity(city).getCityId();
+		sightseeing.setImage(imageRepository.findAllByPlace(sightseeing));
 		sightseeing.setPriceCategory(priceCategoryRepository.findOne(pcId));
 		sightseeing.setCity(cityRepository.findOne(cityId));
+		Integer rating = userRepository.findByFavouriveSights(sightseeing).size();
+		sightseeing.setRating(rating);
 		sightseeingRepository.save(sightseeing);
 	}
 
@@ -130,9 +168,51 @@ public class SightseeingServiceImpl implements SightseeingService {
 		sightseeing.setLikers(likers);
 		favouriveSights.add(sightseeing);
 		user.setFavouriveSights(favouriveSights);
-		sightseeing.setRating(sightseeing.getLikers().size());
-		sightseeingRepository.save(sightseeing);
 		userRepository.save(user);
+		Integer rating = userRepository.findByFavouriveSights(sightseeing).size();
+		sightseeing.setRating(rating);
+		sightseeingRepository.save(sightseeing);
 	}
 
+	@Override
+	@Transactional
+	public boolean favouriteCheck(Sightseeing sightseeing, User liker) {
+		Set<User> likers = userRepository.findByFavouriveSights(sightseeing);
+		if (likers.contains(liker)) {
+			return true;
+		}
+		return false;
+	}
+
+	public void unlikeSightseeing(Integer id, User liker){
+		Integer likerId = liker.getUserId();
+		Sightseeing sightseeing = sightseeingRepository.findOne(id);
+		sightseeingRepository.unlike(id, likerId);
+		Integer rating = userRepository.findByFavouriveSights(sightseeing).size();
+		sightseeing.setRating(rating);
+		sightseeingRepository.save(sightseeing);
+	}
+	
+	public Long getSightseeingsPaging(Long size, String sender, User liker) {
+		Long amount;
+		if (sender.equals("all-sightseeings")) {
+			Long dataBaseSize = sightseeingRepository.count();
+			if (dataBaseSize % size == 0) {
+				amount = dataBaseSize / size;
+			} else {
+				amount = dataBaseSize / size + 1;
+			}
+		} else if (sender.equals("favourite-sightseeings")) {
+			Long dataFavouriteSize = (long) getFavouriteSightseeings(liker)
+					.size();
+			if (dataFavouriteSize % size == 0l) {
+				amount = dataFavouriteSize / size;
+			} else {
+				amount = dataFavouriteSize / size + 1;
+			}
+		} else {
+			amount = 3L;
+		}
+		return amount;
+	}
 }
