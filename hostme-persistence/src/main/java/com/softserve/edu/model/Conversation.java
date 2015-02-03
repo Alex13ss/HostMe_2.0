@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Conversation {
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -18,7 +18,7 @@ public class Conversation {
     private String title;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     private Calendar createdAt;
 
     @ManyToOne
