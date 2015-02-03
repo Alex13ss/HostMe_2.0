@@ -43,7 +43,7 @@
 									<spring:message code="label.unlike" /> </a>
 							</c:if>
 						</security:authorize>
-						<security:authorize access="hasRole('ADMIN')">
+						<security:authorize access="hasRole('MODERATOR')">
 							<button type="button" class="btn btn-default btn-sm"
 								data-toggle="modal" data-target="#sightseeingEdit">
 								<i class="fa fa-fw fa-edit"></i>
