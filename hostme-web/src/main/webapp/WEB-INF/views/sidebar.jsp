@@ -78,6 +78,14 @@
 						</a>
 					</li>
 				</security:authorize>
+				<security:authorize access="hasRole('ADMIN')">
+					<li>
+						<a href='<c:url value="systemProperties"/>' style="margin-left: 10px;">
+							<i class="fa fa-cog"></i>
+							<spring:message code="admin.systemProperties" />
+						</a>
+					</li>
+				</security:authorize>
 				
 				<security:authorize access="hasRole('USER')">
 					<li><a href='<c:url value="profile"/>'
@@ -94,19 +102,19 @@
 
 				</security:authorize>
 
-				<security:authorize access="hasAnyRole('ADMIN', 'USER')">
+				<security:authorize access="hasAnyRole('MODERATOR', 'USER')">
 					<li><a href='<c:url value="groups"/>'
 						style="margin-left: 10px;"><i class="fa fa-users"></i> <spring:message
 								code="label.groups" /></a></li>
 				</security:authorize>
 
-				<security:authorize access="hasAnyRole('ADMIN', 'USER')">
+				<security:authorize access="hasAnyRole('MODERATOR', 'USER')">
 					<li><a href='<c:url value="events"/>'
 						style="margin-left: 10px;"><i class="fa fa-calendar"></i> <spring:message
 								code="label.events" /></a></li>
 				</security:authorize>
 
-				<security:authorize access="hasAnyRole('ADMIN', 'USER')">
+				<security:authorize access="hasAnyRole('MODERATOR', 'USER')">
 					<li><a href='<c:url value="sightseeings"/>'
 						style="margin-left: 10px;"><i class="fa fa-camera-retro"></i> <spring:message
 								code="label.sightseeings" /></a></li>
@@ -118,7 +126,7 @@
 							<spring:message code="label.requesthistory" /></a></li>
 				</security:authorize>
 
-				<security:authorize access="hasAnyRole('ADMIN', 'USER')">
+				<security:authorize access="hasAnyRole('ADMIN', 'USER', 'MODERATOR')">
 					<li><a href='<c:url value="logout"/>'
 						style="margin-left: 10px;"><i class="fa fa-sign-out"></i> <spring:message
 								code="label.logout" /></a></li>

@@ -1,6 +1,1 @@
-INSERT INTO "system_properties" (property_id,prop_key, value)
- VALUES (1,'IMAGE_PATH', 'D:\htdocs\'),
-(2,'IMAGE_URL', 'http://localhost:8079'),
-(3,'username', 'hostmehost@gmail.com'),
-(4,'password', 'passwordhostme'),
-(5,'url', 'http://localhost:8080/hostme/registration-confirm?id=');
+INSERT INTO "system_properties" (property_id,image_path,image_url,email_pass,email_login,base_url) VALUES (1,'D:\htdocs\','http://localhost:8079','passwordhostme','hostmehost@gmail.com','http://localhost:8080/hostme/registration-confirm?id=');

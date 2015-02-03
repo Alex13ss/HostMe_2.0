@@ -1,44 +1,61 @@
 package com.softserve.edu.service.implementation;
 
-import com.softserve.edu.dao.SystemPropertiesDao;
+import javax.transaction.Transactional;
+
+import com.softserve.edu.model.SystemProperties;
+import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.service.SystemPropertiesService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SystemPropertiesServiceImpl implements SystemPropertiesService {
-
+	public final Integer PROPERTY_ID = 1;
 	@Autowired
-	SystemPropertiesDao systemPropertiesDao;
+	private SystemPropertiesRepository systemPropertiesRepository;
 
 	@Override
 	@Transactional
-	public String getImagePath() {
-		return systemPropertiesDao.getPropeties(IMAGE_PATH_PROP);
+	public SystemProperties getSystemProperties() {
+		return systemPropertiesRepository.findOne(PROPERTY_ID);
+	}
+
+	@Override
+	@Transactional
+	public String getMailUsername() {
+		return getSystemProperties().getEmailLogin();
+	}
+
+	@Override
+	@Transactional
+	public String getMailPass() {
+		return getSystemProperties().getEmailPass();
 	}
 
 	@Override
 	@Transactional
 	public String getImageUrl() {
-		return systemPropertiesDao.getPropeties(IMAGE_URL_PROP);
+		return getSystemProperties().getImageURL();
 	}
-	
-	@Override
-    	@Transactional
-    	public String getMailPass() {
-        	return systemPropertiesDao.getPropeties(EMAIL_PASS_SEND);
-    	}
 
-    	@Override
-    	@Transactional
-    	public String getMailUsername() {
-        	return systemPropertiesDao.getPropeties(EMAIL_LOGIN);
-    	}
-    	
-    	@Override
-    	@Transactional
-    	public String getBaseUrl() {
-        	return systemPropertiesDao.getPropeties(BASE_SEND_URL);
-    	}
+	@Override
+	@Transactional
+	public String getImagePath() {
+		return getSystemProperties().getImagePath();
+	}
+
+	@Override
+	@Transactional
+	public String getBaseUrl() {
+		return getSystemProperties().getBaseURL();
+	}
+
+	@Override
+	@Transactional
+	public void updateSystemProperties(SystemProperties systemproperties) {
+		systemproperties.setPropertyId(PROPERTY_ID);
+		systemPropertiesRepository.save(systemproperties);
+	}
+
 }
