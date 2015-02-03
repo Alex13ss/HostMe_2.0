@@ -179,8 +179,8 @@ public class User {
      * Contains interesting groups, submitted by this user
      */
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "interestedUsers")
-    private List<Group> interestingGroups;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "interestedUsers", cascade = javax.persistence.CascadeType.ALL)
+    private List<Group> interestingGroups = new ArrayList<Group>();
 
     /**
      * Contains notifications of group, submitted by this user

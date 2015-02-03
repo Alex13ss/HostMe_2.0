@@ -1,5 +1,6 @@
 package com.softserve.edu.service.implementation;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Notification;
 import com.softserve.edu.model.User;
@@ -35,6 +37,15 @@ public class NotificationServiceImpl implements NotificationService {
         List<User> interestedUsers = (List<User>) userRepository
                 .findAllByInterestingGroups(group);
         notify.setToReceiveUsers(interestedUsers);
+    }
+
+    @Override
+    public List<GroupDto> findAllGroupsByNotifications(User user) {
+        List<GroupDto> list = new ArrayList<GroupDto>();
+        for (Group group : notificationRepository.findAllByToReceiveUsers(user)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
     }
 
 }

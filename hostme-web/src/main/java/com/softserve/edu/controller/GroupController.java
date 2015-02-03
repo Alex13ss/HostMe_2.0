@@ -30,6 +30,7 @@ import com.softserve.edu.model.Group;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.ConversationService;
 import com.softserve.edu.service.GroupService;
+import com.softserve.edu.service.NotificationService;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.UserService;
 
@@ -47,6 +48,9 @@ public class GroupController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @ModelAttribute("group")
     public Group constructGroup() {
@@ -109,15 +113,13 @@ public class GroupController {
     /**
      * MustTODO!!! ^_^
      */
-//    @RequestMapping(value = "/updates-of-groups", method = RequestMethod.GET, produces = "application/json")
-//    public @ResponseBody List<GroupDto> getUpdatedInterestingGroups() {
-//        User interestedUser = profileService
-//                .getUserByLogin(SecurityContextHolder.getContext()
-//                        .getAuthentication().getName());
-//        List<Notification> notifications = interestedUser
-//                .getReceivedNotifications();
-//        return groupService.getAllGroupsByNotification(notifications);
-//    }
+    @RequestMapping(value = "/updates-of-groups", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<GroupDto> getUpdatedInterestingGroups() {
+        User interestedUser = profileService
+                .getUserByLogin(SecurityContextHolder.getContext()
+                        .getAuthentication().getName());
+        return notificationService.findAllGroupsByNotifications(interestedUser);
+    }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)
     public String showGroup(@RequestParam("id") long id, Model model) {
@@ -156,7 +158,6 @@ public class GroupController {
         Group group = groupService.findOne(id);
         User user = profileService.getUserByLogin(SecurityContextHolder
                 .getContext().getAuthentication().getName());
-        System.out.println("\n*\n**\n***\nSad smile from Controller.");
         groupService.removeInterestingRelationship(user, group);
         return "redirect:/group?id={id}";
     }

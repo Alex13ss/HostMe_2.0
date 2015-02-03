@@ -99,13 +99,16 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public void removeInterestingRelationship(User user, Group group) {
-        /***/
-        // Hibernate.initialize(group.getInterestedUsers());
-        // Hibernate.initialize(user.getInterestingGroups());
-        System.out.println("Sad smile from ServiceImpl.\n***\n**\n*\n");
-        // group.getInterestedUsers().remove(user);
-        // user.getInterestingGroups().remove(group);
-        /***/
+        List<User> interestedUsers = (List<User>) userRepository
+                .findAllByInterestingGroups(group);
+        interestedUsers.remove(user);
+        List<Group> interestingGroups = (List<Group>) groupRepository
+                .findAllByInterestedUsers(user);
+        group.setInterestedUsers(interestedUsers);
+        interestingGroups.remove(group);
+        user.setInterestingGroups(interestingGroups);
+        groupRepository.save(group);
+        userRepository.save(user);
     }
 
     @Override

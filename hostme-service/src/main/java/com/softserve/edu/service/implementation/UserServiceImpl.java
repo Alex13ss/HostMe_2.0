@@ -118,10 +118,4 @@ public class UserServiceImpl implements UserService {
 		Hibernate.initialize(user.getLanguages());
 	}
 
-    @Override
-    public Object findOneWithGroups(String name) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
 }
