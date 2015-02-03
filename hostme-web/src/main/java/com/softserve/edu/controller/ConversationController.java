@@ -57,6 +57,7 @@ public class ConversationController {
 	Long conversationsSize = conversationService.countByGroupId(id);
 	model.addAttribute("conversationDtos", conversations);
 	model.addAttribute("conversationsSize", conversationsSize);
+	model.addAttribute("groupId", id);
 	return "conversations";
     }
 

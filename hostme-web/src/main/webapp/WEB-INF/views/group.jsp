@@ -182,9 +182,11 @@
 
 			<div class="row">
 				<div class="col-md-12">
+					<c:set var="groupId" value="${group.id}"/>
 					<c:url var="conversationsUrl" value="/conversations">
-						<c:param name="group_id" value="${group.id}" />
+						<c:param name="group_id" value="${groupId}" />
 					</c:url>
+					  
 					<%@ include file="conversations/latest.jsp"%>
 				</div>
 			</div>
