@@ -22,8 +22,6 @@ function eventsAjaxCallback() {
 
 function calendarUpdate() {
 	if (eventsType != "all-events") {
-//		$("#calendar").fullCalendar('removeEvents');
-//		$('#calendar').fullCalendar('rerenderEvents' );
 		tableEvents = table.fnGetData();
 		var calendarEvents = [];
 		for (eventNum in tableEvents) {
@@ -45,9 +43,7 @@ function calendarUpdate() {
 }
 
 function showEvents() {
-	if (eventsType == "all-events") {
-		$("#calendar").fullCalendar('destroy');
-	}
+	$("#calendar").fullCalendar('destroy');
 	table.fnClearTable();
 	table.fnReloadAjax(getEventsParameters(), eventsAjaxCallback);
 }
@@ -236,6 +232,7 @@ $(document)
 
 					$("#eventsTypesNav > li").click(function() {
 						eventsType = $(this).attr("id");
+						selectedTablePage = 1;
 						showEvents();
 
 					});
