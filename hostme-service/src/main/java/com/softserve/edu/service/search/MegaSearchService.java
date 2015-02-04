@@ -12,9 +12,11 @@ public interface MegaSearchService {
 
     public List<EventDto> searchEvents(String input);
 
+    public List<EventDto> searchEvents(SearchRequestDto input);
+
     public List<UserDto> searchUsers(String input);
 
-    public List<SightseeingDto> searchSights(String input);
+    public List<SightseeingDto> searchSights(SearchRequestDto searchRequestDto);
     //TODO Groups search
 
     public List<HostingDto> searchHosting(String input);

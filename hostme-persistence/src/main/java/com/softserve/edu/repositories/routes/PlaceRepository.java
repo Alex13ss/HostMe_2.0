@@ -3,6 +3,7 @@ package com.softserve.edu.repositories.routes;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.softserve.edu.model.City;
@@ -10,7 +11,7 @@ import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 
-public interface PlaceRepository extends PagingAndSortingRepository<Place, Integer> {
+public interface PlaceRepository extends PagingAndSortingRepository<Place, Integer>, JpaSpecificationExecutor {
 
 	public List<Place> findByOwnerNot(User owner);
 

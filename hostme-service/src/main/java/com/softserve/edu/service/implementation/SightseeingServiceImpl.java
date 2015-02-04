@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +49,11 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	public boolean haveSight(int id) {
 		return sightseeingRepository.exists(id);
+	}
+
+	@Override
+	public List<Sightseeing> searchSightseeing(Specifications<Sightseeing> specifications) {
+		return sightseeingRepository.findAll(specifications);
 	}
 
 	@Override

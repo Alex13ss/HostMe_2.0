@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,7 @@ import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
 
 public interface SightseeingRepository extends
-		JpaRepository<Sightseeing, Integer> {
+		JpaRepository<Sightseeing, Integer>, JpaSpecificationExecutor{
 	public List<Sightseeing> findByNameContaining(String name);
 
 	public Set<Sightseeing> findByLikers(User user);

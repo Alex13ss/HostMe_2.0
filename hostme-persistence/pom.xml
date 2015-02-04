@@ -53,7 +53,17 @@
 						<srcFile>src/main/resources/sql/system_properties.sql</srcFile>
 					</srcFiles>
 				</configuration>
+			</plugin>
 
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArguments>
+						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+					</compilerArguments>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -64,6 +74,12 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.1.3.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>4.3.6.Final</version>
 		</dependency>
 
 		<dependency>

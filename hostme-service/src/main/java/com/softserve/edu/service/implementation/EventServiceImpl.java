@@ -2,13 +2,14 @@ package com.softserve.edu.service.implementation;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import com.softserve.edu.dto.SearchRequestDto;
+import com.softserve.edu.repositories.specifications.PlaceSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,6 +121,11 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
+	public List<Event> searchEvent(Specifications<Event> specifications) {
+		return eventRepository.findAll(specifications);
+	}
+
+	@Override
 	@Transactional
 	public List<EventDto> getEventByStartDate(Date date) {
 		List<EventDto> list = new ArrayList<EventDto>();
@@ -164,7 +170,7 @@ public class EventServiceImpl implements EventService {
 		amountOfOwnerEvents = (long) list.size();
 		return list;
 	}
-	
+
 	@Override
 	@Transactional
 	public List<EventDto> getByAttendee(Integer page, Integer size,
@@ -182,9 +188,9 @@ public class EventServiceImpl implements EventService {
 		}
 		User attendee = profileService.getUserByLogin(SecurityContextHolder
 				.getContext().getAuthentication().getName());
-		
+
 		//Set<Place> attendeeUser = attendee.getAttendee();
-		
+
 		for (Place place : placeRepository.findByAttendee(owner, pageRequsetObj)) {
 			list.add(new EventDto(eventRepository.findOne(place.getId()), place));
 		}

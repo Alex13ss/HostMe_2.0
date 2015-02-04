@@ -3,7 +3,7 @@ var searchObj = {
     type: "",
     haveMoreData: false,
     date: "",
-    sightType: ""
+    sightseeingType: ""
 };
 var priceCategories = [];
 var sightType = [];
@@ -100,19 +100,20 @@ function setAdvancedOptions() {
             $sightType.append("<option value=" + sightType[i] + ">" + sightType[i] + "</option>");
         }
         searchObj.sightType = $sightType.val();
-        alert(searchObj.sightType);
         $sightType.change(function() {
             searchObj.sightType = $sightType.val();
-            alert(searchObj.sightType);
         });
     } else if ($searchType.val() == "HOSTING") {
         $searchOptions.html("");
 
     } else if ($searchType.val() == "ROUTE") {
+        $searchOptions.html("");
 
     } else if ($searchType.val() == "GROUPS") {
+        $searchOptions.html("");
 
     } else if ($searchType.val() == "USER") {
+        $searchOptions.html("");
 
     }
 }

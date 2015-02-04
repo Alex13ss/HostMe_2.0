@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.softserve.edu.dto.EventDto;
+import com.softserve.edu.dto.SearchRequestDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.PriceCategory;
+import org.springframework.data.jpa.domain.Specifications;
 
 public interface EventService {
 
@@ -26,6 +28,8 @@ public interface EventService {
 	public EventDto getEvent(Integer id);
 
 	public Event findOne(Integer id);
+
+	public List<Event> searchEvent(Specifications<Event> specifications);
 
 	public List<EventDto> getEventByStartDate(Date date);
 

@@ -5,10 +5,13 @@ import java.util.List;
 import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
+import org.springframework.data.jpa.domain.Specifications;
 
 public interface SightseeingService {
 
 	public boolean haveSight(int id);
+
+	public List<Sightseeing> searchSightseeing(Specifications<Sightseeing> specifications);
 
 	List<SightseeingDto> getAllSightseeingsPaging(Integer page, Integer size,
 			String orderBy, String orderType);
