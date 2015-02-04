@@ -49,9 +49,9 @@ $(document).ready(
 							<a href="#" class="editConversation ${conversationDto.conversation.id}"><span id="editConversation" class="fa fa-fw fa-pencil" style="float:right;"></span></a>
 						</c:if>
 					</div>
-					<div class="last_post">Останнє повідомлення від
+					<div class="last_post"><spring:message code="conversations.lastMsg" />
 						${conversationDto.lastPost.author.login}.
-						${conversationDto.lastPostDate } о ${conversationDto.lastPostTime}
+						${conversationDto.lastPostDate } <spring:message code="conversations.lastMsgTime" /> ${conversationDto.lastPostTime}
 					</div>
 				</div>
 			</a>

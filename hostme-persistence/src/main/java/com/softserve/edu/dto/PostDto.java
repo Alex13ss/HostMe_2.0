@@ -12,6 +12,8 @@ public class PostDto {
     
     private Calendar postedAt;
     
+    private String imageUrl;
+    
     private String authorId;
     
     private String author;
@@ -20,12 +22,13 @@ public class PostDto {
 	
     }
 
-    public PostDto(Post post) {
+    public PostDto(Post post, String imageUrl) {
 	this.id = post.getId();
 	this.content = post.getContent();
 	this.postedAt = post.getPostedAt();
 	this.authorId = post.getAuthor().getUserId().toString();
 	this.author = post.getAuthor().getFirstName() + " " + post.getAuthor().getLastName();
+	this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -50,6 +53,14 @@ public class PostDto {
 
     public void setPostedAt(Calendar postedAt) {
         this.postedAt = postedAt;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getAuthorId() {

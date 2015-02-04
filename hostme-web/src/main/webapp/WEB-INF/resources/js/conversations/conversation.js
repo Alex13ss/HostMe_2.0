@@ -3,8 +3,15 @@ $(document).ready(
 		function() {
 			
 			$('#chat-box').slimScroll({
-			    height: window.screen.availHeight / 2
+			    height: window.screen.availHeight / 2,
 			});
+			
+			$('#userMsg').keypress(function(e){
+				  if(e.which == 13){
+					  $("#sendMsg").click();
+					  return false;
+				  }
+				});
 		
 		});
 
@@ -35,6 +42,8 @@ function showPosts(posts) {
 	for (var i = 0; i < posts.length; i++) {
 		createChatItem(posts[i]);
 	}
+	var scrollTo_int = $('#chat-box').prop('scrollHeight') + 'px';
+	$('#chat-box').slimScroll({scrollTo : scrollTo_int });
 }
 
 function createChatItem(postDto) {
@@ -43,7 +52,7 @@ function createChatItem(postDto) {
 	item.className = "item";
 	//here will be image of user, maybe
 	var image = document.createElement("IMG");
-	image.src = "dist/img/user4-128x128.jpg";
+	image.src = postDto.imageUrl;
 	image.className = "online";
 	
 	var message = document.createElement("P");
@@ -79,7 +88,7 @@ function createChatItem(postDto) {
 }
 
 function sendMessage(conversationId, message) {
-	$("#userMsg").html("");
+	$("#userMsg").val("");
 	
 	$.ajax({
 		url: "sendPost", 

@@ -1,6 +1,7 @@
 package com.softserve.edu.service.implementation;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,8 +15,10 @@ import org.springframework.stereotype.Service;
 import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.dto.PostDto;
 import com.softserve.edu.model.Conversation;
+import com.softserve.edu.model.Image;
 import com.softserve.edu.model.Post;
 import com.softserve.edu.repositories.PostRepository;
+import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.service.PostService;
 
 @Service
@@ -24,13 +27,23 @@ public class PostServiceImpl implements PostService{
     @Autowired
     private PostRepository postRepository;
     
+    @Autowired
+    private SystemPropertiesRepository systemPropertiesRepository;
+    
+    public final Integer PROPERTY_ID = 1;
+    
     @Override
     @Transactional
     public List<PostDto> findByConversationId(Long id) {
 	List<PostDto> result = new ArrayList<PostDto>();
 	List<Post> posts = (List<Post>) postRepository.findByConversationId(id);
+	String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL();
 	for (Post post : posts){
-	    result.add(new PostDto(post));
+	    String image = null;
+	    Iterator<Image> imageItr = post.getAuthor().getImages().iterator();
+	    if (imageItr.hasNext())
+		image = propertiesImageUrl + "/" + imageItr.next().getLink();
+	    result.add(new PostDto(post, image));
 	}
 	return result;
     }
