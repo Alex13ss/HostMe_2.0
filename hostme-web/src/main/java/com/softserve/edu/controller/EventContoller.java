@@ -3,7 +3,6 @@ package com.softserve.edu.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -11,7 +10,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,21 +23,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Country;
 import com.softserve.edu.model.Event;
-import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.PriceCategory;
-import com.softserve.edu.model.Request;
 import com.softserve.edu.model.User;
-import com.softserve.edu.model.exceptions.RequestAlreadySentException;
 import com.softserve.edu.repositories.EventRepository;
 import com.softserve.edu.service.CityService;
 import com.softserve.edu.service.CountryService;
 import com.softserve.edu.service.EventService;
+import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.PriceCategoryService;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.implementation.EventServiceImpl;
@@ -59,6 +56,8 @@ public class EventContoller {
 	PriceCategoryService priceCategoryService;
 	@Autowired
 	EventRepository eventRepository;
+	@Autowired
+	ImageService imageService;
 
 	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public String showEvents(Model model) {
@@ -157,14 +156,17 @@ public class EventContoller {
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String showEvent(@RequestParam("id") Integer id, Model model) {
 		EventDto eventDto = eventService.getEvent(id);
+		User user = profileService.getCurrentUser();
 		List<Country> countries = countryService.getAllCountry();
 		List<City> cities = cityService.getAllCity();
 		List<PriceCategory> priceCategories = priceCategoryService
 				.getAllPriceCategory();
+		boolean isCreator = eventService.checkEventOwner(eventDto, user);
 		model.addAttribute("event", eventDto);
 		model.addAttribute("countries", countries);
 		model.addAttribute("cities", cities);
 		model.addAttribute("priceCategories", priceCategories);
+		model.addAttribute("isCreator", isCreator);
 		return "event";
 	}
 
@@ -200,6 +202,27 @@ public class EventContoller {
 		eventService.saveEvent(event);
 		return event;
 	}
+	
+	@RequestMapping(value = "/event-status-update",  method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Event updateSingleEventStatus(
+			@RequestBody Event event) {
+		Event newEvent = eventService.findOne(event.getId());
+		newEvent.setStatus(event.getStatus());
+		eventService.saveEvent(newEvent);
+		return event;
+	}
+	
+	@RequestMapping(value = "/addPhotosToEvent", method = RequestMethod.POST)
+	public String addPhotoToEvent(@RequestParam("file") MultipartFile[] files,
+			@ModelAttribute("sightseeing") final Event event,
+			RedirectAttributes redirectAttributes) {
+		redirectAttributes.addAttribute("id", event.getId())
+				.addFlashAttribute("eventEdited", true);
+		imageService.addImagesToEvent(files, event);
+		return "redirect:/event?id={id}";
+	}
+	
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

@@ -4,6 +4,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,12 +50,16 @@
 
 			<!-- /.box-header -->
 			<ul id="eventsTypesNav" class="nav nav-tabs">
-				<li id="all-events" class="active"><a href="#"
-					data-toggle="tab"><spring:message code="label.events" /></a></li>
-				<li id="my-events"><a href="#" data-toggle="tab"><spring:message
-							code="label.Myevents" /></a></li>
-				<li id="signed-events"><a href="#" data-toggle="tab"><spring:message
-							code="label.SignedEvents" /></a></li>
+				<security:authorize access="hasRole('MODERATOR')">
+					<li id="all-events"><a href="#" data-toggle="tab"><spring:message
+								code="label.events" /></a></li>
+				</security:authorize>
+				<security:authorize access="hasRole('USER')">
+					<li id="my-events"><a href="#" data-toggle="tab"><spring:message
+								code="label.Myevents" /></a></li>
+					<li id="signed-events"><a href="#" data-toggle="tab"><spring:message
+								code="label.SignedEvents" /></a></li>
+				</security:authorize>
 			</ul>
 			<div class="box-body table-responsive">
 				<select id="request_size" class="dataTableDropDown">
@@ -75,7 +81,7 @@
 									code="label.price" /></th>
 							<th headers="website"><spring:message code="label.website" /></th>
 							<th headers="owner"><spring:message code="label.organizer" /></th>
-							<th headers="state"><spring:message code="user.state" /></th>
+							<th headers="status"><spring:message code="user.state" /></th>
 							<th headers=""><spring:message code="label.action" /></th>
 						</tr>
 					</thead>

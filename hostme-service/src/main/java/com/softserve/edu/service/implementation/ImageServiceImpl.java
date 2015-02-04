@@ -1,6 +1,7 @@
 package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.ImageDao;
+import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.Image;
 import com.softserve.edu.model.Sightseeing;
@@ -149,9 +150,24 @@ public class ImageServiceImpl implements ImageService {
 			}
 	}
 
+	@Override
+	@Transactional
+	public void addImagesToEvent(MultipartFile[] files, Event event) {
+		if (filesNotEmpty(files))
+			for (int i = 0; i < files.length; i++) {
+				saveImage(files[i], buildPathEvent(event));
+				addImageToEvent(files[i], event);
+			}
+	}
+
 	private String buildPath(Sightseeing sightseeing) {
 		return systemPropertiesService.getImagePath() + File.separator
 				+ "Sightseeings" + File.separator + sightseeing.getId();
+	}
+	
+	private String buildPathEvent(Event event) {
+		return systemPropertiesService.getImagePath() + File.separator
+				+ "Event" + File.separator + event.getId();
 	}
 
 	@Transactional
@@ -161,6 +177,16 @@ public class ImageServiceImpl implements ImageService {
 		image.setLink("Sightseeings/" + sightseeing.getId() + "/"
 				+ multipartFile.getOriginalFilename());
 		image.setPlace(sightseeing);
+		imageDao.create(image);
+	}
+
+	@Transactional
+	private void addImageToEvent(MultipartFile multipartFile,
+			Event event) {
+		Image image = new Image();
+		image.setLink("Event/" + event.getId() + "/"
+				+ multipartFile.getOriginalFilename());
+		image.setPlace(event);
 		imageDao.create(image);
 
 	}

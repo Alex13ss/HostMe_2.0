@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
+import com.softserve.edu.model.Group;
 import com.softserve.edu.model.PriceCategory;
+import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.repositories.CityRepository;
@@ -246,6 +248,23 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	@Transactional
+	public void updateEventStatus(String status, Integer id){
+		Status newStatus;
+		if(status.equals("APPROVED")){
+			newStatus = Status.APPROVED;
+		} else if(status.equals("Pending")){
+			newStatus = Status.PENDING;
+		}else {
+			newStatus = Status.REFUSED;
+		}
+		Event event = eventRepository.findOne(id);
+		event.setStatus(newStatus);
+		eventRepository.save(event);
+		
+	}
+	
+	@Override
+	@Transactional
 	public void updateEvent(Event event, String city, String priceCategory) {
 		Integer pcId = priceCategoryRepository.findByPriceCategory(
 				priceCategory).getPriceCategoryId();
@@ -254,4 +273,14 @@ public class EventServiceImpl implements EventService {
 		event.setCity(cityRepository.findOne(cityId));
 		eventRepository.save(event);
 	}
+	
+	@Override
+    public boolean checkEventOwner(EventDto event, User user) {
+        Event checkedEvent = eventRepository.findOne(event.getId());
+        User owner = checkedEvent.getOwner();
+        if (owner.equals(user)) {
+            return true;
+        }
+        return false;
+    }
 }

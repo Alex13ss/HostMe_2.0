@@ -1,5 +1,6 @@
 package com.softserve.edu.service;
 
+import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
@@ -22,5 +23,7 @@ public interface ImageService {
 	String getImagePath();
 	
 	void addImagesToSightseeing(MultipartFile[] files, Sightseeing sightseeing);
+	
+	public void addImagesToEvent(MultipartFile[] files, Event event);
 
 }

@@ -2,7 +2,7 @@ var table;
 var size;
 var page;
 var selectedTablePage = 1;
-var eventsType = "all-events";
+var eventsType;
 var eventStatus;
 var order = {
 	by : "name",
@@ -125,6 +125,10 @@ jQuery()
 $(document)
 		.ready(
 				function() {
+					
+					console.log($("#eventsTypesNav li:first-child").attr("id"));
+					$("#eventsTypesNav li:first-child").addClass("active");
+					eventsType = $("#eventsTypesNav > li.active").attr("id");
 
 					size = $("#request_size").val();
 
@@ -152,6 +156,7 @@ $(document)
 															"href" : "#"
 														}).click(aData, function(e) {
 																	aData.status = status;
+																	console.log(JSON.stringify(aData));
 																	e.preventDefault();
 																	$.ajax({
 																		    url : 'event-update',
