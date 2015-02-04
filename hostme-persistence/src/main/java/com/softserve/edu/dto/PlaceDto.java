@@ -8,7 +8,6 @@ public class PlaceDto implements Serializable{
     private String name;
     private String description;
     private String website;
-    private String link;
     private String address;
 
     public PlaceDto(Place place) {
@@ -51,14 +50,6 @@ public class PlaceDto implements Serializable{
 
     public void setWebsite(String website) {
         this.website = website;
-    }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
     }
 
     public String getAddress() {

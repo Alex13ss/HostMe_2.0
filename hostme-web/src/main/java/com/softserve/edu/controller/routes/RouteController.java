@@ -1,19 +1,15 @@
 package com.softserve.edu.controller.routes;
 
-import com.softserve.edu.dto.PlaceDto;
 import com.softserve.edu.dto.RouteDto;
-import com.softserve.edu.dto.RoutePagingDto;
 import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.routes.PlaceService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 public class RouteController {

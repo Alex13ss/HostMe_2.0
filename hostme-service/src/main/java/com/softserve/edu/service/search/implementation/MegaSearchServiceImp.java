@@ -4,11 +4,12 @@ import com.softserve.edu.dto.*;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Sightseeing;
+import com.softserve.edu.model.SightseeingType;
+import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.repositories.CityRepository;
-import com.softserve.edu.service.EventService;
-import com.softserve.edu.service.HostingService;
-import com.softserve.edu.service.SightseeingService;
-import com.softserve.edu.service.UserService;
+import com.softserve.edu.repositories.routes.PlaceRepository;
+import com.softserve.edu.repositories.routes.RouteRepository;
+import com.softserve.edu.service.*;
 import com.softserve.edu.service.routes.RoutesService;
 import com.softserve.edu.service.search.MegaSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,27 +43,36 @@ public class MegaSearchServiceImp implements MegaSearchService {
     @Autowired
     CityRepository cityRepository;
 
-    @Override
-    public List<PlaceDto> searchPlaces(String input) {
-        return null;
-    }
+    @Autowired
+    PlaceRepository placeRepository;
+
+    @Autowired
+    RouteRepository routeRepository;
+
+    @Autowired
+    GroupService groupService;
 
     @Override
-    public List<RouteDto> searchRoutes(String input) {
-        return routesService.getRoutesDtoList(routesService.getRouteLike(input));
+    public List<RouteDto> searchRoutes(SearchRequestDto searchRequestDto) {
+        City city = cityRepository.findByCity(searchRequestDto.getRequest());
+        List<Route> result = routeRepository.findByPlaces_City(city);
+        return routesService.getRoutesDtoList(result);
     }
 
     @Override
     public List<SightseeingDto> searchSights(SearchRequestDto searchRequestDto) {
         City city = cityRepository.findByCity(searchRequestDto.getRequest());
         Specifications<Sightseeing> specifications = Specifications.where(sightHaveCity(city));
-        List<Sightseeing> sightseeings = sightseeingService.searchSightseeing(specifications);
-        return sightseeingService.getSightseeingsDtoList(sightseeings);
+        if (!searchRequestDto.getSightseeingType().equals("")) {
+            specifications = specifications.and(sightHaveType(
+                    SightseeingType.valueOf(searchRequestDto.getSightseeingType())));
+        }
+        return sightseeingService.getSightseeingsDtoList(sightseeingService.searchSightseeing(specifications));
     }
 
     @Override
-    public List<EventDto> searchEvents(String input) {
-        return eventService.getEventsDtoList(eventService.getEventsLike(input));
+    public List<GroupDto> searchGroups(SearchRequestDto searchRequestDto) {
+        return null;
     }
 
     @Override
@@ -70,7 +80,7 @@ public class MegaSearchServiceImp implements MegaSearchService {
         City city = cityRepository.findByCity(searchRequestDto.getRequest());
         Specifications<Event> specifications = Specifications.where(eventHaveCity(city));
         if (searchRequestDto.getDate() != null) {
-            specifications.and(eventBeforeDate(new Date(searchRequestDto.getDate())));
+            specifications = specifications.and(eventBeforeDate(new Date(searchRequestDto.getDate())));
         }
         return eventService.getEventsDtoList(eventService.searchEvent(specifications));
     }
@@ -81,7 +91,7 @@ public class MegaSearchServiceImp implements MegaSearchService {
     }
 
     @Override
-    public List<UserDto> searchUsers(String input) {
-        return userService.getUserDtoList(userService.getUsersLike(input));
+    public List<UserDto> searchUsers(SearchRequestDto searchRequestDto) {
+        return userService.getUserDtoList(userService.getUsersLike(searchRequestDto.getRequest()));
     }
 }

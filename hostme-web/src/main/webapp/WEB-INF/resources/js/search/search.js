@@ -99,9 +99,9 @@ function setAdvancedOptions() {
         for (var i = 0; i < sightType.length; i++) {
             $sightType.append("<option value=" + sightType[i] + ">" + sightType[i] + "</option>");
         }
-        searchObj.sightType = $sightType.val();
+        searchObj.sightseeingType = $sightType.val();
         $sightType.change(function() {
-            searchObj.sightType = $sightType.val();
+            searchObj.sightseeingType = $sightType.val();
         });
     } else if ($searchType.val() == "HOSTING") {
         $searchOptions.html("");

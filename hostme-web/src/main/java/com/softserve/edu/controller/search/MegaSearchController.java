@@ -39,9 +39,8 @@ public class MegaSearchController {
 
     @RequestMapping(value = "/superMegaSearch")
     public @ResponseBody List<?> getSearchResults(@RequestBody SearchRequestDto searchRequestDto) {
-        System.out.println(searchRequestDto.getDate());
         if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.ROUTE)) {
-            return megaSearchService.searchRoutes(searchRequestDto.getRequest());
+            return megaSearchService.searchRoutes(searchRequestDto);
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.EVENT)) {
             return megaSearchService.searchEvents(searchRequestDto);
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.SIGHT)) {
@@ -49,7 +48,9 @@ public class MegaSearchController {
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.HOSTING)) {
             return megaSearchService.searchHosting(searchRequestDto.getRequest());
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.USER)) {
-            return megaSearchService.searchUsers(searchRequestDto.getRequest());
+            return megaSearchService.searchUsers(searchRequestDto);
+        } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.GROUPS)) {
+            return megaSearchService.searchGroups(searchRequestDto);
         }
         return null;
     }

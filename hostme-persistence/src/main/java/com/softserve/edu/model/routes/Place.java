@@ -47,7 +47,7 @@ public class Place {
 	@Column
 	private String address;
 
-	@ManyToMany(mappedBy = "places", cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy = "places")
 	Set<Route> routes;
 
 	@ManyToOne

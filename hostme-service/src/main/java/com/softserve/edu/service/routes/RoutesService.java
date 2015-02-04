@@ -4,6 +4,7 @@ import com.softserve.edu.dto.RouteDto;
 import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.model.routes.Route;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface RoutesService {
@@ -22,7 +23,7 @@ public interface RoutesService {
 
     public List<Route> getRouteLike(String name);
 
-    public List<RouteDto> getRoutesDtoList(List<Route> routes);
+    public List<RouteDto> getRoutesDtoList(Collection<Route> routes);
 
     public List<Route> getCurrentUserRoutes();
 

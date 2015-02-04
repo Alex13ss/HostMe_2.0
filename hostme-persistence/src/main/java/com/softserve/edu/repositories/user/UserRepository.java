@@ -21,7 +21,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 
     public Iterable<User> findAllByInterestingGroups(Group interestingGroups);
     
-    public Iterable<User> findByFirstNameContainingOrLastNameContainingOrLoginContainingAllIgnoreCase(String firstName, String lastName, String login);
+    public List<User> findByFirstNameContainingOrLastNameContainingOrLoginContainingAllIgnoreCase(String firstName, String lastName, String login);
 
     @Query("SELECT p FROM User p JOIN FETCH p.places WHERE p.userId = (:id)")
     public User findByUserIdAndFetchPlacesEagerly(@Param("id") int id);

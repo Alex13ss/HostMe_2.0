@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.softserve.edu.dto.SearchRequestDto;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public List<User> findUsersByNamesOrLogin(String input) {
-		return (List<User>) userRepository.findByFirstNameContainingOrLastNameContainingOrLoginContainingAllIgnoreCase(input, input, input);
+		return userRepository.findByFirstNameContainingOrLastNameContainingOrLoginContainingAllIgnoreCase(input, input, input);
 	}
 
 	@Override

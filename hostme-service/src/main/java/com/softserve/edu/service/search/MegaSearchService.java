@@ -6,18 +6,15 @@ import java.util.List;
 
 public interface MegaSearchService {
 
-    public List<PlaceDto> searchPlaces(String input);
-
-    public List<RouteDto> searchRoutes(String input);
-
-    public List<EventDto> searchEvents(String input);
+    public List<RouteDto> searchRoutes(SearchRequestDto searchRequestDto);
 
     public List<EventDto> searchEvents(SearchRequestDto input);
 
-    public List<UserDto> searchUsers(String input);
+    public List<UserDto> searchUsers(SearchRequestDto input);
 
     public List<SightseeingDto> searchSights(SearchRequestDto searchRequestDto);
-    //TODO Groups search
+
+    public List<GroupDto> searchGroups(SearchRequestDto searchRequestDto);
 
     public List<HostingDto> searchHosting(String input);
 }
