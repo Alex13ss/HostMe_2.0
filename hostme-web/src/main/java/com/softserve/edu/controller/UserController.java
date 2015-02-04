@@ -31,8 +31,6 @@ public class UserController {
 
     @RequestMapping (value = "/addBookedPlace", method = RequestMethod.POST)
     public @ResponseBody boolean addBookingPlace(@RequestBody String placeId) {
-        int bookPlaceId = Integer.valueOf(placeId.replace("=", ""));
-        userService.addBookedPlace(bookPlaceId);
         return true;
     }
 
