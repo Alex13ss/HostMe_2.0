@@ -8,8 +8,6 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="<c:url value="/resources/css/sightseeing.css"/>"
-	rel="stylesheet">
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
 <script src="<c:url value="/resources/js/admin/usersManager.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
@@ -41,6 +39,8 @@
 							<th><spring:message code="user.name" /></th>
 							<th><spring:message code="user.state" /></th>
 							<th><spring:message code="user.role" /></th>
+							<th><spring:message code="user.resetPass" /></th>
+							<th><spring:message code="label.delete" /></th>
 						</tr>
 					</thead>
 

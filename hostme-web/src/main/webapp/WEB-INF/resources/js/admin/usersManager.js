@@ -54,7 +54,27 @@ $(document)
 															type, full) {
 														return data.role.role;
 													}
-												}, ]
+												},
+												{
+													"mData" : function(data,
+															type, full) {
+														return '<a href="resetPass/'
+																+ data.userId
+																+ '" class="text-red"/>'
+																+ 'Reset'
+																+ '<span class="fa fa-refresh"></span></a>'
+													}
+												},
+												{
+													"mData" : function(data,
+															type, full) {
+														return '<a href="deleteUser/'
+																+ data.userId
+																+ '" class="text-red"/>'
+																+ 'Delete'
+																+ '<span class="fa fa-trash-o"></span></a>'
+													}
+												}]
 									});
 					table
 							.on(
