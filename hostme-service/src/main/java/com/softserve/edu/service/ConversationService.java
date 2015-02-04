@@ -24,5 +24,6 @@ public interface ConversationService {
     
     Conversation save(Conversation conversation);
     
-    //List<Conversation> findAllConversationsByGroupId(Long id);
+    void delete(Conversation conversation);
+    
 }

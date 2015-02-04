@@ -12,9 +12,19 @@
 </head>
 <body>
 
-	<c:url var="conversationsUrl" value="" />
+<section class="content-header">
+	<h1>
+		Conversations
+	</h1>
+</section>
 
-	<%@ include file="conversations/latest.jsp"%>
+<section class="content">
+	<div class="box box-primary">
+		<c:url var="conversationsUrl" value="" />
+
+		<%@ include file="conversations/latest.jsp"%>
+	</div>
+</section>
 
 </body>
 </html>

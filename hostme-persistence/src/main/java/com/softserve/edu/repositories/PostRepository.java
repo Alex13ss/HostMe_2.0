@@ -7,6 +7,7 @@ import com.softserve.edu.model.Post;
 public interface PostRepository extends CrudRepository<Post, Long>{
     
     Post findFirstByConversationIdOrderByIdDesc(Long id);
-    //Post findFirstByOrderByLastname();
+    
+    Iterable<Post> findByConversationId(Long id);
     
 }

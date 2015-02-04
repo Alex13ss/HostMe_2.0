@@ -85,5 +85,11 @@ public class ConversationServiceImpl implements ConversationService{
     public Conversation save(Conversation conversation) {
 	return conversationRepository.save(conversation);
     }
+
+    @Override
+    @Transactional
+    public void delete(Conversation conversation) {
+	conversationRepository.delete(conversation);
+    }
     
 }

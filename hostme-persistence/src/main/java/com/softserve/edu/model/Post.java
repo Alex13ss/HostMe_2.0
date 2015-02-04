@@ -22,11 +22,11 @@ public class Post {
     /*
      * @OneToMany//ManyToMany private Set<Attachment> attachments;
      */
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "author_id")
     private User author;
 
-    @ManyToOne()
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "conversation_id")
     private Conversation conversation;
 

@@ -36,7 +36,7 @@ public class Conversation {
         inverseJoinColumns={@JoinColumn(name="moderator_id")})
     private Set<User> moderators;
 
-    @OneToMany(mappedBy = "conversation", fetch = FetchType.EAGER, cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+    @OneToMany(mappedBy = "conversation", fetch = FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.REMOVE})
     private Set<Post> posts;
 
     public Long getId() {
