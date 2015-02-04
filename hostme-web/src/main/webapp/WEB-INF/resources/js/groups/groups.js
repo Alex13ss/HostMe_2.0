@@ -23,13 +23,6 @@ function interestingGroups(element) {
 	}
 }
 
-function updatesGroups(element) {
-	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("updates-of-groups");
-	}
-}
-
 function needActionsGroups(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();

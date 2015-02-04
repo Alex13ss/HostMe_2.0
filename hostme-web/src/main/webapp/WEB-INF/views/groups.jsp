@@ -70,7 +70,7 @@
 		<!-- /.box-header -->
 
 		<ul class="nav nav-tabs">
-			<sec:authorize access="hasAnyRole('USER','ADMIN')">
+			<sec:authorize access="hasAnyRole('USER','MODERATOR')">
 				<li id="all-groups" class="active" onclick="allGroups(this)"><a
 					href="#" data-toggle="tab"><spring:message
 							code="label.allGroups" /></a></li>
@@ -83,11 +83,8 @@
 					onclick="interestingGroups(this)"><a href="#"
 					data-toggle="tab"><spring:message
 							code="label.interestingGroups" /></a></li>
-				<li id="updates-of-groups" class="" onclick="updatesGroups(this)"><a
-					href="#" data-toggle="tab"><spring:message
-							code="label.updatesGroups" /></a></li>
 			</sec:authorize>
-			<sec:authorize access="hasRole('ADMIN')">
+			<sec:authorize access="hasRole('MODERATOR')">
 				<li id="need-act-groups" class="" onclick="needActionsGroups(this)"><a
 					href="#" data-toggle="tab"><spring:message
 							code="label.needActionsGroups" /></a></li>
@@ -101,7 +98,7 @@
 						<th>Image of group</th>
 						<th>Group name/description</th>
 						<th>Publishing</th>
-						<sec:authorize access="hasRole('ADMIN')">
+						<sec:authorize access="hasRole('MODERATOR')">
 							<th>Status</th>
 							<th>Actions</th>
 						</sec:authorize>

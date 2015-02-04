@@ -55,7 +55,7 @@
 								<spring:message code="label.delGroupFromInteresting" /> </a>
 						</c:if>
 					</sec:authorize>
-					<sec:authorize access="hasRole('ADMIN')">
+					<sec:authorize access="hasRole('MODERATOR')">
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#">
 							<i class="fa fa-fw fa-gear"></i>

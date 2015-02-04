@@ -22,6 +22,7 @@
 		<intercept-url pattern="/createRoute" access="isAuthenticated()" />
 		<intercept-url pattern="/groups" access="isAuthenticated()" />
 		<intercept-url pattern="/group" access="isAuthenticated()" />
+		<intercept-url pattern="/notifications" access="isAuthenticated()" />
 		<intercept-url pattern="/profile" access="isAuthenticated()" />
 		<intercept-url pattern="/conversations" access="isAuthenticated()" />
 		<intercept-url pattern="/conversation" access="isAuthenticated()" />

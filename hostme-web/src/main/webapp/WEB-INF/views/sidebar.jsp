@@ -99,13 +99,18 @@
 							<spring:message code="label.routes" />
 						</a>
 					</li>
-
 				</security:authorize>
 
 				<security:authorize access="hasAnyRole('MODERATOR', 'USER')">
 					<li><a href='<c:url value="groups"/>'
 						style="margin-left: 10px;"><i class="fa fa-users"></i> <spring:message
 								code="label.groups" /></a></li>
+				</security:authorize>
+				
+				<security:authorize access="hasRole('USER')">
+					<li><a href='<c:url value="notifications"/>'
+						style="margin-left: 10px;"><i class="fa fa-bell"></i>
+							<spring:message code="label.notifications" /></a></li>
 				</security:authorize>
 
 				<security:authorize access="hasAnyRole('MODERATOR', 'USER')">
