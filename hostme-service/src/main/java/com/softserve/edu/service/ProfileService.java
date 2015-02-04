@@ -10,8 +10,6 @@ public interface ProfileService {
 
 	public User getUser(Integer id);
 
-	public List<Place> getBookedPlaces();
-
 	public User getUserByLogin(String login);
 
 	public User getCurrentUser();

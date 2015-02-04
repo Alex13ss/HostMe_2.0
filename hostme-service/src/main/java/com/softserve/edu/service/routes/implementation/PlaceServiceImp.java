@@ -34,14 +34,14 @@ public class PlaceServiceImp implements PlaceService{
         return placeRepository.findAll(pageable).getContent();
     }
 
-    @Override
-    public Set<Place> getBookedPlaces() {
-        return profileService.getCurrentUser().getBookedPlaces();
-    }
-
     public List<Place> getAllNotUserPlaces() {
         User user = getCurrentUser();
         return placeRepository.findByOwnerNot(user);
+    }
+
+    @Override
+    public Collection<Place> getLikedPlaces(Pageable pageable) {
+        return placeRepository.findByLikers(profileService.getCurrentUser(), pageable);
     }
 
     public List<Place> getPlacesNearToUser() {

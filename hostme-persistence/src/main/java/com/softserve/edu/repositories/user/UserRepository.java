@@ -4,14 +4,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.softserve.edu.model.Group;
-
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
-import com.softserve.edu.model.routes.Place;
 
 import org.springframework.data.repository.query.Param;
 
@@ -26,9 +23,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
     
     public Iterable<User> findByFirstNameContainingOrLastNameContainingOrLoginContainingAllIgnoreCase(String firstName, String lastName, String login);
 
-    @Query("SELECT p FROM User p JOIN FETCH p.bookedPlaces WHERE p.userId = (:id)")
-    public User findByUserIdAndFetchBookedPlacesEagerly(@Param("id") int id);
-    
-    
-      
+    @Query("SELECT p FROM User p JOIN FETCH p.places WHERE p.userId = (:id)")
+    public User findByUserIdAndFetchPlacesEagerly(@Param("id") int id);
 }

@@ -23,11 +23,16 @@
 <section class="content">
     <div class="box box-primary container-fluid">
         <div id="searchBox" class="col-md-offset-3">
-            <select id="searchType" class="col-sm-4" style="height: 3%"></select>
-            <input id="searchCity" class="col-sm-4" placeholder="<spring:message code='label.citySelect'/>" style="height: 3%"/>
-            <input id="search" class="col-sm-4" placeholder="<spring:message code='search.searchUser'/>" style="height: 3%">
+            <select id="searchType" class="col-md-4" style="height: 3%"></select>
+            <input id="searchCity" class="col-md-4" placeholder="<spring:message code='label.citySelect'/>" style="height: 3%"/>
+            <input id="search" class="col-md-4" placeholder="<spring:message code='search.searchUser'/>" style="height: 3%">
+            <div id="moreOptions" class="col-md-12"></div>
+            <div id="searchOptions" class="col-md-12"></div>
+            <div id="showSearchOptions" class="btn btn-primary col-md-8">
+                Advanced options
+            </div>
         </div>
-        <div id="searchResult" class="col-sm-12"></div>
+        <div id="searchResult" class="col-md-12"></div>
     </div>
 </section>
 

@@ -1,7 +1,12 @@
-var searchValue = {
+var searchObj = {
     request: "",
-    type: ""
+    type: "",
+    haveMoreData: false,
+    date: "",
+    sightType: ""
 };
+var priceCategories = [];
+var sightType = [];
 var timer;
 var bufInput = "";
 var $searchBox;
@@ -9,16 +14,22 @@ var $search;
 var $searchType;
 var $searchCity;
 var $searchResult;
-var $btnShowLoc;
 var $btnBookPlace;
+var $searchOptions;
+var $showSearchOptions;
 $(document).ready(function() {
     $searchBox = $("#searchBox");
+    $searchOptions = $("#searchOptions");
+    $searchOptions.hide();
+    $showSearchOptions = $("#showSearchOptions");
     $search = $("#search");
     $search.hide();
     $searchResult = $("#searchResult");
     $searchType = $("#searchType");
     $searchCity = $("#searchCity");
     initSearchType();
+    initPriceCat();
+    initSightType();
     $searchCity.autocomplete({
         minLength: 2,
         source: function(request, responce) {
@@ -36,37 +47,90 @@ $(document).ready(function() {
              }
             })},
         select: function() {
-            search($searchCity.val());
+            callSearchWithDelay($searchCity.val());
         }}
     ).keyup(function() {
-            search($searchCity.val())
+            callSearchWithDelay($searchCity.val());
         });
     $search.keyup(function() {
-        clearTimeout(timer);
-        timer = setTimeout(search, 1000);
+        callSearchWithDelay($search.val());
     });
     $searchType.change(function() {
+        if ($searchOptions.is(":visible")) {
+            setAdvancedOptions();
+        }
         if ($searchType.val() == "USER") {
             $searchCity.hide();
             $search.show();
-            search($search.val());
+            callSearchWithDelay($search.val());
         } else {
             $searchCity.show();
             $search.hide();
-            search($searchCity.val());
+            callSearchWithDelay($searchCity.val());
         }
     });
+    $showSearchOptions.click(function() {
+        if ($searchOptions.is(":visible")) {
+            $searchOptions.hide();
+        } else {
+            $searchOptions.show();
+            setAdvancedOptions();
+        }
+    })
 });
+
+function setAdvancedOptions() {
+    if ($searchType.val() == "EVENT") {
+        $searchOptions.html("");
+        $searchOptions.append("<div>"
+        + "<input id='pickDate'/>"
+        + "</div>");
+        var $datePick = $searchOptions.find("#pickDate");
+        $datePick.datepicker({
+            minDate: new Date(),
+            onSelect: function() {
+                searchObj.date = $datePick.datepicker("getDate").getTime();
+            }
+        });
+    } else if ($searchType.val() == "SIGHT") {
+        $searchOptions.html("");
+        $searchOptions.append("<select id='sightType'>");
+        var $sightType = $searchOptions.find("#sightType");
+        for (var i = 0; i < sightType.length; i++) {
+            $sightType.append("<option value=" + sightType[i] + ">" + sightType[i] + "</option>");
+        }
+        searchObj.sightType = $sightType.val();
+        alert(searchObj.sightType);
+        $sightType.change(function() {
+            searchObj.sightType = $sightType.val();
+            alert(searchObj.sightType);
+        });
+    } else if ($searchType.val() == "HOSTING") {
+        $searchOptions.html("");
+
+    } else if ($searchType.val() == "ROUTE") {
+
+    } else if ($searchType.val() == "GROUPS") {
+
+    } else if ($searchType.val() == "USER") {
+
+    }
+}
+
+function callSearchWithDelay(input) {
+    clearTimeout(timer);
+    timer = setTimeout(search, 500, input);
+}
 
 function search(input) {
     if (checkForSameInput(input) && inputLength(input)) {
         $searchResult.html("");
-        searchValue.request = input;
-        searchValue.type = $searchType.val();
+        searchObj.request = input;
+        searchObj.type = $searchType.val();
         $.ajax({
             url: "superMegaSearch",
             type: "POST",
-            data: JSON.stringify(searchValue),
+            data: JSON.stringify(searchObj),
             dataType: "json",
             contentType: 'application/json; charset=utf-8',
             beforeSend: function () {
@@ -78,7 +142,7 @@ function search(input) {
                     + "Noting found!"
                     + "</div>");
                 } else {
-                    detectData(result);
+                    detectSearchDataType(result);
                 }
             }
         });
@@ -97,42 +161,42 @@ function checkForSameInput(input) {
 function inputLength(input) {
     if (input.length == 0) {
         return false;
-    } else if (input.length == 1 || input.length < 2){
+    } else if (input.length <= 2){
+        $searchResult.html("");
         $searchResult.append("<div class='col-md-offset-5'>"
         + "Need more symbols"
         + "</div>");
-    } else if (input.length >= 2) {
+    } else if (input.length > 2) {
         $searchResult.append("<div class='ion-loading-c col-md-offset-6'/>");
         return true;
     }
 }
 
-function detectData(data) {
+function detectSearchDataType(data) {
     if ($searchType.val() == "USER") {
         fillUserData(data)
     } else if ($searchType.val() == "ROUTE") {
         fillRouteData(data)
     } else if ($searchType.val() == "EVENT" ||
-                $searchType.val() == "SIGHT" ||
-                $searchType.val() == "HOSTING") {
+        $searchType.val() == "SIGHT" ||
+        $searchType.val() == "HOSTING") {
         fillPlaceData(data)
+    } else if ($searchType.val() == "GROUPS") {
+        fillGroupData(data);
     }
 }
 
 function fillPlaceData(data) {
     for (var i = 0; i < data.length; i++) {
-        $searchResult.append("<div class='placeResult'>"
-            + "<div class='col-sm-3'>" + "<a href = place?placeId=" + data[i].id + ">" + data[i].name + "</a>" + "</div>"
-            + "<div class='col-sm-1'>" + "price" + "</div>"
-            + "<div class='col-sm-1'>" + data[i].rating + "</div>"
-            + "<div class='col-sm-4'>" + data[i].description + "</div>"
-            + "<div class='col-sm-1'>" + data[i].sightseeingType + "</div>"
-            + "<div class='col-sm-1'>" + "<button class='btn btn-primary showLocation'>" + "Map" + "</button>" + "</div>"
-            + "<div class='col-sm-1'>" + "<button class='btn btn-primary bookPlace'>" + "Book" + "</button>" + "</div>"
+        $searchResult.append("<div class='placeResult col-md-5'>"
+        + "<div>" + "<a href = place?placeId=" + data[i].id + ">" + data[i].name + "</a>" + "</div>"
+        + "<div>" + "price" + "</div>"
+        + "<div>" + data[i].rating + "</div>"
+        + "<div>" + data[i].description + "</div>"
+        + "<div>" + "<button class='btn btn-primary bookPlace'>" + "Book" + "</button>" + "</div>"
         + "</div>");
         $("#searchResult").children().last().find(".bookPlace").data("placeId", data[i].id);
     }
-    $btnShowLoc = $(".showLocation");
     $btnBookPlace = $(".bookPlace");
     $btnBookPlace.click(function(event) {
         $.ajax({
@@ -146,11 +210,20 @@ function fillPlaceData(data) {
     });
 }
 
+function fillGroupData(data) {
+    for (var i = 0; i < data.length; i++) {
+        $searchResult.append("<div class='userResult'>" +
+        "<a href = group?id=" + data[i].id+'>'
+        + data[i].name + "</a>"
+        + "</div>");
+    }
+}
+
 function fillUserData(data) {
     for (var i = 0; i < data.length; i++) {
         $searchResult.append("<div class='userResult'>" +
-            "<a href = hoster?hosterId=" + data[i].id+'>'
-            + data[i].name + "</a>"
+        "<a href = hoster?hosterId=" + data[i].id+'>'
+        + data[i].name + "</a>"
         + "</div>");
     }
 }
@@ -171,6 +244,30 @@ function initSearchType(){
         success: function(searchTypes) {
             for (var i = 0; i < searchTypes.length; i++) {
                 $searchType.append("<option value=" + searchTypes[i] + ">" + searchTypes[i] + "</option>");
+            }
+        }
+    })
+}
+
+function initPriceCat() {
+    $.ajax({
+        url: "getPriceCategories",
+        dataType: "json",
+        success: function(priceCat) {
+            for (var i = 0; i < priceCat.length; i++) {
+                priceCategories.push(priceCat[i].priceCategory);
+            }
+        }
+    })
+}
+
+function initSightType() {
+    $.ajax({
+        url: "getAllTypes",
+        dataType: "json",
+        success: function(sT) {
+            for (var i = 0; i < sT.length; i++) {
+                sightType.push(sT[i]);
             }
         }
     })

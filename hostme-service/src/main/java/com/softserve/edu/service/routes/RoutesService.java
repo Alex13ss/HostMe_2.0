@@ -10,6 +10,8 @@ public interface RoutesService {
 
     public void addRoute(Route route);
 
+    public void addRoute(RouteDto routeDto);
+
     public Route findRoute(int id);
 
     public Place getRouteOrigin(Route route);
@@ -21,8 +23,6 @@ public interface RoutesService {
     public List<Route> getRouteLike(String name);
 
     public List<RouteDto> getRoutesDtoList(List<Route> routes);
-
-    public void addRoute(RouteDto routeDto);
 
     public List<Route> getCurrentUserRoutes();
 

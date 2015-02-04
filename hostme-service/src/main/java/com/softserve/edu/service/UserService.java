@@ -1,11 +1,13 @@
 package com.softserve.edu.service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
@@ -23,14 +25,13 @@ public interface UserService {
 
     public User getUser(Integer id);
 
-    public void addBookedPlace(int placeId);
-
-    public Set<Place> getBookedPlaces();
-
-    public Set<Place> getBookedPlaces(int userId);
-
     public void removeUser(Integer id);
 
     public void initilizeUserLanguages(User user);
 
+    public Set<Place> getUserPlaces(Pageable pageable);
+
+    public Collection<Place> getUserLikedPlaces(Pageable pageable);
+
+    public Object findOneWithGroups(String name);
 }

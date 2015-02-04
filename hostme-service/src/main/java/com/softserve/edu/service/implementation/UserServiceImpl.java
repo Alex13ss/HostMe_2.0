@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Pageable;
 
 import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.dto.UserDto;
@@ -18,6 +19,7 @@ import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.UserService;
 import com.softserve.edu.service.routes.PlaceService;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -78,38 +80,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public Set<Place> getBookedPlaces() {
-		User currentUser = profileService.getCurrentUser();
-		User user = userRepository.findByUserIdAndFetchBookedPlacesEagerly(currentUser.getUserId());
-		if (user == null) {
-			return new HashSet<>();
-		} else {
-			return user.getBookedPlaces();
-		}
-	}
-
-	@Override
-	public Set<Place> getBookedPlaces(int userId) {
-		return userRepository.findOne(userId).getBookedPlaces();
-	}
-
-	@Override
-	@Transactional
-	public void addBookedPlace(int placeId) {
-		User user = profileService.getCurrentUser();
-		Set<Place> places = getBookedPlaces(user.getUserId());
-		Place selectedPlace = placeService.getPlace(placeId);
-		places.add(selectedPlace);
-		System.out.println("Done");
-	}
-
-	@Override
-	@Transactional
 	public void removeUser(Integer id) {
 		User user = userDaoImpl.read(id);
 		userDaoImpl.delete(user);
 	}
-
 
 	@Override
 	@Transactional
@@ -118,4 +92,20 @@ public class UserServiceImpl implements UserService {
 		Hibernate.initialize(user.getLanguages());
 	}
 
+	@Override
+	@Transactional
+	public Set<Place> getUserPlaces(Pageable pageable) {
+		User currentUser = profileService.getCurrentUser();
+		User user = userRepository.findByUserIdAndFetchPlacesEagerly(currentUser.getUserId());
+		if (user == null) {
+			return new HashSet<>();
+		} else {
+			return user.getPlaces();
+		}
+	}
+
+	@Override
+	public Collection<Place> getUserLikedPlaces(Pageable pageable) {
+		return placeService.getLikedPlaces(pageable);
+	}
 }

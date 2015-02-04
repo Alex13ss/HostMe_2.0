@@ -23,7 +23,7 @@ public class Route {
     @ManyToOne
     private User user;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "routes_places",
         joinColumns = {@JoinColumn(name = "route_id")},
         inverseJoinColumns = {@JoinColumn(name = "place_id")})

@@ -8,9 +8,7 @@
 <title>Create route</title>
 <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
 
-<link rel="stylesheet" type="text/css"
-      href="<c:url value="/resources/css/maps/basicMap.css"/>"/>
-
+<link href="<c:url value="/resources/css/maps/basicMap.css"/>" rel="stylesheet"/>
 <link href="<c:url value="/resources/css/routes/createRoute.css"/>" rel="stylesheet">
 <link href="<c:url value="/resources/css/jquery-ui-themes-1.11.2/themes/smoothness/jquery-ui.css"/>" rel="stylesheet">
 
@@ -20,7 +18,7 @@
 <script src="<c:url value="/resources/js/routes/valCreateRoute.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery-ui-1.11.2/jquery-ui.js"/>"></script>
 
-<div class="simple-map" id="map-canvas"></div>
+<div id="map-canvas"></div>
 
 <section class="content">
     <div class="box box-primary">
@@ -40,8 +38,6 @@
                     </ul>
                     <div id="userBookedPlaces"></div>
                     <div id="userPlaces"></div>
-                    <div class="col-sm-6 btn btn-primary"><<</div>
-                    <div class="col-sm-6 btn btn-primary">>></div>
                 </div>
                 <div class="col-sm-4">
                     <div id="originPlaceDrop" class="dropArea">
@@ -60,9 +56,7 @@
                 <div class="col-sm-4">
                     <spring:message code="places.popularPlaces"/>
                     <select id="popularPlaceNumber"></select>
-                    <div id="allPlaces"></div>
-                    <div class="col-sm-6 btn btn-primary"><<</div>
-                    <div class="col-sm-6 btn btn-primary">>></div>
+                    <div id="popularPlaces"></div>
                 </div>
             </div>
         </div>

@@ -143,10 +143,6 @@ public class User {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Place> places;
 
-    @OneToMany
-    @JsonIgnore
-    private Set<Place> bookedPlaces;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({ CascadeType.DELETE, CascadeType.PERSIST })
     @JsonIgnore
@@ -336,14 +332,6 @@ public class User {
 
     public Set<Feedback> getFeedbacks() {
         return feedbacks;
-    }
-
-    public Set<Place> getBookedPlaces() {
-        return bookedPlaces;
-    }
-
-    public void setBookedPlaces(Set<Place> bookedPlaces) {
-        this.bookedPlaces = bookedPlaces;
     }
 
     public Set<Place> getAttendee() {

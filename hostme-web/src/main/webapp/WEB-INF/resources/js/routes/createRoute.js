@@ -5,8 +5,9 @@ var routeDto = {
     destinationId: "",
     waypointsId: []
     };
-var userPlacesIndex = 0;
-var popularPlacesIndex = 0;
+var userPlacesIndex = 1;
+var userBookedPlacesIndex = 1;
+var popularPlacesIndex = 1;
 var userPlaces = [];
 var bookedPlaces = [];
 var popularPlaces = [];
@@ -23,7 +24,7 @@ var $popularPlaceNumber;
 $(document).ready(function() {
     $userPlacesUi = $("#userPlaces");
     $userBookedPlacesUi = $("#userBookedPlaces");
-    $popularPlacesUi = $("#allPlaces");
+    $popularPlacesUi = $("#popularPlaces");
     var $originDropUi = $("#originPlaceDrop");
     var $waypointsDropUi = $("#waypointsPlacesDrop");
     var $destinationDropUi = $("#destinationPlaceDrop");
@@ -64,11 +65,6 @@ $(document).ready(function() {
             });
             tryDrawDestination();
         }
-    }).sortable({
-        items: $(".dragPlace"),
-        sort: function() {
-            //TODO imp Sort
-        }
     });
     $destinationDropUi.droppable({
         out: function() {
@@ -101,8 +97,6 @@ $(document).ready(function() {
                     $createRouteBtn.attr("disabled", false);
                 }
             })
-        } else {
-            alert("You have empty fields!");
         }
     });
     $name.change(function() {
@@ -125,10 +119,13 @@ function initListSize($ui) {
                 )
             }
             if ($ui === $userPlaceNumber) {
-                getPlaces(userPlacesUrl, $userPlacesUi, userPlacesIndex, $userPlaceNumber.val());
-                getPlaces(userBookedPlacesUlr, $userBookedPlacesUi, userPlacesIndex, $userPlaceNumber.val());
+                getPlaces(userPlacesUrl, $userPlacesUi,
+                    userPlacesIndex, $userPlaceNumber.val());
+                getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
+                    userBookedPlacesIndex, $userPlaceNumber.val());
             } else {
-                getPlaces(popularPlacesUrl, $popularPlacesUi, popularPlacesIndex, $popularPlaceNumber.val());
+                getPlaces(popularPlacesUrl, $popularPlacesUi,
+                    popularPlacesIndex, $popularPlaceNumber.val());
             }
         }
     })
@@ -143,7 +140,7 @@ function getPlaces(url, $ui, pageIndex, placeSize) {
         pageIndex: pageIndex,
         placeSize: placeSize};
     $.ajax({
-        url: url,
+        url: url + "?page=0&size=5",
         dataType: "json",
         type: "POST",
         data: JSON.stringify(obj),
@@ -155,13 +152,13 @@ function getPlaces(url, $ui, pageIndex, placeSize) {
             $ui.find(".ion-loading-c").remove();
             if ($ui === $userPlacesUi) {
                 fillPlaces(data, userPlaces);
-                drawPlaces($ui, userPlaces)
+                drawPlaces($ui, userPlaces, $userPlaceNumber.val(), userPlacesIndex)
             } else if ($ui === $userBookedPlacesUi) {
                 fillPlaces(data, bookedPlaces);
-                drawPlaces($ui, bookedPlaces)
+                drawPlaces($ui, bookedPlaces, $userPlaceNumber.val(), userBookedPlacesIndex)
             } else {
                 fillPlaces(data, popularPlaces);
-                drawPlaces($ui, popularPlaces)
+                drawPlaces($ui, popularPlaces, $popularPlaceNumber.val(), popularPlacesIndex)
             }
             initDrag();
             if ($ui === $userBookedPlacesUi &&
@@ -181,14 +178,74 @@ function fillPlaces(data, target) {
     }
 }
 
-function drawPlaces($ui, data) {
-    for (var i = 0; i < data.length; i++) {
-        $ui.append("<div class='dragPlace'>" +
-        '<a href = "place?placeId=' + data[i].id + '">'
-        + data[i].name + "</a>"
+function drawPlaces($ui, data, elSize, pgInex) {
+    $ui.html("");
+    for (var i = pgInex * elSize - elSize; i < pgInex * elSize; i++) {
+        if (data[i] != undefined) {
+            $ui.append("<div class='dragPlace'>" +
+            '<a href = "place?placeId=' + data[i].id + '">'
+            + data[i].name + "</a>"
+            + "</div>");
+            $ui.children().last().data("Id", data[i].id);
+            $ui.children().last().data("Address", data[i].address);
+        }
+    }
+    $ui.append("<div class='prev col-sm-6 btn btn-primary'>"
+        + "<<"
         + "</div>");
-        $ui.children().last().data("Id", data[i].id);
-        $ui.children().last().data("Address", data[i].address);
+    $ui.append("<div class='next col-sm-6 btn btn-primary'>"
+        + ">>"
+        + "</div>");
+    $(".prev").click(function(event) {
+        event.stopImmediatePropagation();
+        if (checkDecAvlbPlaces($(event.target).parents().attr('id'))) {
+            $(event.target).attr("disabled", false);
+
+        } else {
+            $(event.target).attr("disabled", true);
+        }
+    });
+    $(".next").click(function(event) {
+        event.stopImmediatePropagation();
+        if (checkIncAvlbPlaces($(event.target).parents().attr('id'))) {
+            $(event.target).attr("disabled", false);
+
+        } else {
+            $(event.target).attr("disabled", true);
+        }
+    });
+}
+
+function checkDecAvlbPlaces(uiId) {
+    if (uiId == "userBookedPlaces") {
+        return userBookedPlacesIndex > 1;
+    } else if (uiId == "userPlaces") {
+        return userPlacesIndex > 1;
+    } else {
+        return popularPlacesIndex > 1;
+    }
+}
+
+function checkIncAvlbPlaces(uiId) {
+    if (uiId == "userBookedPlaces") {
+        if (userPlaces.length >= (userPlacesIndex + 1) * $userPlaceNumber.val()) {
+            alert("have")
+        } else {
+            getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
+                userBookedPlacesIndex, $userPlaceNumber.val());
+            alert(bookedPlaces.length);
+        }
+    } else if (uiId == "userPlaces") {
+
+    } else {
+        if (popularPlaces.length >= (popularPlaces + 1) * $popularPlaceNumber.val()) {
+          alert("have");
+        } else {
+            getPlaces(popularPlacesUrl, $popularPlacesUi,
+                popularPlacesIndex, $popularPlaceNumber.val());
+            popularPlacesIndex++;
+            alert(popularPlaces.length);
+        }
     }
 }
 
@@ -196,9 +253,9 @@ function drawPlaces($ui, data) {
 function ifBookedPlacesEmpty() {
     return "<div>"
         + "<a href='megaSearch'>"
-        + "<div class='btn btn-primary'>"
-        + "Press"
-        + "</div>"
+            + "<div class='btn btn-primary' style='width: 100%'>"
+            + "Search places!"
+            + "</div>"
         + "</a>"
         + "</div>"
 }
@@ -206,11 +263,25 @@ function ifBookedPlacesEmpty() {
 //TODO User Spec response
 function ifUserPlacesEmpty() {
     return "<div>"
-        + "<a href='profile'>"
-        + "<div class='btn btn-primary'>"
-        + "Press"
-        + "</div>"
+        + "<a href='sightseeings'>"
+            + "<div class='btn btn-primary' style='width: 100%'>"
+            + "Create Sight!"
+            + "</div>"
         + "</a>"
+        + "</div>"
+        + "<div>"
+            + "<a href='events'>"
+                + "<div class='btn btn-primary' style='width: 100%'>"
+                + "Create Event!"
+                + "</div>"
+            + "</a>"
+        + "</div>"
+        + "<div>"
+            + "<a href='hosting-creation'>"
+                + "<div class='btn btn-primary' style='width: 100%'>"
+                + "Create Hosting!"
+                + "</div>"
+            + "</a>"
         + "</div>"
 }
 

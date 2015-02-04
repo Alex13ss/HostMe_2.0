@@ -32,11 +32,6 @@ public class ProfileServiceImpl implements ProfileService {
 	}
 
 	@Override
-	public List<Place> getBookedPlaces() {
-		return null;
-	}
-
-	@Override
 	@Transactional
 	public User getUserByLogin(String login) {
 		return userRepository.findByLogin(login);

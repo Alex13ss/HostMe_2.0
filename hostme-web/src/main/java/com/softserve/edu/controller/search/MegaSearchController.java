@@ -17,7 +17,7 @@ import java.util.List;
 public class MegaSearchController {
 
     private enum SearchTypes {
-        EVENT, SIGHT, HOSTING, ROUTE, USER
+        EVENT, SIGHT, HOSTING, ROUTE, GROUPS, USER
     }
 
     @Autowired
@@ -38,7 +38,6 @@ public class MegaSearchController {
 
     @RequestMapping(value = "/superMegaSearch")
     public @ResponseBody List<?> getSearchResults(@RequestBody SearchRequestDto searchRequestDto) {
-        searchRequestDto.setRequest(searchRequestDto.getRequest().replace("=", ""));
         if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.ROUTE)) {
             return megaSearchService.searchRoutes(searchRequestDto.getRequest());
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.EVENT)) {

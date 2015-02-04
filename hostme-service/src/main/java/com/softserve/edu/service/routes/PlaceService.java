@@ -1,6 +1,7 @@
 package com.softserve.edu.service.routes;
 
 import com.softserve.edu.dto.PlaceDto;
+import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 import org.springframework.data.domain.Pageable;
 
@@ -14,13 +15,13 @@ public interface PlaceService {
 
     public List<Place> getAllPlaces(Pageable pageable);
 
-    public Set<Place> getBookedPlaces();
-
     public List<Place> getPlacesNearToUser();
 
     public List<Place> getUserPlaces();
 
     public List<Place> getAllNotUserPlaces();
+
+    public Collection<Place> getLikedPlaces(Pageable pageable);
 
     public List<PlaceDto> placeToPlaceDto(Collection<Place> places);
 }
