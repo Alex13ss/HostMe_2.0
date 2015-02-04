@@ -10,6 +10,10 @@ function loadNotificationsAjax() {
 	$.ajax({
 		url : "all-notifications",
 		type : 'GET',
+		dataType : "json",
+		beforeSend : function() {
+			$("#timeline").html(loader);
+		},
 		success : function(result) {
 			if (result.length > 0) {
 				$("#timeline").html("");
@@ -48,7 +52,7 @@ function getNotificationItem(item) {
 	var li = document.createElement("LI");
 
 	var i = document.createElement("I");
-	i.className = "fa fa-comments bg-yellow";
+	i.className = "fa fa-comments bg-blue";
 
 	var div = document.createElement("DIV");
 	div.className = "timeline-item";
@@ -58,7 +62,7 @@ function getNotificationItem(item) {
 
 	var i2 = document.createElement("I");
 	i2.className = "fa fa-clock-o";
-	var time = document.createTextNode(item.notificationTime);
+	var time = document.createTextNode(' ' + item.notificationTime);
 
 	var a = document.createElement("A");
 	a.href = "group?id=" + item.groupId;
@@ -79,3 +83,10 @@ function getNotificationItem(item) {
 
 	return li;
 }
+
+var loader = $(
+		"<img/>",
+		{
+			src : "resources/images/ajax-loader-128px.gif",
+			style : "width:128px;  display: block; margin-left: auto; margin-right: auto;"
+		});

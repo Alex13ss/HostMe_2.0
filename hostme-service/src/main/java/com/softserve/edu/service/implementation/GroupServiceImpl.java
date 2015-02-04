@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
-import com.softserve.edu.model.Notification;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.repositories.GroupRepository;
@@ -149,12 +148,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<GroupDto> getGroupsWithNotifications(
-            List<Notification> notifications) {
-        List<GroupDto> list = new ArrayList<GroupDto>();
-//        for (Group group : groupRepository.findGroupByNotifications(notifications)) {
-//            list.add(new Group(group));
-//        }
+    public List<GroupDto> getGroupsDtoList(List<Group> groups) {
+        List<GroupDto> list = new ArrayList<>();
+        for (Group group : groups) {
+            list.add(new GroupDto(group));
+        }
         return list;
     }
 
