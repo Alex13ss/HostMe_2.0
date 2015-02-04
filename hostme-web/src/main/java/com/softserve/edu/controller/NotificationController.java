@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.softserve.edu.model.Notification;
+import com.softserve.edu.dto.NotificationDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.NotificationService;
 import com.softserve.edu.service.ProfileService;
@@ -27,13 +27,13 @@ public class NotificationController {
     public String notificationsCreationShow() {
         return "notifications";
     }
-    
-    @RequestMapping(value = "/notifications", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<Notification> getUpdatedInterestingGroups() {
+
+    @RequestMapping(value = "/all-notifications", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<NotificationDto> getUpdatedInterestingGroups() {
         User interestedUser = profileService
                 .getUserByLogin(SecurityContextHolder.getContext()
                         .getAuthentication().getName());
-        List<Notification> notifications = notificationService
+        List<NotificationDto> notifications = notificationService
                 .findAllNotificationsByUser(interestedUser);
         return notifications;
     }

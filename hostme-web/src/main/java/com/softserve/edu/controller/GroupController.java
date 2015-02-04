@@ -107,20 +107,8 @@ public class GroupController {
         User interestedUser = profileService
                 .getUserByLogin(SecurityContextHolder.getContext()
                         .getAuthentication().getName());
-        return groupService.getGroupsByInterestedUser(interestedUser);
-    }
-
-    /**
-     * MustTODO!!! ^_^
-     */
-    @RequestMapping(value = "/updates-of-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<GroupDto> getUpdatedInterestingGroups() {
-        User interestedUser = profileService
-                .getUserByLogin(SecurityContextHolder.getContext()
-                        .getAuthentication().getName());
         List<GroupDto> groups = groupService
-                .getGroupsWithNotifications(notificationService
-                        .findAllNotificationsByUser(interestedUser));
+                .getGroupsByInterestedUser(interestedUser);
         return groups;
     }
 

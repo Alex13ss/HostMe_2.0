@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.softserve.edu.dto.NotificationDto;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Notification;
 import com.softserve.edu.model.User;
@@ -40,11 +41,11 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     @Transactional
-    public List<Notification> findAllNotificationsByUser(User user) {
-        List<Notification> list = new ArrayList<Notification>();
+    public List<NotificationDto> findAllNotificationsByUser(User user) {
+        List<NotificationDto> list = new ArrayList<NotificationDto>();
         for (Notification notification : notificationRepository
                 .findAllNotificationsByToReceiveUsers(user)) {
-            list.add(notification);
+            list.add(new NotificationDto(notification));
         }
         return list;
     }

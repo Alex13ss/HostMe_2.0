@@ -8,6 +8,10 @@
 
 <html>
 <head>
+<script type="text/javascript"
+	src="resources/js/groups/notifications.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/groups.css">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Your notifications</title>
 </head>
@@ -23,70 +27,14 @@
 <section class="content">
 
 	<div class="box box-primary">
+		<div class="col-md-12">
 
-		<ul class="timeline">
+			<ul class="timeline" id="timeline">
+			</ul>
 
-			<!-- timeline time label -->
-			<li class="time-label"><span class="bg-red"> 27 Jan. 1989
-			</span></li>
-			<!-- /.timeline-label -->
-
-			<!-- timeline item -->
-			<li>
-				<!-- timeline icon --> <i class="fa fa-envelope bg-blue"></i>
-				<div class="timeline-item">
-					<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-					<h3 class="timeline-header">
-						<a href="#">Support Team</a> ...
-					</h3>
-
-					<div class="timeline-body"><c:out value="Msg: ${notifications.notifyMessage}" /></div>
-
-					<div class='timeline-footer'>
-						<a class="btn btn-primary btn-xs">...</a>
-					</div>
-				</div>
-			</li>
-			<li>
-				<!-- timeline icon --> <i class="fa fa-envelope bg-blue"></i>
-				<div class="timeline-item">
-					<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-					<h3 class="timeline-header">
-						<a href="#">Support Team</a> ...
-					</h3>
-
-					<div class="timeline-body">... Content goes here</div>
-
-					<div class='timeline-footer'>
-						<a class="btn btn-primary btn-xs">...</a>
-					</div>
-				</div>
-			</li>
-			<li>
-				<!-- timeline icon --> <i class="fa fa-envelope bg-blue"></i>
-				<div class="timeline-item">
-					<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
-
-					<h3 class="timeline-header">
-						<a href="#">Support Team</a> ...
-					</h3>
-
-					<div class="timeline-body">... Content goes here</div>
-
-					<div class='timeline-footer'>
-						<a class="btn btn-primary btn-xs">...</a>
-					</div>
-				</div>
-			</li>
-			<!-- END timeline item -->
-
-		</ul>
-
+		</div>
 	</div>
 	<!-- /.box-body -->
-
 
 </section>
 </html>
