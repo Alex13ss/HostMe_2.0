@@ -13,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
+import com.softserve.edu.model.Notification;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.repositories.GroupRepository;
+import com.softserve.edu.repositories.NotificationRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.ProfileService;
@@ -31,6 +33,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     @Override
     @Transactional
@@ -141,6 +146,16 @@ public class GroupServiceImpl implements GroupService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<GroupDto> getGroupsWithNotifications(
+            List<Notification> notifications) {
+        List<GroupDto> list = new ArrayList<GroupDto>();
+//        for (Group group : groupRepository.findGroupByNotifications(notifications)) {
+//            list.add(new Group(group));
+//        }
+        return list;
     }
 
 }

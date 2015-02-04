@@ -118,7 +118,10 @@ public class GroupController {
         User interestedUser = profileService
                 .getUserByLogin(SecurityContextHolder.getContext()
                         .getAuthentication().getName());
-        return notificationService.findAllGroupsByNotifications(interestedUser);
+        List<GroupDto> groups = groupService
+                .getGroupsWithNotifications(notificationService
+                        .findAllNotificationsByUser(interestedUser));
+        return groups;
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)

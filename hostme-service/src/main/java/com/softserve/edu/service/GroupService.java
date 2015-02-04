@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
+import com.softserve.edu.model.Notification;
 import com.softserve.edu.model.User;
 
 public interface GroupService {
@@ -30,5 +31,8 @@ public interface GroupService {
     public boolean checkInterestedByGroupAndUser(Group group, User user);
 
     public boolean checkIsItGroupCreator(Group group, User user);
+
+    public List<GroupDto> getGroupsWithNotifications(
+            List<Notification> notifications);
 
 }
