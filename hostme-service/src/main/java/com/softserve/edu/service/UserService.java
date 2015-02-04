@@ -32,6 +32,4 @@ public interface UserService {
     public Set<Place> getUserPlaces(Pageable pageable);
 
     public Collection<Place> getUserLikedPlaces(Pageable pageable);
-
-    public Object findOneWithGroups(String name);
 }
