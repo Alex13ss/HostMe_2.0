@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.softserve.edu.dto.SearchRequestDto;
+import com.softserve.edu.dto.ModeratorDto;
 import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
+
 import org.springframework.data.domain.Pageable;
 
 public interface UserService {
@@ -17,6 +19,8 @@ public interface UserService {
     public List<User> getAllUsers();
 
     public List<UserDto> getUserDtoList(List<User> users);
+    
+    public List<ModeratorDto> getModeratorDtoList(List<User> users);
 
     public List<User> getUsersLike(String search);
     

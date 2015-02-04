@@ -3,6 +3,20 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <script type="text/javascript" src="resources/js/conversations/conversations.js"></script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+			$( ".editConversation" ).click(function() {
+				getConversation(this);
+			});
+			
+			$( ".conversation_create_label" ).click(function() {
+				cleanConversationData();
+			});
+			
+			
+		});
+</script>
 
 <div class="panel panel-info">
 	<div class="panel-heading conversations_header">
@@ -31,8 +45,8 @@
 				<div class="conversation">
 					<div class="conversation_title">${conversationDto.conversation.title}
 						<c:if test="${conversationDto.isEditable eq true}">
-							<a href="<c:out value="${conversationDeleteUrl}"/>"><span id="deleteConversation" class="fa fa-fw fa-times" style="float:right;"></span></a>
-							<!--a href="<c:out value="${conversationEditUrl}"/>"><span id="editConversation" class="fa fa-fw fa-pencil" style="float:right;"></span></a-->
+							<a href="#"><span id="deleteConversation" class="fa fa-fw fa-times" style="float:right;"></span></a>
+							<a href="#" class="editConversation ${conversationDto.conversation.id}"><span id="editConversation" class="fa fa-fw fa-pencil" style="float:right;"></span></a>
 						</c:if>
 					</div>
 					<div class="last_post">Останнє повідомлення від

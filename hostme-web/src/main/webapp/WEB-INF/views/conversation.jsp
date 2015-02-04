@@ -30,24 +30,7 @@ $(document).ready(
                   <h3 class="box-title">${conversation.title}</h3>
                 </div>
                 <div class="box-body chat" id="chat-box">
-                  <div class="item">
-                    <img src="dist/img/user4-128x128.jpg" alt="user image" class="online"/>
-                    <p class="message">
-                      <a href="#" class="name">
-                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i>12:48</small>
-                        Vsayl Baziv
-                      </a>
-                    </p>
-                    <!--div class="attachment">
-                      <h4>Attachments:</h4>
-                      <p class="filename">
-                        Theme-thumbnail-image.jpg
-                      </p>
-                      <div class="pull-right">
-                        <button class="btn btn-primary btn-sm btn-flat">Open</button>
-                      </div>
-                    </div--><!-- /.attachment -->
-                  </div>
+                  
                 </div><!-- /.chat -->
                 <div class="box-footer">
                   <div class="input-group">

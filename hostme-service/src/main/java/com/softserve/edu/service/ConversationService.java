@@ -24,6 +24,8 @@ public interface ConversationService {
     
     Conversation save(Conversation conversation);
     
+    Conversation update(Conversation conversation);
+    
     void delete(Conversation conversation);
     
 }

@@ -79,6 +79,7 @@ function createChatItem(postDto) {
 }
 
 function sendMessage(conversationId, message) {
+	$("#userMsg").html("");
 	
 	$.ajax({
 		url: "sendPost", 
@@ -93,7 +94,6 @@ function sendMessage(conversationId, message) {
 		},
 		success: function(result) {
 			if (result.length > 0) {
-				console.log("sent");
 				showPosts(result);
 			} else {
 				$("#chat-box").html("Failed to load posts");

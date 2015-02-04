@@ -91,5 +91,11 @@ public class ConversationServiceImpl implements ConversationService{
     public void delete(Conversation conversation) {
 	conversationRepository.delete(conversation);
     }
+
+    @Override
+    @Transactional
+    public Conversation update(Conversation conversation) {
+	return conversationRepository.save(conversation);
+    }
     
 }

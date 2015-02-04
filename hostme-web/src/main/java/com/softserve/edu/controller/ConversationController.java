@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.softserve.edu.dto.ConversationCreateDto;
 import com.softserve.edu.dto.ConversationDto;
+import com.softserve.edu.dto.ConversationEditDto;
+import com.softserve.edu.dto.ModeratorDto;
 import com.softserve.edu.dto.PostDto;
-import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Post;
 import com.softserve.edu.model.User;
-import com.softserve.edu.repositories.ConversationRepository;
 import com.softserve.edu.service.ConversationService;
 import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.NotificationService;
@@ -110,18 +110,52 @@ public class ConversationController {
 	}
         return "redirect:/conversations?group_id=" + conversation.getGroup().getId();
     }
-
-    @RequestMapping(value="/findUser.json", method=RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<UserDto> findUserJson(@RequestParam(value = "input") String input) {
-	return userService.getUserDtoList(userService.findUsersByNamesOrLogin(input));
+    
+    /**
+     * Updates the conversation with id from request with data from model 
+     * @param id
+     * @param conversationDto
+     * @return
+     */
+    @RequestMapping("/conversationUpdate/{id}")
+    public String updateConversation(@PathVariable Long id, 
+	    @ModelAttribute("conversation") ConversationCreateDto conversationDto) {
+	Conversation conversation = conversationService.findOne(id);
+	User owner = conversation.getOwner();
+	if (profileService.getCurrentUser().getUserId() == owner.getUserId()) {
+	    conversation.setTitle(conversationDto.getTitle());
+	    conversation.setModerators(getUsersFromIds(conversationDto.getModeratorLogins()));
+	    conversationService.update(conversation);
+	}
+        return "redirect:/conversations?group_id=" + conversation.getGroup().getId();
     }
     
+    /**
+     * Searches users
+     * @param input login or first name or last name 
+     * @return collection of found users
+     */
+    @RequestMapping(value="/findUser.json", method=RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<ModeratorDto> findUserJson(@RequestParam(value = "input") String input) {
+	return userService.getModeratorDtoList(userService.findUsersByNamesOrLogin(input));
+    }
     
+    /**
+     * Searches all the posts in the conversation
+     * @param id conversation id
+     * @return collection of posts
+     */
     @RequestMapping(value="/findPosts.json", method=RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<PostDto> findPostsJson(@RequestParam(value = "conversationId") Long id) {
 	return postService.findByConversationId(id);
     }
     
+    /**
+     * creates new post for the conversation with id and message from request
+     * @param id conversation id
+     * @param message message
+     * @return
+     */
     @RequestMapping(value = "/sendPost", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<PostDto> sendPost(
 	    @RequestParam(value = "conversationId") Long id,
@@ -135,6 +169,25 @@ public class ConversationController {
 	return postService.findByConversationId(id);
     }
     
+    /**
+     * Searches conversation with id from request
+     * @param id conversation id
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/findConversation.json", method=RequestMethod.GET, produces = "application/json")
+    public @ResponseBody ConversationEditDto findConversation(@RequestParam(value = "conversationId") Long id, ModelMap model) {
+	Conversation conversation =conversationService.findOne(id);
+	List<ModeratorDto> moderators = userService.getModeratorDtoList(new ArrayList<>(conversation.getModerators()));
+	ConversationEditDto result = new ConversationEditDto(conversation.getTitle(), moderators);
+	return result;
+    }
+    
+    /**
+     * Creates 
+     * @param dto conversation dto
+     * @return new instance of Conversation
+     */
     private Conversation getConversationFromDto(ConversationCreateDto dto) {
 	Conversation conversation = new Conversation();
 	
@@ -163,6 +216,11 @@ public class ConversationController {
 	return conversationService.save(conversation);
     }
     
+    /**
+     * Searches users by id from dto and forms a collection of users with equals ids
+     * @param ids collection of ids from dto
+     * @return new collection of users
+     */
     private Set<User> getUsersFromIds(List<String> ids) {
 	Set<User> moderators = new HashSet<User>();
 	if (ids != null) {

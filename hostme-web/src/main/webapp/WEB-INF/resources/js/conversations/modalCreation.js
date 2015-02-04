@@ -13,14 +13,21 @@ $(document).ready(
 				$('#moderatorsResult').slimScroll({
 				    height: '250px'
 				  });
+				
+				$("#messageClass").click(function(){
+					rebuildIndexes();
+				});
+				
+				$(".conversation_create_label").click(function(){
+					clearForm();
+				});
+				
 			});
 		});
 
 function Search() {
 	
 	var inputData = document.getElementById("moderators").value;
-
-	 //$("#moderatorsResult").html("Pending...");
 	
 	$.ajax({
 		url: "findUser.json", 
@@ -31,17 +38,11 @@ function Search() {
 		dataType : "json",
 		beforeSend : function() {
 			$("#moderatorsResult").html(loader);
-
 		},
 		success: function(result) {
 			if (result.length > 0) {
 				allResults = result;
 				showModerators(result);
-				$(".moderator").click(function(){
-					  var moderatorId = $(this).attr('class').replace('moderator ', '');
-					  $("#moderatorsResult")
-					  addModerator(moderatorId);
-					});
 			} else {
 				$("#moderatorsResult").html("Failed to load users");
 			}
@@ -63,6 +64,11 @@ function showModerators(result) {
 		div.appendChild(btn);
 		moderators.appendChild(div);
     }
+	$(".moderator").click(function(){
+		  var moderatorId = $(this).attr('class').replace('moderator ', '');
+		  $("#moderatorsResult")
+		  addModerator(moderatorId);
+		});
 }
 
 function addModerator(index) {
@@ -70,7 +76,7 @@ function addModerator(index) {
 	var addedLogins = moderatorLogins.getElementsByTagName("input");
 	var exists = false;
 	for (var i = 0; i < addedLogins.length; i++) {
-		if (addedLogins[i].getAttribute("value") == allResults[index].id) {
+		if (addedLogins[i].getAttribute("value") == allResults[index].userId) {
 			exists = true;			
 		}
 	}
@@ -89,7 +95,7 @@ function addModerator(index) {
 		login.type = "hidden";
 		login.setAttribute("id", "moderatorLogins" + nextId);
 		login.setAttribute("name", "moderatorLogins[" + nextId + "]");
-		login.setAttribute("value", allResults[index].id);
+		login.setAttribute("value", allResults[index].userId);
 		btn.appendChild(login);
 		
 		var remove = document.createElement("SPAN");
@@ -104,7 +110,11 @@ function addModerator(index) {
 
 function removeModerator() {
 	this.parentElement.removeChild(this);
-	//rebuildIndexed
+	rebuildIndexes()
+	
+}
+
+function rebuildIndexes() {
 	var moderatorLogins = document.getElementById("moderatorLogins");
 	var elements = moderatorLogins.getElementsByTagName("input");
 	for (var i = 0; i < elements.length; i++) {
@@ -118,6 +128,48 @@ function getNextModeratorId()
 	var moderatorLogins = document.getElementById("moderatorLogins");
 	return moderatorLogins.getElementsByTagName("input").length; 
 }
+///
+function cleanConversationData() {
+	$("#title").val("");
+	$("#moderatorLogins").html("");
+	$("#messageClass").show();
+	$("#conversation").attr("action", "conversationCreate" );
+	$("#submitButton").html("Create");
+}
+
+function getConversation(element) {
+	
+	var conversationId = element.className.replace("editConversation ","");
+	
+	$.ajax({
+		url: "findConversation.json", 
+		type : 'GET',
+		data : {
+			conversationId : conversationId
+		},
+		dataType : "json",
+		success: function(result) {
+			if (result) {
+				fillConversationData(result, conversationId);
+				$("#createConversation").modal();
+			} else {
+
+			}
+	     }
+	});
+}
+
+function fillConversationData(result, conversationId) {
+	$("#title").val(result.title);
+	allResults = result.moderators;
+	for (var i = 0; i < result.moderators.length; i++) {
+		addModerator(i);
+	}	
+	$("#messageClass").hide();
+	$("#conversation").attr("action", "conversationUpdate/" + conversationId)
+	$("#submitButton").html("Save");
+}
+///
 
 var loader = $(
 		"<img/>",

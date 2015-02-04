@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.softserve.edu.dto.SearchRequestDto;
+import com.softserve.edu.dto.SearchRequestDto; 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Pageable;
 
 import com.softserve.edu.dao.UserDao;
+import com.softserve.edu.dto.ModeratorDto;
 import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
@@ -20,6 +21,7 @@ import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.UserService;
 import com.softserve.edu.service.routes.PlaceService;
+
 import java.util.*;
 
 @Service
@@ -53,6 +55,14 @@ public class UserServiceImpl implements UserService {
 		List<UserDto> result = new ArrayList<>();
 		for (User user : users) {
 			result.add(new UserDto(user));
+		}
+		return result;
+	}
+	
+	public List<ModeratorDto> getModeratorDtoList(List<User> users) {
+	    	List<ModeratorDto> result = new ArrayList<>();
+		for (User user : users) {
+			result.add(new ModeratorDto(user));
 		}
 		return result;
 	}
