@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.softserve.edu.dto.GroupDto;
+import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
+import com.softserve.edu.repositories.ConversationRepository;
 import com.softserve.edu.repositories.GroupRepository;
 import com.softserve.edu.repositories.NotificationRepository;
 import com.softserve.edu.repositories.user.UserRepository;
@@ -35,6 +37,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private NotificationRepository notificationRepository;
+    
+    @Autowired
+    private ConversationRepository conversationRepository;
 
     @Override
     @Transactional
@@ -65,6 +70,10 @@ public class GroupServiceImpl implements GroupService {
     @Override
     @Transactional
     public void delete(Group group) {
+	for (Conversation conversation : conversationRepository.findAllByGroupId(group.getId())) {
+	    conversationRepository.deleteModeratorsfromConversation(conversation.getId());
+	    conversationRepository.delete(conversation);
+	}
         groupRepository.delete(group);
     }
 
