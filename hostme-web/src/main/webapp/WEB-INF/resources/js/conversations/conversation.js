@@ -80,6 +80,7 @@ function createChatItem(postDto) {
 	if (postDto.removable) {
 		removeLabel = document.createElement("A");
 		removeLabel.className = "deletePost " + postDto.id;
+		removeLabel.onclick = removePost;
 		removeLabel.href = "#";
 		
 		var span = document.createElement("SPAN");
@@ -102,6 +103,12 @@ function createChatItem(postDto) {
 	chat.appendChild(item);
 }
 
+function removePost() {
+	
+	var postId = $(this).attr('class').replace('deletePost ', '');
+	deleteMessage(postId);	
+}
+
 function sendMessage(conversationId, message) {
 	$("#userMsg").val("");
 	
@@ -111,6 +118,29 @@ function sendMessage(conversationId, message) {
 		data : {
 			conversationId : conversationId,
 			message : message
+		},
+		dataType : "json",
+		beforeSend : function() {
+			$("#chat-box").html(loader);
+		},
+		success: function(result) {
+			if (result.length > 0) {
+				showPosts(result);
+			} else {
+				$("#chat-box").html("Failed to load posts");
+			}
+	     }
+	});
+	
+}
+
+function deleteMessage(postId) {
+	
+	$.ajax({
+		url: "deletePost", 
+		type : 'GET',
+		data : {
+			postId : postId
 		},
 		dataType : "json",
 		beforeSend : function() {

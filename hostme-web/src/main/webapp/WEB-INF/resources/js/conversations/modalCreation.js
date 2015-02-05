@@ -110,8 +110,7 @@ function addModerator(index) {
 
 function removeModerator() {
 	this.parentElement.removeChild(this);
-	rebuildIndexes()
-	
+	rebuildIndexes();
 }
 
 function rebuildIndexes() {

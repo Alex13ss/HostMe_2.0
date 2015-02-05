@@ -94,6 +94,12 @@ public class PostServiceImpl implements PostService{
 	}
 	return result;
     }
+
+    @Override
+    public Post findOne(Long id) {
+	return postRepository.findOne(id);
+	
+    }
     
     @Override
     @Transactional
@@ -105,6 +111,11 @@ public class PostServiceImpl implements PostService{
     @Transactional
     public void delete(Post post) {
 	postRepository.delete(post);
+    }
+
+    @Override
+    public Long findConversationIdByPostId(Long id) {
+	return postRepository.findConversationIdByPostId(id);
     }
 
 }

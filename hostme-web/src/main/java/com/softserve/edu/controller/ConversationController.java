@@ -168,6 +168,21 @@ public class ConversationController {
     }
     
     /**
+     * deletes post with id from request and
+     * @param id
+     * @return all posts
+     */
+    @RequestMapping(value = "/deletePost", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<PostDto> deletePost(@RequestParam(value = "postId") Long id) {
+	Post post = postService.findOne(id);
+	Long conversationId = postService.findConversationIdByPostId(id); 
+	if (post != null) {
+	    postService.delete(post);
+	}
+	return findPostsJson(conversationId);
+    }
+    
+    /**
      * Searches conversation with id from request
      * @param id conversation id
      * @param model

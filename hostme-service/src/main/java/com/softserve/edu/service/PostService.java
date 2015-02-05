@@ -10,9 +10,12 @@ public interface PostService {
     
     List<PostDto> findByPlaceId(Integer id);
     
+    Post findOne(Long id);
+    
     Post save(Post post);
     
     void delete(Post post);   
     
+    Long findConversationIdByPostId(Long id);    
 
 }
