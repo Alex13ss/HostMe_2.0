@@ -2,6 +2,7 @@ package com.softserve.edu.dto;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import com.softserve.edu.model.Post;
 
 public class PostDto {
@@ -32,6 +33,15 @@ public class PostDto {
 	this.author = post.getAuthor().getFirstName() + " " + post.getAuthor().getLastName();
 	this.imageUrl = imageUrl;
 	this.isRemovable = isRemovable;
+    }
+    
+    public PostDto(Post post, String imageUrl){
+	this.id = post.getId();
+	this.content = post.getContent();
+	this.postedAt = post.getPostedAt();
+	this.authorId = post.getAuthor().getUserId().toString();
+	this.author = post.getAuthor().getFirstName() + " " + post.getAuthor().getLastName();
+	this.imageUrl = imageUrl;	
     }
 
     public Long getId() {
