@@ -70,7 +70,7 @@ public class RegistrationSendMailImpl implements RegistrationSendMail {
     
     @Override
     public void sendNewPassMail(User user, String newpass) {
-        String url = systemPropertiesService.getBaseUrl();
+        String url = "http://localhost:8080/hostme/login";
         MimeMessage message = mailSender.createMimeMessage();
         try{
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -79,11 +79,11 @@ public class RegistrationSendMailImpl implements RegistrationSendMail {
             helper.setSubject("Thank you " + user.getFirstName() + " "
                     + user.getLastName() + " for joining us!");
             String html = "Hi! " + user.getFirstName()
-                    + " , ours new password will be"
+                    + " , yours new password will be: "
                     + newpass
                     + "<br> You can login with the following link: <br>"
                     + "<a href=\"" + url +
-                    + user.getUserId() + "\">Activation Link</a>";
+                    "\">Activation Link</a>";
             helper.setText("UTF-8", html);
         } catch (MessagingException e) {
             throw new MailParseException(e);

@@ -140,7 +140,7 @@ public class User {
     private Set<Feedback> feedbacks = new HashSet<Feedback>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER/*, orphanRemoval = true*/)
     private Set<Place> places;
 
     @ManyToMany(fetch = FetchType.EAGER)

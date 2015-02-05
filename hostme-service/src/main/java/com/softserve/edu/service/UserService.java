@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import com.softserve.edu.dto.SearchRequestDto;
 import com.softserve.edu.dto.ModeratorDto;
 import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
@@ -41,4 +40,7 @@ public interface UserService {
     public void setBookedPlace(int placeId);
 
     public Collection<Place> getUserBookedPlaces(Pageable pageable);
+    
+    public void saveUser(User user);
+
 }

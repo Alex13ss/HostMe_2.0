@@ -2,10 +2,8 @@ package com.softserve.edu.service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import com.softserve.edu.dto.EventDto;
-import com.softserve.edu.dto.SearchRequestDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.PriceCategory;

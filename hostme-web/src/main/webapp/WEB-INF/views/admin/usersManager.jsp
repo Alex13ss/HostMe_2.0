@@ -35,12 +35,12 @@
 					class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th><spring:message code="label.login" /></th>
-							<th><spring:message code="user.name" /></th>
-							<th><spring:message code="user.state" /></th>
-							<th><spring:message code="user.role" /></th>
-							<th><spring:message code="user.resetPass" /></th>
-							<th><spring:message code="label.delete" /></th>
+							<th style="width:20%"><spring:message code="label.login" /></th>
+							<th style="width:20%"><spring:message code="user.name" /></th>
+							<th style="width:15%"><spring:message code="user.role" /></th>
+							<th style="width:15%"><spring:message code="user.resetPass" /></th>
+							<th style="width:15%"><spring:message code="user.delete" /></th>
+							<th style="width:15%"><spring:message code="user.action" /></th>
 						</tr>
 					</thead>
 

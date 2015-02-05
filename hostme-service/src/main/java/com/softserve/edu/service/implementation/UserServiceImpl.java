@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.softserve.edu.dto.SearchRequestDto;
+
+
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,11 @@ public class UserServiceImpl implements UserService {
 	public Integer addUser(User user) {
 		return userDaoImpl.create(user);
 	}
-
+	@Override
+	@Transactional
+	public void saveUser(User user) {
+		userRepository.save(user);
+	}
 	@Override
 	@Transactional
 	public List<User> getAllUsers() {
