@@ -4,11 +4,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,7 @@ import com.softserve.edu.dto.PostDto;
 import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Country;
+import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Post;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Sightseeing;
@@ -51,7 +54,7 @@ public class SightseeingController {
 	private ImageService imageService;
 	@Autowired
 	private PostService postService;
-	
+
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.GET)
 	public String showSightseeings(Model model) {
 		model.addAttribute("sightseeing", new Sightseeing());
@@ -167,23 +170,37 @@ public class SightseeingController {
 		return "redirect:/sightseeing?id={id}";
 	}
 
-	@RequestMapping(value="/findComments.json", method=RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<PostDto> findPostsJson(@RequestParam(value = "placeId") Integer id) {
-	return postService.findByPlaceId(id);
-    }
-    
-    @RequestMapping(value = "/sendComment", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<PostDto> sendPost(
-	    @RequestParam(value = "placeId") Integer id,
-	    @RequestParam(value = "message") String message) {
-	Post post = new Post();
-	post.setAuthor(profileService.getCurrentUser());
-	post.setContent(message);
-	post.setPlace(sightseeingService.findOne(id));
-	post.setPostedAt(Calendar.getInstance());
-	postService.save(post);
-	return findPostsJson(id);
-    }
+	@RequestMapping(value = "/findComments.json", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<PostDto> findPostsJson(
+			@RequestParam(value = "placeId") Integer id) {
+		return postService.findByPlaceId(id);
+	}
+
+	@RequestMapping(value = "/sendComment", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<PostDto> sendPost(
+			@RequestParam(value = "placeId") Integer id,
+			@RequestParam(value = "message") String message) {
+		Post post = new Post();
+		post.setAuthor(profileService.getCurrentUser());
+		post.setContent(message);
+		post.setPlace(sightseeingService.findOne(id));
+		post.setPostedAt(Calendar.getInstance());
+		postService.save(post);
+		return findPostsJson(id);
+	}
+
+	@RequestMapping(value = "/sightseeing-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Sightseeing updateSightseeingStatus(
+			@RequestBody Sightseeing sightseeing) {
+		String priceCategory = sightseeing.getPriceCategory()
+				.getPriceCategory();
+		Sightseeing newSightseeing = sightseeingService.findOne(sightseeing.getId());
+		String city = newSightseeing.getCity().getCity();
+		newSightseeing.setStatus(sightseeing.getStatus());
+		sightseeingService.updateSightseeing(newSightseeing, priceCategory, city);
+		return sightseeing;
+	}
+
 	@RequestMapping("/sightseeing/delete/{id}")
 	public String deleteSightseeing(@PathVariable("id") Integer id) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);

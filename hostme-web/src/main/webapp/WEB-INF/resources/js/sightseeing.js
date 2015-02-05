@@ -91,7 +91,6 @@ function createChatItem(postDto) {
 }
 
 function sendMessage(placeId, message) {
-	console.log("iMGETERERRE");
 	$("#userMsg").val("");
 	
 	$.ajax({

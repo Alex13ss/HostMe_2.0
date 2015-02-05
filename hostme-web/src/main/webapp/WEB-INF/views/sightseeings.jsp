@@ -24,6 +24,13 @@
 		<h1>
 			<spring:message code="label.sightseeings" />
 		</h1>
+		<security:authorize access="hasRole('USER')">
+			<c:set var="role" value="USER" />
+		</security:authorize>
+		<security:authorize access="hasRole('MODERATOR')">
+			<c:set var="role" value="MODERATOR" />
+		</security:authorize>
+		<div id="UserRole" style="display: none;">${role}</div>
 	</section>
 	<section class="content">
 		<div class="box box-primary">
@@ -41,9 +48,9 @@
 				</div>
 			</div>
 			<ul id="sightseeingsTypesNav" class="nav nav-tabs">
-				<security:authorize access="hasRole('ADMIN')">
-				<li id="all-sightseeings" class="active"><a href="#"
-					data-toggle="tab"><spring:message code="label.sightseeings" /></a></li>
+				<security:authorize access="hasRole('MODERATOR')">
+					<li id="all-sightseeings" class="active"><a href="#"
+						data-toggle="tab"><spring:message code="label.sightseeings" /></a></li>
 				</security:authorize>
 				<security:authorize access="hasRole('USER')">
 					<li id="favourite-sightseeings"><a href="#" data-toggle="tab"><spring:message
@@ -72,6 +79,8 @@
 							<th headers="website"><spring:message code="label.website" /></th>
 							<th headers="sightseeingType"><spring:message
 									code="label.sightseeingType" /></th>
+							<th headers="status"><spring:message code="user.state" /></th>
+							<th><spring:message code="label.action" /></th>
 						</tr>
 					</thead>
 				</table>

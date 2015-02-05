@@ -7,6 +7,7 @@ import com.softserve.edu.model.Image;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.SightseeingType;
+import com.softserve.edu.model.Status;
 import com.softserve.edu.model.routes.Place;
 
 public class SightseeingDto {
@@ -21,6 +22,7 @@ public class SightseeingDto {
 	private PriceCategory priceCategory;
 	private Integer rating;
 	private SightseeingType sightseeingType;
+	private Status status;
 
 	public SightseeingDto(Sightseeing sightseeing) {
 		id = sightseeing.getId();
@@ -44,6 +46,7 @@ public class SightseeingDto {
 		this.priceCategory = place.getPriceCategory();
 		this.rating = place.getRating();
 		this.sightseeingType = sightseeing.getSightseeingType();
+		this.status=sightseeing.getStatus();
 	}
 
 	public Integer getId() {
@@ -132,6 +135,14 @@ public class SightseeingDto {
 
 	public void setSightseeingType(SightseeingType sightseeingType) {
 		this.sightseeingType = sightseeingType;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 }

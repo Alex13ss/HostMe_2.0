@@ -2,7 +2,9 @@ var table;
 var size;
 var page;
 var selectedTablePage = 1;
-var sightseeingsType = "all-sightseeings";
+var sightseeingsType;
+var sightseeingStatus;
+var userRole = "MODERATOR";
 var order = {
 	by : "name",
 	type : "ASC"
@@ -10,7 +12,13 @@ var order = {
 /**
  * script for paging
  */
-
+function checkRole() {
+	if (userRole == "MODERATOR") {
+		return true;
+	} else {
+		return false;
+	}
+}
 function setupPaging() {
 	$
 			.ajax({
@@ -154,8 +162,12 @@ jQuery()
 $(document)
 		.ready(
 				function() {
+					$("#sightseeingsTypesNav li:first-child").addClass("active");
+					sightseeingsType = $("#sightseeingsTypesNav > li.active")
+							.attr("id");
 
 					size = $("#request_size").val();
+					userRole = $('#UserRole').text();
 
 					table = $("table.table-bordered")
 							.dataTable(
@@ -175,6 +187,78 @@ $(document)
 											var div = $("<div/>", {
 												"class" : "input-group-btn"
 											});
+											function html_element(aData, status) {
+												var parent_element = $("<a/>",
+														{
+															"href" : "#"
+														})
+														.click(
+																aData,
+																function(e) {
+																	aData.status = status;
+																	e
+																			.preventDefault();
+																	$
+																			.ajax({
+																				url : 'sightseeing-update',
+																				dataType : 'json',
+																				beforeSend : function() {
+																				},
+																				contentType : "application/json",
+																				"type" : "POST",
+																				data : JSON
+																						.stringify(aData),
+																				success : function(
+																						response) {
+																					$(
+																							'td:eq(6)',
+																							nRow)
+																							.html(
+																									response.status);
+																				}
+																			});
+																});
+												return parent_element;
+											}
+											;
+
+											var button = $(
+													"<button/>",
+													{
+														text : "Change status",
+														"type" : "button",
+														"data-toggle" : "dropdown",
+														"class" : "btn btn-default dropdown-toggle",
+													});
+
+											function form_element(aData) {
+												var approve = html_element(
+														aData, "APPROVED");
+												var pending = html_element(
+														aData, "PENDING");
+												var refuse = html_element(
+														aData, "REFUSED");
+												approve.html("Approve");
+												pending.html("Pending");
+												refuse.html("Refuse");
+
+												var final_element = div
+														.append(button);
+												final_element
+														.append(ul
+																.append(li
+																		.append(
+																				approve)
+																		.append(
+																				pending)
+																		.append(
+																				refuse)));
+												return final_element;
+											}
+
+											row = $('td:eq(7)', nRow).html(
+													form_element(aData));
+
 										},
 
 										"bProcessing" : false,
@@ -221,22 +305,14 @@ $(document)
 													"mData" : "website"
 												}, {
 													"mData" : "sightseeingType"
+												}, {
+													"bVisible" : checkRole(),
+													"mData" : "status"
+												}, {
+													"bVisible" : checkRole(),
+													"mData" : "id"
+
 												} ]
-									});
-					table
-							.on(
-									'draw',
-									function() {
-										if (table.fnSettings().sAjaxSource
-												.indexOf("all-sightseeings") > -1) {
-											$(
-													'.dropdown-menu>li>a:contains("Reject"),a:contains("Approve")')
-													.hide();
-										} else {
-											$(
-													'.dropdown-menu>li>a:contains("Refuse"),a:contains("Send Again")')
-													.hide();
-										}
 									});
 
 					$("#request_size ").change(function() {
