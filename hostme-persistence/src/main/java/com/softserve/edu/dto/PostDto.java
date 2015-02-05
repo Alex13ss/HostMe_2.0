@@ -18,17 +18,20 @@ public class PostDto {
     
     private String author;
     
+    private boolean isRemovable;
+    
     public PostDto() {
 	
     }
 
-    public PostDto(Post post, String imageUrl) {
+    public PostDto(Post post, String imageUrl, boolean isRemovable) {
 	this.id = post.getId();
 	this.content = post.getContent();
 	this.postedAt = post.getPostedAt();
 	this.authorId = post.getAuthor().getUserId().toString();
 	this.author = post.getAuthor().getFirstName() + " " + post.getAuthor().getLastName();
 	this.imageUrl = imageUrl;
+	this.isRemovable = isRemovable;
     }
 
     public Long getId() {
@@ -77,6 +80,14 @@ public class PostDto {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public boolean isRemovable() {
+        return isRemovable;
+    }
+
+    public void setEditable(boolean isRemovable) {
+        this.isRemovable = isRemovable;
     }
     
     public String getPostDate() {

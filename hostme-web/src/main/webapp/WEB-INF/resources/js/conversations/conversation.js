@@ -75,6 +75,21 @@ function createChatItem(postDto) {
 	message.appendChild(name);
 	
 	var t = document.createTextNode(postDto.content);
+	
+	var removeLabel = null;
+	if (postDto.removable) {
+		removeLabel = document.createElement("A");
+		removeLabel.className = "deletePost " + postDto.id;
+		removeLabel.href = "#";
+		
+		var span = document.createElement("SPAN");
+		span.className = "fa fa-fw fa-times";
+		span.style.cssFloat = "right";
+		span.setAttribute("id", "deletePost");
+		
+		removeLabel.appendChild(span);
+		message.appendChild(removeLabel);
+	}
 	message.appendChild(t);
 	
 	item.appendChild(image);
