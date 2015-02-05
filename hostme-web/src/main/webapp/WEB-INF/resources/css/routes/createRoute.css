@@ -1,7 +1,7 @@
-.dragPlace{height: 3%; background-color: #ffcd70}
+.dragPlace{height: 5%; margin-top: 1%}
 .routeCreationZone{margin-top: 3%}
 .dropZones {}
-.dropArea{height: 4%}
-#originPlaceDrop{background-color: lightseagreen}
-#waypointsPlacesDrop{background-color: greenyellow}
-#destinationPlaceDrop{background-color: lightcoral}
+.dropArea{height: 15%}
+#originPlaceDrop{background-color: #f0f4ff}
+#waypointsPlacesDrop{height: 25%; background-color: #ffffed}
+#destinationPlaceDrop{background-color: #edfff9}

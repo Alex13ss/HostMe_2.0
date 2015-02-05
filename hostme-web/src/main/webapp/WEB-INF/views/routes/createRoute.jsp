@@ -44,13 +44,13 @@
                     </div>
                 </div>
                 <div class="dropZones col-sm-4">
-                    <div id="originPlaceDrop" class="dropArea">
+                    <div id="originPlaceDrop" class="dropArea box box-success">
                         <div class="hint">Add Origin</div>
                     </div>
-                    <div id="waypointsPlacesDrop" class="dropArea">
+                    <div id="waypointsPlacesDrop" class="dropArea box box-warning">
                         <div class="hint">Add waypoints</div>
                     </div>
-                    <div id="destinationPlaceDrop" class="dropArea">
+                    <div id="destinationPlaceDrop" class="dropArea box box-success">
                         <div class="hint">Add destination</div>
                     </div>
                     <button id="createRoute" class="btn btn-primary" style="width: 100%">

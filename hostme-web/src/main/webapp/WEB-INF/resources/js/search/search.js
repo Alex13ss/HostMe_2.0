@@ -229,22 +229,15 @@ function detectSearchDataType(data) {
 function fillPlaceData(data) {
     for (var i = 0; i < data.length; i++) {
         $searchResult.append("<div class='placeResult col-md-5'>");
-        if (data.imgLink != null) {
-            $searchResult.children().last().append("<img class='placeResultImg' src='"
-            + data.imgLink
-            + "'>");
-        } else {
-            $searchResult.children().last().append("<img class='placeResultImg' src='"
-            + "resources/images/colosseum.jpg"
-            + "'>");
-        }
+        $searchResult.children().last().append("<img class='placeResultImg' src='"
+            + data.imgLink + "'>");
         $searchResult.children().last().append("<div class='col-md-9'>"
-        + "<a href = place?placeId=" + data[i].id + ">"
-        + data[i].name
-        + "</a>" + "</div>");
+            + "<a href = place?placeId=" + data[i].id + ">"
+                + data[i].name
+            + "</a>" + "</div>");
         $searchResult.children().last().append("<div class='col-md-3'>"
-        + "<button class='btn btn-primary btn-sm bookPlace'>"
-        + "Book" + "</button>");
+                + "<button class='btn btn-primary btn-sm bookPlace'>"
+            + "Book" + "</button>");
         if (data[i].pcStr != null) {
             $searchResult.children().last().append("<div>" + data[i].pcStr + "</div>");
         }

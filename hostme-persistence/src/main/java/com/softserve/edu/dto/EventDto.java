@@ -46,7 +46,7 @@ public class EventDto {
 		startDate = event.getStartDate();
 		endDate = event.getEndDate();
 		if (event.getImage().size() == 0 || event.getImage() == null) {
-			imgLink = null;
+			imgLink = "resources/images/colosseum.jpg";
 		} else {
 			imgLink = event.getImage().iterator().next().getLink();
 		}

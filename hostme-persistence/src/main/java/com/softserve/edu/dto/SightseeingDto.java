@@ -35,7 +35,7 @@ public class SightseeingDto {
 		sightseeingType = sightseeing.getSightseeingType();
 		address = sightseeing.getAddress();
 		if (sightseeing.getImage().size() == 0 || sightseeing.getImage() == null) {
-			imgLink = null;
+			imgLink = "resources/images/colosseum.jpg";
 		} else {
 			imgLink = sightseeing.getImage().iterator().next().getLink();
 		}

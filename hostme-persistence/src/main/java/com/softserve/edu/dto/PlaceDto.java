@@ -9,7 +9,8 @@ public class PlaceDto implements Serializable{
     private String description;
     private String website;
     private String address;
-
+    private String imgLink;
+    
     public PlaceDto(Place place) {
         id = place.getId();
         name = place.getName();
@@ -18,6 +19,11 @@ public class PlaceDto implements Serializable{
             website = place.getWebsite();
         }
         address = place.getAddress();
+        if (place.getImage() == null || place.getImage().size() == 0) {
+            imgLink = "resources/images/colosseum.jpg";
+        } else {
+            imgLink = place.getImage().iterator().next().getLink();
+        }
     }
 
     public int getId() {
@@ -58,5 +64,13 @@ public class PlaceDto implements Serializable{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getImgLink() {
+        return imgLink;
+    }
+
+    public void setImgLink(String imgLink) {
+        this.imgLink = imgLink;
     }
 }

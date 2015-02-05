@@ -1,3 +1,6 @@
+//TODO re implement Place draw
+//TODO better code structure
+//TODO initialization(all elements) -> draw() ->
 var routeDto = {
     name: "",
     description: "",
@@ -138,7 +141,7 @@ function getPlaces(url, $ui, pageIndex, placeSize) {
         pageIndex: pageIndex,
         placeSize: placeSize};
     $.ajax({
-        url: url + "?page=0&size=5",
+        url: url + "?page=" + pageIndex + "&size=" + placeSize + "&sort=name" ,
         dataType: "json",
         type: "POST",
         data: JSON.stringify(obj),
@@ -150,13 +153,13 @@ function getPlaces(url, $ui, pageIndex, placeSize) {
             $ui.find(".ion-loading-c").remove();
             if ($ui === $userPlacesUi) {
                 fillPlaces(data, userPlaces);
-                drawPlaces($ui, userPlaces, 5, userPlacesIndex)
+                drawPlaces($ui, userPlaces, placeSize, userPlacesIndex)
             } else if ($ui === $userBookedPlacesUi) {
                 fillPlaces(data, bookedPlaces);
-                drawPlaces($ui, bookedPlaces, 5, userBookedPlacesIndex)
+                drawPlaces($ui, bookedPlaces, placeSize, userBookedPlacesIndex)
             } else {
                 fillPlaces(data, popularPlaces);
-                drawPlaces($ui, popularPlaces, 5, popularPlacesIndex)
+                drawPlaces($ui, popularPlaces, placeSize, popularPlacesIndex)
             }
             initDrag();
         }
@@ -169,24 +172,25 @@ function fillPlaces(data, target) {
     }
 }
 
-function drawPlaces($ui, data, elSize, pgInex) {
+function drawPlaces($ui, data, placeSize, pageIndex) {
     $ui.html("");
-    for (var i = pgInex * elSize - elSize; i < pgInex * elSize; i++) {
+    for (var i = pageIndex * placeSize - placeSize; i < pageIndex * placeSize; i++) {
         if (data[i] != undefined) {
-            $ui.append("<div class='dragPlace'>" +
-            '<a href = "place?placeId=' + data[i].id + '">'
+            $ui.append("<div class='dragPlace box'>"
+            + "<img style='height: 100%; width: 30%' src='"
+                + data[i].imgLink + "'>"
+            + "</img>"
+            + '<a href = "place?placeId=' + data[i].id + '">'
             + data[i].name + "</a>"
             + "</div>");
             $ui.children().last().data("Id", data[i].id);
             $ui.children().last().data("Address", data[i].address);
         }
     }
-    if ($ui === $userBookedPlacesUi &&
-        $userBookedPlacesUi.children().length == 0) {
-        $userBookedPlacesUi.append(ifBookedPlacesEmpty());
-    } else if ($ui === $userPlacesUi &&
-        $userPlacesUi.children().length == 0) {
-        $userPlacesUi.append(ifUserPlacesEmpty());
+    if ($ui === $userBookedPlacesUi && $userBookedPlacesUi.children().length == 0) {
+            $userBookedPlacesUi.append(ifBookedPlacesEmpty());
+    } else if ($ui === $userPlacesUi && $userPlacesUi.children().length == 0) {
+            $userPlacesUi.append(ifUserPlacesEmpty());
     } else {
         $ui.append("<div class='prev col-sm-6 btn btn-primary'>"
         + "<<"
@@ -206,11 +210,20 @@ function drawPlaces($ui, data, elSize, pgInex) {
     });
     $(".next").click(function(event) {
         event.stopImmediatePropagation();
-        if (checkIncAvlbPlaces($(event.target).parents().attr('id'))) {
-            $(event.target).attr("disabled", false);
-
+        var parentId = $(event.target).parents().attr('id');
+        $(event.target).attr("disabled", false);
+        if (parentId == "userBookedPlaces") {
+            userBookedPlacesIndex++;
+            getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
+                userBookedPlacesIndex, $userPlaceNumber.val());
+        } else if (parentId == "userPlaces"){
+            userPlacesIndex++;
+            getPlaces(userPlacesUrl, $userPlacesUi,
+                userPlacesIndex, $userPlaceNumber.val());
         } else {
-            $(event.target).attr("disabled", true);
+            popularPlacesIndex++;
+            getPlaces(popularPlacesUrl, $popularPlacesUi,
+                popularPlacesIndex, $popularPlaceNumber.val());
         }
     });
 }
@@ -228,12 +241,13 @@ function checkDecAvlbPlaces(uiId) {
 function checkIncAvlbPlaces(uiId) {
     if (uiId == "userBookedPlaces") {
         if (userPlaces.length >= (userPlacesIndex + 1) * $userPlaceNumber.val()) {
+            //TODO re implement Place draw
         } else {
             getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
                 userBookedPlacesIndex, $userPlaceNumber.val());
         }
     } else if (uiId == "userPlaces") {
-
+        
     } else {
         if (popularPlaces.length >= (popularPlaces + 1) * $popularPlaceNumber.val()) {
         } else {
