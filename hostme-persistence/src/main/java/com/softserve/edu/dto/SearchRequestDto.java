@@ -6,7 +6,8 @@ public class SearchRequestDto {
     Long dateFrom;
     Long dateTo;
     String sightseeingType;
-
+    boolean haveMoreData;
+    
     public String getRequest() {
         return request;
     }
@@ -45,5 +46,13 @@ public class SearchRequestDto {
 
     public void setSightseeingType(String sightseeingType) {
         this.sightseeingType = sightseeingType;
+    }
+
+    public boolean isHaveMoreData() {
+        return haveMoreData;
+    }
+
+    public void setHaveMoreData(boolean haveMoreData) {
+        this.haveMoreData = haveMoreData;
     }
 }

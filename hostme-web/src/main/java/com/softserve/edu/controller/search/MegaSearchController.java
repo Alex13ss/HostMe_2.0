@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -39,6 +38,7 @@ public class MegaSearchController {
 
     @RequestMapping(value = "/superMegaSearch")
     public @ResponseBody List<?> getSearchResults(@RequestBody SearchRequestDto searchRequestDto) {
+        System.out.println(searchRequestDto.isHaveMoreData());
         if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.ROUTE)) {
             return megaSearchService.searchRoutes(searchRequestDto);
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.EVENT)) {

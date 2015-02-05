@@ -19,7 +19,9 @@ public class SightseeingDto {
 	private String comment;
 	private String website;
 	private Set<Image> images;
+	private String imgLink;
 	private PriceCategory priceCategory;
+	private String pcStr;
 	private Integer rating;
 	private SightseeingType sightseeingType;
 	private Status status;
@@ -29,9 +31,15 @@ public class SightseeingDto {
 		name = sightseeing.getName();
 		description = sightseeing.getDescription();
 		rating = sightseeing.getRating();
-		priceCategory = sightseeing.getPriceCategory();
+		pcStr = sightseeing.getPriceCategory().getPriceCategory();
 		sightseeingType = sightseeing.getSightseeingType();
 		address = sightseeing.getAddress();
+		if (sightseeing.getImage().size() == 0 || sightseeing.getImage() == null) {
+			imgLink = null;
+		} else {
+			imgLink = sightseeing.getImage().iterator().next().getLink();
+		}
+		website = sightseeing.getWebsite();
 	}
 
 	public SightseeingDto(Sightseeing sightseeing, Place place) {
@@ -145,4 +153,19 @@ public class SightseeingDto {
 		this.status = status;
 	}
 
+	public String getPcStr() {
+		return pcStr;
+	}
+
+	public void setPcStr(String pcStr) {
+		this.pcStr = pcStr;
+	}
+
+	public String getImgLink() {
+		return imgLink;
+	}
+
+	public void setImgLink(String imgLink) {
+		this.imgLink = imgLink;
+	}
 }

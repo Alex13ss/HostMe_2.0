@@ -76,8 +76,10 @@ $(document).ready(function() {
     $showSearchOptions.click(function() {
         if ($searchOptions.is(":visible")) {
             $searchOptions.hide();
+            searchObj.haveMoreData = false;
         } else {
             $searchOptions.show();
+            searchObj.haveMoreData = true;
             setAdvancedOptions();
         }
     })
@@ -112,7 +114,7 @@ function setAdvancedOptions() {
             },
             onClose: function(selectedDate) {
                 $datePickTo.datepicker("option", "minDate", selectedDate);
-            }
+            }   
         });
         $datePickTo.datepicker({
             minDate: new Date(),
@@ -153,7 +155,7 @@ function callSearchWithDelay(input) {
 
 function search(input) {
     if ((isInputChanged(input) || isSearchTypeChanged())
-        && inputLength(input)) {
+            && inputLength(input)) {
         $searchResult.html("");
         searchObj.request = input;
         searchObj.type = $searchType.val();
@@ -227,17 +229,35 @@ function detectSearchDataType(data) {
 function fillPlaceData(data) {
     for (var i = 0; i < data.length; i++) {
         $searchResult.append("<div class='placeResult col-md-5'>");
-        $searchResult.children().last().append("<div>" + "<a href = place?placeId=" + data[i].id + ">"
-        + data[i].name + "</a>" + "</div>"
-        + "<div>" + "price" + "</div>");
+        if (data.imgLink != null) {
+            $searchResult.children().last().append("<img class='placeResultImg' src='"
+            + data.imgLink
+            + "'>");
+        } else {
+            $searchResult.children().last().append("<img class='placeResultImg' src='"
+            + "resources/images/colosseum.jpg"
+            + "'>");
+        }
+        $searchResult.children().last().append("<div class='col-md-9'>"
+        + "<a href = place?placeId=" + data[i].id + ">"
+        + data[i].name
+        + "</a>" + "</div>");
+        $searchResult.children().last().append("<div class='col-md-3'>"
+        + "<button class='btn btn-primary btn-sm bookPlace'>"
+        + "Book" + "</button>");
+        if (data[i].pcStr != null) {
+            $searchResult.children().last().append("<div>" + data[i].pcStr + "</div>");
+        }
         if (data[i].rating != null) {
             $searchResult.children().last().append("<div>" + data[i].rating + "</div>");
         }
         if (data[i].description != null) {
             $searchResult.children().last().append("<div>" + data[i].description + "</div>");
         }
-        $searchResult.children().last().append("<div>" + "<button class='btn btn-primary bookPlace'>"
-        + "Book" + "</button>" + "</div>");
+        if (data[i].website != null) {
+            $searchResult.children().last().append("<div><a href='http://" + data[i].website + "'>"+ data[i].website +"</div>");
+        }
+        $searchResult.children().last().append("</div>");
         $("#searchResult").children().last().find(".bookPlace").data("placeId", data[i].id);
     }
     $btnBookPlace = $(".bookPlace");
@@ -255,9 +275,9 @@ function fillPlaceData(data) {
 
 function fillGroupData(data) {
     for (var i = 0; i < data.length; i++) {
-        $searchResult.append("<div class='userResult'>" +
+        $searchResult.append("<div class='groupResult'>" +
         "<a href = group?id=" + data[i].id+'>'
-        + data[i].name + "</a>"
+        + data[i].groupName + "</a>"
         + "</div>");
     }
 }

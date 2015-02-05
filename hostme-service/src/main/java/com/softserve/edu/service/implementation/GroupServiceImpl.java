@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 
 import com.softserve.edu.dto.GroupDto;
@@ -187,4 +188,9 @@ public class GroupServiceImpl implements GroupService {
         return list;
     }
 
+    @Override
+    public List<Group> searchGroup(Specifications<Group> specifications) {
+        return groupRepository.findAll(specifications);
+    }
+    
 }

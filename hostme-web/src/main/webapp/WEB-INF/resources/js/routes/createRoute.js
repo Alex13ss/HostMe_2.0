@@ -228,22 +228,18 @@ function checkDecAvlbPlaces(uiId) {
 function checkIncAvlbPlaces(uiId) {
     if (uiId == "userBookedPlaces") {
         if (userPlaces.length >= (userPlacesIndex + 1) * $userPlaceNumber.val()) {
-            alert("have")
         } else {
             getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
                 userBookedPlacesIndex, $userPlaceNumber.val());
-            alert(bookedPlaces.length);
         }
     } else if (uiId == "userPlaces") {
 
     } else {
         if (popularPlaces.length >= (popularPlaces + 1) * $popularPlaceNumber.val()) {
-            alert("have");
         } else {
             getPlaces(popularPlacesUrl, $popularPlacesUi,
                 popularPlacesIndex, $popularPlaceNumber.val());
             popularPlacesIndex++;
-            alert(popularPlaces.length);
         }
     }
 }
@@ -262,25 +258,25 @@ function ifBookedPlacesEmpty() {
 //TODO User Spec response
 function ifUserPlacesEmpty() {
     return "<div>"
-        + "<a href='sightseeings'>"
-        + "<div class='btn btn-primary' style='width: 100%'>"
-        + "Create Sight!"
-        + "</div>"
-        + "</a>"
-        + "</div>"
-        + "<div>"
-        + "<a href='events'>"
-        + "<div class='btn btn-primary' style='width: 100%'>"
-        + "Create Event!"
-        + "</div>"
-        + "</a>"
+            + "<a href='sightseeings'>"
+                + "<div class='btn btn-primary' style='width: 100%'>"
+                + "Create Sight!"
+                + "</div>"
+            + "</a>"
         + "</div>"
         + "<div>"
-        + "<a href='hosting-creation'>"
-        + "<div class='btn btn-primary' style='width: 100%'>"
-        + "Create Hosting!"
+            + "<a href='events'>"
+                + "<div class='btn btn-primary' style='width: 100%'>"
+                + "Create Event!"
+                + "</div>"
+            + "</a>"
         + "</div>"
-        + "</a>"
+            + "<div>"
+                + "<a href='hosting-creation'>"
+                + "<div class='btn btn-primary' style='width: 100%'>"
+                + "Create Hosting!"
+                + "</div>"
+            + "</a>"
         + "</div>"
 }
 

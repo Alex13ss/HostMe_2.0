@@ -24,9 +24,11 @@ public class EventDto {
 	private String website;
 	private Integer rating;
 	private PriceCategory priceCategory;
+	private String pcStr;
 	private User owner;
 	private Status status;
 	private Set<Image> image;
+	private String imgLink;
 	private Set<User> attendee;
 
 	public EventDto() {
@@ -37,6 +39,17 @@ public class EventDto {
 		id = event.getId();
 		name = event.getName();
 		address = event.getAddress();
+		priceCategory = event.getPriceCategory();
+		pcStr = event.getPriceCategory().getPriceCategory();
+		rating = event.getRating();
+		website = event.getWebsite();
+		startDate = event.getStartDate();
+		endDate = event.getEndDate();
+		if (event.getImage().size() == 0 || event.getImage() == null) {
+			imgLink = null;
+		} else {
+			imgLink = event.getImage().iterator().next().getLink();
+		}
 	}
 
 	public EventDto(Event event, Place place) {
@@ -138,7 +151,6 @@ public class EventDto {
 		this.priceCategory = priceCategory;
 	}
 
-
 	public User getOwner() {
 		return owner;
 	}
@@ -179,4 +191,19 @@ public class EventDto {
 		this.description = description;
 	}
 
+	public String getPcStr() {
+		return pcStr;
+	}
+
+	public void setPcStr(String pcStr) {
+		this.pcStr = pcStr;
+	}
+
+	public String getImgLink() {
+		return imgLink;
+	}
+
+	public void setImgLink(String imgLink) {
+		this.imgLink = imgLink;
+	}
 }

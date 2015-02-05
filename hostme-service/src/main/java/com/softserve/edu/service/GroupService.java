@@ -6,6 +6,7 @@ import java.util.Set;
 import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.User;
+import org.springframework.data.jpa.domain.Specifications;
 
 public interface GroupService {
 
@@ -36,5 +37,7 @@ public interface GroupService {
     public void updateGroupStatus(String status, Long id);
 
     public List<GroupDto> getGroupsDtoList(List<Group> groups);
-
+    
+    public List<Group> searchGroup(Specifications<Group> specifications);
+    
 }
