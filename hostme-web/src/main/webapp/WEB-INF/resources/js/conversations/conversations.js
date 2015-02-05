@@ -7,3 +7,10 @@ $(document).ready(
 						$("#createConversation").modal();
 					});
 		});
+
+function deleteConversationModal(element) {
+	
+	var conversationId = element.className.replace("deleteConversation ","");
+	$("#modalRemoveConversation").modal();
+	document.getElementById("removeConfirmButton").href= "conversationDelete/" +  conversationId;
+}

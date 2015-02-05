@@ -10,6 +10,10 @@ $(document).ready(
 				getConversation(this);
 			});
 			
+			$( ".deleteConversation" ).click(function() {
+				deleteConversationModal(this);
+			});
+			
 			$( ".conversation_create_label" ).click(function() {
 				cleanConversationData();
 			});
@@ -38,14 +42,12 @@ $(document).ready(
 			<c:url var="conversationUrl" value="/conversation">
 				<c:param name="id" value="${conversationDto.conversation.id}" />
 			</c:url>
-			
-			<c:url var="conversationDeleteUrl" value="/conversationDelete/${conversationDto.conversation.id}" />
 
 			<a href="<c:out value="${conversationUrl}"/>">
 				<div class="conversation">
 					<div class="conversation_title">${conversationDto.conversation.title}
 						<c:if test="${conversationDto.isEditable eq true}">
-							<a href="#"><span id="deleteConversation" class="fa fa-fw fa-times" style="float:right;"></span></a>
+							<a href="#" class="deleteConversation ${conversationDto.conversation.id}"><span id="deleteConversation" class="fa fa-fw fa-times" style="float:right;"></span></a>
 							<a href="#" class="editConversation ${conversationDto.conversation.id}"><span id="editConversation" class="fa fa-fw fa-pencil" style="float:right;"></span></a>
 						</c:if>
 					</div>
@@ -58,6 +60,8 @@ $(document).ready(
 		</c:forEach>
 	</div>
 	
-	<%@ include file="createConversationModal.jsp"%>
+	<%@ include file="createConversationModal.jsp" %>
+	
+	<%@ include file="deleteConversationModal.jsp" %>	
 	
 </div>
