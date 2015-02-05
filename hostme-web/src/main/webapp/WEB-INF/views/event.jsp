@@ -36,8 +36,8 @@
 						<c:out value="${event.name}" />
 						<security:authorize access="hasRole('USER')">
 							<a
-								href="<spring:url value="event/delete/${event.id}"/>"
-								class="btn btn-default btn-sm triggerRemove"><i
+								href="<spring:url value="event-enroll/${event.id}"/>"
+								class="btn btn-default btn-sm triggerRemove" style="margin-left:20px;"><i
 								class="fa fa-share"></i> <spring:message code="label.enroll" />
 							</a>
 						</security:authorize>

@@ -165,7 +165,6 @@ $(document)
 															"href" : "#"
 														}).click(aData, function(e) {
 																	aData.status = status;
-																	console.log(JSON.stringify(aData));
 																	e.preventDefault();
 																	$.ajax({
 																		    url : 'event-update',

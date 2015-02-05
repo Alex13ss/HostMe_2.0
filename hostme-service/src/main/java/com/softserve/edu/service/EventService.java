@@ -9,7 +9,9 @@ import com.softserve.edu.dto.SearchRequestDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.PriceCategory;
+
 import org.springframework.data.jpa.domain.Specifications;
+
 import com.softserve.edu.model.User;
 
 
@@ -58,5 +60,7 @@ public interface EventService {
 	public void updateEventStatus(String status, Integer id);
 	
 	public boolean checkEventOwner(EventDto event, User user);
+	
+	public void addAttendee(User user, Integer id);
 }
 

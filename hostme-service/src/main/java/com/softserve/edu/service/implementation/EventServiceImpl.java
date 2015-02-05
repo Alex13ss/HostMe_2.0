@@ -3,9 +3,11 @@ package com.softserve.edu.service.implementation;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.softserve.edu.dto.SearchRequestDto;
 import com.softserve.edu.repositories.specifications.PlaceSpecification;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -191,9 +193,10 @@ public class EventServiceImpl implements EventService {
 		User attendee = profileService.getUserByLogin(SecurityContextHolder
 				.getContext().getAuthentication().getName());
 
-		//Set<Place> attendeeUser = attendee.getAttendee();
+		// Set<Place> attendeeUser = attendee.getAttendee();
 
-		for (Place place : placeRepository.findByAttendee(owner, pageRequsetObj)) {
+		for (Place place : placeRepository
+				.findByAttendee(owner, pageRequsetObj)) {
 			list.add(new EventDto(eventRepository.findOne(place.getId()), place));
 		}
 		amountOfAttendeeEvents = (long) list.size();
@@ -260,21 +263,21 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	@Transactional
-	public void updateEventStatus(String status, Integer id){
+	public void updateEventStatus(String status, Integer id) {
 		Status newStatus;
-		if(status.equals("APPROVED")){
+		if (status.equals("APPROVED")) {
 			newStatus = Status.APPROVED;
-		} else if(status.equals("Pending")){
+		} else if (status.equals("Pending")) {
 			newStatus = Status.PENDING;
-		}else {
+		} else {
 			newStatus = Status.REFUSED;
 		}
 		Event event = eventRepository.findOne(id);
 		event.setStatus(newStatus);
 		eventRepository.save(event);
-		
+
 	}
-	
+
 	@Override
 	@Transactional
 	public void updateEvent(Event event, String city, String priceCategory) {
@@ -285,14 +288,35 @@ public class EventServiceImpl implements EventService {
 		event.setCity(cityRepository.findOne(cityId));
 		eventRepository.save(event);
 	}
-	
+
 	@Override
-    public boolean checkEventOwner(EventDto event, User user) {
-        Event checkedEvent = eventRepository.findOne(event.getId());
-        User owner = checkedEvent.getOwner();
-        if (owner.equals(user)) {
-            return true;
-        }
-        return false;
-    }
+	public boolean checkEventOwner(EventDto event, User user) {
+		Event checkedEvent = eventRepository.findOne(event.getId());
+		User owner = checkedEvent.getOwner();
+		if (owner.equals(user)) {
+			return true;
+		}
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.softserve.edu.service.EventService#addAttendee(com.softserve.edu.model.User, java.lang.Integer)
+	 */
+	@Override
+	@Transactional
+	public void addAttendee(User user, Integer id) {
+		
+		Event event = eventRepository.findOne(id);
+		
+		Set<User>  attendeeSet = event.getAttendee();
+		attendeeSet.add(user);
+		event.setAttendee(attendeeSet);
+		eventRepository.save(event);
+		
+		Set<Place> placeSet = user.getAttendee();
+		placeSet.add(event);
+		user.setAttendee(placeSet);
+		userRepository.save(user);
+	}
+
 }

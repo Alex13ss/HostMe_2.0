@@ -231,5 +231,12 @@ public class EventContoller {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, true));
 	}
+	@RequestMapping("/event-enroll/{id}")
+	public String eventEnroll(@PathVariable("id") Integer id) {
+		
+		User user = profileService.getCurrentUser();
+		eventService.addAttendee(user, id);
+		return "redirect:/events";
+	}
 
 }
