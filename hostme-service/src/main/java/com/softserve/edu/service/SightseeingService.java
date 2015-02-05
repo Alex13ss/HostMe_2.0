@@ -42,5 +42,6 @@ public interface SightseeingService {
 	boolean favouriteCheck(Sightseeing sightseeing, User liker);
 
 	void unlikeSightseeing(Integer id, User liker);
-
+	
+	Integer getCurrentRating(Integer id);
 }

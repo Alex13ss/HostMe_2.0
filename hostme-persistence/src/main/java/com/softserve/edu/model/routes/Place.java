@@ -62,6 +62,10 @@ public class Place {
 	@Column
 	private Integer rating;
 
+	@OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = {
+			CascadeType.PERSIST, CascadeType.REMOVE })
+	private List<Post> posts;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -185,4 +189,13 @@ public class Place {
 	public void setLikers(Set<User> likers) {
 		this.likers = likers;
 	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+	
 }

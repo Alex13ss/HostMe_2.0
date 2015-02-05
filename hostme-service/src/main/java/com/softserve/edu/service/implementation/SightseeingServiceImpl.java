@@ -145,7 +145,6 @@ public class SightseeingServiceImpl implements SightseeingService {
 		Integer cityId = cityRepository.findByCity(city).getCityId();
 		sightseeing.setPriceCategory(priceCategoryRepository.findOne(pcId));
 		sightseeing.setCity(cityRepository.findOne(cityId));
-		sightseeing.setRating(0);
 		sightseeingRepository.save(sightseeing);
 	}
 
@@ -160,8 +159,6 @@ public class SightseeingServiceImpl implements SightseeingService {
 		sightseeing.setImage(imageRepository.findAllByPlace(sightseeing));
 		sightseeing.setPriceCategory(priceCategoryRepository.findOne(pcId));
 		sightseeing.setCity(cityRepository.findOne(cityId));
-		Integer rating = userRepository.findByFavouriveSights(sightseeing).size();
-		sightseeing.setRating(rating);
 		sightseeingRepository.save(sightseeing);
 	}
 
@@ -175,8 +172,6 @@ public class SightseeingServiceImpl implements SightseeingService {
 		favouriveSights.add(sightseeing);
 		user.setFavouriveSights(favouriveSights);
 		userRepository.save(user);
-		Integer rating = userRepository.findByFavouriveSights(sightseeing).size();
-		sightseeing.setRating(rating);
 		sightseeingRepository.save(sightseeing);
 	}
 
@@ -192,11 +187,11 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	public void unlikeSightseeing(Integer id, User liker){
 		Integer likerId = liker.getUserId();
-		Sightseeing sightseeing = sightseeingRepository.findOne(id);
 		sightseeingRepository.unlike(id, likerId);
-		Integer rating = userRepository.findByFavouriveSights(sightseeing).size();
-		sightseeing.setRating(rating);
-		sightseeingRepository.save(sightseeing);
+	}
+	
+	public Integer getCurrentRating(Integer id){
+		return sightseeingRepository.getRating(id);
 	}
 	
 	public Long getSightseeingsPaging(Long size, String sender, User liker) {

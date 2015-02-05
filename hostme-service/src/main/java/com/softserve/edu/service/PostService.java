@@ -8,6 +8,8 @@ public interface PostService {
     
     List<PostDto> findByConversationId(Long id);
     
+    List<PostDto> findByPlaceId(Integer id);
+    
     Post save(Post post);
     
     void delete(Post post);   

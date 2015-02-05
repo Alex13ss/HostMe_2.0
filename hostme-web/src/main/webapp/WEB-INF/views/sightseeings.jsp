@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
-<script src="<c:url value="/resources/js/sightseeing.js"/>"></script>
+<script src="<c:url value="/resources/js/sightseeings.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
 <script src="<c:url value="/resources/js/dataTables.bootstrap.js"/>"></script>
 

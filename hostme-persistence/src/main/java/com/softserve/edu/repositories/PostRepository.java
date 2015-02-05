@@ -10,4 +10,6 @@ public interface PostRepository extends CrudRepository<Post, Long>{
     
     Iterable<Post> findByConversationId(Long id);
     
+    Iterable<Post> findByPlaceId(Integer id);
+    
 }

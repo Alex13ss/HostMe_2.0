@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import javax.persistence.*;
 
+import com.softserve.edu.model.routes.Place;
+
 @Entity
 @Table(name = "posts")
 public class Post {
@@ -29,7 +31,11 @@ public class Post {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "conversation_id")
     private Conversation conversation;
-
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "place_id")
+    private Place place;
+    
     public Long getId() {
         return id;
     }
@@ -69,5 +75,13 @@ public class Post {
     public void setConversation(Conversation conversation) {
         this.conversation = conversation;
     }
+
+	public Place getPlace() {
+		return place;
+	}
+
+	public void setPlace(Place place) {
+		this.place = place;
+	}
 
 }

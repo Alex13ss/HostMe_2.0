@@ -50,6 +50,22 @@ public class PostServiceImpl implements PostService{
     
     @Override
     @Transactional
+    public List<PostDto> findByPlaceId(Integer id) {
+	List<PostDto> result = new ArrayList<PostDto>();
+	List<Post> posts = (List<Post>) postRepository.findByPlaceId(id);
+	String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL();
+	for (Post post : posts){
+	    String image = null;
+	    Iterator<Image> imageItr = post.getAuthor().getImages().iterator();
+	    if (imageItr.hasNext())
+		image = propertiesImageUrl + "/" + imageItr.next().getLink();
+	    result.add(new PostDto(post, image));
+	}
+	return result;
+    }
+    
+    @Override
+    @Transactional
     public Post save(Post post) {
 	return postRepository.save(post);
     }

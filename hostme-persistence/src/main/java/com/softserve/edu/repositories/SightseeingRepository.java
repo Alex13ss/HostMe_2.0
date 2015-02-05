@@ -28,4 +28,8 @@ public interface SightseeingRepository extends
 	@Query(value = "delete from Favourite_sightseeing where place_id = ?1 and user_id = ?2", nativeQuery=true)
 	public void unlike(Integer id, Integer likerId);
 	
+	@Transactional("transactionManager")
+	@Query(value = "select count(*) from Favourite_sightseeing where place_id = ?1", nativeQuery=true)
+	public Integer getRating(Integer id);
+	
 }

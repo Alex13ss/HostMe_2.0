@@ -9,10 +9,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script
+	src="<c:url value="/resources/js/plugins/slimScroll/jquery.slimscroll.min.js"/>"
+	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/sightseeing.js"/>"></script>
 <title><spring:message code="label.sightseeing" />:
 	${sightseeing.name}</title>
 </head>
+<script>
+	$(document).ready(
+			function() {
+				loadPostsAjax(<c:out value="${sightseeing.id}"/>);
+				$("#sendMsg").click(
+						function() {
+							sendMessage(<c:out value="${sightseeing.id}"/>, $(
+									"#userMsg").val());
+						});
+			});
+</script>
 <body class="skin-blue pace-done">
 	<section class="content-header">
 	<h1>
@@ -21,151 +35,168 @@
 	</section>
 	<!-- Main content -->
 	<section class="content">
-
-	<div>
-		<div class="box box-primary">
-			<div class="box-header">
-				<div class="box-title col-md-8">
-					<i class="fa fa-camera-retro"></i>
-					<c:out value="${sightseeing.name}" />
-				</div>
-				<div class="box-title col-md-4">
-					<div align="right">
-						<security:authorize access="hasRole('USER')">
-							<c:if test="${isFavourite eq false}">
-								<a href="<spring:url value="/like/${sightseeing.id}" />"
-									class="btn btn-default btn-sm"><i class="fa fa-star-o"></i>${sightseeing.rating}
-									<spring:message code="label.like" /> </a>
-							</c:if>
-							<c:if test="${isFavourite eq true}">
-								<a href="<spring:url value="/unlike/${sightseeing.id}" />"
-									class="btn btn-default btn-sm"><i class="fa fa-star"></i>${sightseeing.rating}
-									<spring:message code="label.unlike" /> </a>
-							</c:if>
-						</security:authorize>
-						<security:authorize access="hasRole('MODERATOR')">
-							<button type="button" class="btn btn-default btn-sm"
-								data-toggle="modal" data-target="#sightseeingEdit">
-								<i class="fa fa-fw fa-edit"></i>
-								<spring:message code="label.editSightseeing" />
-							</button>
-							<a
-								href="<spring:url value="sightseeing/delete/${sightseeing.id}" />"
-								class="btn btn-default btn-sm triggerRemove"><i
-								class="fa fa-fw fa-trash-o"></i> <spring:message
-									code="label.delete" /> </a>
-						</security:authorize>
-					</div>
-				</div>
+	<div class="box box-primary">
+		<div class="box-header">
+			<div class="box-title col-md-8">
+				<i class="fa fa-camera-retro"></i>
+				<c:out value="${sightseeing.name}" />
 			</div>
-			<div class="box-body">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="col-xs-12 .col-sm-6 .col-lg-8">
-							<c:forEach var="image" begin="0" end="0"
-								items="${sightseeing.image}">
-								<a href="${image_url}${image.link}" data-lightbox="images">
-									<img src="${image_url}${image.link}" />
-								</a>
-							</c:forEach>
-						</div>
-					</div>
-					<div></div>
-					<div class="col-md-6">
-						<div class="box-body">
-							<div class="callout callout-info">
-								<h4>
-									<spring:message code="label.location" />
-								</h4>
-								<p>${sightseeing.address},${sightseeing.city.city},
-									${sightseeing.city.country.country}</p>
-								<h4>
-									<spring:message code="label.sightseeingType" />
-								</h4>
-								<p>${sightseeing.sightseeingType}</p>
-								<h4>
-									<spring:message code="label.priceCategory" />
-								</h4>
-								<p>${sightseeing.priceCategory.priceCategory}</p>
-								<h4>
-									<spring:message code="label.website" />
-								</h4>
-								<p>
-									<a href="${sightseeing.website}">${sightseeing.website}</a>
-								</p>
-							</div>
-						</div>
-					</div>
+			<div class="box-title col-md-4">
+				<div align="right">
+					<security:authorize access="hasRole('USER')">
+						<c:if test="${isFavourite eq false}">
+							<a href="<spring:url value="/like/${sightseeing.id}" />"
+								class="btn btn-default btn-sm"><i class="fa fa-star-o"></i>${rating}
+								<spring:message code="label.like" /> </a>
+						</c:if>
+						<c:if test="${isFavourite eq true}">
+							<a href="<spring:url value="/unlike/${sightseeing.id}" />"
+								class="btn btn-default btn-sm"><i class="fa fa-star"></i>${rating}
+								<spring:message code="label.unlike" /> </a>
+						</c:if>
+					</security:authorize>
+					<security:authorize access="hasRole('MODERATOR')">
+						<button type="button" class="btn btn-default btn-sm"
+							data-toggle="modal" data-target="#sightseeingEdit">
+							<i class="fa fa-fw fa-edit"></i>
+							<spring:message code="label.editSightseeing" />
+						</button>
+						<a
+							href="<spring:url value="sightseeing/delete/${sightseeing.id}" />"
+							class="btn btn-default btn-sm triggerRemove"><i
+							class="fa fa-fw fa-trash-o"></i> <spring:message
+								code="label.delete" /> </a>
+					</security:authorize>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-12">
-			<div class="box box-solid">
-				<div class="box-header">
-					<h3 class="box-title">
-						<spring:message code="label.sightseeingDescription" />
-					</h3>
-				</div>
-				<!-- /.box-header -->
-				<div class="box-body">
-					<dl>
-						<dd>${sightseeing.description}</dd>
-					</dl>
-				</div>
-				<!-- /.box-body -->
-			</div>
-			<!-- /.box -->
-		</div>
-		<div class="col-md-12">
-			<div class="box box-solid">
-				<div class="box-header">
-					<h3 class="box-title">
-						<spring:message code="label.photos" />
-					</h3>
-				</div>
-				<!-- /.box-header -->
-				<div class="box-body">
-					<div class="row">
-						<c:forEach var="image" items="${sightseeing.image}">
-							<div class="col-lg-4 col-sm-6 col-xs-12">
-								<a href="${image_url}${image.link}"
-									class="thumbnail img-responsive"> <img
-									src="${image_url}${image.link}" />
-								</a>
-							</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="col-xs-12 .col-sm-6 .col-lg-8">
+						<c:forEach var="image" begin="0" end="0"
+							items="${sightseeing.image}">
+							<a href="${image_url}${image.link}" data-lightbox="images"> <img
+								src="${image_url}${image.link}" />
+							</a>
 						</c:forEach>
 					</div>
 				</div>
+				<div></div>
+				<div class="col-md-6">
+					<div class="box-body">
+						<div class="callout callout-info">
+							<h4>
+								<spring:message code="label.location" />
+							</h4>
+							<p>${sightseeing.address},${sightseeing.city.city},
+								${sightseeing.city.country.country}</p>
+							<h4>
+								<spring:message code="label.sightseeingType" />
+							</h4>
+							<p>${sightseeing.sightseeingType}</p>
+							<h4>
+								<spring:message code="label.priceCategory" />
+							</h4>
+							<p>${sightseeing.priceCategory.priceCategory}</p>
+							<h4>
+								<spring:message code="label.website" />
+							</h4>
+							<p>
+								<a href="${sightseeing.website}">${sightseeing.website}</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="box box-solid">
+			<div class="box-header">
+				<h3 class="box-title">
+					<spring:message code="label.sightseeingDescription" />
+				</h3>
+			</div>
+			<div class="box-body">
 				<dl>
-					<dd>
-						<form:form method="post" action="addPhotosToSight"
-							modelAttribute="sightseeing" enctype="multipart/form-data">
-							<input type="hidden" value="${sightseeing.id}" name="id" />
-							<div class="form-group">
-								<label for="exampleInputFile">
-									<div class="box-body">
-										<h4 class="box-title">
-											<spring:message code="label.addPhotos" />
-										</h4>
-										<h5>
-											(
-											<spring:message code="label.savePhotoHotKey" />
-											)
-										</h5>
-								</label> <br> <input type="file" name="file" class="multi" multiple
-									accept="gif|jpg|png" data-maxfile="10000" data-maxsize="50000" />
-								<br>
-								<button type="submit" class="btn btn-primary">
-									<spring:message code="label.savePhotos" />
-								</button>
-							</div>
-						</form:form>
-					</dd>
+					<dd>${sightseeing.description}</dd>
 				</dl>
 			</div>
-			<!-- /.box-body -->
 		</div>
-		<!-- /.box -->
+	</div>
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-header">
+				<i class="fa fa-comments-o"></i>
+				<h3 class="box-title">
+					<spring:message code="label.comment" />
+				</h3>
+			</div>
+			<div class="box-body chat" id="chat-box"></div>
+			<!-- /.chat -->
+			<div class="box-footer">
+				<div class="input-group">
+					<input class="form-control" id="userMsg"
+						placeholder="Type message..." />
+					<div class="input-group-btn">
+						<button class="btn btn-success" id="sendMsg" style="height: 34px;">
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="box box-solid">
+			<div class="box-header">
+				<h3 class="box-title">
+					<spring:message code="label.photos" />
+				</h3>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body">
+				<div class="row">
+					<c:forEach var="image" items="${sightseeing.image}">
+						<div class="col-md-2">
+							<a href="${image_url}${image.link}"
+								class="thumbnail img-responsive"> <img
+								src="${image_url}${image.link}" />
+							</a>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			<dl>
+				<dd>
+					<form:form method="post" action="addPhotosToSight"
+						modelAttribute="sightseeing" enctype="multipart/form-data">
+						<input type="hidden" value="${sightseeing.id}" name="id" />
+						<div class="form-group">
+							<label for="exampleInputFile">
+								<div class="box-body">
+									<h4 class="box-title">
+										<spring:message code="label.addPhotos" />
+									</h4>
+									<h5>
+										(
+										<spring:message code="label.savePhotoHotKey" />
+										)
+									</h5>
+							</label> <br> <input type="file" name="file" class="multi" multiple
+								accept="gif|jpg|png" data-maxfile="10000" data-maxsize="50000" />
+							<br>
+							<button type="submit" class="btn btn-primary">
+								<spring:message code="label.savePhotos" />
+							</button>
+						</div>
+					</form:form>
+				</dd>
+			</dl>
+		</div>
+		<!-- /.box-body -->
 	</div>
 
 	<form:form modelAttribute="sightseeing"
@@ -276,8 +307,8 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="status" class="col-sm-2 control-label">
-								<spring:message code="label.status" />
+							<label for="status" class="col-sm-2 control-label"> <spring:message
+									code="label.status" />
 							</label>
 							<div class="col-sm-10">
 								<form:select path="status">

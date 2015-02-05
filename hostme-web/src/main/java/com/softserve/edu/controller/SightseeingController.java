@@ -1,5 +1,6 @@
 package com.softserve.edu.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.softserve.edu.dto.PostDto;
 import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Country;
+import com.softserve.edu.model.Post;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.SightseeingType;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
-import com.softserve.edu.repositories.SightseeingRepository;
 import com.softserve.edu.service.CityService;
 import com.softserve.edu.service.CountryService;
 import com.softserve.edu.service.ImageService;
+import com.softserve.edu.service.PostService;
 import com.softserve.edu.service.PriceCategoryService;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.SightseeingService;
@@ -47,8 +50,8 @@ public class SightseeingController {
 	@Autowired
 	private ImageService imageService;
 	@Autowired
-	private SightseeingRepository sightseeingRepository;
-
+	private PostService postService;
+	
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.GET)
 	public String showSightseeings(Model model) {
 		model.addAttribute("sightseeing", new Sightseeing());
@@ -122,13 +125,13 @@ public class SightseeingController {
 	public String showSightseeing(@RequestParam("id") int id, Model model) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
 		model.addAttribute("sightseeing", sightseeing);
+		model.addAttribute("rating", sightseeingService.getCurrentRating(id));
 		List<Country> countries = countryService.getAllCountry();
 		List<City> cities = cityService.getAllCity();
 		List<PriceCategory> priceCategories = priceCategoryService
 				.getAllPriceCategory();
 		User liker = profileService.getUserByLogin(SecurityContextHolder
 				.getContext().getAuthentication().getName());
-
 		boolean isFavourite = sightseeingService.favouriteCheck(sightseeing,
 				liker);
 		model.addAttribute("sightseeing", sightseeing);
@@ -164,6 +167,23 @@ public class SightseeingController {
 		return "redirect:/sightseeing?id={id}";
 	}
 
+	@RequestMapping(value="/findComments.json", method=RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<PostDto> findPostsJson(@RequestParam(value = "placeId") Integer id) {
+	return postService.findByPlaceId(id);
+    }
+    
+    @RequestMapping(value = "/sendComment", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<PostDto> sendPost(
+	    @RequestParam(value = "placeId") Integer id,
+	    @RequestParam(value = "message") String message) {
+	Post post = new Post();
+	post.setAuthor(profileService.getCurrentUser());
+	post.setContent(message);
+	post.setPlace(sightseeingService.findOne(id));
+	post.setPostedAt(Calendar.getInstance());
+	postService.save(post);
+	return findPostsJson(id);
+    }
 	@RequestMapping("/sightseeing/delete/{id}")
 	public String deleteSightseeing(@PathVariable("id") Integer id) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
