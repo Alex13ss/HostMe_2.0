@@ -29,17 +29,21 @@
             <spring:message code="routes.createRouteDescription" />
             <input id="description" class="form-control">
             <div class="container-fluid">
-                <div id="userTabs" class="col-sm-4">
+                <div class="col-sm-4 nav-tabs-custom">
                     <spring:message code="places.yourPlaces"/>
-                    <select id="userPlaceNumber"></select>
-                    <ul>
-                        <li><a href="#userBookedPlaces">Booked</a></li>
-                        <li><a href="#userPlaces">Your</a></li>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#userBookedPlaces" data-toggle="tab">Booked</a></li>
+                        <li><a href="#userPlaces" data-toggle="tab">Your</a></li>
+                        <li>
+                            <select id="userPlaceNumber" class="btn btn-default dropdown-toggle" data-toggle="tab"></select>
+                        </li>
                     </ul>
-                    <div id="userBookedPlaces"></div>
-                    <div id="userPlaces"></div>
+                    <div class="tab-content">
+                        <div id="userBookedPlaces" class="tab-pane active"></div>
+                        <div id="userPlaces" class="tab-pane"></div>
+                    </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="dropZones col-sm-4">
                     <div id="originPlaceDrop" class="dropArea">
                         <div class="hint">Add Origin</div>
                     </div>
@@ -55,7 +59,7 @@
                 </div>
                 <div class="col-sm-4">
                     <spring:message code="places.popularPlaces"/>
-                    <select id="popularPlaceNumber"></select>
+                    <select id="popularPlaceNumber" class="btn btn-default dropdown-toggle"></select>
                     <div id="popularPlaces"></div>
                 </div>
             </div>

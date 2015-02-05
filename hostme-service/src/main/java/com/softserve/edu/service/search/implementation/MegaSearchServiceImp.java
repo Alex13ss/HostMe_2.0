@@ -79,8 +79,11 @@ public class MegaSearchServiceImp implements MegaSearchService {
     public List<EventDto> searchEvents(SearchRequestDto searchRequestDto) {
         City city = cityRepository.findByCity(searchRequestDto.getRequest());
         Specifications<Event> specifications = Specifications.where(eventHaveCity(city));
-        if (searchRequestDto.getDate() != null) {
-            specifications = specifications.and(eventBeforeDate(new Date(searchRequestDto.getDate())));
+        if (searchRequestDto.getDateFrom() != null) {
+            specifications = specifications.and(eventFromDate(new Date(searchRequestDto.getDateFrom())));
+        }
+        if (searchRequestDto.getDateTo() != null) {
+            specifications = specifications.and(eventToDate(new Date(searchRequestDto.getDateTo())));
         }
         return eventService.getEventsDtoList(eventService.searchEvent(specifications));
     }

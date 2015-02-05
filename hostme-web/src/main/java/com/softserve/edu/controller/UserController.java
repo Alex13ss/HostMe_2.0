@@ -31,6 +31,7 @@ public class UserController {
 
     @RequestMapping (value = "/addBookedPlace", method = RequestMethod.POST)
     public @ResponseBody boolean addBookingPlace(@RequestBody String placeId) {
+        userService.setBookedPlace(Integer.valueOf(placeId.replace("=", "")));
         return true;
     }
 
@@ -41,6 +42,6 @@ public class UserController {
 
     @RequestMapping(value = "/getUserBookedPlaces", method = RequestMethod.POST)
     public @ResponseBody List<PlaceDto> getBookedPlaces(@RequestBody RoutePagingDto routeRequest, Pageable pageable) {
-        return placeService.placeToPlaceDto(userService.getUserLikedPlaces(pageable));
+        return placeService.placeToPlaceDto(userService.getUserBookedPlaces(pageable));
     }
 }

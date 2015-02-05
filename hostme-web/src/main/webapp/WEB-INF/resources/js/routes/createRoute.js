@@ -4,7 +4,7 @@ var routeDto = {
     originId: "",
     destinationId: "",
     waypointsId: []
-    };
+};
 var userPlacesIndex = 1;
 var userBookedPlacesIndex = 1;
 var popularPlacesIndex = 1;
@@ -32,10 +32,8 @@ $(document).ready(function() {
     var $description = $("#description");
     var $createRouteBtn = $("#createRoute");
     var $savingStatus = $("#savingStatus");
-    var $userTabs = $("#userTabs");
     $userPlaceNumber = $("#userPlaceNumber");
     $popularPlaceNumber = $("#popularPlaceNumber");
-    $userTabs.tabs();
     initListSize($userPlaceNumber);
     initListSize($popularPlaceNumber);
     initDropPlaces($userPlacesUi);
@@ -152,22 +150,15 @@ function getPlaces(url, $ui, pageIndex, placeSize) {
             $ui.find(".ion-loading-c").remove();
             if ($ui === $userPlacesUi) {
                 fillPlaces(data, userPlaces);
-                drawPlaces($ui, userPlaces, $userPlaceNumber.val(), userPlacesIndex)
+                drawPlaces($ui, userPlaces, 5, userPlacesIndex)
             } else if ($ui === $userBookedPlacesUi) {
                 fillPlaces(data, bookedPlaces);
-                drawPlaces($ui, bookedPlaces, $userPlaceNumber.val(), userBookedPlacesIndex)
+                drawPlaces($ui, bookedPlaces, 5, userBookedPlacesIndex)
             } else {
                 fillPlaces(data, popularPlaces);
-                drawPlaces($ui, popularPlaces, $popularPlaceNumber.val(), popularPlacesIndex)
+                drawPlaces($ui, popularPlaces, 5, popularPlacesIndex)
             }
             initDrag();
-            if ($ui === $userBookedPlacesUi &&
-                    $userBookedPlacesUi.children().length == 0) {
-                $userBookedPlacesUi.append(ifBookedPlacesEmpty());
-            } else if ($ui === $userPlacesUi &&
-                $userPlacesUi.children().length == 0) {
-                $userPlacesUi.append(ifUserPlacesEmpty());
-            }
         }
     });
 }
@@ -190,12 +181,20 @@ function drawPlaces($ui, data, elSize, pgInex) {
             $ui.children().last().data("Address", data[i].address);
         }
     }
-    $ui.append("<div class='prev col-sm-6 btn btn-primary'>"
+    if ($ui === $userBookedPlacesUi &&
+        $userBookedPlacesUi.children().length == 0) {
+        $userBookedPlacesUi.append(ifBookedPlacesEmpty());
+    } else if ($ui === $userPlacesUi &&
+        $userPlacesUi.children().length == 0) {
+        $userPlacesUi.append(ifUserPlacesEmpty());
+    } else {
+        $ui.append("<div class='prev col-sm-6 btn btn-primary'>"
         + "<<"
         + "</div>");
-    $ui.append("<div class='next col-sm-6 btn btn-primary'>"
+        $ui.append("<div class='next col-sm-6 btn btn-primary'>"
         + ">>"
         + "</div>");
+    }
     $(".prev").click(function(event) {
         event.stopImmediatePropagation();
         if (checkDecAvlbPlaces($(event.target).parents().attr('id'))) {
@@ -239,7 +238,7 @@ function checkIncAvlbPlaces(uiId) {
 
     } else {
         if (popularPlaces.length >= (popularPlaces + 1) * $popularPlaceNumber.val()) {
-          alert("have");
+            alert("have");
         } else {
             getPlaces(popularPlacesUrl, $popularPlacesUi,
                 popularPlacesIndex, $popularPlaceNumber.val());
@@ -253,9 +252,9 @@ function checkIncAvlbPlaces(uiId) {
 function ifBookedPlacesEmpty() {
     return "<div>"
         + "<a href='megaSearch'>"
-            + "<div class='btn btn-primary' style='width: 100%'>"
-            + "Search places!"
-            + "</div>"
+        + "<div class='btn btn-primary' style='width: 100%'>"
+        + "Search places!"
+        + "</div>"
         + "</a>"
         + "</div>"
 }
@@ -264,24 +263,24 @@ function ifBookedPlacesEmpty() {
 function ifUserPlacesEmpty() {
     return "<div>"
         + "<a href='sightseeings'>"
-            + "<div class='btn btn-primary' style='width: 100%'>"
-            + "Create Sight!"
-            + "</div>"
+        + "<div class='btn btn-primary' style='width: 100%'>"
+        + "Create Sight!"
+        + "</div>"
         + "</a>"
         + "</div>"
         + "<div>"
-            + "<a href='events'>"
-                + "<div class='btn btn-primary' style='width: 100%'>"
-                + "Create Event!"
-                + "</div>"
-            + "</a>"
+        + "<a href='events'>"
+        + "<div class='btn btn-primary' style='width: 100%'>"
+        + "Create Event!"
+        + "</div>"
+        + "</a>"
         + "</div>"
         + "<div>"
-            + "<a href='hosting-creation'>"
-                + "<div class='btn btn-primary' style='width: 100%'>"
-                + "Create Hosting!"
-                + "</div>"
-            + "</a>"
+        + "<a href='hosting-creation'>"
+        + "<div class='btn btn-primary' style='width: 100%'>"
+        + "Create Hosting!"
+        + "</div>"
+        + "</a>"
         + "</div>"
 }
 

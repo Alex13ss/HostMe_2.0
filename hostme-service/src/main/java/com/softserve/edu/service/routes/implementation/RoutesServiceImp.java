@@ -63,7 +63,7 @@ public class RoutesServiceImp implements RoutesService{
 
     public void addRoute(RouteDto routeDto) {
         Route route = new Route();
-        User user = getCurrentUser();
+        User user = profileService.getCurrentUser();
         route.setUser(user);
         route.setName(routeDto.getName());
         route.setDescription(routeDto.getDescription());
@@ -122,18 +122,12 @@ public class RoutesServiceImp implements RoutesService{
     }
 
     private boolean userHaveRoute(int id) {
-        User user = getCurrentUser();
+        User user = profileService.getCurrentUser();
         for (Route route : user.getRoutes()) {
             if (route.getUser() == user) {
                 return true;
             }
         }
         return false;
-    }
-
-    private User getCurrentUser() {
-        String login = SecurityContextHolder.getContext().getAuthentication()
-                .getName();
-        return profileService.getUserByLogin(login);
     }
 }

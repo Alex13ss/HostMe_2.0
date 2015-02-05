@@ -18,7 +18,7 @@ import java.util.List;
 public class MegaSearchController {
 
     private enum SearchTypes {
-        EVENT, SIGHT, HOSTING, ROUTE, GROUPS, USER
+        EVENT, SIGHT, ROUTE, GROUPS, USER
     }
 
     @Autowired
@@ -45,8 +45,6 @@ public class MegaSearchController {
             return megaSearchService.searchEvents(searchRequestDto);
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.SIGHT)) {
             return megaSearchService.searchSights(searchRequestDto);
-        } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.HOSTING)) {
-            return megaSearchService.searchHosting(searchRequestDto.getRequest());
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.USER)) {
             return megaSearchService.searchUsers(searchRequestDto);
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.GROUPS)) {

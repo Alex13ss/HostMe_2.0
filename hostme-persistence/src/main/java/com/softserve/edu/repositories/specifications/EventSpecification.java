@@ -22,7 +22,16 @@ public class EventSpecification {
         };
     }
 
-    public static Specification<Event> eventBeforeDate(Date date) {
+    public static Specification<Event> eventFromDate(Date date) {
+        return new Specification<Event>() {
+            @Override
+            public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                return cb.greaterThanOrEqualTo(root.get(Event_.startDate), date);
+            }
+        };
+    }
+
+    public static Specification<Event> eventToDate(Date date) {
         return new Specification<Event>() {
             @Override
             public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {

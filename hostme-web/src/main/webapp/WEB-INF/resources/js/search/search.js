@@ -2,13 +2,15 @@ var searchObj = {
     request: "",
     type: "",
     haveMoreData: false,
-    date: "",
+    dateFrom: "",
+    dateTo: "",
     sightseeingType: ""
 };
 var priceCategories = [];
 var sightType = [];
 var timer;
 var bufInput = "";
+var bufType;
 var $searchBox;
 var $search;
 var $searchType;
@@ -31,24 +33,24 @@ $(document).ready(function() {
     initPriceCat();
     initSightType();
     $searchCity.autocomplete({
-        minLength: 2,
-        source: function(request, responce) {
-            $.ajax({
-             url: "getCities",
-             dataType: "json",
-             type: "POST",
-             data: request.term,
-             success: function(data) {
-                 var result = [];
-                 for (var i = 0; i < data.length; i++) {
-                     result.push(data[i].city);
-                 }
-                 responce(result);
-             }
-            })},
-        select: function() {
-            callSearchWithDelay($searchCity.val());
-        }}
+            minLength: 2,
+            source: function(request, responce) {
+                $.ajax({
+                    url: "getCities",
+                    dataType: "json",
+                    type: "POST",
+                    data: request.term,
+                    success: function(data) {
+                        var result = [];
+                        for (var i = 0; i < data.length; i++) {
+                            result.push(data[i].city);
+                        }
+                        responce(result);
+                    }
+                })},
+            select: function() {
+                callSearchWithDelay($searchCity.val());
+            }}
     ).keyup(function() {
             callSearchWithDelay($searchCity.val());
         });
@@ -56,16 +58,18 @@ $(document).ready(function() {
         callSearchWithDelay($search.val());
     });
     $searchType.change(function() {
+        setAdvOptDisplay();
         if ($searchOptions.is(":visible")) {
             setAdvancedOptions();
         }
-        if ($searchType.val() == "USER") {
+        if ($searchType.val() == "USER" ||
+            $searchType.val() == "GROUPS") {
             $searchCity.hide();
             $search.show();
             callSearchWithDelay($search.val());
         } else {
-            $searchCity.show();
             $search.hide();
+            $searchCity.show();
             callSearchWithDelay($searchCity.val());
         }
     });
@@ -79,22 +83,49 @@ $(document).ready(function() {
     })
 });
 
+function setAdvOptDisplay() {
+    if ($searchType.val() == "USER" ||
+        $searchType.val() == "GROUPS" ||
+        $searchType.val() == "ROUTE") {
+        $showSearchOptions.hide();
+    } else {
+        $showSearchOptions.show();
+    }
+
+}
+
 function setAdvancedOptions() {
     if ($searchType.val() == "EVENT") {
         $searchOptions.html("");
         $searchOptions.append("<div>"
-        + "<input id='pickDate'/>"
+        + "After: "
+        + "<input id='pickDateFrom'/>"
+        + " Before: "
+        + "<input id='pickDateTo'/>"
         + "</div>");
-        var $datePick = $searchOptions.find("#pickDate");
-        $datePick.datepicker({
+        var $datePickFrom = $searchOptions.find("#pickDateFrom");
+        var $datePickTo = $searchOptions.find("#pickDateTo");
+        $datePickFrom.datepicker({
             minDate: new Date(),
             onSelect: function() {
-                searchObj.date = $datePick.datepicker("getDate").getTime();
+                searchObj.dateFrom = $datePickFrom.datepicker("getDate").getTime();
+            },
+            onClose: function(selectedDate) {
+                $datePickTo.datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $datePickTo.datepicker({
+            minDate: new Date(),
+            onSelect: function() {
+                searchObj.dateTo = $datePickTo.datepicker("getDate").getTime();
+            },
+            onClose: function(selectedDate) {
+                $datePickFrom.datepicker("option", "maxDate", selectedDate);
             }
         });
     } else if ($searchType.val() == "SIGHT") {
         $searchOptions.html("");
-        $searchOptions.append("<select id='sightType'>");
+        $searchOptions.append("<select id='sightType' class='col-md-offset-3 btn btn-default dropdown-toggle'>");
         var $sightType = $searchOptions.find("#sightType");
         for (var i = 0; i < sightType.length; i++) {
             $sightType.append("<option value=" + sightType[i] + ">" + sightType[i] + "</option>");
@@ -103,9 +134,6 @@ function setAdvancedOptions() {
         $sightType.change(function() {
             searchObj.sightseeingType = $sightType.val();
         });
-    } else if ($searchType.val() == "HOSTING") {
-        $searchOptions.html("");
-
     } else if ($searchType.val() == "ROUTE") {
         $searchOptions.html("");
 
@@ -124,7 +152,8 @@ function callSearchWithDelay(input) {
 }
 
 function search(input) {
-    if (checkForSameInput(input) && inputLength(input)) {
+    if ((isInputChanged(input) || isSearchTypeChanged())
+        && inputLength(input)) {
         $searchResult.html("");
         searchObj.request = input;
         searchObj.type = $searchType.val();
@@ -150,9 +179,18 @@ function search(input) {
     }
 }
 
-function checkForSameInput(input) {
+function isInputChanged(input) {
     if (input != bufInput) {
         bufInput = input;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isSearchTypeChanged() {
+    if ($searchType.val() != bufType) {
+        bufType = $searchType.val();
         return true;
     } else {
         return false;
@@ -179,8 +217,7 @@ function detectSearchDataType(data) {
     } else if ($searchType.val() == "ROUTE") {
         fillRouteData(data)
     } else if ($searchType.val() == "EVENT" ||
-        $searchType.val() == "SIGHT" ||
-        $searchType.val() == "HOSTING") {
+        $searchType.val() == "SIGHT") {
         fillPlaceData(data)
     } else if ($searchType.val() == "GROUPS") {
         fillGroupData(data);
@@ -189,13 +226,18 @@ function detectSearchDataType(data) {
 
 function fillPlaceData(data) {
     for (var i = 0; i < data.length; i++) {
-        $searchResult.append("<div class='placeResult col-md-5'>"
-        + "<div>" + "<a href = place?placeId=" + data[i].id + ">" + data[i].name + "</a>" + "</div>"
-        + "<div>" + "price" + "</div>"
-        + "<div>" + data[i].rating + "</div>"
-        + "<div>" + data[i].description + "</div>"
-        + "<div>" + "<button class='btn btn-primary bookPlace'>" + "Book" + "</button>" + "</div>"
-        + "</div>");
+        $searchResult.append("<div class='placeResult col-md-5'>");
+        $searchResult.children().last().append("<div>" + "<a href = place?placeId=" + data[i].id + ">"
+        + data[i].name + "</a>" + "</div>"
+        + "<div>" + "price" + "</div>");
+        if (data[i].rating != null) {
+            $searchResult.children().last().append("<div>" + data[i].rating + "</div>");
+        }
+        if (data[i].description != null) {
+            $searchResult.children().last().append("<div>" + data[i].description + "</div>");
+        }
+        $searchResult.children().last().append("<div>" + "<button class='btn btn-primary bookPlace'>"
+        + "Book" + "</button>" + "</div>");
         $("#searchResult").children().last().find(".bookPlace").data("placeId", data[i].id);
     }
     $btnBookPlace = $(".bookPlace");
@@ -246,6 +288,7 @@ function initSearchType(){
             for (var i = 0; i < searchTypes.length; i++) {
                 $searchType.append("<option value=" + searchTypes[i] + ">" + searchTypes[i] + "</option>");
             }
+            bufType = $searchType.val();
         }
     })
 }

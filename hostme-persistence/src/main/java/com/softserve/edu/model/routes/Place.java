@@ -65,6 +65,9 @@ public class Place {
 	@OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = {
 			CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<Post> posts;
+
+	@ManyToMany(mappedBy = "bookedPlaces")
+	private Set<User> bookedBy;
 	
 	public Integer getId() {
 		return id;
@@ -197,5 +200,12 @@ public class Place {
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
-	
+
+	public Set<User> getBookedBy() {
+		return bookedBy;
+	}
+
+	public void setBookedBy(Set<User> bookedBy) {
+		this.bookedBy = bookedBy;
+	}
 }

@@ -185,6 +185,13 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "toReceiveUsers")
     private List<Notification> receivedNotifications;
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "user_bookedPlaces",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "place_id"))
+    private Set<Place> bookedPlaces;
+    
     public User() {
     }
 
@@ -440,6 +447,14 @@ public class User {
 
     public void setFavouriveSights(Set<Sightseeing> favouriveSights) {
         this.favouriveSights = favouriveSights;
+    }
+
+    public Set<Place> getBookedPlaces() {
+        return bookedPlaces;
+    }
+
+    public void setBookedPlaces(Set<Place> bookedPlaces) {
+        this.bookedPlaces = bookedPlaces;
     }
 
     @Override

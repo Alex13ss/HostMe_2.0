@@ -3,7 +3,8 @@ package com.softserve.edu.dto;
 public class SearchRequestDto {
     String request;
     String type;
-    Long date;
+    Long dateFrom;
+    Long dateTo;
     String sightseeingType;
 
     public String getRequest() {
@@ -22,12 +23,20 @@ public class SearchRequestDto {
         this.type = type;
     }
 
-    public void setDate(Long date) {
-        this.date = date;
+    public Long getDateFrom() {
+        return dateFrom;
     }
 
-    public Long getDate() {
-        return date;
+    public void setDateFrom(Long dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public Long getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Long dateTo) {
+        this.dateTo = dateTo;
     }
 
     public String getSightseeingType() {

@@ -25,4 +25,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Integer
 
     @Query("SELECT p FROM User p JOIN FETCH p.places WHERE p.userId = (:id)")
     public User findByUserIdAndFetchPlacesEagerly(@Param("id") int id);
+
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.bookedPlaces WHERE u.userId = (:id)")
+    public User findByUserIdAndFetchBookedPlacesEagerly(@Param("id") int id);
 }

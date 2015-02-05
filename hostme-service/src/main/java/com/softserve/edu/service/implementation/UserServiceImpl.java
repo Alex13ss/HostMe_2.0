@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.softserve.edu.dto.SearchRequestDto; 
+import com.softserve.edu.dto.SearchRequestDto;
+import com.softserve.edu.repositories.routes.PlaceRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PlaceService placeService;
-
+	
+	@Autowired
+	private PlaceRepository placeRepository;
+	
 	@Override
 	@Transactional
 	public Integer addUser(User user) {
@@ -118,5 +122,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Collection<Place> getUserLikedPlaces(Pageable pageable) {
 		return placeService.getLikedPlaces(pageable);
+	}
+
+	@Override
+	public void setBookedPlace(int placeId) {
+		int userId = profileService.getCurrentUser().getUserId();
+		User user = userRepository.findByUserIdAndFetchBookedPlacesEagerly(userId);
+		user.getBookedPlaces().add(placeService.getPlace(placeId));
+		userRepository.save(user);
+	}
+
+	@Override
+	public Collection<Place> getUserBookedPlaces(Pageable pageable) {
+		return placeRepository.findByBookedBy(profileService.getCurrentUser());
 	}
 }

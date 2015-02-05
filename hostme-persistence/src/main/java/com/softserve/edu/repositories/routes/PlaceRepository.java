@@ -33,4 +33,6 @@ public interface PlaceRepository extends PagingAndSortingRepository<Place, Integ
 	public List<Place> findByAttendee(User user, Pageable pageable);
 
 	public List<Place> findByLikers(User liker, Pageable pageable);
+	
+	public List<Place> findByBookedBy(User user);
 }
