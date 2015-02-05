@@ -87,6 +87,12 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
+    public void saveGroup(Group group) {
+        groupRepository.save(group);
+    }
+
+    @Override
+    @Transactional
     public void saveInterestedUser(User user, Group group) {
         List<User> interestedUsers = (List<User>) userRepository
                 .findAllByInterestingGroups(group);
@@ -145,6 +151,22 @@ public class GroupServiceImpl implements GroupService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    @Transactional
+    public void updateGroupStatus(String status, Long id) {
+        Status newStatus;
+        if (status.equals("APPROVED")) {
+            newStatus = Status.APPROVED;
+        } else if (status.equals("Pending")) {
+            newStatus = Status.PENDING;
+        } else {
+            newStatus = Status.REFUSED;
+        }
+        Group group = groupRepository.findOne(id);
+        group.setStatus(newStatus);
+        groupRepository.save(group);
     }
 
     @Override

@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -129,6 +131,9 @@ public class GroupController {
     @RequestMapping(value = "/group", method = RequestMethod.POST)
     public String editGroup(@ModelAttribute("group") final Group group,
             RedirectAttributes redirectAttributes) {
+        Group newGroup = groupService.findOne(group.getId());
+        group.setInterestedUsers(newGroup.getInterestedUsers());
+        notificationService.addNotification(group, "Group was edited");
         groupService.update(group);
         redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
                 "groupEdited", true);
@@ -159,6 +164,14 @@ public class GroupController {
         Long conversationsSize = conversationService.countByGroupId(id);
         model.addAttribute("conversationDtos", conversations);
         model.addAttribute("conversationsSize", conversationsSize);
+    }
+
+    @RequestMapping(value = "/group-status-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody Group updateGroupStatus(@RequestBody Group group) {
+        Group newGroup = groupService.findOne(group.getId());
+        group.setCreatorUser(newGroup.getCreatorUser());
+        groupService.saveGroup(group);
+        return group;
     }
 
     @InitBinder

@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Image;
-import com.softserve.edu.model.Tag;
+import com.softserve.edu.model.Status;
 
 public class GroupDto {
 
@@ -16,7 +16,7 @@ public class GroupDto {
     private Date lastEditedAt;
     private Set<Image> images;
     private String creatorFNandLN;
-    private Set<Tag> tags;
+    private Status status;
 
     public GroupDto() {
     }
@@ -30,7 +30,7 @@ public class GroupDto {
         this.images = group.getImages();
         this.creatorFNandLN = group.getCreatorUser().getFirstName() + " "
                 + group.getCreatorUser().getLastName();
-        this.tags = group.getTags();
+        this.status = group.getStatus();
     }
 
     public Long getId() {
@@ -89,12 +89,12 @@ public class GroupDto {
         this.creatorFNandLN = creatorFNandLN;
     }
 
-    public Set<Tag> getTags() {
-        return tags;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
 }

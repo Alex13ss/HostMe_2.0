@@ -2,6 +2,16 @@
  * @author Oleksandr Bandurka JavaScript for page with groups
  */
 
+var userRole = "MODERATOR";
+
+function checkRole() {
+	if (userRole == "MODERATOR") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function allGroups(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
@@ -33,13 +43,14 @@ function needActionsGroups(element) {
 $(document)
 		.ready(
 				function() {
+					userRole= $('#UserRole').text();
 					table = $("table.table-bordered")
 							.dataTable(
 									{
 										"sAjaxDataProp" : "",
-
 										"fnInitComplete" : function(settings,
 												json) {
+											eventsAjaxCallback();
 										},
 										"fnRowCallback" : function(nRow, aData,
 												iDisplayIndex,
@@ -60,12 +71,15 @@ $(document)
 																aData,
 																function(e) {
 																	aData.status = status;
+																	console
+																			.log(JSON
+																					.stringify(aData));
 																	e
 																			.preventDefault();
 																	$
 																			.ajax({
-																				url : 'request-update',
-																				'dataType' : 'json',
+																				url : 'group-status-update',
+																				dataType : 'json',
 																				beforeSend : function() {
 																				},
 																				contentType : "application/json",
@@ -75,7 +89,7 @@ $(document)
 																				success : function(
 																						response) {
 																					$(
-																							'td:eq(4)',
+																							'td:eq(3)',
 																							nRow)
 																							.html(
 																									response.status);
@@ -85,28 +99,26 @@ $(document)
 												return parent_element;
 											}
 											;
+
 											var button = $(
 													"<button/>",
 													{
-														text : "Action",
+														text : "Change status",
 														"type" : "button",
 														"data-toggle" : "dropdown",
 														"class" : "btn btn-default dropdown-toggle",
 													});
 
 											function form_element(aData) {
-												var reject = html_element(
-														aData, "REJECTED");
 												var approve = html_element(
 														aData, "APPROVED");
+												var pending = html_element(
+														aData, "PENDING");
 												var refuse = html_element(
 														aData, "REFUSED");
-												var send = html_element(aData,
-														"PENDING");
-												reject.html("Reject");
 												approve.html("Approve");
+												pending.html("Pending");
 												refuse.html("Refuse");
-												send.html("Send Again");
 
 												var final_element = div
 														.append(button);
@@ -114,21 +126,17 @@ $(document)
 														.append(ul
 																.append(li
 																		.append(
-																				send)
-																		.append(
-																				reject)
-																		.append(
 																				approve)
+																		.append(
+																				pending)
 																		.append(
 																				refuse)));
 												return final_element;
 											}
-											var currentDate = new Date();
-											if (aData.endDate > currentDate
-													.getMilliseconds()) {
-												row = $('td:eq(6)', nRow).html(
-														form_element(aData));
-											}
+
+											row = $('td:eq(4)', nRow).html(
+													form_element(aData));
+
 										},
 
 										"bJQueryUI" : true,
@@ -156,9 +164,6 @@ $(document)
 																+ data.groupDescription;
 													}
 												},
-												// {
-												// "mData" : "creatorFNandLN",
-												// },
 												{
 													"sWidth" : "10%",
 													"mData" : "createdAt",
@@ -167,20 +172,15 @@ $(document)
 														return new Date(data)
 																.toLocaleString();
 													}
+												}, {
+													"bVisible" :checkRole(),
+													"sWidth" : "10%",
+													"mData" : "status"
+												}, {
+													"bVisible" :checkRole(),
+													"sWidth" : "10%",
+													"mData" : "id"
 												} ]
 									});
-					table
-							.on(
-									'draw',
-									function() {
-										if (table.fnSettings().sAjaxSource == "all-groups") {
-											$(
-													'.dropdown-menu>li>a:contains("Reject"),a:contains("Approve")')
-													.hide();
-										} else {
-											$(
-													'.dropdown-menu>li>a:contains("Refuse"),a:contains("Send Again")')
-													.hide();
-										}
-									});
+
 				});

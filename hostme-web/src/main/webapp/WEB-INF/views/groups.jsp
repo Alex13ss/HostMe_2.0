@@ -5,6 +5,8 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 
 <!DOCTYPE html>
 <html>
@@ -33,6 +35,13 @@
 		<spring:message code="label.groups" />
 		<small>Conversations with minded people</small>
 	</h1>
+	<security:authorize access="hasRole('USER')">
+		<c:set var="role" value="USER" />
+	</security:authorize>
+	<security:authorize access="hasRole('MODERATOR')">
+		<c:set var="role" value="MODERATOR" />
+	</security:authorize>
+	<div id="UserRole">${role}</div>
 </section>
 
 <!-- Main content -->

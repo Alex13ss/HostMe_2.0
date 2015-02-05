@@ -19,6 +19,8 @@ public interface GroupService {
 
     public void update(Group group);
 
+    public void saveGroup(Group group);
+
     public void saveInterestedUser(User user, Group group);
 
     public void removeInterestingRelationship(User user, Group group);
@@ -30,6 +32,8 @@ public interface GroupService {
     public boolean checkInterestedByGroupAndUser(Group group, User user);
 
     public boolean checkIsItGroupCreator(Group group, User user);
+
+    public void updateGroupStatus(String status, Long id);
 
     public List<GroupDto> getGroupsDtoList(List<Group> groups);
 
