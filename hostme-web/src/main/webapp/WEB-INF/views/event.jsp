@@ -35,11 +35,10 @@
 						<i class="fa fa-calendar-o"></i>
 						<c:out value="${event.name}" />
 						<security:authorize access="hasRole('USER')">
-							<a
-								href="<spring:url value="event-enroll/${event.id}"/>"
-								class="btn btn-default btn-sm triggerRemove" style="margin-left:20px;"><i
-								class="fa fa-share"></i> <spring:message code="label.enroll" />
-							</a>
+							<a href="<spring:url value="event-enroll/${event.id}"/>"
+								class="btn btn-default btn-sm triggerRemove"
+								style="margin-left: 20px;"><i class="fa fa-share"></i> <spring:message
+									code="label.enroll" /> </a>
 						</security:authorize>
 					</div>
 
@@ -229,22 +228,26 @@
 									modelAttribute="event" enctype="multipart/form-data">
 									<input type="hidden" value="${event.id}" name="id" />
 									<div class="form-group">
-										<label for="exampleInputFile">
-											<div class="box-body">
-												<h4 class="box-title">
-													<spring:message code="label.addPhotos" />
-												</h4>
-												<h5>
-													(
-													<spring:message code="label.savePhotoHotKey" />
-													)
-												</h5>
-										</label> <br> <input type="file" name="file" class="multi"
+										<label for="exampleInputFile"> <security:authorize
+												access="hasRole('USER')">
+												<c:if test="${isCreator eq true}">
+													<div class="box-body">
+														<h4 class="box-title">
+															<spring:message code="label.addPhotos" />
+														</h4>
+														<h5>
+															(
+															<spring:message code="label.savePhotoHotKey" />
+															)
+														</h5></label> <br> <input type="file" name="file" class="multi"
 											multiple accept="gif|jpg|png" data-maxfile="10000"
 											data-maxsize="50000" /> <br>
 										<button type="submit" class="btn btn-primary">
 											<spring:message code="label.savePhotos" />
 										</button>
+										</c:if>
+										</security:authorize>
+										
 									</div>
 								</form:form>
 							</dd>
