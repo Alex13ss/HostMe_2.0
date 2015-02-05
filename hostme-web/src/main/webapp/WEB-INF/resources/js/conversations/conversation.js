@@ -106,7 +106,11 @@ function createChatItem(postDto) {
 function removePost() {
 	
 	var postId = $(this).attr('class').replace('deletePost ', '');
-	deleteMessage(postId);	
+	if (confirm('Do you really want to delete?')) {
+		deleteMessage(postId);
+    } else {
+        return false;
+    }
 }
 
 function sendMessage(conversationId, message) {
