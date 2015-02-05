@@ -126,16 +126,24 @@
 									<form:input path="name" cssClass="form-control" />
 								</div>
 							</div>
-
+					
 							<div class="form-group">
-								<label for="address" class="col-sm-2 control-label"> <spring:message
-										code="label.address" />
+								<label for="startDate" class="col-sm-2 control-label"> <spring:message
+										code="label.startDate" />:
 								</label>
 								<div class="col-sm-10">
-									<form:input path="address" cssClass="form-control" />
+									<form:input path="startDate" cssClass="form-control" />
+
 								</div>
 							</div>
-
+							<div class="form-group">
+								<label for="endDate" class="col-sm-2 control-label"><spring:message
+										code="label.endDate" />: </label>
+								<div class="col-sm-10">
+									<form:input path="endDate" cssClass="form-control" />
+		
+								</div>
+							</div>
 
 							<div class="form-group">
 								<form:label path="city.country.country"
@@ -165,7 +173,14 @@
 									</form:select>
 								</div>
 							</div>
-
+							<div class="form-group">
+								<label for="address" class="col-sm-2 control-label"> <spring:message
+										code="label.address" />
+								</label>
+								<div class="col-sm-10">
+									<form:input path="address" cssClass="form-control" />
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="website" class="col-sm-2 control-label"> <spring:message
 										code="label.website" />
@@ -180,6 +195,13 @@
 										code="label.eventDescription" /> </label>
 								<div class="col-sm-10">
 									<form:input path="description" cssClass="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="comment" class="col-sm-2 control-label"><spring:message
+										code="label.comment" /> </label>
+								<div class="col-sm-10">
+									<form:input path="comment" cssClass="form-control" />
 								</div>
 							</div>
 
@@ -200,7 +222,7 @@
 
 						</div>
 						<div class="modal-footer">
-							<input type="submit" class="btn btn-success"
+							<input type="submit" class="btn btn-primary"
 								value="<spring:message code="label.addEvent" />" />
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">

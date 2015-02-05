@@ -219,6 +219,18 @@ public class EventServiceImpl implements EventService {
 		}
 		return list;
 	}
+	
+	@Override
+	@Transactional
+	public void addEvent(Event event, String priceCategory, String city) {
+		event.setStatus(Status.PENDING);
+		Integer pcId = priceCategoryRepository.findByPriceCategory(
+				priceCategory).getPriceCategoryId();
+		Integer cityId = cityRepository.findByCity(city).getCityId();
+		event.setPriceCategory(priceCategoryRepository.findOne(pcId));
+		event.setCity(cityRepository.findOne(cityId));
+		eventRepository.save(event);
+	}
 
 	@Override
 	@Transactional

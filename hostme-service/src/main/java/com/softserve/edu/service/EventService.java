@@ -48,6 +48,8 @@ public interface EventService {
 	public List<EventDto> getEventByWebSite(String website);
 
 	public void saveEvent(Event event);
+	
+	void addEvent(Event event, String priceCategory, String city);
 
 	public Event convertEventDtoToEvent(EventDto eventDto);
 

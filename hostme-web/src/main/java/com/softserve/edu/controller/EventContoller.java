@@ -76,16 +76,16 @@ public class EventContoller {
 	}
 
 	@RequestMapping(value = "/events", method = RequestMethod.POST)
-	public String addEvent(Model model,
-			@ModelAttribute("event") @Valid Event event,
-			final BindingResult result, RedirectAttributes redirectAttributes,
-			HttpSession httpSession) {
-		User user = profileService.getUserByLogin(SecurityContextHolder
-				.getContext().getAuthentication().getName());
+	public String addEvent(Model model, @ModelAttribute("event") Event event) {
+		User user = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
+		String priceCategory = event.getPriceCategory()
+				.getPriceCategory();
+		String city = event.getCity().getCity();
 		event.setOwner(user);
-		eventService.saveEvent(event);
+		eventService.addEvent(event, priceCategory, city);
 		return "redirect:/events";
 	}
+
 
 	@RequestMapping(value = "/all-events", params = { "page", "size",
 			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
