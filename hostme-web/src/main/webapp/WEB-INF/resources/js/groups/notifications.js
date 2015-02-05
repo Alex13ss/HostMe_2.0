@@ -31,11 +31,6 @@ function showNotifications(notifications) {
 		timeline.appendChild(getNotificationDateLabel(notifications[i]));
 		timeline.appendChild(getNotificationItem(notifications[i]));
 	}
-	$('.fa-times').click(function() {
-		var id = $(this).find('.notification').attr('class').replace('notification ', '');
-		//TODO ajax
-		console.log(id);
-	});
 }
 
 function getNotificationDateLabel(item) {
@@ -79,15 +74,16 @@ function getNotificationItem(item) {
 
 	var span = document.createElement("SPAN");
 	span.className = "fa fa-fw fa-times";
+	span.onclick = removeNotify;
 	span.style.cssFloat = "right";
 	span.style.color = "blue";
-	
+
 	var spanId = document.createElement("SPAN");
 	spanId.className = "notification " + item.notifyId;
 	spanId.style.display = "none";
-	
+
 	span.appendChild(spanId);
-	
+
 	div.appendChild(span);
 
 	var text = document.createTextNode(item.notifyMessage);
@@ -102,6 +98,33 @@ function getNotificationItem(item) {
 	li.appendChild(div);
 
 	return li;
+}
+
+function removeNotify() {
+	var id = $(this).find('.notification').attr('class').replace(
+			'notification ', '');
+	removeNotification(id);
+}
+
+function removeNotification(id) {
+	$.ajax({
+		url : "delete-notification",
+		type : 'GET',
+		data : {
+			id : id
+		},
+		dataType : "json",
+		beforeSend : function() {
+			$("#timeline").html('');
+		},
+		success : function(result) {
+			if (result.length > 0) {
+				showNotifications(result);
+			} else {
+				$("#timeline").html("Failed to load notifications");
+			}
+		}
+	});
 }
 
 var loader = $(

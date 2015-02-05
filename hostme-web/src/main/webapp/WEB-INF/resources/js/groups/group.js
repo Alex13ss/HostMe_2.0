@@ -28,11 +28,13 @@ $(document).ready(
 						rules : {
 							groupName : {
 								required : true,
-								minlength : 3
+								minlength : 3,
+								maxlength : 42
 							},
 							groupDescription : {
 								required : true,
-								minlength : 5
+								minlength : 5,
+								maxlength : 255
 							}
 						},
 						highlight : function(element) {

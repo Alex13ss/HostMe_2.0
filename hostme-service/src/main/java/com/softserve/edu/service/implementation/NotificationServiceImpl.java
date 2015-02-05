@@ -50,4 +50,15 @@ public class NotificationServiceImpl implements NotificationService {
         return list;
     }
 
+    @Override
+    @Transactional
+    public Notification findOne(Long id) {
+        return notificationRepository.findOne(id);
+    }
+
+    @Override
+    @Transactional
+    public void removeNotifyRelationship(Integer userId, Long notifyId) {
+        notificationRepository.removeNotification(userId, notifyId);
+    }
 }

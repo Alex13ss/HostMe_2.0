@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.softserve.edu.dto.NotificationDto;
@@ -36,6 +37,16 @@ public class NotificationController {
         List<NotificationDto> notifications = notificationService
                 .findAllNotificationsByUser(interestedUser);
         return notifications;
+    }
+
+    @RequestMapping(value = "/delete-notification", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<NotificationDto> deleteNotification(
+            @RequestParam(value = "id") Long notifyId) {
+        User userDeleter = profileService.getUserByLogin(SecurityContextHolder
+                .getContext().getAuthentication().getName());
+        notificationService.removeNotifyRelationship(userDeleter.getUserId(),
+                notifyId);
+        return getUpdatedInterestingGroups();
     }
 
 }

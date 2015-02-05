@@ -41,7 +41,7 @@
 	<security:authorize access="hasRole('MODERATOR')">
 		<c:set var="role" value="MODERATOR" />
 	</security:authorize>
-	<div id="UserRole">${role}</div>
+	<div id="UserRole" style="display: none;">${role}</div>
 </section>
 
 <!-- Main content -->
