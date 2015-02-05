@@ -31,6 +31,11 @@ function showNotifications(notifications) {
 		timeline.appendChild(getNotificationDateLabel(notifications[i]));
 		timeline.appendChild(getNotificationItem(notifications[i]));
 	}
+	$('.fa-times').click(function() {
+		var id = $(this).find('.notification').attr('class').replace('notification ', '');
+		//TODO ajax
+		console.log(id);
+	});
 }
 
 function getNotificationDateLabel(item) {
@@ -56,12 +61,14 @@ function getNotificationItem(item) {
 
 	var div = document.createElement("DIV");
 	div.className = "timeline-item";
+	div.style.backgroundColor = "#E0F0FF"
 
 	var small = document.createElement("SPAN");
 	small.className = "time";
 
 	var i2 = document.createElement("I");
 	i2.className = "fa fa-clock-o";
+
 	var time = document.createTextNode(' ' + item.notificationTime);
 
 	var a = document.createElement("A");
@@ -69,6 +76,19 @@ function getNotificationItem(item) {
 
 	var h3 = document.createElement("H3");
 	h3.className = "timeline-header";
+
+	var span = document.createElement("SPAN");
+	span.className = "fa fa-fw fa-times";
+	span.style.cssFloat = "right";
+	span.style.color = "blue";
+	
+	var spanId = document.createElement("SPAN");
+	spanId.className = "notification " + item.notifyId;
+	spanId.style.display = "none";
+	
+	span.appendChild(spanId);
+	
+	div.appendChild(span);
 
 	var text = document.createTextNode(item.notifyMessage);
 	h3.appendChild(text);

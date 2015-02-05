@@ -56,12 +56,18 @@
 						</c:if>
 					</sec:authorize>
 					<sec:authorize access="hasRole('MODERATOR')">
-						<button type="button" class="btn btn-default btn-sm"
-							data-toggle="modal" data-target="#">
+						<button type="button"
+							class="btn btn-default btn-sm dropdown-toggle"
+							data-toggle="dropdown">
 							<i class="fa fa-fw fa-gear"></i>
 							<spring:message code="label.moderatingGroup" />
 							<i class="fa fa-caret-down"></i>
 						</button>
+						<ul id="groupStatusChanger" class="dropdown-menu"
+							style="margin-top: -10px; left: 23px;">
+							<li><a id="APPROVED" href="#">Approve</a> <a id="PENDING"
+								href="#">Pending...</a> <a id="REFUSED" href="#">Refuse</a></li>
+						</ul>
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#groupEditModal">
 							<i class="fa fa-fw fa-edit"></i>
