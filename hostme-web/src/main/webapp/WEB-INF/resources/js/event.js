@@ -99,36 +99,6 @@ function setupPaging() {
 			});
 }
 
-jQuery()
-		.ready(
-				function() {
-					var tabCountry = [];
-					$.getJSON('getAllCountries.json', function(data) {
-						$.each(data, function(index, val) {
-							tabCountry[index] = val;
-						});
-					});
-					$('#country')
-							.change(
-									function(event) {
-										$country = $(this).val();
-										var $htmlOption = '<option value="0">Select city</option>';
-										for (var i = 0; i < tabCountry.length; i++) {
-											if ($country === tabCountry[i].country) {
-												for (var j = 0; j < tabCountry[i].city.length; j++) {
-													var town = tabCountry[i].city[j].city;
-													$htmlOption += '<option value="'
-															+ town
-															+ '">'
-															+ town
-															+ '</option>';
-													console.log($htmlOption);
-												}
-											}
-										}
-										$('#city').html($htmlOption);
-									});
-				});
 
 $(document)
 		.ready(
