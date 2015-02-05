@@ -4,6 +4,7 @@ var page;
 var selectedTablePage = 1;
 var eventsType;
 var eventStatus;
+var userRole = "MODERATOR";
 var order = {
 	by : "name",
 	type : "ASC"
@@ -17,7 +18,14 @@ function getEventsParameters() {
 function eventsAjaxCallback() {
 	setupPaging();
 	calendarUpdate();
+}
 
+function checkRole(){
+	if(userRole == "MODERATOR"){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function calendarUpdate() {
@@ -131,6 +139,7 @@ $(document)
 					eventsType = $("#eventsTypesNav > li.active").attr("id");
 
 					size = $("#request_size").val();
+					userRole= $('#UserRole').text();
 
 					table = $("table.table-bordered")
 							.dataTable(
@@ -260,10 +269,11 @@ $(document)
 																+ " "
 																+ data.owner.lastName;
 													}
-												}, {
+												}, 
+												{	"bVisible" :checkRole(), 
 													"mData" : "status"
 												} ,
-												{
+												{	"bVisible" :checkRole(), 
 													"mData" : "id"
 
 												}]

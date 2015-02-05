@@ -34,7 +34,12 @@
 					<div class="box-title col-md-8">
 						<i class="fa fa-calendar-o"></i>
 						<c:out value="${event.name}" />
+						<a href="<spring:url value="event/delete/${event.id}" />"
+						class="btn btn-default btn-sm triggerRemove"><i
+						class="fa fa-fw fa-trash-o"></i> <spring:message
+							code="label.delete" /> </a>
 					</div>
+					
 					<div class="box-title col-md-4">
 						<div align="right">
 

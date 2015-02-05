@@ -29,6 +29,13 @@
 		<h1>
 			<spring:message code="label.events" />
 		</h1>
+		<security:authorize access="hasRole('USER')">
+			<c:set var="role" value="USER" />
+		</security:authorize>
+		<security:authorize access="hasRole('MODERATOR')">
+			<c:set var="role" value="MODERATOR" />
+		</security:authorize>
+		<div id="UserRole">${role}</div>
 	</section>
 	<!-- Main content -->
 	<section class="content">
@@ -82,7 +89,7 @@
 							<th headers="website"><spring:message code="label.website" /></th>
 							<th headers="owner"><spring:message code="label.organizer" /></th>
 							<th headers="status"><spring:message code="user.state" /></th>
-							<th headers=""><spring:message code="label.action" /></th>
+							<th><spring:message code="label.action" /></th>
 						</tr>
 					</thead>
 				</table>
