@@ -12,6 +12,8 @@
 <script src="<c:url value="/resources/js/admin/usersManager.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
 <script src="<c:url value="/resources/js/dataTables.bootstrap.js"/>"></script>
+<link rel="stylesheet" type="text/css"
+	href="resources/css/dataTables.bootstrap.css" />
 
 <title>Users</title>
 </head>
