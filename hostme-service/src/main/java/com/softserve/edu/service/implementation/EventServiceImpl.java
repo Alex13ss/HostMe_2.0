@@ -27,6 +27,7 @@ import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.repositories.CityRepository;
 import com.softserve.edu.repositories.CountryRepository;
 import com.softserve.edu.repositories.EventRepository;
+import com.softserve.edu.repositories.ImageRepository;
 import com.softserve.edu.repositories.PriceCategoryRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.repositories.user.UserRepository;
@@ -50,7 +51,9 @@ public class EventServiceImpl implements EventService {
 	CountryRepository countryRepository;
 	@Autowired
 	UserRepository userRepository;
-
+	@Autowired
+	ImageRepository imageRepository;
+	
 	public static Long amountOfOwnerEvents;
 	public static Long amountOfAttendeeEvents;
 
@@ -286,6 +289,10 @@ public class EventServiceImpl implements EventService {
 		Integer cityId = cityRepository.findByCity(city).getCityId();
 		event.setPriceCategory(priceCategoryRepository.findOne(pcId));
 		event.setCity(cityRepository.findOne(cityId));
+		event.setImage(imageRepository.findAllByPlace(event));
+		Event newEvent = eventRepository.findOne(event.getId());
+		event.setStatus(newEvent.getStatus());
+		event.setRating(newEvent.getRating());
 		eventRepository.save(event);
 	}
 

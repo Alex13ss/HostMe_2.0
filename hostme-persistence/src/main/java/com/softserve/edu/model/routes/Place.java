@@ -31,7 +31,7 @@ public class Place {
 	@Column
 	private String website;
 
-	@OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "place", fetch = FetchType.EAGER,orphanRemoval = true)
 	private Set<Image> image;
 
 	@Column
