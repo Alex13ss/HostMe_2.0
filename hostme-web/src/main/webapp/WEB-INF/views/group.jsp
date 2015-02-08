@@ -44,15 +44,15 @@
 					<sec:authorize access="hasRole('USER')">
 						<c:if test="${isInterested eq false}">
 							<a
-								href="<spring:url value="/group/add-to-interesting/${group.id}" />"
+								href="<spring:url value="/group/subscribe/${group.id}" />"
 								class="btn btn-default btn-sm"><i class="fa fa-fw fa-check"></i>
-								<spring:message code="label.addGroupToInteresting" /> </a>
+								<spring:message code="label.subscribeGroup" /> </a>
 						</c:if>
 						<c:if test="${isInterested eq true}">
 							<a
-								href="<spring:url value="/group/remove-from-interesting/${group.id}" />"
+								href="<spring:url value="/group/unsubscribe/${group.id}" />"
 								class="btn btn-default btn-sm"><i class="fa fa-fw fa-times"></i>
-								<spring:message code="label.delGroupFromInteresting" /> </a>
+								<spring:message code="label.unsubscribeGroup" /> </a>
 						</c:if>
 					</sec:authorize>
 					<sec:authorize access="hasRole('MODERATOR')">
@@ -66,12 +66,12 @@
 						<ul id="groupStatusChanger" class="dropdown-menu"
 							style="margin-top: -10px; left: 23px;">
 							<li><a id="APPROVED" href="#">Approve</a> <a id="PENDING"
-								href="#">Pending...</a> <a id="REFUSED" href="#">Refuse</a></li>
+								href="#">Pending</a> <a id="REFUSED" href="#">Refuse</a></li>
 						</ul>
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#groupEditModal">
 							<i class="fa fa-fw fa-edit"></i>
-							<spring:message code="label.edit" />
+							<spring:message code="label.cofigureGroup" />
 						</button>
 						<a href="<spring:url value="/group/remove/${group.id}" />"
 							class="btn btn-default btn-sm triggerRemove"><i
@@ -82,7 +82,7 @@
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#groupEditModal">
 							<i class="fa fa-fw fa-edit"></i>
-							<spring:message code="label.edit" />
+							<spring:message code="label.cofigureGroup" />
 						</button>
 						<a href="<spring:url value="/group/remove/${group.id}" />"
 							class="btn btn-default btn-sm triggerRemove"><i
@@ -106,7 +106,7 @@
 			<c:if test="${groupEdited eq true}">
 				<div class="alert alert-warning" style="margin-right: 15px;"
 					align="center">
-					<h3>Group editing was successful!</h3>
+					<h3>Group configuring was successful!</h3>
 				</div>
 			</c:if>
 
@@ -217,7 +217,7 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Group editing...</h4>
+					<h4 class="modal-title" id="myModalLabel">Group configuring...</h4>
 				</div>
 				<div class="modal-body">
 
@@ -263,7 +263,7 @@
 				</div>
 				<div class="modal-footer">
 					<input type="submit" class="btn btn-primary"
-						value="Finish editing!" />
+						value="Apply configuring" />
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>

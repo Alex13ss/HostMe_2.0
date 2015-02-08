@@ -6,7 +6,8 @@
                  http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 	<!-- For controller methods,we can user @Secured annotations -->
-	<global-method-security secured-annotations="enabled" />
+	<global-method-security secured-annotations="enabled"
+		pre-post-annotations="enabled" />
 
 	<http use-expressions="true" auto-config="true">
 

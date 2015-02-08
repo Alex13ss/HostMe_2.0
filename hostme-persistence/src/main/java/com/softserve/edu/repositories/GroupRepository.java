@@ -1,11 +1,15 @@
 package com.softserve.edu.repositories;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.User;
 
+@SuppressWarnings("rawtypes")
 public interface GroupRepository extends
         PagingAndSortingRepository<Group, Long>, JpaSpecificationExecutor {
 
@@ -13,4 +17,9 @@ public interface GroupRepository extends
 
     public Iterable<Group> findAllByInterestedUsers(User interestedUsers);
 
+    @Modifying
+    @Transactional("transactionManager")
+    @Query(value = "DELETE FROM interesting_groups WHERE group_id = ?2 AND user_id = ?1", nativeQuery = true)
+    public void unsubscribe(Integer userId, Long groupId);
+    
 }

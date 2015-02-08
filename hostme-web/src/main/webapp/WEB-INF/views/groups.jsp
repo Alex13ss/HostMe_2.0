@@ -104,10 +104,10 @@
 			<table id="groups-table" class="table table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>Image of group</th>
-						<th>Group name/description</th>
-						<th>Publishing</th>
 						<sec:authorize access="hasRole('MODERATOR')">
+							<th>Image of group</th>
+							<th>Group name/description</th>
+							<th>Publishing</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</sec:authorize>

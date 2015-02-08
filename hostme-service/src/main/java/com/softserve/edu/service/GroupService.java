@@ -3,10 +3,11 @@ package com.softserve.edu.service;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.jpa.domain.Specifications;
+
 import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.User;
-import org.springframework.data.jpa.domain.Specifications;
 
 public interface GroupService {
 
@@ -24,7 +25,7 @@ public interface GroupService {
 
     public void saveInterestedUser(User user, Group group);
 
-    public void removeInterestingRelationship(User user, Group group);
+    public void unsubscribe(Integer userId, Long groupId);
 
     public Set<GroupDto> getGroupsByCreator(User creatorUser);
 
@@ -37,7 +38,7 @@ public interface GroupService {
     public void updateGroupStatus(String status, Long id);
 
     public List<GroupDto> getGroupsDtoList(List<Group> groups);
-    
+
     public List<Group> searchGroup(Specifications<Group> specifications);
-    
+
 }

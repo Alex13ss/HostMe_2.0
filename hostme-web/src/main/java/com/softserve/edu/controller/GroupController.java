@@ -133,6 +133,7 @@ public class GroupController {
             RedirectAttributes redirectAttributes) {
         Group newGroup = groupService.findOne(group.getId());
         group.setInterestedUsers(newGroup.getInterestedUsers());
+        group.setStatus(newGroup.getStatus());
         notificationService.addNotification(group, "Group was edited");
         groupService.update(group);
         redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
@@ -140,8 +141,8 @@ public class GroupController {
         return "redirect:/group?id={id}";
     }
 
-    @RequestMapping("/group/add-to-interesting/{id}")
-    public String addToInteresting(@PathVariable("id") Long id) {
+    @RequestMapping("/group/subscribe/{id}")
+    public String subscribeGroup(@PathVariable("id") Long id) {
         Group group = groupService.findOne(id);
         User user = profileService.getUserByLogin(SecurityContextHolder
                 .getContext().getAuthentication().getName());
@@ -149,12 +150,11 @@ public class GroupController {
         return "redirect:/group?id={id}";
     }
 
-    @RequestMapping("/group/remove-from-interesting/{id}")
-    public String removeFromInteresting(@PathVariable("id") Long id) {
-        Group group = groupService.findOne(id);
+    @RequestMapping("/group/unsubscribe/{id}")
+    public String unsubscribeGroup(@PathVariable("id") Long groupId) {
         User user = profileService.getUserByLogin(SecurityContextHolder
                 .getContext().getAuthentication().getName());
-        groupService.removeInterestingRelationship(user, group);
+        groupService.unsubscribe(user.getUserId(), groupId);
         return "redirect:/group?id={id}";
     }
 

@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import com.softserve.edu.dto.GroupDto;
@@ -38,7 +39,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private NotificationRepository notificationRepository;
-    
+
     @Autowired
     private ConversationRepository conversationRepository;
 
@@ -68,13 +69,18 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findOne(id);
     }
 
+    // http://docs.spring.io/spring-security/site/docs/3.2.0.CI-SNAPSHOT/reference/html/el-access.html
+    // @PreAuthorize("#group.creatorUser.equals(authentication.principal) or hasRole('MODERATOR')")
+    // @PreAuthorize("isAuthenticated() and hasPermission(#id, 'isCreatorUser') or hasRole('MODERATOR')")
     @Override
     @Transactional
-    public void delete(Group group) {
-	for (Conversation conversation : conversationRepository.findAllByGroupId(group.getId())) {
-	    conversationRepository.deleteModeratorsfromConversation(conversation.getId());
-	    conversationRepository.delete(conversation);
-	}
+    public void delete(@P("group") Group group) {
+        for (Conversation conversation : conversationRepository
+                .findAllByGroupId(group.getId())) {
+            conversationRepository
+                    .deleteModeratorsfromConversation(conversation.getId());
+            conversationRepository.delete(conversation);
+        }
         groupRepository.delete(group);
     }
 
@@ -118,17 +124,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public void removeInterestingRelationship(User user, Group group) {
-        List<User> interestedUsers = (List<User>) userRepository
-                .findAllByInterestingGroups(group);
-        interestedUsers.remove(user);
-        List<Group> interestingGroups = (List<Group>) groupRepository
-                .findAllByInterestedUsers(user);
-        group.setInterestedUsers(interestedUsers);
-        interestingGroups.remove(group);
-        user.setInterestingGroups(interestingGroups);
-        groupRepository.save(group);
-        userRepository.save(user);
+    public void unsubscribe(Integer userId, Long groupId) {
+        groupRepository.unsubscribe(userId, groupId);
     }
 
     @Override
@@ -188,9 +185,10 @@ public class GroupServiceImpl implements GroupService {
         return list;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Group> searchGroup(Specifications<Group> specifications) {
         return groupRepository.findAll(specifications);
     }
-    
+
 }
