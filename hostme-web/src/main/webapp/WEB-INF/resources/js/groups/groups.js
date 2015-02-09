@@ -12,6 +12,10 @@ function checkRole() {
 	}
 }
 
+function groupsAjaxCallback() {
+	setupPaging();
+}
+
 function allGroups(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
@@ -50,7 +54,7 @@ $(document)
 										"sAjaxDataProp" : "",
 										"fnInitComplete" : function(settings,
 												json) {
-											eventsAjaxCallback();
+											groupsAjaxCallback();
 										},
 										"fnRowCallback" : function(nRow, aData,
 												iDisplayIndex,

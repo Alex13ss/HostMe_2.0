@@ -23,7 +23,7 @@ public interface GroupService {
 
     public void saveGroup(Group group);
 
-    public void saveInterestedUser(User user, Group group);
+    public void subscribe(User user, Group group);
 
     public void unsubscribe(Integer userId, Long groupId);
 

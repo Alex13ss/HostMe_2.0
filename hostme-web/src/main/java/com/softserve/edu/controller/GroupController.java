@@ -146,7 +146,7 @@ public class GroupController {
         Group group = groupService.findOne(id);
         User user = profileService.getUserByLogin(SecurityContextHolder
                 .getContext().getAuthentication().getName());
-        groupService.saveInterestedUser(user, group);
+        groupService.subscribe(user, group);
         return "redirect:/group?id={id}";
     }
 
@@ -167,9 +167,12 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group-status-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Group updateGroupStatus(@RequestBody Group group) {
+    public @ResponseBody Group updateSingleGroupStatus(@RequestBody Group group) {
         Group newGroup = groupService.findOne(group.getId());
+        group.setCreatedAt(newGroup.getCreatedAt());
         group.setCreatorUser(newGroup.getCreatorUser());
+        group.setGroupName(newGroup.getGroupName());
+        group.setGroupDescription(newGroup.getGroupDescription());
         groupService.saveGroup(group);
         return group;
     }

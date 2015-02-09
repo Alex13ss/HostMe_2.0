@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.access.method.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.softserve.edu.dto.GroupDto;
@@ -69,9 +70,7 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findOne(id);
     }
 
-    // http://docs.spring.io/spring-security/site/docs/3.2.0.CI-SNAPSHOT/reference/html/el-access.html
-    // @PreAuthorize("#group.creatorUser.equals(authentication.principal) or hasRole('MODERATOR')")
-    // @PreAuthorize("isAuthenticated() and hasPermission(#id, 'isCreatorUser') or hasRole('MODERATOR')")
+    @PreAuthorize("#group.creatorUser.login == authentication.name or hasRole('MODERATOR')")
     @Override
     @Transactional
     public void delete(@P("group") Group group) {
@@ -107,9 +106,10 @@ public class GroupServiceImpl implements GroupService {
         groupRepository.save(group);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @Override
     @Transactional
-    public void saveInterestedUser(User user, Group group) {
+    public void subscribe(User user, Group group) {
         List<User> interestedUsers = (List<User>) userRepository
                 .findAllByInterestingGroups(group);
         interestedUsers.add(user);
@@ -122,6 +122,7 @@ public class GroupServiceImpl implements GroupService {
         userRepository.save(user);
     }
 
+    @PreAuthorize("hasRole('USER')")
     @Override
     @Transactional
     public void unsubscribe(Integer userId, Long groupId) {
