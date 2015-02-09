@@ -7,6 +7,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.softserve.edu.model.Group;
+import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 
 @SuppressWarnings("rawtypes")
@@ -25,5 +26,7 @@ public interface GroupRepository extends
     @Transactional("transactionManager")
     @Query(value = "SELECT COUNT(*) FROM groups_subscribers WHERE group_id = ?1", nativeQuery = true)
     public Integer getGroupSubscribers(Long groupId);
+
+    public Iterable<Group> findAllByStatus(Status status);
 
 }

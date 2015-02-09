@@ -40,7 +40,7 @@ function interestingGroups(element) {
 function needActionsGroups(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
-		table.fnReloadAjax("need-act-groups");
+		table.fnReloadAjax("pending-groups");
 	}
 }
 

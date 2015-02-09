@@ -1,5 +1,6 @@
 package com.softserve.edu.controller;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -97,20 +97,24 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/my-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<GroupDto> getMyGroups() {
-        User creatorUser = profileService.getUserByLogin(SecurityContextHolder
-                .getContext().getAuthentication().getName());
+    public @ResponseBody Set<GroupDto> getMyGroups(Principal principal) {
+        User creatorUser = profileService.getUserByLogin(principal.getName());
         Set<GroupDto> groups = groupService.getGroupsByCreator(creatorUser);
         return groups;
     }
 
     @RequestMapping(value = "/interesting-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<GroupDto> getInterestingGroups() {
+    public @ResponseBody List<GroupDto> getInterestingGroups(Principal principal) {
         User interestedUser = profileService
-                .getUserByLogin(SecurityContextHolder.getContext()
-                        .getAuthentication().getName());
+                .getUserByLogin(principal.getName());
         List<GroupDto> groups = groupService
                 .getGroupsByInterestedUser(interestedUser);
+        return groups;
+    }
+
+    @RequestMapping(value = "/pending-groups", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Set<GroupDto> findPendingGroups() {
+        Set<GroupDto> groups = groupService.findPendingGroups();
         return groups;
     }
 
@@ -124,7 +128,8 @@ public class GroupController {
         model.addAttribute("group", group);
         model.addAttribute("isInterested", isInterested);
         model.addAttribute("isCreator", isCreator);
-        model.addAttribute("subscribers", groupService.getCurrentSubscribers(id));
+        model.addAttribute("subscribers",
+                groupService.getCurrentSubscribers(id));
         addLatestConversationsByGroupId(model, id);
         return "group";
     }
@@ -143,18 +148,18 @@ public class GroupController {
     }
 
     @RequestMapping("/group/subscribe/{id}")
-    public String subscribeGroup(@PathVariable("id") Long id) {
-        Group group = groupService.findOne(id);
-        User user = profileService.getUserByLogin(SecurityContextHolder
-                .getContext().getAuthentication().getName());
+    public String subscribeGroup(@PathVariable("id") Long groupId,
+            Principal principal) {
+        Group group = groupService.findOne(groupId);
+        User user = profileService.getUserByLogin(principal.getName());
         groupService.subscribe(user, group);
         return "redirect:/group?id={id}";
     }
 
     @RequestMapping("/group/unsubscribe/{id}")
-    public String unsubscribeGroup(@PathVariable("id") Long groupId) {
-        User user = profileService.getUserByLogin(SecurityContextHolder
-                .getContext().getAuthentication().getName());
+    public String unsubscribeGroup(@PathVariable("id") Long groupId,
+            Principal principal) {
+        User user = profileService.getUserByLogin(principal.getName());
         groupService.unsubscribe(user.getUserId(), groupId);
         return "redirect:/group?id={id}";
     }

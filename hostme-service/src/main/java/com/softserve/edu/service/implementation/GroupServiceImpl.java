@@ -197,4 +197,14 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findAll(specifications);
     }
 
+    @Override
+    public Set<GroupDto> findPendingGroups() {
+        Set<GroupDto> list = new HashSet<GroupDto>();
+        Status status = Status.PENDING;
+        for (Group group : groupRepository.findAllByStatus(status)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
+    }
+
 }

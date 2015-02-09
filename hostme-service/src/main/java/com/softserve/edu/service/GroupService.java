@@ -43,4 +43,6 @@ public interface GroupService {
 
     Integer getCurrentSubscribers(Long groupId);
 
+    Set<GroupDto> findPendingGroups();
+
 }
