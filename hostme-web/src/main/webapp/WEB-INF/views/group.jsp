@@ -5,6 +5,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -43,14 +44,12 @@
 				<div align="right">
 					<sec:authorize access="hasRole('USER')">
 						<c:if test="${isInterested eq false}">
-							<a
-								href="<spring:url value="/group/subscribe/${group.id}" />"
+							<a href="<spring:url value="/group/subscribe/${group.id}" />"
 								class="btn btn-default btn-sm"><i class="fa fa-fw fa-check"></i>
 								<spring:message code="label.subscribeGroup" /> </a>
 						</c:if>
 						<c:if test="${isInterested eq true}">
-							<a
-								href="<spring:url value="/group/unsubscribe/${group.id}" />"
+							<a href="<spring:url value="/group/unsubscribe/${group.id}" />"
 								class="btn btn-default btn-sm"><i class="fa fa-fw fa-times"></i>
 								<spring:message code="label.unsubscribeGroup" /> </a>
 						</c:if>
@@ -140,21 +139,27 @@
 							</h3>
 						</div>
 						<div class="panel-body">
-							<c:out value="Created at: ${group.createdAt}" />
+							<c:out value="Created at: " />
+							<fmt:formatDate value="${group.createdAt}"
+								pattern="yyyy-MM-dd HH:mm:ss" />
 							<br>
 							<c:out
 								value="Created by: ${group.creatorUser.firstName} 
 									${group.creatorUser.lastName}" />
 							<br>
 							<c:if test="${!empty group.lastEditedAt}">
-								<c:out value="Last edited: ${group.lastEditedAt}" />
+								<c:out value="Last configured: " />
+								<fmt:formatDate value="${group.lastEditedAt}"
+									pattern="yyyy-MM-dd HH:mm:ss" />
 							</c:if>
 							<br>
 							<c:if test="${!empty group.lastEditor}">
 								<c:out
-									value="Last editor: ${group.lastEditor.firstName} 
+									value="Configured by: ${group.lastEditor.firstName} 
 									${group.lastEditor.lastName}" />
 							</c:if>
+							<br>
+							<c:out value="Subscribers: ${subscribers}" />
 						</div>
 					</div>
 				</div>
@@ -262,8 +267,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary"
-						value="Save" />
+					<input type="submit" class="btn btn-primary" value="Save" />
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>

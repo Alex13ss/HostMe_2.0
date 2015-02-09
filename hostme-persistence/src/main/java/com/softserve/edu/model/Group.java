@@ -85,7 +85,7 @@ public class Group {
      * them
      */
     @ManyToMany(fetch = FetchType.LAZY, cascade = javax.persistence.CascadeType.ALL)
-    @JoinTable(name = "interesting_groups", joinColumns = @JoinColumn(name = "group_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false))
+    @JoinTable(name = "groups_subscribers", joinColumns = @JoinColumn(name = "group_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "user_id", nullable = false))
     private List<User> interestedUsers;
 
     /**

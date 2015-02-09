@@ -15,11 +15,12 @@ function loadNotificationsAjax() {
 			$("#timeline").html(loader);
 		},
 		success : function(result) {
+			$("#timeline").html('');
 			if (result.length > 0) {
 				$("#timeline").html("");
 				showNotifications(result);
 			} else {
-				$("#timeline").html("Failed to load notifications");
+				timeline.appendChild(haveNoNotifications());
 			}
 		}
 	});
@@ -100,6 +101,24 @@ function getNotificationItem(item) {
 	return li;
 }
 
+function haveNoNotifications() {
+	var li = document.createElement("LI");
+
+	var div = document.createElement("DIV");
+	div.className = "timeline-item";
+	div.style.backgroundColor = "#E0F0FF"
+
+	var h3 = document.createElement("H3");
+	h3.className = "timeline-body";
+	var text = document.createTextNode('Here is no notifications for you! :)');
+	h3.appendChild(text);
+
+	div.appendChild(h3);
+	li.appendChild(div);
+
+	return li;
+}
+
 function removeNotify() {
 	var id = $(this).find('.notification').attr('class').replace(
 			'notification ', '');
@@ -118,10 +137,11 @@ function removeNotification(id) {
 			$("#timeline").html('');
 		},
 		success : function(result) {
+			$("#timeline").html('');
 			if (result.length > 0) {
 				showNotifications(result);
 			} else {
-				$("#timeline").html("Failed to load notifications");
+				timeline.appendChild(haveNoNotifications());
 			}
 		}
 	});

@@ -19,7 +19,11 @@ public interface GroupRepository extends
 
     @Modifying
     @Transactional("transactionManager")
-    @Query(value = "DELETE FROM interesting_groups WHERE group_id = ?2 AND user_id = ?1", nativeQuery = true)
+    @Query(value = "DELETE FROM groups_subscribers WHERE group_id = ?2 AND user_id = ?1", nativeQuery = true)
     public void unsubscribe(Integer userId, Long groupId);
-    
+
+    @Transactional("transactionManager")
+    @Query(value = "SELECT COUNT(*) FROM groups_subscribers WHERE group_id = ?1", nativeQuery = true)
+    public Integer getGroupSubscribers(Long groupId);
+
 }

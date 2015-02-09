@@ -11,34 +11,36 @@ import com.softserve.edu.model.User;
 
 public interface GroupService {
 
-    public Set<GroupDto> findAll();
+    Set<GroupDto> findAll();
 
-    public Group findOne(Long id);
+    Group findOne(Long id);
 
-    public void delete(Group group);
+    void delete(Group group);
 
-    public void create(Group group);
+    void create(Group group);
 
-    public void update(Group group);
+    void update(Group group);
 
-    public void saveGroup(Group group);
+    void saveGroup(Group group);
 
-    public void subscribe(User user, Group group);
+    void subscribe(User user, Group group);
 
-    public void unsubscribe(Integer userId, Long groupId);
+    void unsubscribe(Integer userId, Long groupId);
 
-    public Set<GroupDto> getGroupsByCreator(User creatorUser);
+    Set<GroupDto> getGroupsByCreator(User creatorUser);
 
-    public List<GroupDto> getGroupsByInterestedUser(User interestedUser);
+    List<GroupDto> getGroupsByInterestedUser(User interestedUser);
 
-    public boolean checkInterestedByGroupAndUser(Group group, User user);
+    boolean checkInterestedByGroupAndUser(Group group, User user);
 
-    public boolean checkIsItGroupCreator(Group group, User user);
+    boolean checkIsItGroupCreator(Group group, User user);
 
-    public void updateGroupStatus(String status, Long id);
+    void updateGroupStatus(String status, Long id);
 
-    public List<GroupDto> getGroupsDtoList(List<Group> groups);
+    List<GroupDto> getGroupsDtoList(List<Group> groups);
 
-    public List<Group> searchGroup(Specifications<Group> specifications);
+    List<Group> searchGroup(Specifications<Group> specifications);
+
+    Integer getCurrentSubscribers(Long groupId);
 
 }

@@ -178,6 +178,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public Integer getCurrentSubscribers(Long groupId) {
+        return groupRepository.getGroupSubscribers(groupId);
+    }
+
+    @Override
     public List<GroupDto> getGroupsDtoList(List<Group> groups) {
         List<GroupDto> list = new ArrayList<>();
         for (Group group : groups) {

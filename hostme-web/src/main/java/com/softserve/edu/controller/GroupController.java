@@ -124,6 +124,7 @@ public class GroupController {
         model.addAttribute("group", group);
         model.addAttribute("isInterested", isInterested);
         model.addAttribute("isCreator", isCreator);
+        model.addAttribute("subscribers", groupService.getCurrentSubscribers(id));
         addLatestConversationsByGroupId(model, id);
         return "group";
     }
@@ -167,7 +168,7 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group-status-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Group updateSingleGroupStatus(@RequestBody Group group) {
+    public @ResponseBody Group updateGroupStatus(@RequestBody Group group) {
         Group newGroup = groupService.findOne(group.getId());
         group.setCreatedAt(newGroup.getCreatedAt());
         group.setCreatorUser(newGroup.getCreatorUser());
