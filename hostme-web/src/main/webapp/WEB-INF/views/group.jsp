@@ -146,14 +146,14 @@
 							<c:out
 								value="Created by: ${group.creatorUser.firstName} 
 									${group.creatorUser.lastName}" />
-							<br>
 							<c:if test="${!empty group.lastEditedAt}">
+								<br>
 								<c:out value="Last configured: " />
 								<fmt:formatDate value="${group.lastEditedAt}"
 									pattern="yyyy-MM-dd HH:mm:ss" />
 							</c:if>
-							<br>
 							<c:if test="${!empty group.lastEditor}">
+								<br>
 								<c:out
 									value="Configured by: ${group.lastEditor.firstName} 
 									${group.lastEditor.lastName}" />
