@@ -80,6 +80,7 @@ public class GroupServiceImpl implements GroupService {
                     .deleteModeratorsfromConversation(conversation.getId());
             conversationRepository.delete(conversation);
         }
+        groupRepository.removeGroupSubscription(group.getId());
         groupRepository.delete(group);
     }
 
@@ -201,6 +202,16 @@ public class GroupServiceImpl implements GroupService {
     public Set<GroupDto> findPendingGroups() {
         Set<GroupDto> list = new HashSet<GroupDto>();
         Status status = Status.PENDING;
+        for (Group group : groupRepository.findAllByStatus(status)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
+    }
+
+    @Override
+    public Set<GroupDto> findApprovedGroups() {
+        Set<GroupDto> list = new HashSet<GroupDto>();
+        Status status = Status.APPROVED;
         for (Group group : groupRepository.findAllByStatus(status)) {
             list.add(new GroupDto(group));
         }

@@ -16,10 +16,10 @@ function groupsAjaxCallback() {
 	setupPaging();
 }
 
-function allGroups(element) {
+function approvedGroups(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
-		table.fnReloadAjax("all-groups");
+		table.fnReloadAjax("approved-groups");
 	}
 }
 
@@ -37,6 +37,13 @@ function interestingGroups(element) {
 	}
 }
 
+function allGroups(element) {
+	if (element.className != 'active') {
+		table.fnClearTable();
+		table.fnReloadAjax("all-groups");
+	}
+}
+
 function needActionsGroups(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
@@ -47,10 +54,13 @@ function needActionsGroups(element) {
 $(document)
 		.ready(
 				function() {
-					userRole= $('#UserRole').text();
+					userRole = $('#UserRole').text();
 					table = $("table.table-bordered")
 							.dataTable(
 									{
+//										"fnDrawCallback": function ( oSettings ) {
+//										    $(oSettings.nTHead).hide();
+//										},
 										"sAjaxDataProp" : "",
 										"fnInitComplete" : function(settings,
 												json) {
@@ -71,41 +81,28 @@ $(document)
 														{
 															"href" : "#"
 														})
-														.click(
-																aData,
+														.click(aData,
 																function(e) {
 																	aData.status = status;
-																	console
-																			.log(JSON
-																					.stringify(aData));
-																	e
-																			.preventDefault();
-																	$
-																			.ajax({
+																	console.log(JSON.stringify(aData));
+																	e.preventDefault();
+																	$.ajax({
 																				url : 'group-status-update',
 																				dataType : 'json',
 																				beforeSend : function() {
 																				},
 																				contentType : "application/json",
 																				"type" : "POST",
-																				data : JSON
-																						.stringify(aData),
-																				success : function(
-																						response) {
-																					$(
-																							'td:eq(3)',
-																							nRow)
-																							.html(
-																									response.status);
+																				data : JSON.stringify(aData),
+																				success : function(response) {
+																					$('td:eq(3)',nRow).html(response.status);
 																				}
 																			});
 																});
 												return parent_element;
-											}
-											;
+											};
 
-											var button = $(
-													"<button/>",
+											var button = $("<button/>",
 													{
 														text : "Change status",
 														"type" : "button",
@@ -124,23 +121,13 @@ $(document)
 												pending.html("Pending");
 												refuse.html("Refuse");
 
-												var final_element = div
-														.append(button);
-												final_element
-														.append(ul
-																.append(li
-																		.append(
-																				approve)
-																		.append(
-																				pending)
-																		.append(
-																				refuse)));
+												var final_element = div.append(button);
+												final_element.append(ul.append(li.append(approve)
+																		.append(pending)
+																		.append(refuse)));
 												return final_element;
 											}
-
-											row = $('td:eq(4)', nRow).html(
-													form_element(aData));
-
+											row = $('td:eq(4)', nRow).html(form_element(aData));
 										},
 
 										"bJQueryUI" : true,
@@ -177,14 +164,13 @@ $(document)
 																.toLocaleString();
 													}
 												}, {
-													"bVisible" :checkRole(),
+													"bVisible" : checkRole(),
 													"sWidth" : "10%",
 													"mData" : "status"
 												}, {
-													"bVisible" :checkRole(),
+													"bVisible" : checkRole(),
 													"sWidth" : "10%",
 													"mData" : "id"
 												} ]
 									});
-
 				});

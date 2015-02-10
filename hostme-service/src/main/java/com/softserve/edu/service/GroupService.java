@@ -45,4 +45,6 @@ public interface GroupService {
 
     Set<GroupDto> findPendingGroups();
 
+    Set<GroupDto> findApprovedGroups();
+
 }

@@ -79,21 +79,22 @@
 		<!-- /.box-header -->
 
 		<ul class="nav nav-tabs">
-			<sec:authorize access="hasAnyRole('USER','MODERATOR')">
-				<li id="all-groups" class="active" onclick="allGroups(this)"><a
-					href="#" data-toggle="tab"><spring:message
-							code="label.allGroups" /></a></li>
-			</sec:authorize>
 			<sec:authorize access="hasRole('USER')">
+				<li id="approved-groups" class="active"
+					onclick="approvedGroups(this)"><a href="#" data-toggle="tab"><spring:message
+							code="label.allGroups" /></a></li>
 				<li id="my-groups" class="" onclick="myGroups(this)"><a
 					href="#" data-toggle="tab"><spring:message
 							code="label.myGroups" /></a></li>
 				<li id="interesting-groups" class=""
 					onclick="interestingGroups(this)"><a href="#"
 					data-toggle="tab"><spring:message
-							code="label.interestingGroups" /></a></li>
+							code="label.subscribedGroups" /></a></li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('MODERATOR')">
+				<li id="all-groups" class="active" onclick="allGroups(this)"><a
+					href="#" data-toggle="tab"><spring:message
+							code="label.allGroups" /></a></li>
 				<li id="need-act-groups" class="" onclick="needActionsGroups(this)"><a
 					href="#" data-toggle="tab"><spring:message
 							code="label.needActionsGroups" /></a></li>

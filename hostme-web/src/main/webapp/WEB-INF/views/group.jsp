@@ -114,6 +114,25 @@
 					<div class="panel box box-success">
 						<div class="panel-body">
 							<img src="resources/images/group-default.jpg">
+
+							<!-- Photo add form -->
+							<c:if test="${isCreator eq true}">
+								<form:form class="btn-xs" method="post" action="add-group-photo"
+									modelAttribute="group" enctype="multipart/form-data">
+									<input type="hidden" value="${group.id}" name="id" />
+									<div class="form-group" style="margin-bottom: -13px;">
+										<label for="exampleInputFile"> </label> <br> <input
+											type="file" name="file" class="multi" multiple
+											accept="gif|jpg|png" data-maxfile="10000"
+											data-maxsize="50000" /> <br>
+										<button type="submit" class="btn btn-xs btn-primary">
+											<spring:message code="label.savePhotos" />
+										</button>
+									</div>
+								</form:form>
+							</c:if>
+							<!-- http://plugins.krajee.com/file-input/demo -->
+
 						</div>
 					</div>
 				</div>

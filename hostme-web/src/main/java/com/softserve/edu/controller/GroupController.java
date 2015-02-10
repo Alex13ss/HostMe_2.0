@@ -90,25 +90,31 @@ public class GroupController {
         return "groups";
     }
 
-    @RequestMapping(value = "/all-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<GroupDto> findAll() {
-        Set<GroupDto> groups = groupService.findAll();
+    @RequestMapping(value = "/approved-groups", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Set<GroupDto> findApprovedGroups() {
+        Set<GroupDto> groups = groupService.findApprovedGroups();
         return groups;
     }
 
     @RequestMapping(value = "/my-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<GroupDto> getMyGroups(Principal principal) {
+    public @ResponseBody Set<GroupDto> findMyGroups(Principal principal) {
         User creatorUser = profileService.getUserByLogin(principal.getName());
         Set<GroupDto> groups = groupService.getGroupsByCreator(creatorUser);
         return groups;
     }
 
     @RequestMapping(value = "/interesting-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<GroupDto> getInterestingGroups(Principal principal) {
+    public @ResponseBody List<GroupDto> findSubscribedGroups(Principal principal) {
         User interestedUser = profileService
                 .getUserByLogin(principal.getName());
         List<GroupDto> groups = groupService
                 .getGroupsByInterestedUser(interestedUser);
+        return groups;
+    }
+
+    @RequestMapping(value = "/all-groups", method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Set<GroupDto> findAll() {
+        Set<GroupDto> groups = groupService.findAll();
         return groups;
     }
 

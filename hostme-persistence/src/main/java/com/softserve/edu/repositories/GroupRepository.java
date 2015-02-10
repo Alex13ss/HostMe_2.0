@@ -27,6 +27,11 @@ public interface GroupRepository extends
     @Query(value = "SELECT COUNT(*) FROM groups_subscribers WHERE group_id = ?1", nativeQuery = true)
     public Integer getGroupSubscribers(Long groupId);
 
+    @Modifying
+    @Transactional("transactionManager")
+    @Query(value = "DELETE FROM groups_subscribers WHERE group_id = ?1", nativeQuery = true)
+    public void removeGroupSubscription(Long groupId);
+
     public Iterable<Group> findAllByStatus(Status status);
 
 }
