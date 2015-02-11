@@ -2,7 +2,15 @@
  * @author Oleksandr Bandurka JavaScript for page with groups
  */
 
+var table;
+var size;
+var selectedTablePage = 1;
+var groupsType;
 var userRole = "MODERATOR";
+var order = {
+	by : "name",
+	type : "ASC"
+};
 
 function checkRole() {
 	if (userRole == "MODERATOR") {
@@ -12,8 +20,59 @@ function checkRole() {
 	}
 }
 
+function setupPaging() {
+	$
+			.ajax({
+				type : 'GET',
+				dataType : "json",
+				data : {
+					size : size,
+					sender : groupsType
+				},
+				url : 'groups-paging',
+				success : function(numberOfPages) {
+					$("#table_pages").empty();
+					$("#table_pages").append(
+							'<li class="previousPage"><a href="#">«</a></li>');
+					for (number = 1; number <= numberOfPages; number++) {
+						$("#table_pages").append(
+								'<li class="pageNumberButton"><a href="#">'
+										+ number + '</a></li>');
+					}
+					$("#table_pages").append(
+							'<li class="nextPage"><a href="#">»</a></li>');
+
+					$("#table_pages > li")
+							.click(
+									function(element) {
+										if ($(this).attr("class") == "previousPage"
+												&& selectedTablePage != 1) {
+											selectedTablePage--;
+											showGroups();
+										} else if ($(this).attr("class") == "nextPage"
+												&& selectedTablePage != numberOfPages) {
+											selectedTablePage++;
+											showGroups();
+										} else if ($(this).attr("class") == "pageNumberButton") {
+											selectedTablePage = $(this).text();
+											showGroups();
+										}
+									});
+				}
+			});
+}
+
+function getGroupsParameters() {
+	return groupsType + "?size=" + size + "&page=" + selectedTablePage
+			+ "&orderType=" + order.type + "&orderBy=" + order.by;
+}
+
 function groupsAjaxCallback() {
 	setupPaging();
+}
+
+function showGroups() {
+	table.fnReloadAjax(getGroupsParameters(), groupsAjaxCallback);
 }
 
 function approvedGroups(element) {
@@ -54,13 +113,15 @@ function needActionsGroups(element) {
 $(document)
 		.ready(
 				function() {
+					$("#groups-tabs li:first-child").addClass("active");
+					groupsType = $("#groups-tabs > li.active").attr("id");
+					
+					size = $("#request_size").val();
 					userRole = $('#UserRole').text();
+					
 					table = $("table.table-bordered")
 							.dataTable(
 									{
-//										"fnDrawCallback": function ( oSettings ) {
-//										    $(oSettings.nTHead).hide();
-//										},
 										"sAjaxDataProp" : "",
 										"fnInitComplete" : function(settings,
 												json) {
@@ -111,12 +172,9 @@ $(document)
 													});
 
 											function form_element(aData) {
-												var approve = html_element(
-														aData, "APPROVED");
-												var pending = html_element(
-														aData, "PENDING");
-												var refuse = html_element(
-														aData, "REFUSED");
+												var approve = html_element(aData, "APPROVED");
+												var pending = html_element(aData, "PENDING");
+												var refuse = html_element(aData, "REFUSED");
 												approve.html("Approve");
 												pending.html("Pending");
 												refuse.html("Refuse");
@@ -130,11 +188,19 @@ $(document)
 											row = $('td:eq(4)', nRow).html(form_element(aData));
 										},
 
-										"bJQueryUI" : true,
 										"bProcessing" : false,
 										"bServerSide" : false,
+										"bPaginate" : false,
+										"bFilter" : false,
+										"bInfo" : false,
+										"bSort" : false,
 										"bAutoWidth" : false,
 										"sAjaxSource" : "all-groups",
+//														 after ":": 	groupsType
+//										+ "?size=" + size + "&page="
+//										+ selectedTablePage
+//										+ "&orderType=" + order.type
+//										+ "&orderBy=" + order.by,
 										"aoColumns" : [
 												{
 													"sWidth" : "13%",
@@ -173,4 +239,35 @@ $(document)
 													"mData" : "id"
 												} ]
 									});
+					
+					$("#request_size ").change(function() {
+						size = $(this).val();
+						selectedTablePage = 1;
+						showGroups();
+					});
+
+					$("#groups-tabs > li").click(function() {
+						sightseeingsType = $(this).attr("id");
+						selectedTablePage = 1;
+						showGroups();
+					});
+
+					$("#groups-table-header > th").addClass(
+							"custom_sorting_enabled");
+
+					$("#groups-table-header > th").click(function() {
+						currentOrderBy = order.by;
+						order.by = $(this).attr("headers");
+						if (currentOrderBy == order.by) {
+							if (order.type == "DESC") {
+								order.type = "ASC";
+							} else {
+								order.type = "DESC";
+							}
+						} else {
+							order.type = "ASC";
+						}
+						showGroups();
+					});
+					
 				});

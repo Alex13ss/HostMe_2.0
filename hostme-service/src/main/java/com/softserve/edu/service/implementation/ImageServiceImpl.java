@@ -1,14 +1,10 @@
 package com.softserve.edu.service.implementation;
 
-import com.softserve.edu.dao.ImageDao;
-import com.softserve.edu.model.Event;
-import com.softserve.edu.model.Group;
-import com.softserve.edu.model.Hosting;
-import com.softserve.edu.model.Image;
-import com.softserve.edu.model.Sightseeing;
-import com.softserve.edu.model.User;
-import com.softserve.edu.service.ImageService;
-import com.softserve.edu.service.SystemPropertiesService;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Iterator;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +12,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Iterator;
+import com.softserve.edu.dao.ImageDao;
+import com.softserve.edu.model.Event;
+import com.softserve.edu.model.Group;
+import com.softserve.edu.model.Hosting;
+import com.softserve.edu.model.Image;
+import com.softserve.edu.model.Sightseeing;
+import com.softserve.edu.model.User;
+import com.softserve.edu.repositories.ImageRepository;
+import com.softserve.edu.service.ImageService;
+import com.softserve.edu.service.SystemPropertiesService;
 
 @Service
 public class ImageServiceImpl implements ImageService {
 
     @Autowired
     ImageDao imageDao;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     @Autowired
     SystemPropertiesService systemPropertiesService;
@@ -141,6 +145,18 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public void deleteImagesFromGroup(Group group) {
+        for (Image im : group.getImages()) {
+            imageRepository.delete(im);
+        }
+        try {
+            FileUtils.deleteDirectory(new File(buildPathGroup(group)));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
     @Transactional
     public void addImagesToSightseeing(MultipartFile[] files,
             Sightseeing sightseeing) {
@@ -160,7 +176,7 @@ public class ImageServiceImpl implements ImageService {
                 addImageToEvent(files[i], event);
             }
     }
-    
+
     @Override
     @Transactional
     public void addImageToGroup(MultipartFile[] file, Group group) {

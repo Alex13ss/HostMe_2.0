@@ -78,7 +78,7 @@
 		</div>
 		<!-- /.box-header -->
 
-		<ul class="nav nav-tabs">
+		<ul id="groups-tabs" class="nav nav-tabs">
 			<sec:authorize access="hasRole('USER')">
 				<li id="approved-groups" class="active"
 					onclick="approvedGroups(this)"><a href="#" data-toggle="tab"><spring:message
@@ -101,9 +101,15 @@
 		</ul>
 
 		<div class="box-body table-responsive">
+			<select id="request_size" class="dataTableDropDown">
+				<option value="10" selected="selected">10</option>
+				<option value="25">25</option>
+				<option value="50">50</option>
+				<option value="100">100</option>
+			</select>
 			<table id="groups-table" class="table table-bordered table-hover">
 				<thead>
-					<tr>
+					<tr id="groups-table-header">
 						<th>Image of group</th>
 						<th>Group name/description</th>
 						<th>Publishing</th>
@@ -114,6 +120,11 @@
 					</tr>
 				</thead>
 			</table>
+			<div class="box-footer clearfix">
+				<ul id="table_pages"
+					class="pagination pagination-sm no-margin pull-right">
+				</ul>
+			</div>
 		</div>
 		<!-- /.box-body -->
 

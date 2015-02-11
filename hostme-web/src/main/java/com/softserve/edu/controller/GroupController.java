@@ -86,6 +86,7 @@ public class GroupController {
     @RequestMapping("/group/remove/{id}")
     public String removeGroup(@PathVariable Long id) {
         Group group = groupService.findOne(id);
+        imageService.deleteImagesFromGroup(group);
         groupService.delete(group);
         return "redirect:/groups";
     }
@@ -93,6 +94,14 @@ public class GroupController {
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
     public String groupsCreationShow() {
         return "groups";
+    }
+
+    @RequestMapping(value = "/groups-paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Long getGroupsPaging(
+            @RequestParam(value = "size") Long size,
+            @RequestParam(value = "sender") String sender) {
+        Long amount = (long) 13;
+        return amount;
     }
 
     @RequestMapping(value = "/approved-groups", method = RequestMethod.GET, produces = "application/json")
@@ -194,12 +203,11 @@ public class GroupController {
         return group;
     }
 
-    @RequestMapping(value = "/add-group-photo", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-group-img", method = RequestMethod.POST)
     public String addGroupPhoto(@RequestParam("file") MultipartFile[] file,
             @ModelAttribute("group") final Group group,
             RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
-                "sightseeingEdited", true);
+        redirectAttributes.addAttribute("id", group.getId());
         imageService.addImageToGroup(file, group);
         return "redirect:/group?id={id}";
     }

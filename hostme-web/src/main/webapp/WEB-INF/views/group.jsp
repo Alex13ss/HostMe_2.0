@@ -122,7 +122,7 @@
 
 							<!-- Photo add form -->
 							<c:if test="${isCreator eq true}">
-								<form:form class="btn-xs" method="post" action="add-group-photo"
+								<form:form class="btn-xs" method="post" action="add-group-img"
 									modelAttribute="group" enctype="multipart/form-data">
 									<input type="hidden" value="${group.id}" name="id" />
 									<div class="form-group" style="margin-bottom: -13px;">

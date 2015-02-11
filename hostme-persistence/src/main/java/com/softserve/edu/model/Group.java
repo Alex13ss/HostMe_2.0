@@ -23,6 +23,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -64,6 +66,7 @@ public class Group {
      * Contains images uploaded by this group
      */
     @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
+    @NotFound(action = NotFoundAction.IGNORE)
     private Set<Image> images;
 
     /**
@@ -100,7 +103,7 @@ public class Group {
      * Contains list of tags which included by this group
      */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "group_tags", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JoinTable(name = "groups_tags", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
 
     public Group() {
