@@ -88,8 +88,7 @@
 							code="label.myGroups" /></a></li>
 				<li id="interesting-groups" class=""
 					onclick="interestingGroups(this)"><a href="#"
-					data-toggle="tab"><spring:message
-							code="label.subscribedGroups" /></a></li>
+					data-toggle="tab"><spring:message code="label.subscribedGroups" /></a></li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('MODERATOR')">
 				<li id="all-groups" class="active" onclick="allGroups(this)"><a
@@ -105,10 +104,10 @@
 			<table id="groups-table" class="table table-bordered table-hover">
 				<thead>
 					<tr>
+						<th>Image of group</th>
+						<th>Group name/description</th>
+						<th>Publishing</th>
 						<sec:authorize access="hasRole('MODERATOR')">
-							<th>Image of group</th>
-							<th>Group name/description</th>
-							<th>Publishing</th>
 							<th>Status</th>
 							<th>Actions</th>
 						</sec:authorize>

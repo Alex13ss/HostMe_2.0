@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softserve.edu.dto.ConversationDto;
@@ -32,6 +33,7 @@ import com.softserve.edu.model.Group;
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.ConversationService;
 import com.softserve.edu.service.GroupService;
+import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.NotificationService;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.UserService;
@@ -53,6 +55,9 @@ public class GroupController {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private ImageService imageService;
 
     @ModelAttribute("group")
     public Group constructGroup() {
@@ -187,6 +192,16 @@ public class GroupController {
         group.setGroupDescription(newGroup.getGroupDescription());
         groupService.saveGroup(group);
         return group;
+    }
+
+    @RequestMapping(value = "/add-group-photo", method = RequestMethod.POST)
+    public String addGroupPhoto(@RequestParam("file") MultipartFile[] file,
+            @ModelAttribute("group") final Group group,
+            RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
+                "sightseeingEdited", true);
+        imageService.addImageToGroup(file, group);
+        return "redirect:/group?id={id}";
     }
 
     @InitBinder

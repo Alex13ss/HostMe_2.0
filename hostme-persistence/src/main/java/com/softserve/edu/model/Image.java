@@ -33,6 +33,7 @@ public class Image {
     @JsonIgnore
     private Place place;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;

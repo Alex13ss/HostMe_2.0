@@ -2,6 +2,7 @@ package com.softserve.edu.service.implementation;
 
 import com.softserve.edu.dao.ImageDao;
 import com.softserve.edu.model.Event;
+import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Hosting;
 import com.softserve.edu.model.Image;
 import com.softserve.edu.model.Sightseeing;
@@ -24,170 +25,193 @@ import java.util.Iterator;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-	@Autowired
-	ImageDao imageDao;
+    @Autowired
+    ImageDao imageDao;
 
-	@Autowired
-	SystemPropertiesService systemPropertiesService;
+    @Autowired
+    SystemPropertiesService systemPropertiesService;
 
-	@Override
-	@Transactional
-	public void addImages(MultipartFile[] files, Hosting hosting) {
-		if (filesNotEmpty(files))
-			for (int i = 0; i < files.length; i++) {
-				saveImage(files[i], buildPath(hosting));
-				addImage(files[i], hosting);
-			}
-	}
+    @Override
+    @Transactional
+    public void addImages(MultipartFile[] files, Hosting hosting) {
+        if (filesNotEmpty(files))
+            for (int i = 0; i < files.length; i++) {
+                saveImage(files[i], buildPath(hosting));
+                addImage(files[i], hosting);
+            }
+    }
 
-	private boolean filesNotEmpty(MultipartFile[] files) {
-		if (files[0].getOriginalFilename().isEmpty())
-			return false;
-		else
-			return true;
-	}
+    private boolean filesNotEmpty(MultipartFile[] files) {
+        if (files[0].getOriginalFilename().isEmpty())
+            return false;
+        else
+            return true;
+    }
 
-	@Override
-	@Transactional
-	public void addImages(MultipartFile file, User user) {
-		saveImage(file, buildPath(user));
-		addImage(file, user);
-	}
+    @Override
+    @Transactional
+    public void addImages(MultipartFile file, User user) {
+        saveImage(file, buildPath(user));
+        addImage(file, user);
+    }
 
-	private void addImage(MultipartFile multipartFile, User user) {
-		Image image = new Image();
-		image.setLink(PROFILE_PIC_PATH + "/" + user.getUserId() + "/"
-				+ multipartFile.getOriginalFilename());
-		image.setUser(user);
+    private void addImage(MultipartFile multipartFile, User user) {
+        Image image = new Image();
+        image.setLink(PROFILE_PIC_PATH + "/" + user.getUserId() + "/"
+                + multipartFile.getOriginalFilename());
+        image.setUser(user);
 
-		for (Image im : user.getImages()) {
-			imageDao.delete(im);
-		}
+        for (Image im : user.getImages()) {
+            imageDao.delete(im);
+        }
 
-		imageDao.create(image);
-	}
+        imageDao.create(image);
+    }
 
-	@Override
-	@Transactional
-	public String getImagePath() {
-		return systemPropertiesService.getImageUrl() + "/";
-	}
+    @Override
+    @Transactional
+    public String getImagePath() {
+        return systemPropertiesService.getImageUrl() + "/";
+    }
 
-	private String buildPath(User user) {
-		return systemPropertiesService.getImagePath() + File.separator
-				+ PROFILE_PIC_PATH + File.separator + user.getUserId();
-	}
+    private String buildPath(User user) {
+        return systemPropertiesService.getImagePath() + File.separator
+                + PROFILE_PIC_PATH + File.separator + user.getUserId();
+    }
 
-	private void saveImage(MultipartFile multipartFile, String path) {
-		try {
-			byte[] bytes = multipartFile.getBytes();
+    private void saveImage(MultipartFile multipartFile, String path) {
+        try {
+            byte[] bytes = multipartFile.getBytes();
 
-			// Creating the directory to store file
-			File dir = new File(path);
-			if (!dir.exists())
-				dir.mkdirs();
+            // Creating the directory to store file
+            File dir = new File(path);
+            if (!dir.exists())
+                dir.mkdirs();
 
-			// Write file to directory
-			File image = new File(dir + File.separator
-					+ multipartFile.getOriginalFilename());
-			BufferedOutputStream stream = new BufferedOutputStream(
-					new FileOutputStream(image));
-			stream.write(bytes);
-			stream.close();
+            // Write file to directory
+            File image = new File(dir + File.separator
+                    + multipartFile.getOriginalFilename());
+            BufferedOutputStream stream = new BufferedOutputStream(
+                    new FileOutputStream(image));
+            stream.write(bytes);
+            stream.close();
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	@Transactional
-	private void addImage(MultipartFile multipartFile, Hosting hosting) {
-		Image image = new Image();
-		image.setLink(hosting.getHostingId() + "/"
-				+ multipartFile.getOriginalFilename());
-		image.setHosting(hosting);
-		imageDao.create(image);
+    @Transactional
+    private void addImage(MultipartFile multipartFile, Hosting hosting) {
+        Image image = new Image();
+        image.setLink(hosting.getHostingId() + "/"
+                + multipartFile.getOriginalFilename());
+        image.setHosting(hosting);
+        imageDao.create(image);
 
-	}
+    }
 
-	private String buildPath(Hosting hosting) {
-		return systemPropertiesService.getImagePath() + File.separator
-				+ hosting.getHostingId();
-	}
+    private String buildPath(Hosting hosting) {
+        return systemPropertiesService.getImagePath() + File.separator
+                + hosting.getHostingId();
+    }
 
-	@Override
-	public String getUserAvatar(User user) {
-		Iterator<Image> imageItr = user.getImages().iterator();
-		if (imageItr.hasNext())
-			return systemPropertiesService.getImageUrl() + "/"
-					+ imageItr.next().getLink();
-		else
-			return systemPropertiesService.getImageUrl() + "/"
-					+ PROFILE_PIC_PATH + "/" + NO_AVATAR;
-	}
+    @Override
+    public String getUserAvatar(User user) {
+        Iterator<Image> imageItr = user.getImages().iterator();
+        if (imageItr.hasNext())
+            return systemPropertiesService.getImageUrl() + "/"
+                    + imageItr.next().getLink();
+        else
+            return systemPropertiesService.getImageUrl() + "/"
+                    + PROFILE_PIC_PATH + "/" + NO_AVATAR;
+    }
 
-	@Override
-	public void deleteImagesForHosting(Hosting hosting) {
-		for (Image im : hosting.getImages()) {
-			imageDao.delete(im);
-		}
-		try {
-			FileUtils.deleteDirectory(new File(buildPath(hosting)));
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
+    @Override
+    public void deleteImagesForHosting(Hosting hosting) {
+        for (Image im : hosting.getImages()) {
+            imageDao.delete(im);
+        }
+        try {
+            FileUtils.deleteDirectory(new File(buildPath(hosting)));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
-	@Override
-	@Transactional
-	public void addImagesToSightseeing(MultipartFile[] files,
-			Sightseeing sightseeing) {
-		if (filesNotEmpty(files))
-			for (int i = 0; i < files.length; i++) {
-				saveImage(files[i], buildPath(sightseeing));
-				addImageToSight(files[i], sightseeing);
-			}
-	}
+    @Override
+    @Transactional
+    public void addImagesToSightseeing(MultipartFile[] files,
+            Sightseeing sightseeing) {
+        if (filesNotEmpty(files))
+            for (int i = 0; i < files.length; i++) {
+                saveImage(files[i], buildPath(sightseeing));
+                addImageToSight(files[i], sightseeing);
+            }
+    }
 
-	@Override
-	@Transactional
-	public void addImagesToEvent(MultipartFile[] files, Event event) {
-		if (filesNotEmpty(files))
-			for (int i = 0; i < files.length; i++) {
-				saveImage(files[i], buildPathEvent(event));
-				addImageToEvent(files[i], event);
-			}
-	}
+    @Override
+    @Transactional
+    public void addImagesToEvent(MultipartFile[] files, Event event) {
+        if (filesNotEmpty(files))
+            for (int i = 0; i < files.length; i++) {
+                saveImage(files[i], buildPathEvent(event));
+                addImageToEvent(files[i], event);
+            }
+    }
+    
+    @Override
+    @Transactional
+    public void addImageToGroup(MultipartFile[] file, Group group) {
+        if (filesNotEmpty(file))
+            for (int i = 0; i < file.length; i++) {
+                saveImage(file[i], buildPathGroup(group));
+                addGroupImg(file[i], group);
+            }
+    }
 
-	private String buildPath(Sightseeing sightseeing) {
-		return systemPropertiesService.getImagePath() + File.separator
-				+ "Sightseeings" + File.separator + sightseeing.getId();
-	}
-	
-	private String buildPathEvent(Event event) {
-		return systemPropertiesService.getImagePath() + File.separator
-				+ "Event" + File.separator + event.getId();
-	}
+    private String buildPath(Sightseeing sightseeing) {
+        return systemPropertiesService.getImagePath() + File.separator
+                + "Sightseeings" + File.separator + sightseeing.getId();
+    }
 
-	@Transactional
-	private void addImageToSight(MultipartFile multipartFile,
-			Sightseeing sightseeing) {
-		Image image = new Image();
-		image.setLink("Sightseeings/" + sightseeing.getId() + "/"
-				+ multipartFile.getOriginalFilename());
-		image.setPlace(sightseeing);
-		imageDao.create(image);
-	}
+    private String buildPathEvent(Event event) {
+        return systemPropertiesService.getImagePath() + File.separator
+                + "Event" + File.separator + event.getId();
+    }
 
-	@Transactional
-	private void addImageToEvent(MultipartFile multipartFile,
-			Event event) {
-		Image image = new Image();
-		image.setLink("Event/" + event.getId() + "/"
-				+ multipartFile.getOriginalFilename());
-		image.setPlace(event);
-		imageDao.create(image);
+    private String buildPathGroup(Group group) {
+        return systemPropertiesService.getImagePath() + File.separator
+                + "Group" + File.separator + group.getId();
+    }
 
-	}
+    @Transactional
+    private void addImageToSight(MultipartFile multipartFile,
+            Sightseeing sightseeing) {
+        Image image = new Image();
+        image.setLink("Sightseeings/" + sightseeing.getId() + "/"
+                + multipartFile.getOriginalFilename());
+        image.setPlace(sightseeing);
+        imageDao.create(image);
+    }
+
+    @Transactional
+    private void addImageToEvent(MultipartFile multipartFile, Event event) {
+        Image image = new Image();
+        image.setLink("Event/" + event.getId() + "/"
+                + multipartFile.getOriginalFilename());
+        image.setPlace(event);
+        imageDao.create(image);
+
+    }
+
+    @Transactional
+    public void addGroupImg(MultipartFile file, Group group) {
+        Image image = new Image();
+        image.setLink("Group/" + group.getId() + "/"
+                + file.getOriginalFilename());
+        image.setGroup(group);
+        imageDao.create(image);
+    }
 }

@@ -113,7 +113,12 @@
 				<div class="col-md-3">
 					<div class="panel box box-success">
 						<div class="panel-body">
-							<img src="resources/images/group-default.jpg">
+							<c:forEach var="image" begin="0" end="0"
+								items="${group.images}">
+								<a href="${image_url}${image.link}" data-lightbox="images">
+									<img src="${image_url}${image.link}" />
+								</a>
+							</c:forEach>
 
 							<!-- Photo add form -->
 							<c:if test="${isCreator eq true}">
