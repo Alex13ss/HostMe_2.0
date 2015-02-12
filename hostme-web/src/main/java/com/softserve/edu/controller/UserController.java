@@ -30,18 +30,21 @@ public class UserController {
     PlaceService placeService;
 
     @RequestMapping (value = "/addBookedPlace", method = RequestMethod.POST)
-    public @ResponseBody boolean addBookingPlace(@RequestBody String placeId) {
+    @ResponseBody
+    public boolean addBookingPlace(@RequestBody String placeId) {
         userService.setBookedPlace(Integer.valueOf(placeId.replace("=", "")));
         return true;
     }
 
     @RequestMapping(value = "/getUserPlaces", method = RequestMethod.POST)
-    public @ResponseBody List<PlaceDto> getUserPlaces(@RequestBody RoutePagingDto routeRequest, Pageable pageable) {
+    @ResponseBody
+    public List<PlaceDto> getUserPlaces(@RequestBody RoutePagingDto routeRequest, Pageable pageable) {
         return placeService.placeToPlaceDto(userService.getUserPlaces(pageable));
     }
 
     @RequestMapping(value = "/getUserBookedPlaces", method = RequestMethod.POST)
-    public @ResponseBody List<PlaceDto> getBookedPlaces(@RequestBody RoutePagingDto routeRequest, Pageable pageable) {
+    @ResponseBody
+    public List<PlaceDto> getBookedPlaces(@RequestBody RoutePagingDto routeRequest, Pageable pageable) {
         return placeService.placeToPlaceDto(userService.getUserBookedPlaces(pageable));
     }
 }

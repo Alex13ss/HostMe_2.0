@@ -32,12 +32,14 @@ public class MegaSearchController {
     }
 
     @RequestMapping(value = "/getCities", method = RequestMethod.POST)
-    public @ResponseBody List<City> getCities(@RequestBody String cityName) {
+    @ResponseBody
+    public List<City> getCities(@RequestBody String cityName) {
         return cityService.searchCitiesByName(cityName.replace("=", ""));
     }
 
     @RequestMapping(value = "/superMegaSearch")
-    public @ResponseBody List<?> getSearchResults(@RequestBody SearchRequestDto searchRequestDto) {
+    @ResponseBody
+    public List<?> getSearchResults(@RequestBody SearchRequestDto searchRequestDto) {
         if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.ROUTE)) {
             return megaSearchService.searchRoutes(searchRequestDto);
         } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.EVENT)) {
@@ -53,7 +55,8 @@ public class MegaSearchController {
     }
 
     @RequestMapping(value = "/searchType")
-    public @ResponseBody SearchTypes[] setSearchTypes(){
+    @ResponseBody
+    public SearchTypes[] setSearchTypes(){
         return SearchTypes.values();
     }
 }

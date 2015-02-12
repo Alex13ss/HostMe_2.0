@@ -3,7 +3,6 @@ package com.softserve.edu.controller.routes;
 import com.softserve.edu.dto.RouteDto;
 import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.service.ProfileService;
-import com.softserve.edu.service.routes.PlaceService;
 import com.softserve.edu.service.routes.RoutesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,13 +35,15 @@ public class RouteController {
     }
 
     @RequestMapping(value = "/createRoute", method = RequestMethod.POST)
-    public @ResponseBody boolean saveRoute(@RequestBody RouteDto route) {
+    @ResponseBody
+    public boolean saveRoute(@RequestBody RouteDto route) {
         routesService.addRoute(route);
         return true;
     }
 
     @RequestMapping(value = "/getPlaceDispNumber")
-    public @ResponseBody int[] getPlaceDispNumber() {
+    @ResponseBody
+    public int[] getPlaceDispNumber() {
         return new int[]{5, 10, 15};
     }
 

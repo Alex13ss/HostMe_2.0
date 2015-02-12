@@ -19,7 +19,7 @@ public class PlaceDto implements Serializable{
             website = place.getWebsite();
         }
         address = place.getAddress();
-        if (place.getImage() == null || place.getImage().size() == 0) {
+        if (place.getImage() == null || place.getImage().isEmpty()) {
             imgLink = "resources/images/colosseum.jpg";
         } else {
             imgLink = place.getImage().iterator().next().getLink();

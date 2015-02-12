@@ -8,9 +8,9 @@ var routeDto = {
     destinationId: "",
     waypointsId: []
 };
-var userPlacesIndex = 1;
-var userBookedPlacesIndex = 1;
-var popularPlacesIndex = 1;
+var userPlacesIndex = 0;
+var userBookedPlacesIndex = 0;
+var popularPlacesIndex = 0;
 var userPlaces = [];
 var bookedPlaces = [];
 var popularPlaces = [];
@@ -174,7 +174,7 @@ function fillPlaces(data, target) {
 
 function drawPlaces($ui, data, placeSize, pageIndex) {
     $ui.html("");
-    for (var i = pageIndex * placeSize - placeSize; i < pageIndex * placeSize; i++) {
+    for (var i = pageIndex * placeSize; i < pageIndex * placeSize + Number(placeSize); i++) {
         if (data[i] != undefined) {
             $ui.append("<div class='dragPlace box'>"
             + "<img style='height: 100%; width: 30%' src='"
@@ -201,29 +201,57 @@ function drawPlaces($ui, data, placeSize, pageIndex) {
     }
     $(".prev").click(function(event) {
         event.stopImmediatePropagation();
-        if (checkDecAvlbPlaces($(event.target).parents().attr('id'))) {
-            $(event.target).attr("disabled", false);
-
+        var parentId = $(event.target).parents().attr('id');
+        if (parentId == "userBookedPlaces") {
+            if ((userBookedPlacesIndex - 1) >= 0) {
+                userBookedPlacesIndex--;
+                drawPlaces($ui, data, placeSize, pageIndex);
+            }
+            //TODO if zero page
+        } else if (parentId == "userPlaces") {
+            if ((userPlacesIndex - 1) >= 0) {
+                userPlacesIndex--;
+                drawPlaces($ui, data, placeSize, pageIndex);
+            }
+            //TODO if zero page
         } else {
-            $(event.target).attr("disabled", true);
+            if ((popularPlacesIndex - 1) >= 0) {
+                popularPlacesIndex--;
+                drawPlaces($popularPlacesUi, popularPlaces, $popularPlaceNumber.val(), popularPlacesIndex);
+            } else {
+                alert("Zero");
+            }
         }
     });
     $(".next").click(function(event) {
         event.stopImmediatePropagation();
         var parentId = $(event.target).parents().attr('id');
-        $(event.target).attr("disabled", false);
         if (parentId == "userBookedPlaces") {
             userBookedPlacesIndex++;
-            getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
-                userBookedPlacesIndex, $userPlaceNumber.val());
+            if (bookedPlaces[userBookedPlacesIndex * $userPlaceNumber.val()] == undefined ||
+                bookedPlaces[userBookedPlacesIndex * $userPlaceNumber.val() + $userPlaceNumber.val()] == undefined) {
+                getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
+                    userBookedPlacesIndex, $userPlaceNumber.val());
+            } else {
+                drawPlaces($ui, data, placeSize, pageIndex);
+            }
         } else if (parentId == "userPlaces"){
             userPlacesIndex++;
-            getPlaces(userPlacesUrl, $userPlacesUi,
-                userPlacesIndex, $userPlaceNumber.val());
+            if (userPlaces[userPlacesIndex * $userPlaceNumber.val()] == undefined ||
+                userPlaces[userPlacesIndex * $userPlaceNumber.val() + $userPlaceNumber.val()] == undefined) {
+                getPlaces(userPlacesUrl, $userPlacesUi,
+                    userPlacesIndex, $userPlaceNumber.val());
+            } else {
+                drawPlaces($ui, data, placeSize, pageIndex);
+            }
         } else {
             popularPlacesIndex++;
-            getPlaces(popularPlacesUrl, $popularPlacesUi,
-                popularPlacesIndex, $popularPlaceNumber.val());
+            if (popularPlaces[popularPlacesIndex * $popularPlaceNumber.val()] == undefined) {
+                getPlaces(popularPlacesUrl, $popularPlacesUi,
+                    popularPlacesIndex, $popularPlaceNumber.val());
+            } else {
+                drawPlaces($popularPlacesUi, popularPlaces, $popularPlaceNumber.val(), popularPlacesIndex);
+            }
         }
     });
 }
@@ -263,7 +291,7 @@ function ifBookedPlacesEmpty() {
     return "<div>"
         + "<a href='megaSearch'>"
         + "<div class='btn btn-primary' style='width: 100%'>"
-        + "Search places!"
+        + "Search places"
         + "</div>"
         + "</a>"
         + "</div>"

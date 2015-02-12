@@ -28,7 +28,7 @@
             <input id="name" class="form-control">
             <spring:message code="routes.createRouteDescription" />
             <input id="description" class="form-control">
-            <div class="container-fluid">
+            <div class="container-fluid" style="margin-top: 3%">
                 <div class="col-sm-4 nav-tabs-custom">
                     <spring:message code="places.yourPlaces"/>
                     <ul class="nav nav-tabs">

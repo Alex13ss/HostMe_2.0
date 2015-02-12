@@ -1,12 +1,10 @@
 package com.softserve.edu.controller.place;
 
 import com.softserve.edu.dto.PlaceDto;
-import com.softserve.edu.dto.RoutePagingDto;
 import com.softserve.edu.service.EventService;
 import com.softserve.edu.service.SightseeingService;
 import com.softserve.edu.service.routes.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.stereotype.Controller;
@@ -28,8 +26,8 @@ public class PlaceController {
     SightseeingService sightseeingService;
 
     @RequestMapping(value = "/getPopularPlaces", method = RequestMethod.POST)
-    public @ResponseBody
-    List<PlaceDto> getPopularPlaces(@RequestBody RoutePagingDto routeRequest, Pageable pageable) {
+    @ResponseBody
+    public List<PlaceDto> getPopularPlaces(Pageable pageable) {
         return placeService.placeToPlaceDto(placeService.getAllPlaces(pageable));
     }
 
