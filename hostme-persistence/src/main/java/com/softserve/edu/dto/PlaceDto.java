@@ -12,7 +12,7 @@ public class PlaceDto implements Serializable{
     private String address;
     private String imgLink;
     
-    public PlaceDto(Place place) {
+    public PlaceDto(Place place, String imgUrl) {
         id = place.getId();
         name = place.getName();
         description = place.getDescription();
@@ -24,7 +24,7 @@ public class PlaceDto implements Serializable{
         if (place.getImage() == null || place.getImage().isEmpty()) {
             imgLink = "resources/images/imgNotFound.jpg";
         } else {
-            imgLink = place.getImage().iterator().next().getLink();
+            imgLink = imgUrl + place.getImage().iterator().next().getLink();
         }
     }
 

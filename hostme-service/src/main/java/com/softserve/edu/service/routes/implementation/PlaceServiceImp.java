@@ -3,6 +3,7 @@ package com.softserve.edu.service.routes.implementation;
 import com.softserve.edu.dto.PlaceDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
+import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.routes.PlaceService;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class PlaceServiceImp implements PlaceService{
@@ -25,6 +25,11 @@ public class PlaceServiceImp implements PlaceService{
     @Autowired
     PlaceRepository placeRepository;
 
+    @Autowired
+    private SystemPropertiesRepository systemPropertiesRepository;
+
+    public final Integer PROPERTY_ID = 1;
+    
     @Override
     public Place getPlace(int placeId) {
         return placeRepository.findOne(placeId);
@@ -61,8 +66,9 @@ public class PlaceServiceImp implements PlaceService{
 
     public List<PlaceDto> placeToPlaceDto(Collection<Place> places) {
         List<PlaceDto> result = new ArrayList<>();
+        String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL() + "/";
         for (Place place : places) {
-            result.add(new PlaceDto(place));
+            result.add(new PlaceDto(place, propertiesImageUrl));
         }
         return result;
     }
