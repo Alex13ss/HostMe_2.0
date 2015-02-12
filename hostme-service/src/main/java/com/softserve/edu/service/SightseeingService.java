@@ -2,10 +2,11 @@ package com.softserve.edu.service;
 
 import java.util.List;
 
+import org.springframework.data.jpa.domain.Specifications;
+
 import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.User;
-import org.springframework.data.jpa.domain.Specifications;
 
 public interface SightseeingService {
 
@@ -13,9 +14,12 @@ public interface SightseeingService {
 
 	public List<Sightseeing> searchSightseeing(Specifications<Sightseeing> specifications);
 
-	List<SightseeingDto> getAllSightseeingsPaging(Integer page, Integer size,
+	List<SightseeingDto> getAllSightseeings(Integer page, Integer size,
 			String orderBy, String orderType);
 
+	List<SightseeingDto> getSightseeingByOwner(Integer page,
+			Integer size, String orderBy, String orderType);
+	
 	List<SightseeingDto> getSightseeingsDtoList(List<Sightseeing> sightseeings);
 
 	List<Sightseeing> getSightseeingsLike(String search);
@@ -32,9 +36,7 @@ public interface SightseeingService {
 
 	void saveLikerforSightseing(User user, Sightseeing sightseeing);
 
-	List<SightseeingDto> getFavouriteSightseeings(User liker);
-
-	List<SightseeingDto> getFavouriteSightseeingsPaging(User liker,
+	List<SightseeingDto> getFavouriteSightseeings(User liker,
 			Integer page, Integer size, String orderBy, String orderType);
 
 	Long getSightseeingsPaging(Long size, String sender, User liker);
@@ -44,4 +46,5 @@ public interface SightseeingService {
 	void unlikeSightseeing(Integer id, User liker);
 	
 	Integer getCurrentRating(Integer id);
+	
 }

@@ -12,7 +12,7 @@
 <script
 	src="<c:url value="/resources/js/plugins/slimScroll/jquery.slimscroll.min.js"/>"
 	type="text/javascript"></script>
-<script src="<c:url value="/resources/js/sightseeing.js"/>"></script>
+<script src="<c:url value="/resources/js/sightseeings/sightseeing.js"/>"></script>
 <title><spring:message code="label.sightseeing" />:
 	${sightseeing.name}</title>
 </head>

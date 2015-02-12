@@ -9,7 +9,7 @@ var order = {
 	by : "name",
 	type : "ASC"
 };
-/**
+/**	
  * script for paging
  */
 function checkRole() {
@@ -162,7 +162,8 @@ jQuery()
 $(document)
 		.ready(
 				function() {
-					$("#sightseeingsTypesNav li:first-child").addClass("active");
+					$("#sightseeingsTypesNav li:first-child")
+							.addClass("active");
 					sightseeingsType = $("#sightseeingsTypesNav > li.active")
 							.attr("id");
 

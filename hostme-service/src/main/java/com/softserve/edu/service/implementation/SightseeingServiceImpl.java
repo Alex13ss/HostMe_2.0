@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,21 +46,21 @@ public class SightseeingServiceImpl implements SightseeingService {
 	private UserRepository userRepository;
 	@Autowired
 	private ImageRepository imageRepository;
-	private Long favouriteSize;
 
 	public boolean haveSight(int id) {
 		return sightseeingRepository.exists(id);
 	}
 
 	@Override
-	public List<Sightseeing> searchSightseeing(Specifications<Sightseeing> specifications) {
+	public List<Sightseeing> searchSightseeing(
+			Specifications<Sightseeing> specifications) {
 		return sightseeingRepository.findAll(specifications);
 	}
 
 	@Override
 	@Transactional
-	public List<SightseeingDto> getAllSightseeingsPaging(Integer page,
-			Integer size, String orderBy, String orderType) {
+	public List<SightseeingDto> getAllSightseeings(Integer page, Integer size,
+			String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
 		PageRequest pageRequsetObj;
 		if (orderType.equals("ASC")) {
@@ -77,18 +78,7 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return list;
 	}
 
-	@Override
-	@Transactional
-	public List<SightseeingDto> getFavouriteSightseeings(User liker) {
-		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
-		for (Place place : placeRepository.findByLikers(liker)) {
-			list.add(new SightseeingDto(sightseeingRepository.findOne(place
-					.getId()), place));
-		}
-		return list;
-	}
-
-	public List<SightseeingDto> getFavouriteSightseeingsPaging(User liker,
+	public List<SightseeingDto> getFavouriteSightseeings(User liker,
 			Integer page, Integer size, String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
 		PageRequest pageRequsetObj;
@@ -103,7 +93,27 @@ public class SightseeingServiceImpl implements SightseeingService {
 			list.add(new SightseeingDto(sightseeingRepository.findOne(place
 					.getId()), place));
 		}
-		favouriteSize = (long) list.size();
+		return list;
+	}
+
+	@Override
+	@Transactional
+	public List<SightseeingDto> getSightseeingByOwner(Integer page,
+			Integer size, String orderBy, String orderType) {
+		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
+		User owner = profileService.getCurrentUser();
+		PageRequest pageRequsetObj;
+		if (orderType.equals("ASC")) {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.ASC, orderBy);
+		} else {
+			pageRequsetObj = new PageRequest(page - 1, size,
+					Sort.Direction.DESC, orderBy);
+		}
+		for (Place place : placeRepository.findByOwner(owner, pageRequsetObj)) {
+			list.add(new SightseeingDto(sightseeingRepository.findOne(place
+					.getId()), place));
+		}
 		return list;
 	}
 
@@ -185,16 +195,16 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return false;
 	}
 
-	public void unlikeSightseeing(Integer id, User liker){
+	public void unlikeSightseeing(Integer id, User liker) {
 		Integer likerId = liker.getUserId();
 		sightseeingRepository.unlike(id, likerId);
 	}
-	
-	public Integer getCurrentRating(Integer id){
+
+	public Integer getCurrentRating(Integer id) {
 		return sightseeingRepository.getRating(id);
 	}
-	
-	public Long getSightseeingsPaging(Long size, String sender, User liker) {
+
+	public Long getSightseeingsPaging(Long size, String sender, User currentUser) {
 		Long amount;
 		if (sender.equals("all-sightseeings")) {
 			Long dataBaseSize = sightseeingRepository.count();
@@ -204,15 +214,21 @@ public class SightseeingServiceImpl implements SightseeingService {
 				amount = dataBaseSize / size + 1;
 			}
 		} else if (sender.equals("favourite-sightseeings")) {
-			Long dataFavouriteSize = (long) getFavouriteSightseeings(liker)
-					.size();
+			Long dataFavouriteSize = (long) placeRepository.findByLikers(
+					currentUser).size();
 			if (dataFavouriteSize % size == 0l) {
 				amount = dataFavouriteSize / size;
 			} else {
 				amount = dataFavouriteSize / size + 1;
 			}
 		} else {
-			amount = 3L;
+			Long dataOwnerSize = sightseeingRepository
+					.countByOwner(currentUser);
+			if (dataOwnerSize % size == 0) {
+				amount = dataOwnerSize / size;
+			} else {
+				amount = dataOwnerSize / size + 1;
+			}
 		}
 		return amount;
 	}

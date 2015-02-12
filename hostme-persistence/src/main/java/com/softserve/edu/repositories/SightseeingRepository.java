@@ -32,4 +32,6 @@ public interface SightseeingRepository extends
 	@Query(value = "select count(*) from Favourite_sightseeing where place_id = ?1", nativeQuery=true)
 	public Integer getRating(Integer id);
 	
+	public Long countByOwner(User owner);
+	
 }

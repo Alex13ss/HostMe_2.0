@@ -1,7 +1,7 @@
 package com.softserve.edu.model;
 
 public enum SightseeingType {
-	PARK("Park"), MUSEUM("Museum"), MONUMENT("Monument"), EXHIBITION("Exhibition"), THEATER("Theatre");
+	PARK("Park"), MUSEUM("Museum"), MONUMENT("Monument"), EXHIBITION("Exhibition"), THEATER("Theatre"), CHURCHE("Churche");
 	private String value;
 	
 	SightseeingType(String value){

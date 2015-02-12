@@ -22,7 +22,6 @@ import com.softserve.edu.dto.PostDto;
 import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Country;
-import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Post;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Sightseeing;
@@ -98,7 +97,7 @@ public class SightseeingController {
 			@RequestParam(value = "orderBy") String orderBy,
 			@RequestParam(value = "orderType") String orderType) {
 		List<SightseeingDto> sightseeings = sightseeingService
-				.getAllSightseeingsPaging(page, size, orderBy, orderType);
+				.getAllSightseeings(page, size, orderBy, orderType);
 		return sightseeings;
 	}
 
@@ -111,17 +110,28 @@ public class SightseeingController {
 			@RequestParam(value = "orderType") String orderType) {
 		User liker = profileService.getUserByLogin(SecurityContextHolder
 				.getContext().getAuthentication().getName());
-		return sightseeingService.getFavouriteSightseeingsPaging(liker, page,
+		return sightseeingService.getFavouriteSightseeings(liker, page,
 				size, orderBy, orderType);
+	}
+
+	@RequestMapping(value = "/my-sightseeings", params = { "page", "size",
+			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<SightseeingDto> getMySightseeings(
+			@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size,
+			@RequestParam(value = "orderBy") String orderBy,
+			@RequestParam(value = "orderType") String orderType) {
+		List<SightseeingDto> sightseeings = sightseeingService
+				.getSightseeingByOwner(page, size, orderBy, orderType);
+		return sightseeings;
 	}
 
 	@RequestMapping(value = "/pagingSightseeings", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Long getPaging(
 			@RequestParam(value = "size") Long size,
 			@RequestParam(value = "sender") String sender) {
-		User liker = profileService.getUserByLogin(SecurityContextHolder
-				.getContext().getAuthentication().getName());
-		return sightseeingService.getSightseeingsPaging(size, sender, liker);
+		User currentUser = profileService.getCurrentUser();
+		return sightseeingService.getSightseeingsPaging(size, sender, currentUser);
 	}
 
 	@RequestMapping(value = "/sightseeing", method = RequestMethod.GET)
@@ -194,10 +204,12 @@ public class SightseeingController {
 			@RequestBody Sightseeing sightseeing) {
 		String priceCategory = sightseeing.getPriceCategory()
 				.getPriceCategory();
-		Sightseeing newSightseeing = sightseeingService.findOne(sightseeing.getId());
+		Sightseeing newSightseeing = sightseeingService.findOne(sightseeing
+				.getId());
 		String city = newSightseeing.getCity().getCity();
 		newSightseeing.setStatus(sightseeing.getStatus());
-		sightseeingService.updateSightseeing(newSightseeing, priceCategory, city);
+		sightseeingService.updateSightseeing(newSightseeing, priceCategory,
+				city);
 		return sightseeing;
 	}
 
