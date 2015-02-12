@@ -73,15 +73,14 @@ public class EventContoller {
 
 	@RequestMapping(value = "/events", method = RequestMethod.POST)
 	public String addEvent(Model model, @ModelAttribute("event") Event event) {
-		User user = profileService.getUserByLogin(SecurityContextHolder.getContext().getAuthentication().getName());
-		String priceCategory = event.getPriceCategory()
-				.getPriceCategory();
+		User user = profileService.getUserByLogin(SecurityContextHolder
+				.getContext().getAuthentication().getName());
+		String priceCategory = event.getPriceCategory().getPriceCategory();
 		String city = event.getCity().getCity();
 		event.setOwner(user);
 		eventService.addEvent(event, priceCategory, city);
 		return "redirect:/events";
 	}
-
 
 	@RequestMapping(value = "/all-events", params = { "page", "size",
 			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
@@ -90,39 +89,16 @@ public class EventContoller {
 			@RequestParam(value = "size") Integer size,
 			@RequestParam(value = "orderBy") String orderBy,
 			@RequestParam(value = "orderType") String orderType) {
-		List<EventDto> events = eventService.getAllEventsPaging(page, size,
-				orderBy, orderType);
-		return events;
+		return eventService.getAllEventsPaging(page, size, orderBy, orderType);
+
 	}
 
 	@RequestMapping(value = "/paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody Long getAllEventsPaging(
+	public @ResponseBody Long getEventsPaging(
 			@RequestParam(value = "size") Long size,
 			@RequestParam(value = "sender") String sender) {
-		Long amount;
-		if (sender.equals("all-events")) {
-			Long dataBaseSize = eventRepository.count();
-			if (dataBaseSize % size == 0) {
-				amount = dataBaseSize / size;
-			} else {
-				amount = dataBaseSize / size + 1;
-			}
-		} else if (sender.equals("my-events")) {
-			Long dataOwnreSize = EventServiceImpl.amountOfOwnerEvents + 1;
-			if (dataOwnreSize % size == 0) {
-				amount = dataOwnreSize / size;
-			} else {
-				amount = dataOwnreSize / size + 1;
-			}
-		} else {
-			Long dataAttendeeSize = EventServiceImpl.amountOfAttendeeEvents + 1;
-			if (dataAttendeeSize % size == 0) {
-				amount = dataAttendeeSize / size;
-			} else {
-				amount = dataAttendeeSize / size + 1;
-			}
-		}
-		return amount;
+		
+		return eventService.getPageCount(size, sender);
 	}
 
 	@RequestMapping(value = "/my-events", params = { "page", "size", "orderBy",
@@ -132,9 +108,7 @@ public class EventContoller {
 			@RequestParam(value = "size") Integer size,
 			@RequestParam(value = "orderBy") String orderBy,
 			@RequestParam(value = "orderType") String orderType) {
-		List<EventDto> events = eventService.getEventByOwner(page, size,
-				orderBy, orderType);
-		return events;
+		return eventService.getEventByOwner(page, size, orderBy, orderType);
 	}
 
 	@RequestMapping(value = "/signed-events", params = { "page", "size",
@@ -144,9 +118,7 @@ public class EventContoller {
 			@RequestParam(value = "size") Integer size,
 			@RequestParam(value = "orderBy") String orderBy,
 			@RequestParam(value = "orderType") String orderType) {
-		List<EventDto> events = eventService.getByAttendee(page, size, orderBy,
-				orderType);
-		return events;
+		return eventService.getByAttendee(page, size, orderBy, orderType);
 	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
@@ -182,44 +154,35 @@ public class EventContoller {
 	@RequestMapping("/event/delete/{id}")
 	public String deleteEvent(@PathVariable("id") Integer id) {
 		Event event = eventService.findOne(id);
-		eventService.removeEvent(event);
+		User owner = event.getOwner();
+		User logedUser = profileService.getCurrentUser();
+		String logedUserRole = logedUser.getRole().getRole();
+		if ((logedUser.getUserId() == owner.getUserId())
+				|| (logedUserRole.equals("MODERATOR"))) {
+			eventService.removeEvent(event);
+		}
+
 		return "redirect:/events";
 	}
-	
-	@RequestMapping(value = "/event-update", method = RequestMethod.POST,
-			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Event updateEventStatus(
-			@RequestBody Event event) {
-		Event newEvent = eventService.findOne(event.getId());
-		event.setAddress(newEvent.getAddress());
-		event.setOwner(newEvent.getOwner());
-		event.setCity(newEvent.getCity());
-		event.setRating(newEvent.getRating());
-		eventService.saveEvent(event);
-		return event;
-	}
-	
-	@RequestMapping(value = "/event-status-update",  method = RequestMethod.POST,
-			produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Event updateSingleEventStatus(
-			@RequestBody Event event) {
+
+	@RequestMapping(value = "/event-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Event updateEventStatus(@RequestBody Event event) {
 		Event newEvent = eventService.findOne(event.getId());
 		newEvent.setStatus(event.getStatus());
 		eventService.saveEvent(newEvent);
 		return event;
 	}
-	
+
 	@RequestMapping(value = "/addPhotosToEvent", method = RequestMethod.POST)
 	public String addPhotoToEvent(@RequestParam("file") MultipartFile[] files,
 			@ModelAttribute("sightseeing") final Event event,
 			RedirectAttributes redirectAttributes) {
-		redirectAttributes.addAttribute("id", event.getId())
-				.addFlashAttribute("eventEdited", true);
+		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
+				"eventEdited", true);
 		imageService.addImagesToEvent(files, event);
 		return "redirect:/event?id={id}";
 	}
-	
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		String datePattern = "yyyy-MM-dd HH:mm:ss";
@@ -227,9 +190,9 @@ public class EventContoller {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, true));
 	}
+
 	@RequestMapping("/event-enroll/{id}")
 	public String eventEnroll(@PathVariable("id") Integer id) {
-		
 		User user = profileService.getCurrentUser();
 		eventService.addAttendee(user, id);
 		return "redirect:/events";

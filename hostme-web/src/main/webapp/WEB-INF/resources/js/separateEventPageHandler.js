@@ -12,7 +12,7 @@ function getUrlParameter(sParam) {
 $(document).ready(function() {
 	$("#eventStatusChanger > li > a").click(function() {
 		$.ajax({
-			url : 'event-status-update',
+			url : 'event-update',
 			dataType : 'json',
 			contentType : "application/json",
 			"type" : "POST",

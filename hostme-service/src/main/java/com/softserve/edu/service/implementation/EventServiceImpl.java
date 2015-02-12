@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import com.softserve.edu.dto.SearchRequestDto;
-import com.softserve.edu.repositories.specifications.PlaceSpecification;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.softserve.edu.dto.EventDto;
 import com.softserve.edu.model.City;
 import com.softserve.edu.model.Event;
-import com.softserve.edu.model.Group;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
@@ -53,7 +49,7 @@ public class EventServiceImpl implements EventService {
 	UserRepository userRepository;
 	@Autowired
 	ImageRepository imageRepository;
-	
+
 	public static Long amountOfOwnerEvents;
 	public static Long amountOfAttendeeEvents;
 
@@ -116,17 +112,16 @@ public class EventServiceImpl implements EventService {
 	public EventDto getEvent(Integer id) {
 		Place place = placeRepository.findOne(id);
 		Event event = eventRepository.findOne(id);
-		EventDto eventDto = new EventDto(event, place);
-		return eventDto;
+		return new EventDto(event, place);
 	}
 
 	@Override
 	@Transactional
 	public Event findOne(Integer id) {
-		Event event = eventRepository.findOne(id);
-		return event;
+		return eventRepository.findOne(id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Event> searchEvent(Specifications<Event> specifications) {
 		return eventRepository.findAll(specifications);
@@ -193,10 +188,6 @@ public class EventServiceImpl implements EventService {
 			pageRequsetObj = new PageRequest(page - 1, size,
 					Sort.Direction.DESC, orderBy);
 		}
-		User attendee = profileService.getUserByLogin(SecurityContextHolder
-				.getContext().getAuthentication().getName());
-
-		// Set<Place> attendeeUser = attendee.getAttendee();
 
 		for (Place place : placeRepository
 				.findByAttendee(owner, pageRequsetObj)) {
@@ -225,7 +216,7 @@ public class EventServiceImpl implements EventService {
 		}
 		return list;
 	}
-	
+
 	@Override
 	@Transactional
 	public void addEvent(Event event, String priceCategory, String city) {
@@ -295,6 +286,36 @@ public class EventServiceImpl implements EventService {
 		event.setRating(newEvent.getRating());
 		eventRepository.save(event);
 	}
+	
+	@Override
+	@Transactional
+	public Long getPageCount(Long size, String sender){
+		Long amount;
+		if (sender.equals("all-events")) {
+			Long dataBaseSize = eventRepository.count();
+			if (dataBaseSize % size == 0) {
+				amount = dataBaseSize / size;
+			} else {
+				amount = dataBaseSize / size + 1;
+			}
+		} else if (sender.equals("my-events")) {
+			Long dataOwnreSize = EventServiceImpl.amountOfOwnerEvents + 1;
+			if (dataOwnreSize % size == 0) {
+				amount = dataOwnreSize / size;
+			} else {
+				amount = dataOwnreSize / size + 1;
+			}
+		} else {
+			Long dataAttendeeSize = EventServiceImpl.amountOfAttendeeEvents + 1;
+			if (dataAttendeeSize % size == 0) {
+				amount = dataAttendeeSize / size;
+			} else {
+				amount = dataAttendeeSize / size + 1;
+			}
+		}
+		
+		return amount;
+	}
 
 	@Override
 	public boolean checkEventOwner(EventDto event, User user) {
@@ -306,20 +327,23 @@ public class EventServiceImpl implements EventService {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.softserve.edu.service.EventService#addAttendee(com.softserve.edu.model.User, java.lang.Integer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.softserve.edu.service.EventService#addAttendee(com.softserve.edu.
+	 * model.User, java.lang.Integer)
 	 */
 	@Override
 	@Transactional
 	public void addAttendee(User user, Integer id) {
-		
+
 		Event event = eventRepository.findOne(id);
-		
-		Set<User>  attendeeSet = event.getAttendee();
+		Set<User> attendeeSet = event.getAttendee();
 		attendeeSet.add(user);
 		event.setAttendee(attendeeSet);
 		eventRepository.save(event);
-		
+
 		Set<Place> placeSet = user.getAttendee();
 		placeSet.add(event);
 		user.setAttendee(placeSet);
