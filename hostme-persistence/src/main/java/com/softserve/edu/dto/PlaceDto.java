@@ -16,12 +16,14 @@ public class PlaceDto implements Serializable{
         id = place.getId();
         name = place.getName();
         description = place.getDescription();
-        rating = place.getRating();
+        if (place.getRating() != null) {
+            rating = place.getRating();
+        }
         if (place.getWebsite() != null) {
             website = place.getWebsite();
         }
         address = place.getAddress();
-        if (place.getImage() == null || place.getImage().isEmpty()) {
+        if (place.getImage().isEmpty()) {
             imgLink = "resources/images/imgNotFound.jpg";
         } else {
             imgLink = imgUrl + place.getImage().iterator().next().getLink();
