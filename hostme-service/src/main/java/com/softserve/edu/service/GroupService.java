@@ -11,7 +11,8 @@ import com.softserve.edu.model.User;
 
 public interface GroupService {
 
-    Set<GroupDto> findAll();
+    List<GroupDto> findAll(Integer page, Integer size, String orderBy,
+            String orderType);
 
     Group findOne(Long id);
 
@@ -46,5 +47,7 @@ public interface GroupService {
     Set<GroupDto> findPendingGroups();
 
     Set<GroupDto> findApprovedGroups();
+
+    Long getGroupsPaging(Long size, String sender, User currentUser);
 
 }

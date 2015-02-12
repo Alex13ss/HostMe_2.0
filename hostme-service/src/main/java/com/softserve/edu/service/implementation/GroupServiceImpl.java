@@ -9,6 +9,8 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.access.method.P;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +24,6 @@ import com.softserve.edu.model.User;
 import com.softserve.edu.repositories.ConversationRepository;
 import com.softserve.edu.repositories.GroupRepository;
 import com.softserve.edu.repositories.ImageRepository;
-import com.softserve.edu.repositories.NotificationRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.ProfileService;
@@ -40,9 +41,6 @@ public class GroupServiceImpl implements GroupService {
     private UserRepository userRepository;
 
     @Autowired
-    private NotificationRepository notificationRepository;
-
-    @Autowired
     private ConversationRepository conversationRepository;
 
     @Autowired
@@ -50,9 +48,18 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public Set<GroupDto> findAll() {
-        Set<GroupDto> list = new HashSet<GroupDto>();
-        for (Group group : groupRepository.findAll()) {
+    public List<GroupDto> findAll(Integer page, Integer size, String orderBy,
+            String orderType) {
+        List<GroupDto> list = new ArrayList<GroupDto>();
+        PageRequest pageRequsetObj;
+        if ("ASC".equals(orderType)) {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.ASC, orderBy);
+        } else {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.DESC, orderBy);
+        }
+        for (Group group : groupRepository.findAll(pageRequsetObj)) {
             list.add(new GroupDto(group));
         }
         return list;
@@ -171,9 +178,9 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     public void updateGroupStatus(String status, Long id) {
         Status newStatus;
-        if (status.equals("APPROVED")) {
+        if ("APPROVED".equals(status)) {
             newStatus = Status.APPROVED;
-        } else if (status.equals("Pending")) {
+        } else if ("Pending".equals(status)) {
             newStatus = Status.PENDING;
         } else {
             newStatus = Status.REFUSED;
@@ -221,6 +228,36 @@ public class GroupServiceImpl implements GroupService {
             list.add(new GroupDto(group));
         }
         return list;
+    }
+
+    @Override
+    public Long getGroupsPaging(Long size, String sender, User currentUser) {
+        Long amount;
+        if ("all-groups".equals(sender)) {
+            Long dataBaseSize = groupRepository.count();
+            if (dataBaseSize % size == 0) {
+                amount = dataBaseSize / size;
+            } else {
+                amount = dataBaseSize / size + 1;
+            }
+        } else if ("interesting-groups".equals(sender)) {
+            Long dataInterestingSize = (long) groupRepository
+                    .findAllByInterestedUsers(currentUser).size();
+            if (dataInterestingSize % size == 0l) {
+                amount = dataInterestingSize / size;
+            } else {
+                amount = dataInterestingSize / size + 1;
+            }
+        } else {
+            Long dataCreatorSize = groupRepository
+                    .countByCreatorUser(currentUser);
+            if (dataCreatorSize % size == 0) {
+                amount = dataCreatorSize / size;
+            } else {
+                amount = dataCreatorSize / size + 1;
+            }
+        }
+        return amount;
     }
 
 }

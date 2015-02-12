@@ -36,7 +36,6 @@ import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.NotificationService;
 import com.softserve.edu.service.ProfileService;
-import com.softserve.edu.service.UserService;
 
 @Controller
 public class GroupController {
@@ -49,9 +48,6 @@ public class GroupController {
 
     @Autowired
     private ProfileService profileService;
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private NotificationService notificationService;
@@ -95,14 +91,6 @@ public class GroupController {
         return "groups";
     }
 
-    @RequestMapping(value = "/groups-paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Long getGroupsPaging(
-            @RequestParam(value = "size") Long size,
-            @RequestParam(value = "sender") String sender) {
-        Long amount = (long) 13;
-        return amount;
-    }
-
     @RequestMapping(value = "/approved-groups", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Set<GroupDto> findApprovedGroups() {
         Set<GroupDto> groups = groupService.findApprovedGroups();
@@ -125,10 +113,14 @@ public class GroupController {
         return groups;
     }
 
-    @RequestMapping(value = "/all-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<GroupDto> findAll() {
-        Set<GroupDto> groups = groupService.findAll();
-        return groups;
+    @RequestMapping(value = "/all-groups", params = { "page", "size",
+            "orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody List<GroupDto> findAll(
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size,
+            @RequestParam(value = "orderBy") String orderBy,
+            @RequestParam(value = "orderType") String orderType) {
+        return groupService.findAll(page, size, orderBy, orderType);
     }
 
     @RequestMapping(value = "/pending-groups", method = RequestMethod.GET, produces = "application/json")
@@ -206,6 +198,14 @@ public class GroupController {
         redirectAttributes.addAttribute("id", group.getId());
         imageService.addImageToGroup(file, group);
         return "redirect:/group?id={id}";
+    }
+
+    @RequestMapping(value = "/groups-paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
+    public @ResponseBody Long getPaging(
+            @RequestParam(value = "size") Long size,
+            @RequestParam(value = "sender") String sender) {
+        User currentUser = profileService.getCurrentUser();
+        return groupService.getGroupsPaging(size, sender, currentUser);
     }
 
     @InitBinder

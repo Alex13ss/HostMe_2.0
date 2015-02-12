@@ -4,6 +4,7 @@
 
 var table;
 var size;
+var page;
 var selectedTablePage = 1;
 var groupsType;
 var userRole = "MODERATOR";
@@ -93,13 +94,6 @@ function interestingGroups(element) {
 	if (element.className != 'active') {
 		table.fnClearTable();
 		table.fnReloadAjax("interesting-groups");
-	}
-}
-
-function allGroups(element) {
-	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("all-groups");
 	}
 }
 
@@ -195,12 +189,11 @@ $(document)
 										"bInfo" : false,
 										"bSort" : false,
 										"bAutoWidth" : false,
-										"sAjaxSource" : "all-groups",
-//														 after ":": 	groupsType
-//										+ "?size=" + size + "&page="
-//										+ selectedTablePage
-//										+ "&orderType=" + order.type
-//										+ "&orderBy=" + order.by,
+										"sAjaxSource" : groupsType
+														+ "?size=" + size + "&page="
+														+ selectedTablePage
+														+ "&orderType=" + order.type
+														+ "&orderBy=" + order.by,
 										"aoColumns" : [
 												{
 													"sWidth" : "13%",
@@ -247,7 +240,7 @@ $(document)
 					});
 
 					$("#groups-tabs > li").click(function() {
-						sightseeingsType = $(this).attr("id");
+						groupsType = $(this).attr("id");
 						selectedTablePage = 1;
 						showGroups();
 					});
