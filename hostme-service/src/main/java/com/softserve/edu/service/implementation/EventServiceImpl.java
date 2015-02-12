@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import com.softserve.edu.repositories.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,11 +22,6 @@ import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
-import com.softserve.edu.repositories.CityRepository;
-import com.softserve.edu.repositories.CountryRepository;
-import com.softserve.edu.repositories.EventRepository;
-import com.softserve.edu.repositories.ImageRepository;
-import com.softserve.edu.repositories.PriceCategoryRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.EventService;
@@ -50,6 +47,11 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	ImageRepository imageRepository;
 
+    @Autowired
+    private SystemPropertiesRepository systemPropertiesRepository;
+
+    public final Integer PROPERTY_ID = 1;
+    
 	public static Long amountOfOwnerEvents;
 	public static Long amountOfAttendeeEvents;
 
@@ -72,8 +74,9 @@ public class EventServiceImpl implements EventService {
 
 	public List<EventDto> getEventsDtoList(List<Event> events) {
 		List<EventDto> result = new ArrayList<>();
+        String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL() + "/";
 		for (Event event : events) {
-			result.add(new EventDto(event));
+			result.add(new EventDto(event, propertiesImageUrl));
 		}
 		return result;
 	}

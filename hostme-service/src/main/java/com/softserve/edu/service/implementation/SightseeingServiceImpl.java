@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.softserve.edu.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,11 +18,6 @@ import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
-import com.softserve.edu.repositories.CityRepository;
-import com.softserve.edu.repositories.CountryRepository;
-import com.softserve.edu.repositories.ImageRepository;
-import com.softserve.edu.repositories.PriceCategoryRepository;
-import com.softserve.edu.repositories.SightseeingRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.ProfileService;
@@ -47,6 +43,11 @@ public class SightseeingServiceImpl implements SightseeingService {
 	@Autowired
 	private ImageRepository imageRepository;
 
+    @Autowired
+    private SystemPropertiesRepository systemPropertiesRepository;
+
+    public final Integer PROPERTY_ID = 1;
+    
 	public boolean haveSight(int id) {
 		return sightseeingRepository.exists(id);
 	}
@@ -121,8 +122,9 @@ public class SightseeingServiceImpl implements SightseeingService {
 	public List<SightseeingDto> getSightseeingsDtoList(
 			List<Sightseeing> sightseeings) {
 		List<SightseeingDto> result = new ArrayList<>();
+        String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL();
 		for (Sightseeing sightseeing : sightseeings) {
-			result.add(new SightseeingDto(sightseeing));
+			result.add(new SightseeingDto(sightseeing, propertiesImageUrl));
 		}
 		return result;
 	}

@@ -127,10 +127,10 @@ function setAdvancedOptions() {
         });
     } else if ($searchType.val() == "SIGHT") {
         $searchOptions.html("");
-        $searchOptions.append("<select id='sightType' class='col-md-offset-3 btn btn-default dropdown-toggle'>");
+        $searchOptions.append("<select id='sightType' class='btn btn-default dropdown-toggle'>");
         var $sightType = $searchOptions.find("#sightType");
         for (var i = 0; i < sightType.length; i++) {
-            $sightType.append("<option value=" + sightType[i] + ">" + sightType[i] + "</option>");
+            $sightType.append("<option value=" + sightType[i] + ">" + convertEnumName(sightType[i]) + "</option>");
         }
         searchObj.sightseeingType = $sightType.val();
         $sightType.change(function() {
@@ -230,26 +230,38 @@ function fillPlaceData(data) {
     for (var i = 0; i < data.length; i++) {
         $searchResult.append("<div class='placeResult col-md-5'>");
         $searchResult.children().last().append("<img class='placeResultImg' src='"
-            + data.imgLink + "'>");
-        $searchResult.children().last().append("<div class='col-md-9'>"
+            + data[i].imgLink + "'>");
+        $searchResult.children().last().append("<div class='placeResultBox'>");
+        $searchResult.children().last().find(".placeResultBox").append("<div class='col-md-9 name'>"
             + "<a href = place?placeId=" + data[i].id + ">"
                 + data[i].name
             + "</a>" + "</div>");
-        $searchResult.children().last().append("<div class='col-md-3'>"
-                + "<button class='btn btn-primary btn-sm bookPlace'>"
+        $searchResult.children().last().find(".placeResultBox").append("<div class='col-md-3'>"
+                + "<button class='btn btn-primary btn-xs bookPlace'>"
             + "Book" + "</button>");
+        if (data[i].address != null) {
+            $searchResult.children().last().find(".placeResultBox").append("<div class='col-md-12'>"
+            + data[i].address
+            +"</div>");
+        }
         if (data[i].pcStr != null) {
-            $searchResult.children().last().append("<div>" + data[i].pcStr + "</div>");
+            $searchResult.children().last().find(".placeResultBox").append("<div class='col-md-3'>"
+                + "<i class='fa fa-dollar'/> "
+                + data[i].pcStr
+            +"</div>");
         }
         if (data[i].rating != null) {
-            $searchResult.children().last().append("<div>" + data[i].rating + "</div>");
-        }
-        if (data[i].description != null) {
-            $searchResult.children().last().append("<div>" + data[i].description + "</div>");
+            $searchResult.children().last().find(".placeResultBox").append("<div class='col-md-2'>"
+                + "<i class='fa fa-thumbs-o-up'/> "
+                + data[i].rating
+            + "</div>");
         }
         if (data[i].website != null) {
-            $searchResult.children().last().append("<div><a href='http://" + data[i].website + "'>"+ data[i].website +"</div>");
+            $searchResult.children().last().find(".placeResultBox").append("<div><a href='http://"
+                + data[i].website + "'>"
+            + "<i class='fa fa-globe'/>" +"</div>");
         }
+        $searchResult.children().last().append("</div>");
         $searchResult.children().last().append("</div>");
         $("#searchResult").children().last().find(".bookPlace").data("placeId", data[i].id);
     }
@@ -270,7 +282,7 @@ function fillGroupData(data) {
     for (var i = 0; i < data.length; i++) {
         $searchResult.append("<div class='groupResult'>" +
         "<a href = group?id=" + data[i].id+'>'
-        + data[i].groupName + "</a>"
+            + data[i].groupName + "</a>"
         + "</div>");
     }
 }
@@ -279,17 +291,17 @@ function fillUserData(data) {
     for (var i = 0; i < data.length; i++) {
         $searchResult.append("<div class='userResult'>" +
         "<a href = hoster?hosterId=" + data[i].id+'>'
-        + data[i].name + "</a>"
+            + data[i].name + "</a>"
         + "</div>");
     }
 }
 
 function fillRouteData(data) {
     for (var i = 0; i < data.length; i++) {
-        $searchResult.append("<div class='routeResult'>" +
-        '<a href =route?routeId='+ data[i].id + '>'
-        + data[i].name + "</a>"
-        + "</div>");
+        $searchResult.append("<div class='routeResult'>");
+        $searchResult.children().last().append('<a href =route?routeId='+ data[i].id + '>'
+            + data[i].name + "</a>");
+        $searchResult.append("</div>");
     }
 }
 
@@ -299,7 +311,7 @@ function initSearchType(){
         dataType: "json",
         success: function(searchTypes) {
             for (var i = 0; i < searchTypes.length; i++) {
-                $searchType.append("<option value=" + searchTypes[i] + ">" + searchTypes[i] + "</option>");
+                $searchType.append("<option value=" + searchTypes[i] + ">" + convertEnumName(searchTypes[i]) + "</option>");
             }
             bufType = $searchType.val();
         }
@@ -328,4 +340,10 @@ function initSightType() {
             }
         }
     })
+}
+
+function convertEnumName(name) {
+    var result = name.charAt(0);
+    result += name.substring(1).toLowerCase();
+    return result;
 }

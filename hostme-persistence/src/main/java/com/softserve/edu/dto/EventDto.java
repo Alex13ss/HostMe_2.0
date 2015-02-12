@@ -35,20 +35,22 @@ public class EventDto {
 		super();
 	}
 
-	public EventDto(Event event) {
+	public EventDto(Event event, String imgUrl) {
 		id = event.getId();
 		name = event.getName();
-		address = event.getAddress();
+        address = event.getCity().getCountry().getCountry() 
+                + ", " + event.getCity().getCity()
+                + ", " + event.getAddress();
 		priceCategory = event.getPriceCategory();
 		pcStr = event.getPriceCategory().getPriceCategory();
 		rating = event.getRating();
 		website = event.getWebsite();
 		startDate = event.getStartDate();
 		endDate = event.getEndDate();
-		if (event.getImage().size() == 0 || event.getImage() == null) {
-			imgLink = "resources/images/colosseum.jpg";
+		if (event.getImage().isEmpty()) {
+			imgLink = "resources/images/imgNotFound.jpg";
 		} else {
-			imgLink = event.getImage().iterator().next().getLink();
+			imgLink = imgUrl + event.getImage().iterator().next().getLink();
 		}
 	}
 

@@ -33,7 +33,7 @@ public class RoutesServiceImp implements RoutesService{
     }
 
     public Route findRoute(int id) {
-        return routeRepository.findOne(id);
+        return routeRepository.findWithFetchPlaces(id);
     }
 
     @Override
@@ -67,6 +67,7 @@ public class RoutesServiceImp implements RoutesService{
         route.setUser(user);
         route.setName(routeDto.getName());
         route.setDescription(routeDto.getDescription());
+        route.setDistance(Integer.valueOf(routeDto.getDistance()));
         List<Place> places = new ArrayList<>();
         places.add(placeRepository.findOne(Integer.parseInt(routeDto.getOriginId())));
         places.add(placeRepository.findOne(Integer.parseInt(routeDto.getDestinationId())));

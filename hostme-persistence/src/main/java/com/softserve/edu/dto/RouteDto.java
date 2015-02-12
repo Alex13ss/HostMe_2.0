@@ -9,6 +9,7 @@ public class RouteDto {
     private String id;
     private String name;
     private String description;
+    private String distance;
     private String originId;
     private String destinationId;
     private final int MAX_WAYPOINTS = 8;
@@ -54,7 +55,15 @@ public class RouteDto {
     public void setDescription(String description) {
         this.description = description;
     }
-//
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
     public String getOriginId() {
         return originId;
     }

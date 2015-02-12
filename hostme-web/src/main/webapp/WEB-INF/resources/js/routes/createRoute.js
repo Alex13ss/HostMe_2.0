@@ -4,6 +4,7 @@
 var routeDto = {
     name: "",
     description: "",
+    distance: "",
     originId: "",
     destinationId: "",
     waypointsId: []
@@ -53,7 +54,9 @@ $(document).ready(function() {
             addOrigin = ui.draggable.data("Address");
             routeDto.originId = ui.draggable.data("Id");
             ui.draggable.data("dropPlace", $originDropUi);
-            tryDrawDestination();
+            if (haveOriginAndDest()) {
+                drawDestination()
+            }
         }
     });
     var waypointsCounter = 0;
@@ -64,7 +67,9 @@ $(document).ready(function() {
             waypts.push({
                 location: ui.draggable.data("Address")
             });
-            tryDrawDestination();
+            if (haveOriginAndDest()) {
+                drawDestination()
+            }
         }
     });
     $destinationDropUi.droppable({
@@ -76,13 +81,16 @@ $(document).ready(function() {
             haveDestinationPlace = true;
             addDestination = ui.draggable.data("Address");
             routeDto.destinationId = ui.draggable.data("Id");
-            tryDrawDestination();
+            if (haveOriginAndDest()) {
+                drawDestination()
+            }
         }
     });
     $createRouteBtn.click(function() {
         if (validateRouteCreation($name, $description)) {
             routeDto.name = $name.val();
             routeDto.description = $description.val();
+            routeDto.distance = distance;
             $.ajax({
                 url: "createRoute",
                 type: "POST",
@@ -181,7 +189,7 @@ function drawPlaces($ui, data, placeSize, pageIndex) {
                 + data[i].imgLink + "'>"
             + "</img>"
             + '<a href = "place?placeId=' + data[i].id + '">'
-            + data[i].name + "</a>"
+                + data[i].name + "</a>"
             + "</div>");
             $ui.children().last().data("Id", data[i].id);
             $ui.children().last().data("Address", data[i].address);
@@ -332,8 +340,9 @@ function initDrag() {
     });
 }
 
-function tryDrawDestination() {
+function haveOriginAndDest() {
     if (haveDestinationPlace && haveDestinationPlace) {
-        drawDestination()
+        return true;
     }
 }
+

@@ -26,18 +26,21 @@ public class SightseeingDto {
 	private SightseeingType sightseeingType;
 	private Status status;
 
-	public SightseeingDto(Sightseeing sightseeing) {
+	public SightseeingDto(Sightseeing sightseeing, String imgUrl) {
 		id = sightseeing.getId();
 		name = sightseeing.getName();
+        address = sightseeing.getCity().getCountry().getCountry()
+                + ", " + sightseeing.getCity().getCity()
+                + ", " + sightseeing.getAddress();
 		description = sightseeing.getDescription();
 		rating = sightseeing.getRating();
 		pcStr = sightseeing.getPriceCategory().getPriceCategory();
 		sightseeingType = sightseeing.getSightseeingType();
 		address = sightseeing.getAddress();
-		if (sightseeing.getImage().size() == 0 || sightseeing.getImage() == null) {
-			
+		if (sightseeing.getImage().isEmpty()) {
+            imgLink = "resources/images/imgNotFound.jpg";
 		} else {
-			imgLink = sightseeing.getImage().iterator().next().getLink();
+			imgLink = imgUrl + sightseeing.getImage().iterator().next().getLink();
 		}
 		website = sightseeing.getWebsite();
 	}

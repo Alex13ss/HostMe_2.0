@@ -21,6 +21,7 @@
 		<intercept-url pattern="/search" access="isAuthenticated()" />
 		<intercept-url pattern="/megaSearch" access="isAuthenticated()" />
 		<intercept-url pattern="/createRoute" access="isAuthenticated()" />
+        <intercept-url pattern="/route" access="isAuthenticated()" />
 		<intercept-url pattern="/groups" access="isAuthenticated()" />
 		<intercept-url pattern="/group" access="isAuthenticated()" />
 		<intercept-url pattern="/notifications" access="isAuthenticated()" />

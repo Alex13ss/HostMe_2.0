@@ -16,10 +16,13 @@ public class Route {
 
     @Column (nullable = false)
     private String name;
-
+    
     @Column (nullable = false)
     private String description;
-
+    
+    @Column
+    private int distance;
+    
     @ManyToOne
     private User user;
 
@@ -51,6 +54,14 @@ public class Route {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 
     public User getUser() {

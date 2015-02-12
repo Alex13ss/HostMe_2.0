@@ -1,11 +1,41 @@
 .routeResult {height: 3%; margin: 0.3%; background-color: bisque}
 .placeResult {
-    height: 25%;
+    padding-top: 1%;
+    height: 30%;
     font-size: 1.5rem;
-    margin: 3%;
+    background: #ffffff;
+    margin-bottom: 3%;
+    margin-left: 5.5%;
+    border-top: 2px solid #3c8dbc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.placeResultBox {
+    position:absolute;
+    bottom: 0;
+    width: 92.5%;
+    height: 30%;
+    padding-top: 2%;
+    margin-bottom: 3%;
+    font-size: 1.5rem;
+    background: #ffffff;
+    border-top: 2px solid #c1c1c1;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.placeResultBox .name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 .placeResultImg {
-    height: 50%;
+    height: 60%;
     width: 100%;
 }
 .groupResult {
@@ -13,6 +43,6 @@
 }
 .userResult {height: 3%; margin: 0.3%;}
 .bookPlace {width: 100%;}
-.miniInfo{width: 10%}
-.utilsBtn{width: 4%}
-#searchResult{margin-top: 4%}
+.miniInfo {width: 10%}
+.utilsBtn {width: 4%}
+#searchResult {margin-top: 2%}

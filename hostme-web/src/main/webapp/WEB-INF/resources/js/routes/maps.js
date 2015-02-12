@@ -4,6 +4,7 @@ var map;
 var addOrigin;
 var addDestination;
 var waypts = [];
+var distance = "";
 $(document).ready(function() {
     function initialize() {
         var chicago = new google.maps.LatLng(41.850033, -87.6500523);
@@ -28,6 +29,10 @@ function drawDestination() {
     directionsService.route(request, function (result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             this.directionsDisplay.setDirections(result);
+            var route = result.routes[0];
+            for(var i = 0; i < route.legs.length; i++) {
+                distance += route.legs[i].distance.value;
+            }
         }
     });
 }
