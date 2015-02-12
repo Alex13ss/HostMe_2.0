@@ -110,12 +110,12 @@
 			<table id="groups-table" class="table table-bordered table-hover">
 				<thead>
 					<tr id="groups-table-header">
-						<th headers="img">Image of group</th>
-						<th headers="name">Group name/description</th>
-						<th headers="publishing">Publishing</th>
+						<th>Image of group</th>
+						<th headers="groupName">Group name/description</th>
+						<th headers="createdAt">Publishing</th>
 						<sec:authorize access="hasRole('MODERATOR')">
 							<th headers="status">Status</th>
-							<th headers="btn">Actions</th>
+							<th>Actions</th>
 						</sec:authorize>
 					</tr>
 				</thead>

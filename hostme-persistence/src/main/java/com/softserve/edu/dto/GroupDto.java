@@ -13,7 +13,6 @@ public class GroupDto {
     private String groupName;
     private String groupDescription;
     private Date createdAt;
-    private Date lastEditedAt;
     private Set<Image> images;
     private String creatorFNandLN;
     private Status status;
@@ -26,7 +25,6 @@ public class GroupDto {
         this.groupName = group.getGroupName();
         this.groupDescription = group.getGroupDescription();
         this.createdAt = group.getCreatedAt();
-        this.lastEditedAt = group.getLastEditedAt();
         this.images = group.getImages();
         this.creatorFNandLN = group.getCreatorUser().getFirstName() + " "
                 + group.getCreatorUser().getLastName();
@@ -63,14 +61,6 @@ public class GroupDto {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Date getLastEditedAt() {
-        return lastEditedAt;
-    }
-
-    public void setLastEditedAt(Date lastEditedAt) {
-        this.lastEditedAt = lastEditedAt;
     }
 
     public Set<Image> getImages() {

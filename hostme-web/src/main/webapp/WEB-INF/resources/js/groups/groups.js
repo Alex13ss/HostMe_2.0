@@ -7,10 +7,11 @@ var size;
 var page;
 var selectedTablePage = 1;
 var groupsType;
+var groupStatus;
 var userRole = "MODERATOR";
 var order = {
-	by : "name",
-	type : "ASC"
+	by : "createdAt",
+	type : "DESC"
 };
 
 function checkRole() {

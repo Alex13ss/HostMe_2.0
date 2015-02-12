@@ -40,6 +40,8 @@ import com.softserve.edu.service.ProfileService;
 @Controller
 public class GroupController {
 
+    private static final String GROUP_LINK = "redirect:/group?id={id}";
+
     @Autowired
     private GroupService groupService;
 
@@ -76,7 +78,7 @@ public class GroupController {
         groupService.create(group);
         redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
                 "groupCreated", true);
-        return "redirect:/group?id={id}";
+        return GROUP_LINK;
     }
 
     @RequestMapping("/group/remove/{id}")
@@ -93,29 +95,25 @@ public class GroupController {
 
     @RequestMapping(value = "/approved-groups", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Set<GroupDto> findApprovedGroups() {
-        Set<GroupDto> groups = groupService.findApprovedGroups();
-        return groups;
+        return groupService.findApprovedGroups();
     }
 
     @RequestMapping(value = "/my-groups", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Set<GroupDto> findMyGroups(Principal principal) {
         User creatorUser = profileService.getUserByLogin(principal.getName());
-        Set<GroupDto> groups = groupService.getGroupsByCreator(creatorUser);
-        return groups;
+        return groupService.getGroupsByCreator(creatorUser);
     }
 
     @RequestMapping(value = "/interesting-groups", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<GroupDto> findSubscribedGroups(Principal principal) {
         User interestedUser = profileService
                 .getUserByLogin(principal.getName());
-        List<GroupDto> groups = groupService
-                .getGroupsByInterestedUser(interestedUser);
-        return groups;
+        return groupService.getGroupsByInterestedUser(interestedUser);
     }
 
     @RequestMapping(value = "/all-groups", params = { "page", "size",
             "orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<GroupDto> findAll(
+    public @ResponseBody List<GroupDto> findAllGroups(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
@@ -125,8 +123,7 @@ public class GroupController {
 
     @RequestMapping(value = "/pending-groups", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody Set<GroupDto> findPendingGroups() {
-        Set<GroupDto> groups = groupService.findPendingGroups();
-        return groups;
+        return groupService.findPendingGroups();
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)
@@ -155,7 +152,7 @@ public class GroupController {
         groupService.update(group);
         redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
                 "groupEdited", true);
-        return "redirect:/group?id={id}";
+        return GROUP_LINK;
     }
 
     @RequestMapping("/group/subscribe/{id}")
@@ -164,7 +161,7 @@ public class GroupController {
         Group group = groupService.findOne(groupId);
         User user = profileService.getUserByLogin(principal.getName());
         groupService.subscribe(user, group);
-        return "redirect:/group?id={id}";
+        return GROUP_LINK;
     }
 
     @RequestMapping("/group/unsubscribe/{id}")
@@ -172,7 +169,7 @@ public class GroupController {
             Principal principal) {
         User user = profileService.getUserByLogin(principal.getName());
         groupService.unsubscribe(user.getUserId(), groupId);
-        return "redirect:/group?id={id}";
+        return GROUP_LINK;
     }
 
     private void addLatestConversationsByGroupId(Model model, Long id) {
@@ -197,7 +194,7 @@ public class GroupController {
             RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("id", group.getId());
         imageService.addImageToGroup(file, group);
-        return "redirect:/group?id={id}";
+        return GROUP_LINK;
     }
 
     @RequestMapping(value = "/groups-paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
