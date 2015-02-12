@@ -21,6 +21,7 @@ import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.repositories.ConversationRepository;
 import com.softserve.edu.repositories.GroupRepository;
+import com.softserve.edu.repositories.ImageRepository;
 import com.softserve.edu.repositories.NotificationRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.GroupService;
@@ -43,6 +44,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private ConversationRepository conversationRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Override
     @Transactional
@@ -98,6 +102,7 @@ public class GroupServiceImpl implements GroupService {
     public void update(Group group) {
         group.setLastEditedAt(new Date());
         group.setLastEditor(profileService.getCurrentUser());
+        group.setImages(imageRepository.findAllByGroup(group));
         groupRepository.save(group);
     }
 

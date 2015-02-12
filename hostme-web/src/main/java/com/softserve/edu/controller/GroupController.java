@@ -86,7 +86,6 @@ public class GroupController {
     @RequestMapping("/group/remove/{id}")
     public String removeGroup(@PathVariable Long id) {
         Group group = groupService.findOne(id);
-        imageService.deleteImagesFromGroup(group);
         groupService.delete(group);
         return "redirect:/groups";
     }
@@ -195,11 +194,8 @@ public class GroupController {
     @RequestMapping(value = "/group-status-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody Group updateGroupStatus(@RequestBody Group group) {
         Group newGroup = groupService.findOne(group.getId());
-        group.setCreatedAt(newGroup.getCreatedAt());
-        group.setCreatorUser(newGroup.getCreatorUser());
-        group.setGroupName(newGroup.getGroupName());
-        group.setGroupDescription(newGroup.getGroupDescription());
-        groupService.saveGroup(group);
+        newGroup.setStatus(group.getStatus());
+        groupService.saveGroup(newGroup);
         return group;
     }
 

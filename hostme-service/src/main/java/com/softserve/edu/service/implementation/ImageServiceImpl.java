@@ -145,18 +145,6 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void deleteImagesFromGroup(Group group) {
-        for (Image im : group.getImages()) {
-            imageRepository.delete(im);
-        }
-        try {
-            FileUtils.deleteDirectory(new File(buildPathGroup(group)));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @Override
     @Transactional
     public void addImagesToSightseeing(MultipartFile[] files,
             Sightseeing sightseeing) {

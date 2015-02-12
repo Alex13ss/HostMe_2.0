@@ -15,6 +15,19 @@ function getUrlParameter(sParam) {
 
 $(document).ready(
 		function() {
+			$("#groupStatusChanger > li > a").click(function() {
+				$.ajax({
+					url : 'group-status-update',
+					dataType : 'json',
+					contentType : "application/json",
+					"type" : "POST",
+					data : JSON.stringify({
+						id : getUrlParameter('id'),
+						status : $(this).attr("id")
+					}),
+				});
+			});
+
 			$(".triggerRemove").click(
 					function(e) {
 						e.preventDefault();
@@ -47,16 +60,4 @@ $(document).ready(
 						}
 					});
 
-			$("#groupStatusChanger > li > a").click(function() {
-				$.ajax({
-					url : 'group-status-update',
-					dataType : 'json',
-					contentType : "application/json",
-					"type" : "POST",
-					data : JSON.stringify({
-						id : getUrlParameter('id'),
-						status : $(this).attr("id")
-					}),
-				});
-			});
 		});

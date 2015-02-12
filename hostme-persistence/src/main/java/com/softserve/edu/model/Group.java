@@ -23,8 +23,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -65,8 +63,7 @@ public class Group {
     /**
      * Contains images uploaded by this group
      */
-    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
-    @NotFound(action = NotFoundAction.IGNORE)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<Image> images;
 
     /**

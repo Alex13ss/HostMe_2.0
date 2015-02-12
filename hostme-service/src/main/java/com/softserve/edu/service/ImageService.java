@@ -29,6 +29,4 @@ public interface ImageService {
 
     void addImageToGroup(MultipartFile[] file, Group group);
 
-    void deleteImagesFromGroup(Group group);
-
 }
