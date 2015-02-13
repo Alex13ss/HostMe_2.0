@@ -27,13 +27,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title><spring:message code="label.groups" /></title>
-
 </head>
 
 <section class="content-header">
 	<h1>
 		<spring:message code="label.groups" />
-		<small>Conversations with minded people</small>
+		<small><spring:message code="label.smallSlogan" /></small>
 	</h1>
 	<security:authorize access="hasRole('USER')">
 		<c:set var="role" value="USER" />
@@ -50,8 +49,8 @@
 
 		<div class="box-header">
 			<div class="box-title col-md-9">
-				<i class="fa fa-fw fa-list-alt"></i> Choose group and have a fun and
-				useful conversations!
+				<i class="fa fa-fw fa-list-alt"></i>
+				<spring:message code="label.tableSlogan" />
 			</div>
 
 			<sec:authorize access="hasRole('USER')">
@@ -65,14 +64,15 @@
 				<c:if test="${groupNotCreated eq true}">
 					<div class="box-title col-md-12 alert alert-danger"
 						style="margin-bottom: 13px;" align="center">
-						<h3>Oops... Wrong input data! Your group is NOT created.
-							Please try again!</h3>
+						<h3>
+							<spring:message code="label.hibernateBadInput" />
+						</h3>
 					</div>
 				</c:if>
 				<div class="col-md-offset-2">
-					<div class="col-md-9 alert alert-info" align="center">Find
-						minded people and get some conversations! You'll get many useful
-						information here! Have a fun! ;)</div>
+					<div class="col-md-9 alert alert-info" align="center">
+						<spring:message code="label.tableFlashSlogan" />
+					</div>
 				</div>
 			</sec:authorize>
 		</div>
@@ -80,22 +80,17 @@
 
 		<ul id="groups-tabs" class="nav nav-tabs">
 			<sec:authorize access="hasRole('USER')">
-				<li id="approved-groups" class="active"
-					onclick="approvedGroups(this)"><a href="#" data-toggle="tab"><spring:message
+				<li id="approved-groups"><a href="#" data-toggle="tab"><spring:message
 							code="label.allGroups" /></a></li>
-				<li id="my-groups" class="" onclick="myGroups(this)"><a
-					href="#" data-toggle="tab"><spring:message
+				<li id="my-groups"><a href="#" data-toggle="tab"><spring:message
 							code="label.myGroups" /></a></li>
-				<li id="interesting-groups" class=""
-					onclick="interestingGroups(this)"><a href="#"
-					data-toggle="tab"><spring:message code="label.subscribedGroups" /></a></li>
+				<li id="interesting-groups"><a href="#" data-toggle="tab"><spring:message
+							code="label.subscribedGroups" /></a></li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('MODERATOR')">
-				<li id="all-groups" class="active" onclick="allGroups(this)"><a
-					href="#" data-toggle="tab"><spring:message
+				<li id="all-groups"><a href="#" data-toggle="tab"><spring:message
 							code="label.allGroups" /></a></li>
-				<li id="pending-groups" class="" onclick="pendingGroups(this)"><a
-					href="#" data-toggle="tab"><spring:message
+				<li id="pending-groups"><a href="#" data-toggle="tab"><spring:message
 							code="label.needActionsGroups" /></a></li>
 			</sec:authorize>
 		</ul>
@@ -110,12 +105,15 @@
 			<table id="groups-table" class="table table-bordered table-hover">
 				<thead>
 					<tr id="groups-table-header">
-						<th>Image of group</th>
-						<th headers="groupName">Group name/description</th>
-						<th headers="createdAt">Publishing</th>
+						<th><spring:message code="label.thGroupImg" /></th>
+						<th headers="groupName"><spring:message
+								code="label.thGroupName" /></th>
+						<th headers="createdAt"><spring:message
+								code="label.thGroupPubl" /></th>
 						<sec:authorize access="hasRole('MODERATOR')">
-							<th headers="status">Status</th>
-							<th>Actions</th>
+							<th headers="status"><spring:message
+									code="label.thGroupStatus" /></th>
+							<th><spring:message code="label.thGroupActions" /></th>
 						</sec:authorize>
 					</tr>
 				</thead>
@@ -143,12 +141,14 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Create a new group</h4>
+					<h4 class="modal-title" id="myModalLabel">
+						<spring:message code="label.modCreateGroup" />
+					</h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="groupName" class="col-sm-2 control-label"> <spring:message
-								code="label.name" />:
+								code="label.name" />
 						</label>
 						<div class="col-sm-10">
 							<form:input path="groupName" cssClass="form-control" />
@@ -157,7 +157,8 @@
 					</div>
 					<div class="form-group">
 						<label for="groupDescription" class="col-sm-2 control-label">
-							Description: </label>
+							<spring:message code="label.modDescription" />
+						</label>
 						<div class="col-sm-10">
 							<form:textarea id="group-dscrptn-textarea"
 								path="groupDescription" cssClass="form-control" rows="5" />
@@ -166,8 +167,11 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary" value="Create one!" />
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary"
+						value="<spring:message code="label.addGroup" />" />
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<spring:message code="label.close" />
+					</button>
 				</div>
 			</div>
 		</div>

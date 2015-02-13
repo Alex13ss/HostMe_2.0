@@ -113,8 +113,7 @@
 				<div class="col-md-3">
 					<div class="panel box box-success">
 						<div class="panel-body">
-							<c:forEach var="image" begin="0" end="0"
-								items="${group.images}">
+							<c:forEach var="image" begin="0" end="0" items="${group.images}">
 								<a href="${image_url}${image.link}" data-lightbox="images">
 									<img src="${image_url}${image.link}" />
 								</a>
@@ -252,7 +251,7 @@
 
 					<div class="form-group">
 						<label for="groupName" class="col-sm-2 control-label"> <spring:message
-								code="label.name" />:
+								code="label.name" />
 						</label>
 						<div class="col-sm-10">
 							<form:input path="groupName" cssClass="form-control" />
@@ -262,7 +261,8 @@
 
 					<div class="form-group">
 						<label for="groupDescription" class="col-sm-2 control-label">
-							Description: </label>
+							<spring:message code="label.modDescription" />
+						</label>
 						<div class="col-sm-10">
 							<form:textarea id="group-dscrptn-textarea"
 								path="groupDescription" cssClass="form-control" rows="5" />
@@ -272,16 +272,14 @@
 
 					<div style="display: none;">
 						<div class="form-group">
-							<label for="createdAt" class="col-sm-2 control-label">
-								Created at: </label>
+							<label for="createdAt" class="col-sm-2 control-label"> </label>
 							<div class="col-sm-10">
 								<form:input readonly="true" path="createdAt"
 									cssClass="form-control" />
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="creator" class="col-sm-2 control-label">
-								Creator: </label>
+							<label for="creator" class="col-sm-2 control-label"> </label>
 							<div class="col-sm-10">
 								<form:input readonly="true" path="creatorUser.userId"
 									cssClass="form-control" />
