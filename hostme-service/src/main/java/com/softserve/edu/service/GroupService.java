@@ -1,7 +1,6 @@
 package com.softserve.edu.service;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.data.jpa.domain.Specifications;
 
@@ -14,23 +13,31 @@ public interface GroupService {
     List<GroupDto> findAll(Integer page, Integer size, String orderBy,
             String orderType);
 
-    Group findOne(Long id);
+    List<GroupDto> findPendingGroups(Integer page, Integer size,
+            String orderBy, String orderType);
 
-    void delete(Group group);
+    List<GroupDto> findApprovedGroups(Integer page, Integer size,
+            String orderBy, String orderType);
 
-    void create(Group group);
+    List<GroupDto> getGroupsByCreator(User creatorUser, Integer page,
+            Integer size, String orderBy, String orderType);
 
-    void update(Group group);
+    List<GroupDto> getGroupsByInterestedUser(User interestedUser, Integer page,
+            Integer size, String orderBy, String orderType);
+
+    void create(Group group);       /*-C-*/
+
+    Group findOne(Long id);         /*-R-*/
+
+    void update(Group group);       /*-U-*/
+
+    void delete(Group group);       /*-D-*/
 
     void saveGroup(Group group);
 
     void subscribe(User user, Group group);
 
     void unsubscribe(Integer userId, Long groupId);
-
-    Set<GroupDto> getGroupsByCreator(User creatorUser);
-
-    List<GroupDto> getGroupsByInterestedUser(User interestedUser);
 
     boolean checkInterestedByGroupAndUser(Group group, User user);
 
@@ -43,10 +50,6 @@ public interface GroupService {
     List<Group> searchGroup(Specifications<Group> specifications);
 
     Integer getCurrentSubscribers(Long groupId);
-
-    Set<GroupDto> findPendingGroups();
-
-    Set<GroupDto> findApprovedGroups();
 
     Long getGroupsPaging(Long size, String sender, User currentUser);
 

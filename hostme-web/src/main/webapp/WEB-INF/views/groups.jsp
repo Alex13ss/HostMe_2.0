@@ -94,7 +94,7 @@
 				<li id="all-groups" class="active" onclick="allGroups(this)"><a
 					href="#" data-toggle="tab"><spring:message
 							code="label.allGroups" /></a></li>
-				<li id="need-act-groups" class="" onclick="needActionsGroups(this)"><a
+				<li id="pending-groups" class="" onclick="pendingGroups(this)"><a
 					href="#" data-toggle="tab"><spring:message
 							code="label.needActionsGroups" /></a></li>
 			</sec:authorize>

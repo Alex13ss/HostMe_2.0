@@ -77,34 +77,6 @@ function showGroups() {
 	table.fnReloadAjax(getGroupsParameters(), groupsAjaxCallback);
 }
 
-function approvedGroups(element) {
-	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("approved-groups");
-	}
-}
-
-function myGroups(element) {
-	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("my-groups");
-	}
-}
-
-function interestingGroups(element) {
-	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("interesting-groups");
-	}
-}
-
-function needActionsGroups(element) {
-	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("pending-groups");
-	}
-}
-
 $(document)
 		.ready(
 				function() {

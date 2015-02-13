@@ -2,9 +2,7 @@ package com.softserve.edu.service.implementation;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -66,10 +64,80 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public List<GroupDto> findPendingGroups(Integer page, Integer size,
+            String orderBy, String orderType) {
+        List<GroupDto> list = new ArrayList<GroupDto>();
+        PageRequest pageRequsetObj;
+        if ("ASC".equals(orderType)) {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.ASC, orderBy);
+        } else {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.DESC, orderBy);
+        }
+        Status status = Status.PENDING;
+        for (Group group : groupRepository.findAllByStatus(status,
+                pageRequsetObj)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
+    }
+
+    @Override
+    public List<GroupDto> findApprovedGroups(Integer page, Integer size,
+            String orderBy, String orderType) {
+        List<GroupDto> list = new ArrayList<GroupDto>();
+        PageRequest pageRequsetObj;
+        if ("ASC".equals(orderType)) {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.ASC, orderBy);
+        } else {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.DESC, orderBy);
+        }
+        Status status = Status.APPROVED;
+        for (Group group : groupRepository.findAllByStatus(status,
+                pageRequsetObj)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
+    }
+
+    @Override
     @Transactional
-    public Set<GroupDto> getGroupsByCreator(User creatorUser) {
-        Set<GroupDto> list = new HashSet<GroupDto>();
-        for (Group group : groupRepository.findAllByCreatorUser(creatorUser)) {
+    public List<GroupDto> getGroupsByCreator(User creatorUser, Integer page,
+            Integer size, String orderBy, String orderType) {
+        List<GroupDto> list = new ArrayList<GroupDto>();
+        PageRequest pageRequsetObj;
+        if ("ASC".equals(orderType)) {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.ASC, orderBy);
+        } else {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.DESC, orderBy);
+        }
+        for (Group group : groupRepository.findAllByCreatorUser(creatorUser,
+                pageRequsetObj)) {
+            list.add(new GroupDto(group));
+        }
+        return list;
+    }
+
+    @Override
+    @Transactional
+    public List<GroupDto> getGroupsByInterestedUser(User interestedUser,
+            Integer page, Integer size, String orderBy, String orderType) {
+        List<GroupDto> list = new ArrayList<GroupDto>();
+        PageRequest pageRequsetObj;
+        if ("ASC".equals(orderType)) {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.ASC, orderBy);
+        } else {
+            pageRequsetObj = new PageRequest(page - 1, size,
+                    Sort.Direction.DESC, orderBy);
+        }
+        for (Group group : groupRepository.findAllByInterestedUsers(
+                interestedUser, pageRequsetObj)) {
             list.add(new GroupDto(group));
         }
         return list;
@@ -144,17 +212,6 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public List<GroupDto> getGroupsByInterestedUser(User interestedUser) {
-        List<GroupDto> list = new ArrayList<GroupDto>();
-        for (Group group : groupRepository
-                .findAllByInterestedUsers(interestedUser)) {
-            list.add(new GroupDto(group));
-        }
-        return list;
-    }
-
-    @Override
-    @Transactional
     public boolean checkInterestedByGroupAndUser(Group group, User user) {
         Group groupFound = groupRepository.findOne(group.getId());
         List<User> interestedUsers = groupFound.getInterestedUsers();
@@ -211,26 +268,6 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Set<GroupDto> findPendingGroups() {
-        Set<GroupDto> list = new HashSet<GroupDto>();
-        Status status = Status.PENDING;
-        for (Group group : groupRepository.findAllByStatus(status)) {
-            list.add(new GroupDto(group));
-        }
-        return list;
-    }
-
-    @Override
-    public Set<GroupDto> findApprovedGroups() {
-        Set<GroupDto> list = new HashSet<GroupDto>();
-        Status status = Status.APPROVED;
-        for (Group group : groupRepository.findAllByStatus(status)) {
-            list.add(new GroupDto(group));
-        }
-        return list;
-    }
-
-    @Override
     public Long getGroupsPaging(Long size, String sender, User currentUser) {
         Long amount;
         if ("all-groups".equals(sender)) {
@@ -239,6 +276,22 @@ public class GroupServiceImpl implements GroupService {
                 amount = dataBaseSize / size;
             } else {
                 amount = dataBaseSize / size + 1;
+            }
+        } else if ("pending-groups".equals(sender)) {
+            Long dataPendingSize = (long) groupRepository.findAllByStatus(
+                    Status.PENDING).size();
+            if (dataPendingSize % size == 0l) {
+                amount = dataPendingSize / size;
+            } else {
+                amount = dataPendingSize / size + 1;
+            }
+        } else if ("approved-groups".equals(sender)) {
+            Long dataApprovedSize = (long) groupRepository.findAllByStatus(
+                    Status.APPROVED).size();
+            if (dataApprovedSize % size == 0l) {
+                amount = dataApprovedSize / size;
+            } else {
+                amount = dataApprovedSize / size + 1;
             }
         } else if ("interesting-groups".equals(sender)) {
             Long dataInterestingSize = (long) groupRepository

@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -94,21 +93,35 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/approved-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<GroupDto> findApprovedGroups() {
-        return groupService.findApprovedGroups();
+    public @ResponseBody List<GroupDto> findApprovedGroups(
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size,
+            @RequestParam(value = "orderBy") String orderBy,
+            @RequestParam(value = "orderType") String orderType) {
+        return groupService.findApprovedGroups(page, size, orderBy, orderType);
     }
 
     @RequestMapping(value = "/my-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<GroupDto> findMyGroups(Principal principal) {
+    public @ResponseBody List<GroupDto> findMyGroups(Principal principal,
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size,
+            @RequestParam(value = "orderBy") String orderBy,
+            @RequestParam(value = "orderType") String orderType) {
         User creatorUser = profileService.getUserByLogin(principal.getName());
-        return groupService.getGroupsByCreator(creatorUser);
+        return groupService.getGroupsByCreator(creatorUser, page, size,
+                orderBy, orderType);
     }
 
     @RequestMapping(value = "/interesting-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<GroupDto> findSubscribedGroups(Principal principal) {
+    public @ResponseBody List<GroupDto> findSubscribedGroups(
+            Principal principal, @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size,
+            @RequestParam(value = "orderBy") String orderBy,
+            @RequestParam(value = "orderType") String orderType) {
         User interestedUser = profileService
                 .getUserByLogin(principal.getName());
-        return groupService.getGroupsByInterestedUser(interestedUser);
+        return groupService.getGroupsByInterestedUser(interestedUser, page,
+                size, orderBy, orderType);
     }
 
     @RequestMapping(value = "/all-groups", params = { "page", "size",
@@ -122,8 +135,13 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/pending-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody Set<GroupDto> findPendingGroups() {
-        return groupService.findPendingGroups();
+    public @ResponseBody List<GroupDto> findPendingGroups(
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "size") Integer size,
+            @RequestParam(value = "orderBy") String orderBy,
+            @RequestParam(value = "orderType") String orderType) {
+        return groupService.findPendingGroups(page, size, orderBy,
+                orderType);
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)
