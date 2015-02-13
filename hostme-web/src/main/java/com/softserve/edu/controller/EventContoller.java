@@ -35,7 +35,6 @@ import com.softserve.edu.service.EventService;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.PriceCategoryService;
 import com.softserve.edu.service.ProfileService;
-import com.softserve.edu.service.implementation.EventServiceImpl;
 
 @Controller
 public class EventContoller {
@@ -97,7 +96,6 @@ public class EventContoller {
 	public @ResponseBody Long getEventsPaging(
 			@RequestParam(value = "size") Long size,
 			@RequestParam(value = "sender") String sender) {
-		
 		return eventService.getPageCount(size, sender);
 	}
 

@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import com.softserve.edu.repositories.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -22,6 +20,12 @@ import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
+import com.softserve.edu.repositories.CityRepository;
+import com.softserve.edu.repositories.CountryRepository;
+import com.softserve.edu.repositories.EventRepository;
+import com.softserve.edu.repositories.ImageRepository;
+import com.softserve.edu.repositories.PriceCategoryRepository;
+import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.EventService;
@@ -47,13 +51,14 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	ImageRepository imageRepository;
 
+
     @Autowired
     private SystemPropertiesRepository systemPropertiesRepository;
 
     public final Integer PROPERTY_ID = 1;
-    
-	public static Long amountOfOwnerEvents;
-	public static Long amountOfAttendeeEvents;
+ 	public Long amountOfOwnerEvents;
+	public Long amountOfAttendeeEvents;
+
 
 	public boolean haveEvent(int id) {
 		return eventRepository.exists(id);
@@ -169,8 +174,8 @@ public class EventServiceImpl implements EventService {
 			pageRequsetObj = new PageRequest(page - 1, size,
 					Sort.Direction.DESC, orderBy);
 		}
-		for (Place place : placeRepository.findByOwner(owner, pageRequsetObj)) {
-			list.add(new EventDto(eventRepository.findOne(place.getId()), place));
+		for (Event event : eventRepository.findByOwner(owner, pageRequsetObj)) {
+			list.add(new EventDto(event, placeRepository.findOne(event.getId())));
 		}
 		amountOfOwnerEvents = (long) list.size();
 		return list;
@@ -196,7 +201,7 @@ public class EventServiceImpl implements EventService {
 				.findByAttendee(owner, pageRequsetObj)) {
 			list.add(new EventDto(eventRepository.findOne(place.getId()), place));
 		}
-		amountOfAttendeeEvents = (long) list.size();
+		 amountOfAttendeeEvents = (long) list.size();
 		return list;
 	}
 
@@ -302,14 +307,14 @@ public class EventServiceImpl implements EventService {
 				amount = dataBaseSize / size + 1;
 			}
 		} else if (sender.equals("my-events")) {
-			Long dataOwnreSize = EventServiceImpl.amountOfOwnerEvents + 1;
+			Long dataOwnreSize = new EventServiceImpl().amountOfOwnerEvents + 1;
 			if (dataOwnreSize % size == 0) {
 				amount = dataOwnreSize / size;
 			} else {
 				amount = dataOwnreSize / size + 1;
 			}
 		} else {
-			Long dataAttendeeSize = EventServiceImpl.amountOfAttendeeEvents + 1;
+			Long dataAttendeeSize = new EventServiceImpl().amountOfAttendeeEvents + 1;
 			if (dataAttendeeSize % size == 0) {
 				amount = dataAttendeeSize / size;
 			} else {

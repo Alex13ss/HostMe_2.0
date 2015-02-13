@@ -20,8 +20,8 @@ function eventsAjaxCallback() {
 	calendarUpdate();
 }
 
-function checkRole(){
-	if(userRole == "MODERATOR"){
+function checkRole() {
+	if (userRole == "MODERATOR") {
 		return true;
 	} else {
 		return false;
@@ -99,17 +99,47 @@ function setupPaging() {
 			});
 }
 
+jQuery()
+		.ready(
+				function() {
+					var tabCountry = [];
+					$.getJSON('getAllCountries.json', function(data) {
+						$.each(data, function(index, val) {
+							tabCountry[index] = val;
+						});
+					});
+					$('#country')
+							.change(
+									function(event) {
+										$country = $(this).val();
+										var $htmlOption = '<option value="0">Select city</option>';
+										for (var i = 0; i < tabCountry.length; i++) {
+											if ($country === tabCountry[i].country) {
+												for (var j = 0; j < tabCountry[i].city.length; j++) {
+													var town = tabCountry[i].city[j].city;
+													$htmlOption += '<option value="'
+															+ town
+															+ '">'
+															+ town
+															+ '</option>';
+													console.log($htmlOption);
+												}
+											}
+										}
+										$('#city').html($htmlOption);
+									});
+				});
 
 $(document)
 		.ready(
 				function() {
-					
+
 					console.log($("#eventsTypesNav li:first-child").attr("id"));
 					$("#eventsTypesNav li:first-child").addClass("active");
 					eventsType = $("#eventsTypesNav > li.active").attr("id");
 
 					size = $("#request_size").val();
-					userRole= $('#UserRole').text();
+					userRole = $('#UserRole').text();
 
 					table = $("table.table-bordered")
 							.dataTable(
@@ -133,24 +163,36 @@ $(document)
 												var parent_element = $("<a/>",
 														{
 															"href" : "#"
-														}).click(aData, function(e) {
+														})
+														.click(
+																aData,
+																function(e) {
 																	aData.status = status;
-																	e.preventDefault();
-																	$.ajax({
-																		    url : 'event-update',
-																			dataType : 'json',
-																	        beforeSend : function() {
- 																			},
-																			contentType : "application/json",
-																			"type" : "POST",
-																			data : JSON.stringify(aData),
-																			success : function(response) {
-																					$('td:eq(6)',nRow).html(response.status);
+																	e
+																			.preventDefault();
+																	$
+																			.ajax({
+																				url : 'event-update',
+																				dataType : 'json',
+																				beforeSend : function() {
+																				},
+																				contentType : "application/json",
+																				"type" : "POST",
+																				data : JSON
+																						.stringify(aData),
+																				success : function(
+																						response) {
+																					$(
+																							'td:eq(6)',
+																							nRow)
+																							.html(
+																									response.status);
 																				}
 																			});
 																});
 												return parent_element;
-											};
+											}
+											;
 
 											var button = $(
 													"<button/>",
@@ -162,22 +204,32 @@ $(document)
 													});
 
 											function form_element(aData) {
-												var approve = html_element(aData, "APPROVED");
-												var pending = html_element(aData, "PENDING");
-												var refuse = html_element(aData, "REFUSED");
+												var approve = html_element(
+														aData, "APPROVED");
+												var pending = html_element(
+														aData, "PENDING");
+												var refuse = html_element(
+														aData, "REFUSED");
 												approve.html("Approve");
 												pending.html("Pending");
 												refuse.html("Refuse");
-											
-												var final_element = div.append(button);
-												final_element.append(ul.append(li
-																		.append(approve)
-																		.append(pending)
-																		.append(refuse)));
+
+												var final_element = div
+														.append(button);
+												final_element
+														.append(ul
+																.append(li
+																		.append(
+																				approve)
+																		.append(
+																				pending)
+																		.append(
+																				refuse)));
 												return final_element;
 											}
-											
-											row = $('td:eq(7)', nRow).html(form_element(aData));
+
+											row = $('td:eq(7)', nRow).html(
+													form_element(aData));
 
 										},
 
@@ -238,14 +290,14 @@ $(document)
 																+ " "
 																+ data.owner.lastName;
 													}
-												}, 
-												{	"bVisible" :checkRole(), 
+												}, {
+													"bVisible" : checkRole(),
 													"mData" : "status"
-												} ,
-												{	"bVisible" :checkRole(), 
+												}, {
+													"bVisible" : checkRole(),
 													"mData" : "id"
 
-												}]
+												} ]
 									});
 
 					$("#request_size ").change(function() {
