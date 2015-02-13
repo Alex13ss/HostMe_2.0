@@ -6,7 +6,9 @@ import com.softserve.edu.model.routes.Place;
 import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.service.ProfileService;
+import com.softserve.edu.service.SystemPropertiesService;
 import com.softserve.edu.service.routes.PlaceService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,8 +29,9 @@ public class PlaceServiceImp implements PlaceService{
 
     @Autowired
     private SystemPropertiesRepository systemPropertiesRepository;
-
-    public final Integer PROPERTY_ID = 1;
+    
+    @Autowired
+    SystemPropertiesService systemPropertiesService;
     
     @Override
     public Place getPlace(int placeId) {
@@ -66,7 +69,7 @@ public class PlaceServiceImp implements PlaceService{
 
     public List<PlaceDto> placeToPlaceDto(Collection<Place> places) {
         List<PlaceDto> result = new ArrayList<>();
-        String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL() + "/";
+        String propertiesImageUrl = systemPropertiesService.getImageUrl() + "/";
         for (Place place : places) {
             result.add(new PlaceDto(place, propertiesImageUrl));
         }

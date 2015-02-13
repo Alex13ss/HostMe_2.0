@@ -3,33 +3,26 @@ package com.softserve.edu.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "system_properties")
+@Table(name = "system_properties", uniqueConstraints = { @UniqueConstraint(columnNames = "property_id") })
 public class SystemProperties {
 
 	@Id
-    @SequenceGenerator(name = "system_properties_property_id_seq", sequenceName = "system_properties_property_id_seq", allocationSize = 31)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "system_properties_property_id_seq")
+	@SequenceGenerator(name = "property_id_seq", sequenceName = "property_id_seq", allocationSize = 7)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "property_id_seq")
 	@Column(name = "property_id", unique = true, nullable = false)
 	private Integer propertyId;
 
-	@Column(name = "image_path", nullable = false)
-	private  String imagePath;
+	@Column(name = "prop_key")
+	private String propKey;
 
-	@Column(name = "image_url", nullable = false)
-	private  String imageURL;
+	@Column(name = "value")
+	private String value;
 
-	@Column(name = "email_pass", nullable = false)
-	private  String emailPass;
 
-	@Column(name = "email_login", nullable = false)
-	private String emailLogin;
-
-	@Column(name = "base_url", nullable = false)
-	private String baseURL;
-	
 	public SystemProperties() {
-    }
-
+		super();
+	}
+	
 	public Integer getPropertyId() {
 		return propertyId;
 	}
@@ -38,56 +31,29 @@ public class SystemProperties {
 		this.propertyId = propertyId;
 	}
 
-	public String getImagePath() {
-		return imagePath;
+	public String getPropKey() {
+		return propKey;
 	}
 
-	public void setImagePath(String imagePath) {
-		this.imagePath = imagePath;
+	public void setPropKey(String propKey) {
+		this.propKey = propKey;
 	}
 
-	public String getImageURL() {
-		return imageURL;
+	public String getValue() {
+		return value;
 	}
 
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
+	public void setValue(String value) {
+		this.value = value;
 	}
-
-	public String getEmailPass() {
-		return emailPass;
-	}
-
-	public void setEmailPass(String emailPass) {
-		this.emailPass = emailPass;
-	}
-
-	public String getEmailLogin() {
-		return emailLogin;
-	}
-
-	public void setEmailLogin(String emailLogin) {
-		this.emailLogin = emailLogin;
-	}
-
-	public String getBaseURL() {
-		return baseURL;
-	}
-
-	public void setBaseURL(String baseURL) {
-		this.baseURL = baseURL;
-	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((baseURL == null) ? 0 : baseURL.hashCode());
-		result = prime * result + ((emailLogin == null) ? 0 : emailLogin.hashCode());
-		result = prime * result + ((emailPass == null) ? 0 : emailPass.hashCode());
-		result = prime * result + ((imagePath == null) ? 0 : imagePath.hashCode());
-		result = prime * result + ((imageURL == null) ? 0 : imageURL.hashCode());
+		result = prime * result + ((propKey == null) ? 0 : propKey.hashCode());
 		result = prime * result + ((propertyId == null) ? 0 : propertyId.hashCode());
+		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
 
@@ -100,37 +66,24 @@ public class SystemProperties {
 		if (getClass() != obj.getClass())
 			return false;
 		SystemProperties other = (SystemProperties) obj;
-		if (baseURL == null) {
-			if (this.baseURL != null)
+		if (propKey == null) {
+			if (other.propKey != null)
 				return false;
-		} else if (!baseURL.equals(this.baseURL))
-			return false;
-		if (emailLogin == null) {
-			if (this.emailLogin != null)
-				return false;
-		} else if (!emailLogin.equals(this.emailLogin))
-			return false;
-		if (emailPass == null) {
-			if (this.emailPass != null)
-				return false;
-		} else if (!emailPass.equals(this.emailPass))
-			return false;
-		if (imagePath == null) {
-			if (this.imagePath != null)
-				return false;
-		} else if (!imagePath.equals(this.imagePath))
-			return false;
-		if (imageURL == null) {
-			if (this.imageURL != null)
-				return false;
-		} else if (!imageURL.equals(this.imageURL))
+		} else if (!propKey.equals(other.propKey))
 			return false;
 		if (propertyId == null) {
-			if (this.propertyId != null)
+			if (other.propertyId != null)
 				return false;
-		} else if (!propertyId.equals(this.propertyId))
+		} else if (!propertyId.equals(other.propertyId))
+			return false;
+		if (value == null) {
+			if (other.value != null)
+				return false;
+		} else if (!value.equals(other.value))
 			return false;
 		return true;
 	}
-
+	
+	
 }
+

@@ -48,7 +48,9 @@ public class AdminController {
 
 	@RequestMapping(value = "/all-users", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<User> getAllUsers() {
+		List<User> admin= userService.findUsersByNamesOrLogin("Admin");
 		List<User> users = userService.getAllUsers();
+		users.removeAll(admin);
 		return users;
 	}
 

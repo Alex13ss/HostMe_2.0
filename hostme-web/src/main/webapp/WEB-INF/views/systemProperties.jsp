@@ -9,88 +9,92 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
-<script src="<c:url value="/resources/js/admin/usersManager.js"/>"></script>
+<script src="<c:url value="/resources/js/SystemProperties.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
 <script src="<c:url value="/resources/js/dataTables.bootstrap.js"/>"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/dataTables.bootstrap.css" />
+
 <title><spring:message code="admin.systemProperties" /></title>
 </head>
-<body>
+<body class="wysihtml5-supported">
 	<section class="content-header">
 		<h1>
 			<spring:message code="admin.systemProperties" />
 		</h1>
 	</section>
+
 	<section class="content">
-
 		<div class="box box-primary">
-
-			<div class="box-body" style="margin: auto;">
-
-				<form:form method="post" modelAttribute="systemproperties">
-					<div class="row" style="margin-top: 1.5em;">
-						<div class="form-group">
-							<label for="imagePath" class="col-sm-3 control-label"
-								style="margin-top: 0.7em"><spring:message
-									code="admin.imagePath" />: </label>
-							<div class="col-sm-9">
-								<form:input path="imagePath" cssClass="form-control" />
-								<form:errors path="imagePath" />
-							</div>
-						</div>
-					</div>
-					<div class="row" style="margin-top: 1.5em">
-						<div class="form-group">
-							<label for="imageURL" class="col-sm-3 control-label"
-								style="margin-top: 0.7em"><spring:message
-									code="admin.imageURL" />: </label>
-							<div class="col-sm-9">
-								<form:input path="imageURL" cssClass="form-control" />
-								<form:errors path="imageURL" />
-							</div>
-						</div>
-					</div>
-					<div class="row" style="margin-top: 1.5em">
-						<div class="form-group">
-							<label for="emailPass" class="col-sm-3 control-label"
-								style="margin-top: 0.7em"><spring:message
-									code="admin.emailPass" />: </label>
-							<div class="col-sm-9">
-								<form:input path="emailPass" cssClass="form-control" />
-								<form:errors path="emailPass" />
-							</div>
-						</div>
-					</div>
-					<div class="row" style="margin-top: 1.5em">
-						<div class="form-group">
-							<label for="emailLogin" class="col-sm-3 control-label"
-								style="margin-top: 0.7em"><spring:message
-									code="admin.emailLogin" />: </label>
-							<div class="col-sm-9">
-								<form:input path="emailLogin" cssClass="form-control" />
-								<form:errors path="emailLogin" />
-							</div>
-						</div>
-					</div>
-					<div class="row" style="margin-top: 1.5em; margin-bottom: 1.5em">
-						<div class="form-group">
-							<label for="baseURL" class="col-sm-3 control-label"
-								style="margin-top: 0.7em"><spring:message
-									code="admin.baseurl" />: </label>
-							<div class="col-sm-9">
-								<form:input path="baseURL" cssClass="form-control" />
-								<form:errors path="baseURL" />
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer" style="margin-bottom: auto;">
-					<button type="submit" class="btn btn-primary button">
-						<spring:message code="label.save" />
+			<div class="box-header">
+				<div style="margin-top: 10px;">
+					<button type="button" class="btn btn-primary button" id="textColor"
+						data-toggle="modal" data-target="#systemPropCreate" style="margin-right:20px;">
+						<i class="fa fa-fw fa-plus-square-o"></i>
+						<spring:message code="admin.addProp" />
 					</button>
-					</div>
-				</form:form>
+
+				</div>
+			</div>
+			<div class="box-body table-responsive">
+				<table id="request_table_obtain"
+					class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th><spring:message code="admin.propertyKey" /></th>
+							<th><spring:message code="admin.propertyValue" /></th>
+							<th style="width:5%"><spring:message code="label.edit" /></th>
+						</tr>
+					</thead>
+
+				</table>
 			</div>
 		</div>
+		<form:form modelAttribute="systemproperties" cssClass="form-horizontal groupForm">
+			<!-- Modal -->
+			<div class="modal fade" id="systemPropCreate" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								<spring:message code="admin.addProp" />
+							</h4>
+						</div>
+						<div class="modal-body">
+
+							<div class="form-group">
+								<label for="propKey" class="col-sm-3 control-label"> <spring:message
+										code="admin.propertyKey" />
+								</label>
+								<div class="col-sm-9">
+									<form:input path="propKey" cssClass="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="value" class="col-sm-3 control-label"> <spring:message
+										code="admin.propertyValue" />
+								</label>
+								<div class="col-sm-9">
+									<form:input path="value" cssClass="form-control" />
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<input type="submit" class="btn btn-primary"
+								value="<spring:message code="admin.addProp"/>" />
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">
+								<spring:message code="label.close" />
+							</button>
+						</div>
+					</div>
+				</div>
+		</form:form>
 	</section>
 </body>
 </html>

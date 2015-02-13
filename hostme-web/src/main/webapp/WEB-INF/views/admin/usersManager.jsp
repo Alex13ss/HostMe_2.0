@@ -15,7 +15,7 @@
 <link rel="stylesheet" type="text/css"
 	href="resources/css/dataTables.bootstrap.css" />
 
-<title>Users</title>
+<title><spring:message code="admin.usersManager" /></title>
 </head>
 <body class="wysihtml5-supported">
 	<section class="content-header">

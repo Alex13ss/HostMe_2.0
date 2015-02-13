@@ -143,7 +143,8 @@
                                                 :
                                             </div>
                                             <div
-                                                class="col-md-8 selected">${user.email}</div>
+                                                class="col-md-8 selected"
+                                                style="display: inline-block; width: 180px; white-space: nowrap; overflow: hidden !important; text-overflow: ellipsis;">${user.email}</div>
                                         </div>
                                     </div>
                                 </div>

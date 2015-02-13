@@ -26,6 +26,7 @@ import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.EventService;
 import com.softserve.edu.service.ProfileService;
+import com.softserve.edu.service.SystemPropertiesService;
 
 @Service
 public class EventServiceImpl implements EventService {
@@ -46,6 +47,8 @@ public class EventServiceImpl implements EventService {
 	UserRepository userRepository;
 	@Autowired
 	ImageRepository imageRepository;
+	@Autowired
+	SystemPropertiesService systemPropertiesService;
 
 
     @Autowired
@@ -75,7 +78,7 @@ public class EventServiceImpl implements EventService {
 
 	public List<EventDto> getEventsDtoList(List<Event> events) {
 		List<EventDto> result = new ArrayList<>();
-        String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL() + "/";
+        String propertiesImageUrl = systemPropertiesService.getImageUrl() + "/";
 		for (Event event : events) {
 			result.add(new EventDto(event, propertiesImageUrl));
 		}

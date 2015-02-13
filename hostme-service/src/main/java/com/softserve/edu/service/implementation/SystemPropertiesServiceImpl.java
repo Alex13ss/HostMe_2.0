@@ -1,7 +1,11 @@
 package com.softserve.edu.service.implementation;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
+import com.softserve.edu.dao.SystemPropertiesDao;
+import com.softserve.edu.model.Event;
 import com.softserve.edu.model.SystemProperties;
 import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.service.SystemPropertiesService;
@@ -11,50 +15,65 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SystemPropertiesServiceImpl implements SystemPropertiesService {
-	public final Integer PROPERTY_ID = 1;
 	@Autowired
 	private SystemPropertiesRepository systemPropertiesRepository;
+	@Autowired
+	private SystemPropertiesDao systemPropertiesDao;
 
 	@Override
 	@Transactional
-	public SystemProperties getSystemProperties() {
-		return systemPropertiesRepository.findOne(PROPERTY_ID);
+	public SystemProperties getSystemProperty(Integer id) {
+		return systemPropertiesRepository.findOne(id);
+	}
+	
+	@Override
+	@Transactional
+	public List<SystemProperties> getAllSystemProperties() {
+		return (List<SystemProperties>) systemPropertiesRepository.findAll();
 	}
 
 	@Override
 	@Transactional
 	public String getMailUsername() {
-		return getSystemProperties().getEmailLogin();
+		return systemPropertiesDao.getPropeties(EMAIL_LOGIN);
 	}
 
 	@Override
 	@Transactional
 	public String getMailPass() {
-		return getSystemProperties().getEmailPass();
+		return systemPropertiesDao.getPropeties(EMAIL_PASS_SEND);
 	}
 
 	@Override
 	@Transactional
 	public String getImageUrl() {
-		return getSystemProperties().getImageURL();
+		return systemPropertiesDao.getPropeties(IMAGE_URL_PROP);
 	}
 
 	@Override
 	@Transactional
 	public String getImagePath() {
-		return getSystemProperties().getImagePath();
+		return systemPropertiesDao.getPropeties(IMAGE_PATH_PROP);
 	}
 
 	@Override
 	@Transactional
 	public String getBaseUrl() {
-		return getSystemProperties().getBaseURL();
+		return systemPropertiesDao.getPropeties(BASE_SEND_URL);
 	}
 
 	@Override
 	@Transactional
 	public void updateSystemProperties(SystemProperties systemproperties) {
-		systemproperties.setPropertyId(PROPERTY_ID);
+		SystemProperties newEvent = systemPropertiesRepository.findOne(systemproperties.getPropertyId());
+		systemproperties.setPropertyId(newEvent.getPropertyId());
+		systemproperties.setPropKey(newEvent.getPropKey());
+		systemPropertiesRepository.save(systemproperties);
+	}
+	
+	@Override
+	@Transactional
+	public void saveSystemProperties(SystemProperties systemproperties) {
 		systemPropertiesRepository.save(systemproperties);
 	}
 

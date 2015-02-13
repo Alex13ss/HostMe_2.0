@@ -119,9 +119,9 @@ $(document)
 															type, full) {
 														return '<a href="resetPass/'
 																+ data.userId
-																+ '" class="text-red"/>'
-																+ 'Reset Password'
-																+ '<span class="fa fa-refresh"></span></a>'
+																+ '" class="text-blue"/>'
+																+ 'Reset'
+																+ '</a>'
 													}
 												},
 												{
@@ -129,9 +129,9 @@ $(document)
 															type, full) {
 														return '<a href="deleteUser/'
 																+ data.userId
-																+ '" class="text-red"/>'
-																+ 'Delete User'
-																+ '<span class="fa fa-trash-o"></span></a>'
+																+ '" class="text-blue"/>'
+																+ 'Delete'
+																+ '</a>'
 													}
 												},
 												{	 

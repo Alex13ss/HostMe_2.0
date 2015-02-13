@@ -333,3 +333,44 @@ $(document)
 					});
 
 				});
+jQuery()
+.ready(
+		function() {
+			var tabCountry = [];
+			$
+					.getJSON(
+							'getAllCountries',
+							function(data) {
+								$.each(data, function(index, val) {
+									tabCountry[index] = val;
+								});
+								var $countryOption = '<option value="0">Select country</option>';
+								for (var i = 0; i < tabCountry.length; i++) {
+									var country = tabCountry[i].country;
+									$countryOption += '<option value="'
+											+ country + '">' + country
+											+ '</option>';
+								}
+								;
+								$('#country').html($countryOption);
+							});
+			$('#country')
+					.change(
+							function(event) {
+								$country = $(this).val();
+								var $htmlOption = '<option value="0">Select city</option>';
+								for (var i = 0; i < tabCountry.length; i++) {
+									if ($country === tabCountry[i].country) {
+										for (var j = 0; j < tabCountry[i].city.length; j++) {
+											var town = tabCountry[i].city[j].city;
+											$htmlOption += '<option value="'
+													+ town
+													+ '">'
+													+ town
+													+ '</option>';
+										}
+									}
+								}
+								$('#city').html($htmlOption);
+							});
+		});

@@ -24,10 +24,10 @@ import com.softserve.edu.repositories.ConversationRepository;
 import com.softserve.edu.repositories.PostRepository;
 import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.service.PostService;
+import com.softserve.edu.service.SystemPropertiesService;
 
 @Service
 public class PostServiceImpl implements PostService{
-
     @Autowired
     private PostRepository postRepository;
     
@@ -37,6 +37,9 @@ public class PostServiceImpl implements PostService{
     @Autowired
     private SystemPropertiesRepository systemPropertiesRepository;
     
+    @Autowired
+    private SystemPropertiesService systemPropertiesSerive;
+    
     public final Integer PROPERTY_ID = 1;
     
     @Override
@@ -45,7 +48,7 @@ public class PostServiceImpl implements PostService{
 	List<PostDto> result = new ArrayList<PostDto>();
 	List<Post> posts = (List<Post>) postRepository.findByConversationId(id);
 	Conversation conversation = conversationRepository.findOne(id);
-	String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL();
+	String propertiesImageUrl = systemPropertiesSerive.getImageUrl();
 	String loggedUser = SecurityContextHolder.getContext().getAuthentication().getName();
 	
 	boolean isModerator = false;
@@ -84,7 +87,7 @@ public class PostServiceImpl implements PostService{
     public List<PostDto> findByPlaceId(Integer id) {
 	List<PostDto> result = new ArrayList<PostDto>();
 	List<Post> posts = (List<Post>) postRepository.findByPlaceId(id);
-	String propertiesImageUrl = systemPropertiesRepository.findOne(PROPERTY_ID).getImageURL();
+	String propertiesImageUrl = systemPropertiesSerive.getImageUrl();
 	for (Post post : posts){
 	    String image = null;
 	    Iterator<Image> imageItr = post.getAuthor().getImages().iterator();

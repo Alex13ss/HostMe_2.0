@@ -1,10 +1,12 @@
 package com.softserve.edu.service;
 
+import java.util.List;
+
 import com.softserve.edu.model.SystemProperties;
 
-public interface SystemPropertiesService {
+public interface SystemPropertiesService extends Settings {
 
-	public SystemProperties getSystemProperties();
+	public SystemProperties getSystemProperty(Integer id);
 
 	public String getMailUsername();
 
@@ -16,5 +18,9 @@ public interface SystemPropertiesService {
 
 	public String getBaseUrl();
 	
+	public List<SystemProperties> getAllSystemProperties();
+	
 	public void updateSystemProperties(SystemProperties systemproperties);
+
+	void saveSystemProperties(SystemProperties systemproperties);
 }
