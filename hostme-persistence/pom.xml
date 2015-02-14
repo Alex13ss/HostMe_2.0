@@ -51,6 +51,7 @@
 						<srcFile>src/main/resources/sql/conversations.sql</srcFile>
 						<srcFile>src/main/resources/sql/sightseeings.sql</srcFile>
 						<srcFile>src/main/resources/sql/system_properties.sql</srcFile>
+						<srcFile>src/main/resources/sql/languages.sql</srcFile>
 					</srcFiles>
 				</configuration>
 			</plugin>

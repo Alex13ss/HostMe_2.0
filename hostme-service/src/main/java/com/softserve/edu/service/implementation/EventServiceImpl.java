@@ -50,14 +50,12 @@ public class EventServiceImpl implements EventService {
 	@Autowired
 	SystemPropertiesService systemPropertiesService;
 
+	@Autowired
+	private SystemPropertiesRepository systemPropertiesRepository;
 
-    @Autowired
-    private SystemPropertiesRepository systemPropertiesRepository;
-
-    public final Integer PROPERTY_ID = 1;
- 	public static Long amountOfOwnerEvents;
+	public final Integer PROPERTY_ID = 1;
+	public static Long amountOfOwnerEvents;
 	public static Long amountOfAttendeeEvents;
-
 
 	public boolean haveEvent(int id) {
 		return eventRepository.exists(id);
@@ -73,12 +71,13 @@ public class EventServiceImpl implements EventService {
 	@Override
 	@Transactional
 	public void removeEvent(Event event) {
+		eventRepository.deleteEventFromUserPlace(event.getId());
 		eventRepository.delete(event);
 	}
 
 	public List<EventDto> getEventsDtoList(List<Event> events) {
 		List<EventDto> result = new ArrayList<>();
-        String propertiesImageUrl = systemPropertiesService.getImageUrl() + "/";
+		String propertiesImageUrl = systemPropertiesService.getImageUrl() + "/";
 		for (Event event : events) {
 			result.add(new EventDto(event, propertiesImageUrl));
 		}
@@ -200,7 +199,7 @@ public class EventServiceImpl implements EventService {
 				.findByAttendee(owner, pageRequsetObj)) {
 			list.add(new EventDto(eventRepository.findOne(place.getId()), place));
 		}
-		 amountOfAttendeeEvents = (long) list.size();
+		amountOfAttendeeEvents = (long) list.size();
 		return list;
 	}
 
@@ -293,10 +292,10 @@ public class EventServiceImpl implements EventService {
 		event.setRating(newEvent.getRating());
 		eventRepository.save(event);
 	}
-	
+
 	@Override
 	@Transactional
-	public Long getPageCount(Long size, String sender){
+	public Long getPageCount(Long size, String sender) {
 		Long amount;
 		if (sender.equals("all-events")) {
 			Long dataBaseSize = eventRepository.count();
@@ -320,7 +319,7 @@ public class EventServiceImpl implements EventService {
 				amount = dataAttendeeSize / size + 1;
 			}
 		}
-		
+
 		return amount;
 	}
 
