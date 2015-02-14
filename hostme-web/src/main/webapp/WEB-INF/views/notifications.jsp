@@ -18,6 +18,10 @@
 	</h1>
 </section>
 
+<div id="noNotify" style="display: none">
+	<spring:message code="label.noNotifications" />
+</div>
+
 <section class="content">
 	<div class="box box-success">
 		<div class="box-header"></div>

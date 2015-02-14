@@ -17,7 +17,6 @@ function loadNotificationsAjax() {
 		success : function(result) {
 			$("#timeline").html('');
 			if (result.length > 0) {
-				$("#timeline").html("");
 				showNotifications(result);
 			} else {
 				timeline.appendChild(haveNoNotifications());
@@ -28,19 +27,24 @@ function loadNotificationsAjax() {
 
 function showNotifications(notifications) {
 	var timeline = document.getElementById("timeline");
+	var lastDate = notifications[0].notificationDate;
+	timeline.appendChild(getNotificationDateLabel(lastDate));
 	for (var i = 0; i < notifications.length; i++) {
-		timeline.appendChild(getNotificationDateLabel(notifications[i]));
+		if (lastDate != notifications[i].notificationDate) {
+			lastDate = notifications[i].notificationDate;
+			timeline.appendChild(getNotificationDateLabel(lastDate));
+		}
 		timeline.appendChild(getNotificationItem(notifications[i]));
 	}
 }
 
-function getNotificationDateLabel(item) {
+function getNotificationDateLabel(date) {
 	var li = document.createElement("LI");
 	li.className = "time-label";
 
 	var small = document.createElement("SPAN");
 	small.className = "bg-green";
-	var date = document.createTextNode(item.notificationDate);
+	var date = document.createTextNode(date);
 
 	small.appendChild(date);
 
@@ -110,7 +114,10 @@ function haveNoNotifications() {
 
 	var h3 = document.createElement("H3");
 	h3.className = "timeline-body";
-	var text = document.createTextNode('Here is no notifications for you! :)');
+
+	var noNotify = document.getElementById("noNotify").innerHTML;
+
+	var text = document.createTextNode(noNotify);
 	h3.appendChild(text);
 
 	div.appendChild(h3);
