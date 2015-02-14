@@ -168,7 +168,7 @@
 				</div>
 				<div class="modal-footer">
 					<input type="submit" class="btn btn-primary"
-						value="<spring:message code="label.addGroup" />" />
+						value="<spring:message code="label.createGroup" />" />
 					<button type="button" class="btn btn-default" data-dismiss="modal">
 						<spring:message code="label.close" />
 					</button>

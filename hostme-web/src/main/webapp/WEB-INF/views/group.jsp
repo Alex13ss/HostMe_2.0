@@ -18,15 +18,13 @@
 	href="resources/css/conversations.css">
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <title><spring:message code="label.group" /></title>
-
 </head>
 
 <section class="content-header">
 	<h1>
 		<spring:message code="label.group" />
-		<small>Have a fun!</small>
+		<small><spring:message code="label.sgpSlogan" /></small>
 	</h1>
 </section>
 
@@ -64,8 +62,10 @@
 						</button>
 						<ul id="groupStatusChanger" class="dropdown-menu"
 							style="margin-top: -10px; left: 23px;">
-							<li><a id="APPROVED" href="#">Approve</a> <a id="PENDING"
-								href="#">Pending</a> <a id="REFUSED" href="#">Refuse</a></li>
+							<li><a id="APPROVED" href="#"><spring:message
+										code="label.statusApproved" /></a> <a id="PENDING" href="#"><spring:message
+										code="label.statusPending" /></a> <a id="REFUSED" href="#"><spring:message
+										code="label.statusRefuse" /></a></li>
 						</ul>
 						<button type="button" class="btn btn-default btn-sm"
 							data-toggle="modal" data-target="#groupEditModal">
@@ -98,14 +98,17 @@
 			<c:if test="${groupCreated eq true}">
 				<div class="alert alert-success" style="margin-right: 15px;"
 					align="center">
-					<h3>Welcome to your new group! Create conversations and have a
-						fun! :)</h3>
+					<h3>
+						<spring:message code="label.sgpWelcome" />
+					</h3>
 				</div>
 			</c:if>
 			<c:if test="${groupEdited eq true}">
 				<div class="alert alert-warning" style="margin-right: 15px;"
 					align="center">
-					<h3>Group configuring was successful!</h3>
+					<h3>
+						<spring:message code="label.sgpConfig" />
+					</h3>
 				</div>
 			</c:if>
 
@@ -162,27 +165,56 @@
 							</h3>
 						</div>
 						<div class="panel-body">
-							<c:out value="Created at: " />
-							<fmt:formatDate value="${group.createdAt}"
-								pattern="yyyy-MM-dd HH:mm:ss" />
-							<br>
-							<c:out
-								value="Created by: ${group.creatorUser.firstName} 
+							<div class="row">
+								<div class="col-md-5" align="right">
+									<spring:message code="label.createdAt" />:
+								</div>
+								<div class="col-md-7">
+									<fmt:formatDate value="${group.createdAt}"
+										pattern="yyyy-MM-dd HH:mm:ss" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5" align="right">
+									<spring:message code="label.createdBy" />:
+								</div>
+								<div class="col-md-7">
+									<c:out
+										value="${group.creatorUser.firstName} 
 									${group.creatorUser.lastName}" />
+								</div>
+							</div>
 							<c:if test="${!empty group.lastEditedAt}">
-								<br>
-								<c:out value="Last configured: " />
-								<fmt:formatDate value="${group.lastEditedAt}"
-									pattern="yyyy-MM-dd HH:mm:ss" />
+								<div class="row">
+									<div class="col-md-5" align="right">
+										<spring:message code="label.lastConfig" />:
+									</div>
+									<div class="col-md-7">
+										<fmt:formatDate value="${group.lastEditedAt}"
+											pattern="yyyy-MM-dd HH:mm:ss" />
+									</div>
+								</div>
 							</c:if>
 							<c:if test="${!empty group.lastEditor}">
-								<br>
-								<c:out
-									value="Configured by: ${group.lastEditor.firstName} 
+								<div class="row">
+									<div class="col-md-5" align="right">
+										<spring:message code="label.configBy" />:
+									</div>
+									<div class="col-md-7">
+										<c:out
+											value="${group.lastEditor.firstName} 
 									${group.lastEditor.lastName}" />
+									</div>
+								</div>
 							</c:if>
-							<br>
-							<c:out value="Subscribers: ${subscribers}" />
+							<div class="row">
+								<div class="col-md-5" align="right">
+									<spring:message code="label.subscribers" />:
+								</div>
+								<div class="col-md-7">
+									<c:out value="${subscribers}" />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -198,19 +230,22 @@
 								aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
-							<h4 class="modal-title" id="myModalLabel">Remove group</h4>
+							<h4 class="modal-title" id="myModalLabel">
+								<spring:message code="label.removeMod" />
+							</h4>
 						</div>
 						<div class="modal-body">
 							<div class="callout callout-danger" id="alert" align="center">
-								<font size="5">Are you sure you want to remove this
-									group?</font>
+								<font size="5"><spring:message code="label.removeMsg" /></font>
 							</div>
 						</div>
 						<div class="modal-footer">
 							<a href="" class="btn btn-primary removeBtn"><spring:message
 									code="label.delete" /></a>
 							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Cancel</button>
+								data-dismiss="modal">
+								<spring:message code="label.cancel" />
+							</button>
 						</div>
 					</div>
 				</div>
@@ -245,7 +280,9 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Group configuring...</h4>
+					<h4 class="modal-title" id="myModalLabel">
+						<spring:message code="label.configMod" />
+					</h4>
 				</div>
 				<div class="modal-body">
 
@@ -289,8 +326,11 @@
 
 				</div>
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary" value="Save" />
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="submit" class="btn btn-primary"
+						value="<spring:message code="label.save" />" />
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<spring:message code="label.close" />
+					</button>
 				</div>
 			</div>
 		</div>
