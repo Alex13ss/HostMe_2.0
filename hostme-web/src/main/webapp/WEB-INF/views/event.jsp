@@ -13,11 +13,15 @@
 <meta charset="UTF-8">
 <link href="resources/css/dataTables.bootstrap.css" rel="stylesheet"
 	type="text/css" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
+
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/separateEventPageHandler.js"
 	type="text/javascript"></script>
 <script src="resources/js/dataTables.bootstrap.js"
 	type="text/javascript"></script>
+
 <title>Events</title>
 </head>
 <body class="skin-blue  pace-done" style="min-height: 1293px;">
@@ -247,7 +251,7 @@
 										</button>
 										</c:if>
 										</security:authorize>
-										
+
 									</div>
 								</form:form>
 							</dd>
@@ -311,7 +315,7 @@
 								<spring:message code="label.country" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select id="country" path="city.country.country">
+								<form:select id="country" class="drop-menu" path="city.country.country">
 									<option value="${event.city.country.country}">${event.city.country.country}</option>
 									<c:forEach items="${countries}" var="country">
 										<option value="${country.country}">${country.country}</option>
@@ -324,7 +328,7 @@
 								<spring:message code="label.city" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select id="city" path="city.city">
+								<form:select id="city" class="drop-menu" path="city.city">
 									<option value="${event.city.city}">${event.city.city}</option>
 								</form:select>
 							</div>
@@ -373,7 +377,7 @@
 							<label for="priceCategory.priceCategory"
 								class="col-sm-2 control-label"> Price category </label>
 							<div class="col-sm-10">
-								<form:select path="priceCategory.priceCategory">
+								<form:select  class="drop-menu" path="priceCategory.priceCategory">
 									<option value="${event.priceCategory.priceCategory}">${event.priceCategory.priceCategory}</option>
 									<c:forEach items="${priceCategories}" var="priceCategory">
 										<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>

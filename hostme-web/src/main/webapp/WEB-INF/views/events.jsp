@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap.css"
 	type="text/css" />
 <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/event.js" type="text/javascript"></script>
@@ -35,7 +37,7 @@
 		<security:authorize access="hasRole('MODERATOR')">
 			<c:set var="role" value="MODERATOR" />
 		</security:authorize>
-		<div id="UserRole" style="display:none;">${role}</div>
+		<div id="UserRole" style="display: none;">${role}</div>
 	</section>
 	<!-- Main content -->
 	<section class="content">
@@ -126,7 +128,7 @@
 									<form:input path="name" cssClass="form-control" />
 								</div>
 							</div>
-					
+
 							<div class="form-group">
 								<label for="startDate" class="col-sm-2 control-label"> <spring:message
 										code="label.startDate" />:
@@ -141,7 +143,7 @@
 										code="label.endDate" />: </label>
 								<div class="col-sm-10">
 									<form:input path="endDate" cssClass="form-control" />
-		
+
 								</div>
 							</div>
 
@@ -151,7 +153,8 @@
 									<spring:message code="label.country" />
 								</form:label>
 								<div class="col-sm-10">
-									<form:select id="country" path="city.country.country">
+									<form:select id="country" class="drop-menu"
+										path="city.country.country">
 										<option value="0"><spring:message
 												code="label.countrySelect" /></option>
 										<c:forEach items="${countries}" var="country">
@@ -166,7 +169,7 @@
 									<spring:message code="label.city" />
 								</form:label>
 								<div class="col-sm-10">
-									<form:select id="city" path="city.city">
+									<form:select id="city" class="drop-menu" path="city.city">
 										<option value="0"><spring:message
 												code="label.citySelect" /></option>
 
@@ -210,7 +213,8 @@
 									class="col-sm-2 control-label"><spring:message
 										code="label.priceCategory" /></label>
 								<div class="col-sm-10">
-									<form:select path="priceCategory.priceCategory">
+									<form:select class="drop-menu"
+										path="priceCategory.priceCategory">
 										<option value="0"><spring:message
 												code="label.priceCategorySelect" /></option>
 										<c:forEach items="${priceCategories}" var="priceCategory">
