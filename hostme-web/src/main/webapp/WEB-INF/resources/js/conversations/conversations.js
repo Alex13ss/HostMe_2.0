@@ -1,3 +1,4 @@
+var validator = null;
 
 $(document).ready(
 		function() {
@@ -5,6 +6,21 @@ $(document).ready(
 					function(e) {
 						e.preventDefault();
 						$("#createConversation").modal();
+					});
+			validator = $("#conversation").validate(
+					{
+						rules : {
+							title : {
+								required : true,
+								minlength : 3,
+								maxlength : 50
+							},
+							message : {
+								required : true,
+								minlength : 5,
+								maxlength : 255
+							}
+						}
 					});
 		});
 

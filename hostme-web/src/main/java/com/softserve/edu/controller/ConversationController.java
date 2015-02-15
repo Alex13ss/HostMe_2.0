@@ -102,10 +102,7 @@ public class ConversationController {
     @RequestMapping("/conversationDelete/{id}")
     public String deleteConversation(@PathVariable Long id) {
 	Conversation conversation = conversationService.findOne(id);
-	User owner = conversation.getOwner();
-	if (profileService.getCurrentUser().getUserId() == owner.getUserId()) {
-	    conversationService.delete(conversation);
-	}
+	conversationService.delete(conversation);
         return "redirect:/conversations?group_id=" + conversation.getGroup().getId();
     }
     
@@ -119,13 +116,10 @@ public class ConversationController {
     public String updateConversation(@PathVariable Long id, 
 	    @ModelAttribute("conversation") ConversationCreateDto conversationDto) {
 	Conversation conversation = conversationService.findOne(id);
-	User owner = conversation.getOwner();
-	if (profileService.getCurrentUser().getUserId() == owner.getUserId()) {
-	    conversation.setTitle(conversationDto.getTitle());
-	    conversation.setModerators(getUsersFromIds(conversationDto.getModeratorLogins()));
-	    conversationService.update(conversation);
-	}
-        return "redirect:/conversations?group_id=" + conversation.getGroup().getId();
+	conversation.setTitle(conversationDto.getTitle());
+	conversation.setModerators(getUsersFromIds(conversationDto.getModeratorLogins()));
+	conversationService.update(conversation);
+	return "redirect:/conversations?group_id=" + conversation.getGroup().getId();
     }
     
     /**

@@ -4,17 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import com.softserve.edu.dto.ConversationDto;
 import com.softserve.edu.dto.PostDto;
 import com.softserve.edu.model.Conversation;
 import com.softserve.edu.model.Image;
@@ -113,6 +107,7 @@ public class PostServiceImpl implements PostService{
 
     @Override
     @Transactional
+    @PreAuthorize("#post.author.login == authentication.name")
     public void delete(Post post) {
 	postRepository.delete(post);
     }

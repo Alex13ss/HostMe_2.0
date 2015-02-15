@@ -1,5 +1,4 @@
 var allResults = null;
-var validator = null;
 
 $(document).ready(
 		
@@ -24,23 +23,6 @@ $(document).ready(
 				});
 				
 			});
-			
-			validator = $("#conversation").validate(
-					{
-						rules : {
-							title : {
-								required : true,
-								minlength : 3,
-								maxlength : 50
-							},
-							message : {
-								required : true,
-								minlength : 5,
-								maxlength : 255
-							}
-						}
-					});
-			
 			
 		});
 

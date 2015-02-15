@@ -3,6 +3,7 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <script type="text/javascript" src="resources/js/conversations/conversations.js"></script>
+<script type="text/javascript" src="resources/js/jquery.validate.js"></script>
 <script type="text/javascript">
 $(document).ready(
 		function() {
