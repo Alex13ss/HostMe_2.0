@@ -1,10 +1,8 @@
 package com.softserve.edu.dto;
 
 import java.util.Date;
-import java.util.Set;
 
 import com.softserve.edu.model.Group;
-import com.softserve.edu.model.Image;
 import com.softserve.edu.model.Status;
 
 public class GroupDto {
@@ -13,22 +11,23 @@ public class GroupDto {
     private String groupName;
     private String groupDescription;
     private Date createdAt;
-    private Set<Image> images;
-    private String creatorFNandLN;
+    private String imgLink;
     private Status status;
 
     public GroupDto() {
     }
 
-    public GroupDto(Group group) {
+    public GroupDto(Group group, String imgUrl) {
         this.id = group.getId();
         this.groupName = group.getGroupName();
         this.groupDescription = group.getGroupDescription();
         this.createdAt = group.getCreatedAt();
-        this.images = group.getImages();
-        this.creatorFNandLN = group.getCreatorUser().getFirstName() + " "
-                + group.getCreatorUser().getLastName();
         this.status = group.getStatus();
+        if (group.getImages().isEmpty()) {
+            setImgLink("resources/images/group-default.jpg");
+        } else {
+            setImgLink(imgUrl + group.getImages().iterator().next().getLink());
+        }
     }
 
     public Long getId() {
@@ -63,20 +62,12 @@ public class GroupDto {
         this.createdAt = createdAt;
     }
 
-    public Set<Image> getImages() {
-        return images;
+    public String getImgLink() {
+        return imgLink;
     }
 
-    public void setImages(Set<Image> images) {
-        this.images = images;
-    }
-
-    public String getCreatorFNandLN() {
-        return creatorFNandLN;
-    }
-
-    public void setCreatorFNandLN(String creatorFNandLN) {
-        this.creatorFNandLN = creatorFNandLN;
+    public void setImgLink(String imgLink) {
+        this.imgLink = imgLink;
     }
 
     public Status getStatus() {

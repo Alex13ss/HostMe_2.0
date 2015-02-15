@@ -9,12 +9,12 @@ import com.softserve.edu.model.User;
 
 public interface NotificationService {
 
-    public void addNotification(Group group, String msg);
+    void addNotification(Group group, String msg);
 
-    public List<NotificationDto> findAllNotificationsByUser(User user);
+    List<NotificationDto> findAllNotificationsByUser(User user);
 
-    public Notification findOne(Long id);
+    Notification findOne(Long id);
 
-    public void removeNotifyRelationship(Integer userId, Long notifyId);
+    void removeNotifyRelationship(Integer userId, Long notifyId);
 
 }

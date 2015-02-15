@@ -25,6 +25,7 @@ import com.softserve.edu.repositories.ImageRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.ProfileService;
+import com.softserve.edu.service.SystemPropertiesService;
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -44,6 +45,13 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private ImageRepository imageRepository;
 
+    @Autowired
+    private SystemPropertiesService systemPropertiesService;
+
+    public String getPropImgUrl() {
+        return systemPropertiesService.getImageUrl() + "/";
+    }
+
     @Override
     @Transactional
     public List<GroupDto> findAll(Integer page, Integer size, String orderBy,
@@ -58,7 +66,7 @@ public class GroupServiceImpl implements GroupService {
                     Sort.Direction.DESC, orderBy);
         }
         for (Group group : groupRepository.findAll(pageRequsetObj)) {
-            list.add(new GroupDto(group));
+            list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
     }
@@ -78,7 +86,7 @@ public class GroupServiceImpl implements GroupService {
         Status status = Status.PENDING;
         for (Group group : groupRepository.findAllByStatus(status,
                 pageRequsetObj)) {
-            list.add(new GroupDto(group));
+            list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
     }
@@ -98,7 +106,7 @@ public class GroupServiceImpl implements GroupService {
         Status status = Status.APPROVED;
         for (Group group : groupRepository.findAllByStatus(status,
                 pageRequsetObj)) {
-            list.add(new GroupDto(group));
+            list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
     }
@@ -118,7 +126,7 @@ public class GroupServiceImpl implements GroupService {
         }
         for (Group group : groupRepository.findAllByCreatorUser(creatorUser,
                 pageRequsetObj)) {
-            list.add(new GroupDto(group));
+            list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
     }
@@ -138,7 +146,7 @@ public class GroupServiceImpl implements GroupService {
         }
         for (Group group : groupRepository.findAllByInterestedUsers(
                 interestedUser, pageRequsetObj)) {
-            list.add(new GroupDto(group));
+            list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
     }
@@ -256,7 +264,7 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupDto> getGroupsDtoList(List<Group> groups) {
         List<GroupDto> list = new ArrayList<>();
         for (Group group : groups) {
-            list.add(new GroupDto(group));
+            list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
     }

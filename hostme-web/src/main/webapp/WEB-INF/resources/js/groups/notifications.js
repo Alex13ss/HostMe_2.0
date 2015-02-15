@@ -141,10 +141,9 @@ function removeNotification(id) {
 		},
 		dataType : "json",
 		beforeSend : function() {
-			$("#timeline").html('');
+			$("#timeline").html(loader);
 		},
 		success : function(result) {
-			$("#timeline").html('');
 			if (result.length > 0) {
 				showNotifications(result);
 			} else {

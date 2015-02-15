@@ -172,7 +172,9 @@ $(document)
 													"sWidth" : "13%",
 													"mData" : function(data,
 															type, row) {
-														return "<img src='resources/images/group-default.jpg'/>";
+														return "<img src="
+														+ data.imgLink
+														+ ">";
 													}
 												},
 												{

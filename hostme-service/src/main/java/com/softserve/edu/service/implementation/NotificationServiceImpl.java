@@ -34,7 +34,7 @@ public class NotificationServiceImpl implements NotificationService {
         notify.setNotifyCreated(new Date());
         notify.setNotifyMessage(msg);
         notificationRepository.save(notify);
-        List<User> interestedUsers = (List<User>) userRepository
+        List<User> interestedUsers = userRepository
                 .findAllByInterestingGroups(group);
         notify.setToReceiveUsers(interestedUsers);
     }
