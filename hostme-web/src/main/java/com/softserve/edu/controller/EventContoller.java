@@ -189,7 +189,7 @@ public class EventContoller {
 				dateFormat, true));
 	}
 
-	@RequestMapping("/event-enroll/{id}")
+	@RequestMapping("/event-join/{id}")
 	public String eventEnroll(@PathVariable("id") Integer id) {
 		User user = profileService.getCurrentUser();
 		eventService.addAttendee(user, id);

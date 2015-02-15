@@ -39,10 +39,18 @@
 						<i class="fa fa-calendar-o"></i>
 						<c:out value="${event.name}" />
 						<security:authorize access="hasRole('USER')">
-							<a href="<spring:url value="event-enroll/${event.id}"/>"
-								class="btn btn-default btn-sm triggerRemove"
-								style="margin-left: 20px;"><i class="fa fa-share"></i> <spring:message
-									code="label.enroll" /> </a>
+							<c:if test="${isSubscribed eq false}">
+								<a href="<spring:url value="event-join/${event.id}"/>"
+									class="btn btn-default btn-sm " style="margin-left: 20px;"><i
+									class="fa fa-share"></i> <spring:message code="label.join" />
+								</a>
+							</c:if>
+							<c:if test="${isSubscribed eq true}">
+								<a href="<spring:url value="event-leave/${event.id}"/>"
+									class="btn btn-default btn-sm " style="margin-left: 20px;"><i
+									class="fa fa-share"></i> <spring:message code="label.leave" />
+								</a>
+							</c:if>
 						</security:authorize>
 					</div>
 
@@ -169,6 +177,35 @@
 								</div>
 							</div>
 						</div>
+						<div class="modal fade" id="modalRemove" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+										<h4 class="modal-title" id="myModalLabel">
+											<spring:message code="label.removeMod" />
+										</h4>
+									</div>
+									<div class="modal-body">
+										<div class="callout callout-danger" id="alert" align="center">
+											<font size="5"><spring:message code="label.removeMsg" /></font>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<a href="" class="btn btn-primary removeBtn"><spring:message
+												code="label.delete" /></a>
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">
+											<spring:message code="label.cancel" />
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="col-md-12" style="margin-top: 10px;">
 
 							<div class="row col-md-12">
@@ -201,6 +238,7 @@
 								</div>
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -315,7 +353,8 @@
 								<spring:message code="label.country" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select id="country" class="drop-menu" path="city.country.country">
+								<form:select id="country" class="drop-menu"
+									path="city.country.country">
 									<option value="${event.city.country.country}">${event.city.country.country}</option>
 									<c:forEach items="${countries}" var="country">
 										<option value="${country.country}">${country.country}</option>
@@ -377,7 +416,8 @@
 							<label for="priceCategory.priceCategory"
 								class="col-sm-2 control-label"> Price category </label>
 							<div class="col-sm-10">
-								<form:select  class="drop-menu" path="priceCategory.priceCategory">
+								<form:select class="drop-menu"
+									path="priceCategory.priceCategory">
 									<option value="${event.priceCategory.priceCategory}">${event.priceCategory.priceCategory}</option>
 									<c:forEach items="${priceCategories}" var="priceCategory">
 										<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
