@@ -47,9 +47,8 @@
 			</div>
 			<!-- Footer -->
 			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary" id="submitButton">Create</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
+				<button type="submit" class="btn btn-primary" id="submitButton"><spring:message code="label.save" /></button>
+				<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="label.cancel" /></button>
 			</div>
 			</form>			
 		</div>

@@ -1,3 +1,5 @@
+var noPosts = null;
+
 $(document).ready(
 		
 		function() {
@@ -12,6 +14,8 @@ $(document).ready(
 					  return false;
 				  }
 				});
+			
+			noPosts = $('#noPosts').html();
 		
 		});
 
@@ -28,10 +32,12 @@ function loadPostsAjax(conversationId) {
 			$("#chat-box").html(loader);
 		},
 		success: function(result) {
+			$("#chat-box").html("");
 			if (result.length > 0) {
 				showPosts(result);
 			} else {
-				$("#chat-box").html("This conversation has no posts");
+				console.log(noPosts);
+				$("#chat-box").html(noPosts);
 			}
 	     }
 	});
@@ -50,7 +56,7 @@ function createChatItem(postDto) {
 	
 	var item = document.createElement("DIV");
 	item.className = "item";
-	//here will be image of user, maybe
+	
 	var image = document.createElement("IMG");
 	image.src = postDto.imageUrl;
 	image.className = "online";
@@ -106,11 +112,11 @@ function createChatItem(postDto) {
 function removePost() {
 	
 	var postId = $(this).attr('class').replace('deletePost ', '');
-	if (confirm('Do you really want to delete?')) {
-		deleteMessage(postId);
-    } else {
-        return false;
-    }
+	$("#modalRemovePost").modal();
+	$("#removeConfirmButton").click(function() {
+		deleteMessage(postId);	
+	});
+	
 }
 
 function sendMessage(conversationId, message) {
@@ -132,7 +138,7 @@ function sendMessage(conversationId, message) {
 			if (result.length > 0) {
 				showPosts(result);
 			} else {
-				$("#chat-box").html("This conversation has no posts");
+				$("#chat-box").html(noPosts);
 			}
 	     }
 	});
@@ -155,7 +161,7 @@ function deleteMessage(postId) {
 			if (result.length > 0) {
 				showPosts(result);
 			} else {
-				$("#chat-box").html("This conversation has no posts");
+				$("#chat-box").html(noPosts);
 			}
 	     }
 	});

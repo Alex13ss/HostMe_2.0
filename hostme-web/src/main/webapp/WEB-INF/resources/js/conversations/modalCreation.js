@@ -154,7 +154,6 @@ function cleanConversationData() {
 	$("#moderatorLogins").html("");
 	$("#messageClass").show();
 	$("#conversation").attr("action", "conversationCreate" );
-	$("#submitButton").html("Create");
 }
 
 function getConversation(element) {
@@ -189,7 +188,6 @@ function fillConversationData(result, conversationId) {
 	}	
 	$("#messageClass").hide();
 	$("#conversation").attr("action", "conversationUpdate/" + conversationId)
-	$("#submitButton").html("Save");
 }
 ///
 
