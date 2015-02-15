@@ -69,8 +69,9 @@ public class PostServiceImpl implements PostService{
 	    Iterator<Image> imageItr = post.getAuthor().getImages().iterator();
 	    if (imageItr.hasNext()) {
 		image = propertiesImageUrl + "/" + imageItr.next().getLink();
+	    } else {
+		image = "resources/images/defaultUserImage.png";
 	    }
-	    
 	    boolean isRemovable = false;
 	    if (post.getAuthor().getLogin().equals(loggedUser)) {
 		isRemovable = true;
