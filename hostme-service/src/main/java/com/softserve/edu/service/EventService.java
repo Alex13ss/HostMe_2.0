@@ -59,8 +59,12 @@ public interface EventService {
 	
 	public boolean checkEventOwner(EventDto event, User user);
 	
+	public boolean checkEventSubscribed(EventDto event, User user);
+	
 	public void addAttendee(User user, Integer id);
 	
 	public Long getPageCount(Long size, String sender);
+	
+	public void leaveEvent(User user, Integer id);
 }
 

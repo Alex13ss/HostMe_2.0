@@ -327,19 +327,10 @@ public class EventServiceImpl implements EventService {
 	public boolean checkEventOwner(EventDto event, User user) {
 		Event checkedEvent = eventRepository.findOne(event.getId());
 		User owner = checkedEvent.getOwner();
-		if (owner.equals(user)) {
-			return true;
-		}
-		return false;
+		return owner.equals(user);
+		
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.softserve.edu.service.EventService#addAttendee(com.softserve.edu.
-	 * model.User, java.lang.Integer)
-	 */
+	
 	@Override
 	@Transactional
 	public void addAttendee(User user, Integer id) {
@@ -355,5 +346,16 @@ public class EventServiceImpl implements EventService {
 		user.setAttendee(placeSet);
 		userRepository.save(user);
 	}
+	
+	@Override
+	@Transactional
+	public void leaveEvent(User user, Integer id){
+		eventRepository.deleteAttendeeFromEvent(user.getUserId(), id);
+	}
 
+	public boolean checkEventSubscribed(EventDto event, User user){
+		Event foundedEvent = eventRepository.findOne(event.getId());
+		Set<User> attendeeUsers = foundedEvent.getAttendee();
+		return attendeeUsers.contains(user);
+	}
 }

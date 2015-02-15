@@ -187,12 +187,14 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 										<h4 class="modal-title" id="myModalLabel">
-											<spring:message code="label.removeMod" />
+											<spring:message code="label.removeEventConf" />
 										</h4>
 									</div>
 									<div class="modal-body">
-										<div class="callout callout-danger" id="alert" align="center">
-											<font size="5"><spring:message code="label.removeMsg" /></font>
+										<div class="alert alert-info alert-dismissable alertDelteWindowFont" id="alert"
+											align="center" >
+											<i class="fa fa-warning"></i> <font size="5"><spring:message
+													code="label.removeCaution" /></font>
 										</div>
 									</div>
 									<div class="modal-footer">

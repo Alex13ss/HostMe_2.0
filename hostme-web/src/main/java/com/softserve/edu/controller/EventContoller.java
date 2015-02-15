@@ -128,11 +128,13 @@ public class EventContoller {
 		List<PriceCategory> priceCategories = priceCategoryService
 				.getAllPriceCategory();
 		boolean isCreator = eventService.checkEventOwner(eventDto, user);
+		boolean isSubscribed = eventService.checkEventSubscribed(eventDto, user);
 		model.addAttribute("event", eventDto);
 		model.addAttribute("countries", countries);
 		model.addAttribute("cities", cities);
 		model.addAttribute("priceCategories", priceCategories);
 		model.addAttribute("isCreator", isCreator);
+		model.addAttribute("isSubscribed", isSubscribed);
 		return "event";
 	}
 
@@ -190,10 +192,18 @@ public class EventContoller {
 	}
 
 	@RequestMapping("/event-join/{id}")
-	public String eventEnroll(@PathVariable("id") Integer id) {
+	public String eventJoin(@PathVariable("id") Integer id) {
 		User user = profileService.getCurrentUser();
 		eventService.addAttendee(user, id);
-		return "redirect:/events";
+		return "redirect:/event?id={id}";
 	}
+	
+	@RequestMapping("/event-leave/{id}")
+	public String eventLeave(@PathVariable("id") Integer id) {
+		User user = profileService.getCurrentUser();
+		eventService.leaveEvent(user, id);
+		return "redirect:/event?id={id}";
+	}
+
 
 }
