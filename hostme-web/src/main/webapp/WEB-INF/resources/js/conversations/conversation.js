@@ -31,7 +31,7 @@ function loadPostsAjax(conversationId) {
 			if (result.length > 0) {
 				showPosts(result);
 			} else {
-				$("#chat-box").html("Failed to load posts");
+				$("#chat-box").html("This conversation has no posts");
 			}
 	     }
 	});
@@ -65,7 +65,7 @@ function createChatItem(postDto) {
 	small.className = "'text-muted pull-right";
 	var i = document.createElement("I"); 
 	i.className = "fa fa-clock-o";
-	var time = document.createTextNode(postDto.postTime);
+	var time = document.createTextNode(postDto.postDate + ' '+ postDto.postTime);
 	small.appendChild(i);
 	small.appendChild(time);
 	
@@ -114,6 +114,7 @@ function removePost() {
 }
 
 function sendMessage(conversationId, message) {
+	if (message.length < 1) return false;
 	$("#userMsg").val("");
 	
 	$.ajax({
@@ -131,7 +132,7 @@ function sendMessage(conversationId, message) {
 			if (result.length > 0) {
 				showPosts(result);
 			} else {
-				$("#chat-box").html("Failed to load posts");
+				$("#chat-box").html("This conversation has no posts");
 			}
 	     }
 	});
@@ -154,7 +155,7 @@ function deleteMessage(postId) {
 			if (result.length > 0) {
 				showPosts(result);
 			} else {
-				$("#chat-box").html("Failed to load posts");
+				$("#chat-box").html("This conversation has no posts");
 			}
 	     }
 	});

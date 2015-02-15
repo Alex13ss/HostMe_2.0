@@ -1,4 +1,5 @@
 var allResults = null;
+var validator = null;
 
 $(document).ready(
 		
@@ -23,6 +24,24 @@ $(document).ready(
 				});
 				
 			});
+			
+			validator = $("#conversation").validate(
+					{
+						rules : {
+							title : {
+								required : true,
+								minlength : 3,
+								maxlength : 50
+							},
+							message : {
+								required : true,
+								minlength : 5,
+								maxlength : 255
+							}
+						}
+					});
+			
+			
 		});
 
 function Search() {
@@ -129,6 +148,8 @@ function getNextModeratorId()
 }
 ///
 function cleanConversationData() {
+	validator.resetForm();
+	$("#conversation").closest('.form-control').removeClass('error');
 	$("#title").val("");
 	$("#moderatorLogins").html("");
 	$("#messageClass").show();
@@ -159,6 +180,8 @@ function getConversation(element) {
 }
 
 function fillConversationData(result, conversationId) {
+	validator.resetForm();
+	$(".form-control").removeClass('error');
 	$("#title").val(result.title);
 	allResults = result.moderators;
 	for (var i = 0; i < result.moderators.length; i++) {
