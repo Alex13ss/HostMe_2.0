@@ -182,11 +182,8 @@ $(document)
 																						.stringify(aData),
 																				success : function(
 																						response) {
-																					$(
-																							'td:eq(6)',
-																							nRow)
-																							.html(
-																									response.status);
+																					$('td:eq(6)',nRow).html(response.status.charAt(0).toUpperCase()+
+																				                       status.substr(1).toLowerCase());
 																				}
 																			});
 																});
@@ -292,7 +289,11 @@ $(document)
 													}
 												}, {
 													"bVisible" : checkRole(),
-													"mData" : "status"
+													"mData" : function(data,
+												               type, full) {
+												              return data.status.charAt(0).toUpperCase() 
+												              + data.status.substr(1).toLowerCase();
+												             }
 												}, {
 													"bVisible" : checkRole(),
 													"mData" : "id"

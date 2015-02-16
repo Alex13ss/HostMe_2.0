@@ -15,6 +15,7 @@
 	type="text/css" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
+<link rel="stylesheet" type="text/css" href="resources/css/groups.css">
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/separateEventPageHandler.js"
