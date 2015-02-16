@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.softserve.edu.model.User;
+import com.softserve.edu.model.UserState;
 import com.softserve.edu.service.RoleService;
 import com.softserve.edu.service.UserService;
 import com.softserve.edu.service.implementation.RegistrationSendMailImpl;
@@ -54,9 +55,16 @@ public class AdminController {
 		return users;
 	}
 
-	@RequestMapping("/deleteUser/{id}")
-	public String deleteUser(@PathVariable("id") Integer id) {
-		userService.removeUser(id);
+	@RequestMapping("/banUser/{id}")
+	public String banUser(@PathVariable("id") Integer id) {
+		User user = userService.getUser(id);
+		UserState status = user.getUserState();
+		if(status==UserState.ACTIVE){
+			status=UserState.INACTIVE;
+		}
+		else status=UserState.ACTIVE;
+		user.setUserState(status);
+		userService.updateUser(user);
 		return "redirect:/usersManager";
 	}
 
@@ -80,7 +88,7 @@ public class AdminController {
 	public @ResponseBody User updateUserState(@RequestBody User user) {
 		User newUser = userService.getUser(user.getUserId());
 		user.setPassword(newUser.getPassword());
-		userService.saveUser(user);
+		userService.updateUser(user);
 		return user;
 	}
 }

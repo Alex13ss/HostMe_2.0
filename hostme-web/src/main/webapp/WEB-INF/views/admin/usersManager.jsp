@@ -37,16 +37,18 @@
 					class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th style="width:20%"><spring:message code="label.login" /></th>
-							<th style="width:20%"><spring:message code="user.name" /></th>
-							<th style="width:15%"><spring:message code="user.role" /></th>
-							<th style="width:15%"><spring:message code="user.resetPass" /></th>
-							<th style="width:15%"><spring:message code="user.delete" /></th>
-							<th style="width:15%"><spring:message code="user.action" /></th>
+							<th style="width: 15%"><spring:message code="user.login" /></th>
+							<th style="width: 20%"><spring:message code="user.name" /></th>
+							<th style="width: 10%"><spring:message code="user.role" /></th>
+							<th style="width: 15%"><spring:message code="user.state" /></th>
+							<th style="width: 15%"><spring:message code="user.ban" /></th>
+							<th style="width: 10%"><spring:message code="user.resetPass" /></th>
+							<th style="width: 15%"><spring:message code="user.action" /></th>
 						</tr>
 					</thead>
 
 				</table>
+
 			</div>
 		</div>
 	</section>
