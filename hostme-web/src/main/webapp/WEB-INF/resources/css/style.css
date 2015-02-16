@@ -3937,3 +3937,6 @@ select.dataTableDropDown{
 th.custom_sorting_enabled{
 	cursor:pointer;
 }
+.alertDelteWindowFont{
+	color:#CC0000;
+}
