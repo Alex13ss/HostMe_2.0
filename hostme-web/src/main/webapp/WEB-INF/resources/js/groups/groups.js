@@ -123,7 +123,8 @@ $(document)
 																				"type" : "POST",
 																				data : JSON.stringify(aData),
 																				success : function(response) {
-																					$('td:eq(3)',nRow).html(response.status);
+																					$('td:eq(3)',nRow).html(response.status.charAt(0).toUpperCase()
+																							+ status.substr(1).toLowerCase());
 																				}
 																			});
 																});
@@ -132,7 +133,7 @@ $(document)
 
 											var button = $("<button/>",
 													{
-														text : "Change status",
+														text : document.getElementById("changeStatus").innerHTML,
 														"type" : "button",
 														"data-toggle" : "dropdown",
 														"class" : "btn btn-default dropdown-toggle",
@@ -197,11 +198,17 @@ $(document)
 														return new Date(data)
 																.toLocaleString();
 													}
-												}, {
+												}, 
+												{
 													"bVisible" : checkRole(),
 													"sWidth" : "10%",
-													"mData" : "status"
-												}, {
+													"mData" : function(data,
+															type, full) {
+														return data.status.charAt(0).toUpperCase()
+														+ data.status.substr(1).toLowerCase();
+													}
+												}, 
+												{
 													"bVisible" : checkRole(),
 													"sWidth" : "10%",
 													"mData" : "id"
