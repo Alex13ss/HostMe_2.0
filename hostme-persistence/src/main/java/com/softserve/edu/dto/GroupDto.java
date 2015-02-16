@@ -5,6 +5,9 @@ import java.util.Date;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Status;
 
+/**
+ * @author Oleksandr Bandurka DTO-class for group
+ */
 public class GroupDto {
 
     private Long id;

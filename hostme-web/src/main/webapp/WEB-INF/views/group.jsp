@@ -116,6 +116,11 @@
 				<div class="col-md-3">
 					<div class="panel box box-success">
 						<div class="panel-body">
+
+							<c:if test="${empty group.images}">
+								<img src="resources/images/group-default.jpg">
+							</c:if>
+
 							<c:forEach var="image" begin="0" end="0" items="${group.images}">
 								<a href="${image_url}${image.link}" data-lightbox="images">
 									<img src="${image_url}${image.link}" />

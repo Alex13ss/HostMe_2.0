@@ -27,6 +27,9 @@ import com.softserve.edu.service.GroupService;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.SystemPropertiesService;
 
+/**
+ * @author Oleksandr Bandurka
+ */
 @Service
 public class GroupServiceImpl implements GroupService {
 

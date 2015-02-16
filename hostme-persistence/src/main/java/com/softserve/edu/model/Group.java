@@ -24,10 +24,10 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import com.google.common.base.Objects;
 
 /**
  * @author Oleksandr Bandurka Entity-class for group
- * 
  */
 @Entity
 @Table(name = "groups")
@@ -211,6 +211,36 @@ public class Group {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hashCode(id, groupName, groupDescription, createdAt,
+                lastEditedAt, status, images, conversations, creatorUser,
+                lastEditor, interestedUsers, notifications, tags);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Group) {
+            Group that = (Group) object;
+            return Objects.equal(this.id, that.id)
+                    && Objects.equal(this.groupName, that.groupName)
+                    && Objects.equal(this.groupDescription,
+                            that.groupDescription)
+                    && Objects.equal(this.createdAt, that.createdAt)
+                    && Objects.equal(this.lastEditedAt, that.lastEditedAt)
+                    && Objects.equal(this.status, that.status)
+                    && Objects.equal(this.images, that.images)
+                    && Objects.equal(this.conversations, that.conversations)
+                    && Objects.equal(this.creatorUser, that.creatorUser)
+                    && Objects.equal(this.lastEditor, that.lastEditor)
+                    && Objects
+                            .equal(this.interestedUsers, that.interestedUsers)
+                    && Objects.equal(this.notifications, that.notifications)
+                    && Objects.equal(this.tags, that.tags);
+        }
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "Group [id=" + id + ", groupName=" + groupName
                 + ", groupDescription=" + groupDescription + ", createdAt="
@@ -218,7 +248,8 @@ public class Group {
                 + status + ", images=" + images + ", conversations="
                 + conversations + ", creatorUser=" + creatorUser
                 + ", lastEditor=" + lastEditor + ", interestedUsers="
-                + interestedUsers + ", tags=" + tags + "]";
+                + interestedUsers + ", notifications=" + notifications
+                + ", tags=" + tags + "]";
     }
 
 }

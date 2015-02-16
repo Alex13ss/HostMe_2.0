@@ -15,6 +15,9 @@ import com.softserve.edu.model.User;
 import com.softserve.edu.service.NotificationService;
 import com.softserve.edu.service.ProfileService;
 
+/**
+ * @author Oleksandr Bandurka
+ */
 @Controller
 public class NotificationController {
 

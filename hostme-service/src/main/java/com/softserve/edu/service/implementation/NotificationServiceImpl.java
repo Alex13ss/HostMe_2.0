@@ -17,6 +17,9 @@ import com.softserve.edu.repositories.NotificationRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.NotificationService;
 
+/**
+ * @author Oleksandr Bandurka
+ */
 @Service
 public class NotificationServiceImpl implements NotificationService {
 

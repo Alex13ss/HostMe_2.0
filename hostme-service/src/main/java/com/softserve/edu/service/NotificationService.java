@@ -7,6 +7,9 @@ import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Notification;
 import com.softserve.edu.model.User;
 
+/**
+ * @author Oleksandr Bandurka
+ */
 public interface NotificationService {
 
     void addNotification(Group group, String msg);

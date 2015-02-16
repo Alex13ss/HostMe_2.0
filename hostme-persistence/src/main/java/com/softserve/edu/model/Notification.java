@@ -15,7 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import com.google.common.base.Objects;
 
+/**
+ * @author Oleksandr Bandurka Entity-class for notification
+ */
 @Entity
 @Table(name = "notifications")
 public class Notification {
@@ -82,6 +86,33 @@ public class Notification {
 
     public void setToReceiveUsers(List<User> toReceiveUsers) {
         this.toReceiveUsers = toReceiveUsers;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(notifyId, notifyCreated, notifyMessage,
+                updatedGroup, toReceiveUsers);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object instanceof Notification) {
+            Notification that = (Notification) object;
+            return Objects.equal(this.notifyId, that.notifyId)
+                    && Objects.equal(this.notifyCreated, that.notifyCreated)
+                    && Objects.equal(this.notifyMessage, that.notifyMessage)
+                    && Objects.equal(this.updatedGroup, that.updatedGroup)
+                    && Objects.equal(this.toReceiveUsers, that.toReceiveUsers);
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Notification [notifyId=" + notifyId + ", notifyCreated="
+                + notifyCreated + ", notifyMessage=" + notifyMessage
+                + ", updatedGroup=" + updatedGroup + ", toReceiveUsers="
+                + toReceiveUsers + "]";
     }
 
 }

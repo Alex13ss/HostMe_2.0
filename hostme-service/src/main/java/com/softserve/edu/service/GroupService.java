@@ -8,6 +8,9 @@ import com.softserve.edu.dto.GroupDto;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.User;
 
+/**
+ * @author Oleksandr Bandurka
+ */
 public interface GroupService {
 
     List<GroupDto> findAll(Integer page, Integer size, String orderBy,

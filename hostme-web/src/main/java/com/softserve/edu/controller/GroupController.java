@@ -36,6 +36,9 @@ import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.NotificationService;
 import com.softserve.edu.service.ProfileService;
 
+/**
+ * @author Oleksandr Bandurka
+ */
 @Controller
 public class GroupController {
 

@@ -5,6 +5,9 @@ import java.util.Date;
 
 import com.softserve.edu.model.Notification;
 
+/**
+ * @author Oleksandr Bandurka DTO-class for notification
+ */
 public class NotificationDto {
 
     private Long notifyId;
