@@ -192,30 +192,20 @@ $(document)
 												var parent_element = $("<a/>",
 														{
 															"href" : "#"
-														})
-														.click(
-																aData,
-																function(e) {
+														}).click(aData, function(e) {
 																	aData.status = status;
-																	e
-																			.preventDefault();
-																	$
-																			.ajax({
-																				url : 'sightseeing-update',
-																				dataType : 'json',
-																				beforeSend : function() {
-																				},
-																				contentType : "application/json",
-																				"type" : "POST",
-																				data : JSON
-																						.stringify(aData),
-																				success : function(
-																						response) {
-																					$(
-																							'td:eq(6)',
-																							nRow)
-																							.html(
-																									response.status);
+																	e.preventDefault();
+																	$.ajax({
+																		    url : 'sightseeing-update',
+																			dataType : 'json',
+																	        beforeSend : function() {
+ 																			},
+																			contentType : "application/json",
+																			"type" : "POST",
+																			data : JSON.stringify(aData),
+																			success : function(response) {
+																					$('td:eq(6)',nRow).html(response.status.charAt(0).toUpperCase()+
+																							status.substr(1).toLowerCase());
 																				}
 																			});
 																});
@@ -233,27 +223,18 @@ $(document)
 													});
 
 											function form_element(aData) {
-												var approve = html_element(
-														aData, "APPROVED");
-												var pending = html_element(
-														aData, "PENDING");
-												var refuse = html_element(
-														aData, "REFUSED");
+												var approve = html_element(aData, "APPROVED");
+												var pending = html_element(aData, "PENDING");
+												var refuse = html_element(aData, "REFUSED");
 												approve.html("Approve");
 												pending.html("Pending");
 												refuse.html("Refuse");
-
-												var final_element = div
-														.append(button);
-												final_element
-														.append(ul
-																.append(li
-																		.append(
-																				approve)
-																		.append(
-																				pending)
-																		.append(
-																				refuse)));
+											
+												var final_element = div.append(button);
+												final_element.append(ul.append(li
+																		.append(approve)
+																		.append(pending)
+																		.append(refuse)));
 												return final_element;
 											}
 
@@ -305,10 +286,18 @@ $(document)
 												}, {
 													"mData" : "website"
 												}, {
-													"mData" : "sightseeingType"
+													"mData" : function(data,
+															type, full) {
+														return data.sightseeingType.charAt(0).toUpperCase() 
+														+ data.sightseeingType.substr(1).toLowerCase();
+													}
 												}, {
 													"bVisible" : checkRole(),
-													"mData" : "status"
+													"mData" : function(data,
+															type, full) {
+														return data.status.charAt(0).toUpperCase() 
+														+ data.status.substr(1).toLowerCase();
+													}
 												}, {
 													"bVisible" : checkRole(),
 													"mData" : "id"

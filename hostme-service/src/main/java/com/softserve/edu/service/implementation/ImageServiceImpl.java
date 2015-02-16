@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Autowired
     SystemPropertiesService systemPropertiesService;
-
+    
+    private UUID ImageUUId;
+    
     @Override
     @Transactional
     public void addImages(MultipartFile[] files, Hosting hosting) {
@@ -62,7 +65,7 @@ public class ImageServiceImpl implements ImageService {
     private void addImage(MultipartFile multipartFile, User user) {
         Image image = new Image();
         image.setLink(PROFILE_PIC_PATH + "/" + user.getUserId() + "/"
-                + multipartFile.getOriginalFilename());
+                + ImageUUId);
         image.setUser(user);
 
         for (Image im : user.getImages()) {
@@ -93,8 +96,9 @@ public class ImageServiceImpl implements ImageService {
                 dir.mkdirs();
 
             // Write file to directory
+            ImageUUId = UUID.randomUUID();
             File image = new File(dir + File.separator
-                    + multipartFile.getOriginalFilename());
+                    + ImageUUId);
             BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(image));
             stream.write(bytes);
@@ -110,7 +114,7 @@ public class ImageServiceImpl implements ImageService {
     private void addImage(MultipartFile multipartFile, Hosting hosting) {
         Image image = new Image();
         image.setLink(hosting.getHostingId() + "/"
-                + multipartFile.getOriginalFilename());
+                + ImageUUId);
         image.setHosting(hosting);
         imageDao.create(image);
 
@@ -195,7 +199,7 @@ public class ImageServiceImpl implements ImageService {
             Sightseeing sightseeing) {
         Image image = new Image();
         image.setLink("Sightseeings/" + sightseeing.getId() + "/"
-                + multipartFile.getOriginalFilename());
+                + ImageUUId);
         image.setPlace(sightseeing);
         imageDao.create(image);
     }
@@ -204,7 +208,7 @@ public class ImageServiceImpl implements ImageService {
     private void addImageToEvent(MultipartFile multipartFile, Event event) {
         Image image = new Image();
         image.setLink("Event/" + event.getId() + "/"
-                + multipartFile.getOriginalFilename());
+                + ImageUUId);
         image.setPlace(event);
         imageDao.create(image);
 
@@ -214,7 +218,7 @@ public class ImageServiceImpl implements ImageService {
     public void addGroupImg(MultipartFile file, Group group) {
         Image image = new Image();
         image.setLink("Group/" + group.getId() + "/"
-                + file.getOriginalFilename());
+                + ImageUUId);
         image.setGroup(group);
         imageDao.create(image);
     }

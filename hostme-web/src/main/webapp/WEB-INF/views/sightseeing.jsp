@@ -13,6 +13,11 @@
 	src="<c:url value="/resources/js/plugins/slimScroll/jquery.slimscroll.min.js"/>"
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/sightseeings/sightseeing.js"/>"></script>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/oka_slider_model.css"/>" />
+<script src="<c:url value="/resources/js/oka_slider_model.js"/>"></script>
 <title><spring:message code="label.sightseeing" />:
 	${sightseeing.name}</title>
 </head>
@@ -125,31 +130,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-12">
-		<div class="box">
-			<div class="box-header">
-				<i class="fa fa-comments-o"></i>
-				<h3 class="box-title">
-					<spring:message code="label.comment" />
-				</h3>
-			</div>
-			<div class="box-body chat" id="chat-box"></div>
-			<!-- /.chat -->
-			<div class="box-footer">
-				<div class="input-group">
-					<input class="form-control" id="userMsg"
-						placeholder="Type message..." />
-					<div class="input-group-btn">
-						<button class="btn btn-success" id="sendMsg" style="height: 34px;">
-							<i class="fa fa-plus"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="col-md-12">
+
+	<div class="col-md-6">
 		<div class="box box-solid">
 			<div class="box-header">
 				<h3 class="box-title">
@@ -157,18 +140,16 @@
 				</h3>
 			</div>
 			<!-- /.box-header -->
-			<div class="box-body">
-				<div class="row">
+			<div class="slider_model demo-8">
+				<div class="slider_model_box">
 					<c:forEach var="image" items="${sightseeing.image}">
-						<div class="col-md-2">
-							<a href="${image_url}${image.link}"
-								class="thumbnail img-responsive"> <img
-								src="${image_url}${image.link}" />
-							</a>
-						</div>
+						<img src="${image_url}${image.link}" />
 					</c:forEach>
 				</div>
 			</div>
+			<!-- /.box-body -->
+		</div>
+		<div class="box box-solid">
 			<dl>
 				<dd>
 					<form:form method="post" action="addPhotosToSight"
@@ -196,9 +177,31 @@
 				</dd>
 			</dl>
 		</div>
-		<!-- /.box-body -->
-	</div>
 
+	</div>
+	<div class="col-md-6">
+		<div class="box">
+			<div class="box-header">
+				<i class="fa fa-comments-o"></i>
+				<h3 class="box-title">
+					<spring:message code="label.comment" />
+				</h3>
+			</div>
+			<div class="box-body chat" id="chat-box"></div>
+			<!-- /.chat -->
+			<div class="box-footer">
+				<div class="input-group">
+					<input class="form-control" id="userMsg"
+						placeholder="Type message..." />
+					<div class="input-group-btn">
+						<button class="btn btn-success" id="sendMsg" style="height: 34px;">
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<form:form modelAttribute="sightseeing"
 		cssClass="form-horizontal groupForm">
 		<!-- Modal -->
@@ -222,7 +225,7 @@
 									code="label.sightseeingName" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="name" cssClass="form-control" />
+								<form:input path="name" cssClass="form-control" id="Tfields" />
 							</div>
 						</div>
 
@@ -231,7 +234,7 @@
 									code="label.address" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="address" cssClass="form-control" />
+								<form:input path="address" cssClass="form-control" id="Tfields" />
 							</div>
 						</div>
 
@@ -240,7 +243,7 @@
 								<spring:message code="label.sightseeingType" />
 							</label>
 							<div class="col-sm-10">
-								<form:select path="sightseeingType">
+								<form:select class="drop-menu" path="sightseeingType">
 									<option value="${sightseeing.sightseeingType}">${sightseeing.sightseeingType}</option>
 									<c:forEach items="${sType}" var="type">
 										<option value="${type}">${type}</option>
@@ -254,7 +257,8 @@
 								<spring:message code="label.country" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select id="country" path="city.country.country">
+								<form:select class="drop-menu" id="country"
+									path="city.country.country">
 									<option value="${sightseeing.city.country.country}">${sightseeing.city.country.country}</option>
 									<c:forEach items="${countries}" var="country">
 										<option value="${country.country}">${country.country}</option>
@@ -268,7 +272,7 @@
 								<spring:message code="label.city" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select id="city" path="city.city">
+								<form:select class="drop-menu" id="city" path="city.city">
 									<option value="${sightseeing.city.city}">${sightseeing.city.city}</option>
 								</form:select>
 							</div>
@@ -279,7 +283,7 @@
 									code="label.website" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="website" cssClass="form-control" />
+								<form:input path="website" cssClass="form-control" id="Tfields" />
 							</div>
 						</div>
 
@@ -288,7 +292,8 @@
 								<spring:message code="label.sightseeingDescription" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="description" cssClass="form-control" />
+								<form:textarea path="description" cssClass="form-control"
+									id="Tfields" />
 							</div>
 						</div>
 
@@ -298,7 +303,8 @@
 									code="label.priceCategory" />
 							</label>
 							<div class="col-sm-10">
-								<form:select path="priceCategory.priceCategory">
+								<form:select class="drop-menu"
+									path="priceCategory.priceCategory">
 									<option value="${sightseeing.priceCategory.priceCategory}">${sightseeing.priceCategory.priceCategory}</option>
 									<c:forEach items="${priceCategories}" var="priceCategory">
 										<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
@@ -311,7 +317,7 @@
 									code="label.status" />
 							</label>
 							<div class="col-sm-10">
-								<form:select path="status">
+								<form:select class="drop-menu" path="status">
 									<option value="${sightseeing.status}">${sightseeing.status}</option>
 									<c:forEach items="${status}" var="status">
 										<option value="${status}">${status}</option>
@@ -321,7 +327,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" class="btn btn-success"
+						<input type="submit" class="btn btn-primary"
 							value="<spring:message code="label.editSightseeing" />" />
 						<button type="button" class="btn btn-default" data-dismiss="modal">
 							<spring:message code="label.close" />

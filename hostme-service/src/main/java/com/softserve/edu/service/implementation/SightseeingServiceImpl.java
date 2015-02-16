@@ -68,7 +68,7 @@ public class SightseeingServiceImpl implements SightseeingService {
 			String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
 		PageRequest pageRequsetObj;
-		if (orderType.equals("ASC")) {
+		if ("ASC".equals(orderType)) {
 			pageRequsetObj = new PageRequest(page - 1, size,
 					Sort.Direction.ASC, orderBy);
 		} else {
@@ -87,16 +87,17 @@ public class SightseeingServiceImpl implements SightseeingService {
 			Integer page, Integer size, String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
 		PageRequest pageRequsetObj;
-		if (orderType.equals("ASC")) {
+		if ("ASC".equals(orderType)) {
 			pageRequsetObj = new PageRequest(page - 1, size,
 					Sort.Direction.ASC, orderBy);
 		} else {
 			pageRequsetObj = new PageRequest(page - 1, size,
 					Sort.Direction.DESC, orderBy);
 		}
-		for (Place place : placeRepository.findByLikers(liker, pageRequsetObj)) {
-			list.add(new SightseeingDto(sightseeingRepository.findOne(place
-					.getId()), place));
+		for (Sightseeing sightseeing : sightseeingRepository.findByLikers(
+				liker, pageRequsetObj)) {
+			list.add(new SightseeingDto(sightseeing, placeRepository
+					.findOne(sightseeing.getId())));
 		}
 		return list;
 	}
@@ -108,16 +109,17 @@ public class SightseeingServiceImpl implements SightseeingService {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
 		User owner = profileService.getCurrentUser();
 		PageRequest pageRequsetObj;
-		if (orderType.equals("ASC")) {
+		if ("ASC".equals(orderType)) {
 			pageRequsetObj = new PageRequest(page - 1, size,
 					Sort.Direction.ASC, orderBy);
 		} else {
 			pageRequsetObj = new PageRequest(page - 1, size,
 					Sort.Direction.DESC, orderBy);
 		}
-		for (Place place : placeRepository.findByOwner(owner, pageRequsetObj)) {
-			list.add(new SightseeingDto(sightseeingRepository.findOne(place
-					.getId()), place));
+		for (Sightseeing sightseeing : sightseeingRepository.findByOwner(owner,
+				pageRequsetObj)) {
+			list.add(new SightseeingDto(sightseeing, placeRepository
+					.findOne(sightseeing.getId())));
 		}
 		return list;
 	}
@@ -212,14 +214,14 @@ public class SightseeingServiceImpl implements SightseeingService {
 
 	public Long getSightseeingsPaging(Long size, String sender, User currentUser) {
 		Long amount;
-		if (sender.equals("all-sightseeings")) {
+		if ("all-sightseeings".equals(sender)) {
 			Long dataBaseSize = sightseeingRepository.count();
 			if (dataBaseSize % size == 0) {
 				amount = dataBaseSize / size;
 			} else {
 				amount = dataBaseSize / size + 1;
 			}
-		} else if (sender.equals("favourite-sightseeings")) {
+		} else if ("favourite-sightseeings".equals(sender)) {
 			Long dataFavouriteSize = (long) placeRepository.findByLikers(
 					currentUser).size();
 			if (dataFavouriteSize % size == 0l) {

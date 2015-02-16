@@ -57,10 +57,10 @@
 						data-toggle="tab"><spring:message code="label.sightseeings" /></a></li>
 				</security:authorize>
 				<security:authorize access="hasRole('USER')">
-					<li id="favourite-sightseeings"><a href="#" data-toggle="tab"><spring:message
-								code="label.favouriteSightseeings" /></a></li>
 					<li id="my-sightseeings"><a href="#" data-toggle="tab"><spring:message
 								code="label.mySightseeings" /></a></li>
+					<li id="favourite-sightseeings"><a href="#" data-toggle="tab"><spring:message
+								code="label.favouriteSightseeings" /></a></li>
 				</security:authorize>
 			</ul>
 			<div class="box-body table-responsive">
@@ -120,7 +120,7 @@
 										code="label.sightseeingName" />
 								</label>
 								<div class="col-sm-10">
-									<form:input path="name" cssClass="form-control" />
+									<form:input path="name" cssClass="form-control" id="Tfields"/>
 								</div>
 							</div>
 
@@ -129,7 +129,7 @@
 										code="label.address" />
 								</label>
 								<div class="col-sm-10">
-									<form:input path="address" cssClass="form-control" />
+									<form:input path="address" cssClass="form-control" id="Tfields"/>
 								</div>
 							</div>
 
@@ -179,7 +179,7 @@
 										code="label.website" />
 								</label>
 								<div class="col-sm-10">
-									<form:input path="website" cssClass="form-control" />
+									<form:input path="website" cssClass="form-control" id="Tfields"/>
 								</div>
 							</div>
 
@@ -187,7 +187,7 @@
 								<label for="description" class="col-sm-2 control-label"><spring:message
 										code="label.sightseeingDescription" /> </label>
 								<div class="col-sm-10">
-									<form:input path="description" cssClass="form-control" />
+									<form:textarea path="description" cssClass="form-control" id="Tfields"/>
 								</div>
 							</div>
 
@@ -205,7 +205,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<input type="submit" class="btn btn-success"
+							<input type="submit" class="btn btn-primary"
 								value="<spring:message code="label.addSightseeing" />" />
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">

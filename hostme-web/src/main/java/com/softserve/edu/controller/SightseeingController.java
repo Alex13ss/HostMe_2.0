@@ -1,5 +1,7 @@
 package com.softserve.edu.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -110,8 +112,8 @@ public class SightseeingController {
 			@RequestParam(value = "orderType") String orderType) {
 		User liker = profileService.getUserByLogin(SecurityContextHolder
 				.getContext().getAuthentication().getName());
-		return sightseeingService.getFavouriteSightseeings(liker, page,
-				size, orderBy, orderType);
+		return sightseeingService.getFavouriteSightseeings(liker, page, size,
+				orderBy, orderType);
 	}
 
 	@RequestMapping(value = "/my-sightseeings", params = { "page", "size",
@@ -131,7 +133,8 @@ public class SightseeingController {
 			@RequestParam(value = "size") Long size,
 			@RequestParam(value = "sender") String sender) {
 		User currentUser = profileService.getCurrentUser();
-		return sightseeingService.getSightseeingsPaging(size, sender, currentUser);
+		return sightseeingService.getSightseeingsPaging(size, sender,
+				currentUser);
 	}
 
 	@RequestMapping(value = "/sightseeing", method = RequestMethod.GET)
@@ -207,7 +210,8 @@ public class SightseeingController {
 		Sightseeing newSightseeing = sightseeingService.findOne(sightseeing
 				.getId());
 		String city = newSightseeing.getCity().getCity();
-		newSightseeing.setStatus(sightseeing.getStatus());
+		System.out.println("aaa = "+sightseeing.getStatus().toString().toLowerCase());
+		newSightseeing.setStatus(Status.valueOf(sightseeing.getStatus().toString().toUpperCase()));
 		sightseeingService.updateSightseeing(newSightseeing, priceCategory,
 				city);
 		return sightseeing;
