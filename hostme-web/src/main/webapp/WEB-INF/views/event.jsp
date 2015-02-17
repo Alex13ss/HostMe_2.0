@@ -22,6 +22,7 @@
 	type="text/javascript"></script>
 <script src="resources/js/dataTables.bootstrap.js"
 	type="text/javascript"></script>
+<script type="text/javascript" src="resources/js/jquery.validate.js"></script>
 
 <title>Events</title>
 </head>
