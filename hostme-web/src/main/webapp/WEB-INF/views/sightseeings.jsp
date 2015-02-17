@@ -11,11 +11,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
-<script src="<c:url value="/resources/js/sightseeings/sightseeings.js"/>"></script>
+<script
+	src="<c:url value="/resources/js/sightseeings/sightseeings.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
 <script src="<c:url value="/resources/js/dataTables.bootstrap.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery.validate.js"/>"></script>
-
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/style.css"/>" />
 <link rel="stylesheet" type="text/css"
@@ -120,7 +120,7 @@
 										code="label.sightseeingName" />
 								</label>
 								<div class="col-sm-10">
-									<form:input path="name" cssClass="form-control" id="Tfields"/>
+									<form:input path="name" cssClass="form-control" />
 								</div>
 							</div>
 
@@ -129,7 +129,7 @@
 										code="label.address" />
 								</label>
 								<div class="col-sm-10">
-									<form:input path="address" cssClass="form-control" id="Tfields"/>
+									<form:input path="address" cssClass="form-control" />
 								</div>
 							</div>
 
@@ -138,9 +138,9 @@
 									<spring:message code="label.sightseeingType" />
 								</label>
 								<div class="col-sm-10">
-									<form:select class="drop-menu" id="sstype"
-										path="sightseeingType">
-										<option value=""><spring:message
+									<form:select id="sstype"
+										path="sightseeingType" class="drop-menu">
+										<option value="0"><spring:message
 												code="label.sightseeingTypeSelect" /></option>
 									</form:select>
 								</div>
@@ -151,8 +151,8 @@
 									<spring:message code="label.country" />
 								</form:label>
 								<div class="col-sm-10">
-									<form:select class="drop-menu" id="country"
-										path="city.country.country">
+									<form:select id="country"
+										path="city.country.country" class="drop-menu">
 										<option value="0"><spring:message
 												code="label.countrySelect" /></option>
 										<c:forEach items="${countries}" var="country">
@@ -167,7 +167,7 @@
 									<spring:message code="label.city" />
 								</form:label>
 								<div class="col-sm-10">
-									<form:select class="drop-menu" id="city" path="city.city">
+									<form:select  id="city" path="city.city" class="drop-menu">
 										<option value="0"><spring:message
 												code="label.citySelect" /></option>
 									</form:select>
@@ -179,7 +179,7 @@
 										code="label.website" />
 								</label>
 								<div class="col-sm-10">
-									<form:input path="website" cssClass="form-control" id="Tfields"/>
+									<form:input path="website" cssClass="form-control" />
 								</div>
 							</div>
 
@@ -187,17 +187,18 @@
 								<label for="description" class="col-sm-2 control-label"><spring:message
 										code="label.sightseeingDescription" /> </label>
 								<div class="col-sm-10">
-									<form:textarea path="description" cssClass="form-control" id="Tfields"/>
+									<form:textarea path="description" cssClass="form-control"
+										 />
 								</div>
 							</div>
-
 							<div class="form-group">
-								<label for="priceCategory.priceCategory"
-									class="col-sm-2 control-label"><spring:message
-										code="label.priceCategory" /></label>
+								<label for="priceCategory"
+									class="col-sm-2 control-label"> <spring:message
+										code="label.priceCategory" />
+								</label>
 								<div class="col-sm-10">
-									<form:select class="drop-menu" id="price"
-										path="priceCategory.priceCategory">
+									<form:select id="price"
+										path="priceCategory.priceCategory" class="drop-menu">
 										<option value="0"><spring:message
 												code="label.priceCategorySelect" /></option>
 									</form:select>

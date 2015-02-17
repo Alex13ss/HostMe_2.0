@@ -3,28 +3,100 @@
  */
 $(document).ready(
 
-function() {
+		function() {
 
-	$('#chat-box').slimScroll({
-		height : window.screen.availHeight / 4,
-	});
+			$('#chat-box').slimScroll({
+				height : window.screen.availHeight / 4,
+			});
 
-	$('#userMsg').keypress(function(e) {
-		if (e.which == 13) {
-			$("#sendMsg").click();
-			return false;
-		}
-	});
-	
-	$(function(i){
-		$('.demo-8').oka_slider_model({ 
-			'type': 7,
-			'animateSpeed':300,
-			'speed': 5000
+			$('#userMsg').keypress(function(e) {
+				if (e.which == 13) {
+					$("#sendMsg").click();
+					return false;
+				}
+			});
+
+			$(function(i) {
+				$('.demo-8').oka_slider_model({
+					'type' : 7,
+					'animateSpeed' : 300,
+					'speed' : 5000
+				});
+			});
+			
+			 $(".triggerRemove").click(
+				        function(e) {
+				            e.preventDefault();
+				            $("#modalRemove .removeBtn").attr("href",
+				                $(this).attr("href"));
+				            $("#modalRemove").modal();
+				        });
+			$(function() {
+				function validateDonotSelect(value, element, param) {
+					if (value == param) {
+						return false;
+					} else {
+						return true;
+					}
+				}
+				jQuery.validator.addMethod("do_not_select",
+						validateDonotSelect, "Please select an option");
+				$('.groupForm').validate(
+						{
+							rules : {
+								name : {
+									required : true,
+									minlength : 3,
+									maxlength : 42
+								},
+								description : {
+									required : true,
+									minlength : 5,
+									maxlength : 255
+								},
+								address : {
+									required : true,
+									minlength : 3,
+									maxlength : 42
+								},
+								"sightseeingType" : {
+									do_not_select : '0'
+								},
+								"priceCategory.priceCategory" : {
+									do_not_select : '0'
+								},
+								"city.country.country" : {
+									do_not_select : '0'
+								},
+								"city.city" : {
+									do_not_select : '0'
+								}
+							},
+							messages : {
+								"sightseeingType" : {
+									do_not_select : "Please select a type"
+								},
+								"priceCategory.priceCategory" : {
+									do_not_select : "Please select a category"
+								},
+								"city.country.country" : {
+									do_not_select : "Please select a country"
+								},
+								"city.city" : {
+									do_not_select : "Please select a city"
+								}
+							},
+							highlight : function(element) {
+								$(element).closest('.form-group').removeClass(
+										'has-success').addClass('has-error');
+							},
+							unhighlight : function(element) {
+								$(element).closest('.form-group').removeClass(
+										'has-error').addClass('has-success');
+							}
+						});
+			});
 		});
-	});
-	
-});
 
 function loadPostsAjax(placeId) {
 

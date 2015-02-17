@@ -9,7 +9,7 @@ var order = {
 	by : "name",
 	type : "ASC"
 };
-/**	
+/**
  * script for paging
  */
 function checkRole() {
@@ -162,6 +162,80 @@ jQuery()
 $(document)
 		.ready(
 				function() {
+					
+					$(function() {
+					function validateDonotSelect(value, element, param) {
+						if (value == param) {
+							return false;
+						} else {
+							return true;
+						}
+					}
+					jQuery.validator.addMethod("do_not_select",
+							validateDonotSelect, "Please select an option");
+					$('.groupForm')
+							.validate(
+									{
+										rules : {
+											name : {
+												required : true,
+												minlength : 3,
+												maxlength : 42
+											},
+											description : {
+												required : true,
+												minlength : 5,
+												maxlength : 255
+											},
+											address : {
+												required : true,
+												minlength : 3,
+												maxlength : 42
+											},
+											"sightseeingType" : {
+												do_not_select : '0'
+											},
+											"priceCategory.priceCategory" : {
+												do_not_select : '0'
+											},
+											"city.country.country" : {
+												do_not_select : '0'
+											},
+											"city.city" : {
+												do_not_select : '0'
+											}
+										},
+										messages : {
+											"sightseeingType" : {
+												do_not_select : "Please select a type"
+											},
+											"priceCategory.priceCategory" : {
+												do_not_select : "Please select a category"
+											},
+											"city.country.country" : {
+												do_not_select : "Please select a country"
+											},
+											"city.city" : {
+												do_not_select : "Please select a city"
+											}
+										},
+										highlight : function(element) {
+											$(element).closest(
+													'.form-group')
+													.removeClass(
+															'has-success')
+													.addClass('has-error');
+										},
+										unhighlight : function(element) {
+											$(element)
+													.closest('.form-group')
+													.removeClass(
+															'has-error')
+													.addClass('has-success');
+										}
+									});
+			});
+					
 					$("#sightseeingsTypesNav li:first-child")
 							.addClass("active");
 					sightseeingsType = $("#sightseeingsTypesNav > li.active")
@@ -192,20 +266,37 @@ $(document)
 												var parent_element = $("<a/>",
 														{
 															"href" : "#"
-														}).click(aData, function(e) {
+														})
+														.click(
+																aData,
+																function(e) {
 																	aData.status = status;
-																	e.preventDefault();
-																	$.ajax({
-																		    url : 'sightseeing-update',
-																			dataType : 'json',
-																	        beforeSend : function() {
- 																			},
-																			contentType : "application/json",
-																			"type" : "POST",
-																			data : JSON.stringify(aData),
-																			success : function(response) {
-																					$('td:eq(6)',nRow).html(response.status.charAt(0).toUpperCase()+
-																							status.substr(1).toLowerCase());
+																	e
+																			.preventDefault();
+																	$
+																			.ajax({
+																				url : 'sightseeing-update',
+																				dataType : 'json',
+																				beforeSend : function() {
+																				},
+																				contentType : "application/json",
+																				"type" : "POST",
+																				data : JSON
+																						.stringify(aData),
+																				success : function(
+																						response) {
+																					$(
+																							'td:eq(6)',
+																							nRow)
+																							.html(
+																									response.status
+																											.charAt(
+																													0)
+																											.toUpperCase()
+																											+ status
+																													.substr(
+																															1)
+																													.toLowerCase());
 																				}
 																			});
 																});
@@ -223,18 +314,27 @@ $(document)
 													});
 
 											function form_element(aData) {
-												var approve = html_element(aData, "APPROVED");
-												var pending = html_element(aData, "PENDING");
-												var refuse = html_element(aData, "REFUSED");
+												var approve = html_element(
+														aData, "APPROVED");
+												var pending = html_element(
+														aData, "PENDING");
+												var refuse = html_element(
+														aData, "REFUSED");
 												approve.html("Approve");
 												pending.html("Pending");
 												refuse.html("Refuse");
-											
-												var final_element = div.append(button);
-												final_element.append(ul.append(li
-																		.append(approve)
-																		.append(pending)
-																		.append(refuse)));
+
+												var final_element = div
+														.append(button);
+												final_element
+														.append(ul
+																.append(li
+																		.append(
+																				approve)
+																		.append(
+																				pending)
+																		.append(
+																				refuse)));
 												return final_element;
 											}
 
@@ -283,20 +383,33 @@ $(document)
 															type, full) {
 														return data.priceCategory;
 													}
-												}, {
+												},
+												{
 													"mData" : "website"
-												}, {
+												},
+												{
 													"mData" : function(data,
 															type, full) {
-														return data.sightseeingType.charAt(0).toUpperCase() 
-														+ data.sightseeingType.substr(1).toLowerCase();
+														return data.sightseeingType
+																.charAt(0)
+																.toUpperCase()
+																+ data.sightseeingType
+																		.substr(
+																				1)
+																		.toLowerCase();
 													}
-												}, {
+												},
+												{
 													"bVisible" : checkRole(),
 													"mData" : function(data,
 															type, full) {
-														return data.status.charAt(0).toUpperCase() 
-														+ data.status.substr(1).toLowerCase();
+														return data.status
+																.charAt(0)
+																.toUpperCase()
+																+ data.status
+																		.substr(
+																				1)
+																		.toLowerCase();
 													}
 												}, {
 													"bVisible" : checkRole(),

@@ -13,6 +13,7 @@
 	src="<c:url value="/resources/js/plugins/slimScroll/jquery.slimscroll.min.js"/>"
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/sightseeings/sightseeing.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.validate.js"/>"></script>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
 <link rel="stylesheet" type="text/css"
@@ -225,7 +226,7 @@
 									code="label.sightseeingName" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="name" cssClass="form-control" id="Tfields" />
+								<form:input path="name" cssClass="form-control" />
 							</div>
 						</div>
 
@@ -234,7 +235,7 @@
 									code="label.address" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="address" cssClass="form-control" id="Tfields" />
+								<form:input path="address" cssClass="form-control" />
 							</div>
 						</div>
 
@@ -283,7 +284,7 @@
 									code="label.website" />
 							</label>
 							<div class="col-sm-10">
-								<form:input path="website" cssClass="form-control" id="Tfields" />
+								<form:input path="website" cssClass="form-control" />
 							</div>
 						</div>
 
@@ -292,8 +293,7 @@
 								<spring:message code="label.sightseeingDescription" />
 							</label>
 							<div class="col-sm-10">
-								<form:textarea path="description" cssClass="form-control"
-									id="Tfields" />
+								<form:textarea path="description" cssClass="form-control" />
 							</div>
 						</div>
 
@@ -336,6 +336,37 @@
 				</div>
 			</div>
 		</div>
-	</form:form> </section>
+	</form:form>
+
+
+	<div class="modal fade" id="modalRemove" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						<spring:message code="label.sightseeingDelete" />
+					</h4>
+				</div>
+				<div class="modal-body">
+					<div class="callout callout-danger" id="alert" align="center">
+						<font size="5"><spring:message code="label.sightseeingDeleteMessage" /></font>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="" class="btn btn-primary removeBtn"><spring:message
+							code="label.delete" /></a>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						<spring:message code="label.cancel" />
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
 </body>
 </html>
