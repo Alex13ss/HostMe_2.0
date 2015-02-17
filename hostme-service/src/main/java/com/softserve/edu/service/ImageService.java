@@ -27,6 +27,6 @@ public interface ImageService {
 
     public void addImagesToEvent(MultipartFile[] files, Event event);
 
-    void addImageToGroup(MultipartFile[] file, Group group);
+    void addImageToGroup(MultipartFile file, Group group);
 
 }

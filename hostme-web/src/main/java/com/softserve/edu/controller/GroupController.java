@@ -84,7 +84,7 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/add-group-img", method = RequestMethod.POST)
-    public String addGroupPhoto(@RequestParam("file") MultipartFile[] file,
+    public String addGroupPhoto(@RequestParam("file") MultipartFile file,
             @ModelAttribute("group") final Group group,
             RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("id", group.getId());

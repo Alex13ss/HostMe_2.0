@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.softserve.edu.dao.ImageDao;
 import com.softserve.edu.model.Event;
 import com.softserve.edu.model.Group;
 import com.softserve.edu.model.Hosting;
@@ -28,16 +27,13 @@ import com.softserve.edu.service.SystemPropertiesService;
 public class ImageServiceImpl implements ImageService {
 
     @Autowired
-    ImageDao imageDao;
-
-    @Autowired
     ImageRepository imageRepository;
 
     @Autowired
     SystemPropertiesService systemPropertiesService;
-    
+
     private UUID ImageUUId;
-    
+
     @Override
     @Transactional
     public void addImages(MultipartFile[] files, Hosting hosting) {
@@ -67,12 +63,10 @@ public class ImageServiceImpl implements ImageService {
         image.setLink(PROFILE_PIC_PATH + "/" + user.getUserId() + "/"
                 + ImageUUId);
         image.setUser(user);
-
         for (Image im : user.getImages()) {
-            imageDao.delete(im);
+            imageRepository.delete(im);
         }
-
-        imageDao.create(image);
+        imageRepository.save(image);
     }
 
     @Override
@@ -97,8 +91,7 @@ public class ImageServiceImpl implements ImageService {
 
             // Write file to directory
             ImageUUId = UUID.randomUUID();
-            File image = new File(dir + File.separator
-                    + ImageUUId);
+            File image = new File(dir + File.separator + ImageUUId);
             BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(image));
             stream.write(bytes);
@@ -113,11 +106,9 @@ public class ImageServiceImpl implements ImageService {
     @Transactional
     private void addImage(MultipartFile multipartFile, Hosting hosting) {
         Image image = new Image();
-        image.setLink(hosting.getHostingId() + "/"
-                + ImageUUId);
+        image.setLink(hosting.getHostingId() + "/" + ImageUUId);
         image.setHosting(hosting);
-        imageDao.create(image);
-
+        imageRepository.save(image);
     }
 
     private String buildPath(Hosting hosting) {
@@ -139,7 +130,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public void deleteImagesForHosting(Hosting hosting) {
         for (Image im : hosting.getImages()) {
-            imageDao.delete(im);
+            imageRepository.delete(im);
         }
         try {
             FileUtils.deleteDirectory(new File(buildPath(hosting)));
@@ -171,12 +162,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     @Transactional
-    public void addImageToGroup(MultipartFile[] file, Group group) {
-        if (filesNotEmpty(file))
-            for (int i = 0; i < file.length; i++) {
-                saveImage(file[i], buildPathGroup(group));
-                addGroupImg(file[i], group);
-            }
+    public void addImageToGroup(MultipartFile file, Group group) {
+        saveImage(file, buildPathGroup(group));
+        addGroupImg(file, group);
     }
 
     private String buildPath(Sightseeing sightseeing) {
@@ -198,28 +186,23 @@ public class ImageServiceImpl implements ImageService {
     private void addImageToSight(MultipartFile multipartFile,
             Sightseeing sightseeing) {
         Image image = new Image();
-        image.setLink("Sightseeings/" + sightseeing.getId() + "/"
-                + ImageUUId);
+        image.setLink("Sightseeings/" + sightseeing.getId() + "/" + ImageUUId);
         image.setPlace(sightseeing);
-        imageDao.create(image);
+        imageRepository.save(image);
     }
 
     @Transactional
     private void addImageToEvent(MultipartFile multipartFile, Event event) {
         Image image = new Image();
-        image.setLink("Event/" + event.getId() + "/"
-                + ImageUUId);
+        image.setLink("Event/" + event.getId() + "/" + ImageUUId);
         image.setPlace(event);
-        imageDao.create(image);
-
+        imageRepository.save(image);
     }
 
-    @Transactional
-    public void addGroupImg(MultipartFile file, Group group) {
+    private void addGroupImg(MultipartFile file, Group group) {
         Image image = new Image();
-        image.setLink("Group/" + group.getId() + "/"
-                + ImageUUId);
+        image.setLink("Group/" + group.getId() + "/" + ImageUUId);
         image.setGroup(group);
-        imageDao.create(image);
+        imageRepository.save(image);
     }
 }
