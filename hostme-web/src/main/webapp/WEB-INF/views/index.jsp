@@ -19,7 +19,7 @@
 <script type="text/javascript" src="../resources/js/registration.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="../resources/css/datepicker.css">
-<title>Sight Visiting</title>
+<title>Host me</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
 <body>
