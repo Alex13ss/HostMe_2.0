@@ -417,7 +417,7 @@
 						</div>
 						<div class="form-group">
 							<label for="priceCategory.priceCategory"
-								class="col-sm-2 control-label"> Price category </label>
+								class="col-sm-2 control-label"> <spring:message code="label.priceCategory" />: </label>
 							<div class="col-sm-10">
 								<form:select class="drop-menu"
 									path="priceCategory.priceCategory">
