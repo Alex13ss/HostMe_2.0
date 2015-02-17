@@ -16,6 +16,15 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
 <link rel="stylesheet" type="text/css" href="resources/css/groups.css">
+<link rel="stylesheet" type="text/css" media="all"
+	href="resources/css/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="resources/css/bootstrap.css" />
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" media="all"
+	href="resources/css/style.css" />
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/separateEventPageHandler.js"
@@ -23,6 +32,9 @@
 <script src="resources/js/dataTables.bootstrap.js"
 	type="text/javascript"></script>
 <script type="text/javascript" src="resources/js/jquery.validate.js"></script>
+<script src='resources/js/moment.js'></script>
+<script type="text/javascript" src="resources/js/daterangepicker.js"></script>
+<script type="text/javascript" src="resources/js/rangeCalendar.js"></script>
 
 <title>Events</title>
 </head>
@@ -193,8 +205,9 @@
 										</h4>
 									</div>
 									<div class="modal-body">
-										<div class="alert alert-info alert-dismissable alertDelteWindowFont" id="alert"
-											align="center" >
+										<div
+											class="alert alert-info alert-dismissable alertDelteWindowFont"
+											id="alert" align="center">
 											<i class="fa fa-warning"></i> <font size="5"><spring:message
 													code="label.removeCaution" /></font>
 										</div>
@@ -333,22 +346,35 @@
 						</div>
 
 						<div class="form-group">
+							<label for="name" class="col-sm-2 control-label"> <spring:message
+									code="label.dateRange" />
+							</label>
+
+							<form class="form-horizontal">
+								<div class="col-sm-10" style="margin-left: auto">
+									<input type="text"  value=${event.startDate}/${event.endDate}  name="reservation" id="reservation"
+										class="form-control" />
+								</div>
+							</form>
+
+						</div>
+
+						<div class="form-group" style="display: none;">
 							<label for="startDate" class="col-sm-2 control-label"> <spring:message
 									code="label.startDate" />:
 							</label>
 							<div class="col-sm-10">
-								<form:textarea id="group-dscrptn-textarea" path="startDate"
+								<form:input id="startDate" path="startDate"
 									cssClass="form-control" />
-								<form:errors path="startDate" />
+
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group" style="display: none;">
 							<label for="endDate" class="col-sm-2 control-label"><spring:message
 									code="label.endDate" />: </label>
 							<div class="col-sm-10">
-								<form:textarea id="group-dscrptn-textarea" path="endDate"
-									cssClass="form-control" />
-								<form:errors path="endDate" />
+								<form:input id="endDate" path="endDate" cssClass="form-control" />
+
 							</div>
 						</div>
 						<div class="form-group">
@@ -418,7 +444,9 @@
 						</div>
 						<div class="form-group">
 							<label for="priceCategory.priceCategory"
-								class="col-sm-2 control-label"> <spring:message code="label.priceCategory" />: </label>
+								class="col-sm-2 control-label"> <spring:message
+									code="label.priceCategory" />:
+							</label>
 							<div class="col-sm-10">
 								<form:select class="drop-menu"
 									path="priceCategory.priceCategory">
