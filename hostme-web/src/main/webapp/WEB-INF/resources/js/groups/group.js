@@ -15,6 +15,17 @@ function getUrlParameter(sParam) {
 
 $(document).ready(
 		function() {
+			$('img').on('click', function() {
+				var src = $(this).attr('src');
+				var img = '<img src="' + src + '" class="img-responsive"/>';
+				$('#imgModal').modal();
+				$('#imgModal').on('shown.bs.modal', function() {
+					$('#imgModal .modal-body').html(img);
+				});
+				$('#imgModal').on('hidden.bs.modal', function() {
+					$('#imgModal .modal-body').html('');
+				});
+			});
 			$("#groupStatusChanger > li > a").click(function() {
 				$.ajax({
 					url : 'group-status-update',

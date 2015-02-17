@@ -120,12 +120,21 @@
 							<c:if test="${empty group.images}">
 								<img src="resources/images/group-default.jpg">
 							</c:if>
-
-							<c:forEach var="image" begin="0" end="0" items="${group.images}">
-								<a href="${image_url}${image.link}" data-lightbox="images">
+							<div id="im">
+								<c:forEach begin="0" end="0" var="image" items="${group.images}">
 									<img src="${image_url}${image.link}" />
-								</a>
-							</c:forEach>
+								</c:forEach>
+							</div>
+							<div class="modal fade" id="imgModal" tabindex="-1" role="dialog"
+								aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-body"></div>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>
 
 							<!-- Photo add form -->
 							<c:if test="${isCreator eq true}">
@@ -172,7 +181,8 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-5" align="right">
-									<spring:message code="label.createdAt" />:
+									<spring:message code="label.createdAt" />
+									:
 								</div>
 								<div class="col-md-7">
 									<fmt:formatDate value="${group.createdAt}"
@@ -181,7 +191,8 @@
 							</div>
 							<div class="row">
 								<div class="col-md-5" align="right">
-									<spring:message code="label.createdBy" />:
+									<spring:message code="label.createdBy" />
+									:
 								</div>
 								<div class="col-md-7">
 									<c:out
@@ -192,7 +203,8 @@
 							<c:if test="${!empty group.lastEditedAt}">
 								<div class="row">
 									<div class="col-md-5" align="right">
-										<spring:message code="label.lastConfig" />:
+										<spring:message code="label.lastConfig" />
+										:
 									</div>
 									<div class="col-md-7">
 										<fmt:formatDate value="${group.lastEditedAt}"
@@ -203,7 +215,8 @@
 							<c:if test="${!empty group.lastEditor}">
 								<div class="row">
 									<div class="col-md-5" align="right">
-										<spring:message code="label.configBy" />:
+										<spring:message code="label.configBy" />
+										:
 									</div>
 									<div class="col-md-7">
 										<c:out
@@ -214,7 +227,8 @@
 							</c:if>
 							<div class="row">
 								<div class="col-md-5" align="right">
-									<spring:message code="label.subscribers" />:
+									<spring:message code="label.subscribers" />
+									:
 								</div>
 								<div class="col-md-7">
 									<c:out value="${subscribers}" />
@@ -266,7 +280,6 @@
 					<%@ include file="conversations/latest.jsp"%>
 				</div>
 			</div>
-
 		</div>
 		<!-- /.box-body -->
 

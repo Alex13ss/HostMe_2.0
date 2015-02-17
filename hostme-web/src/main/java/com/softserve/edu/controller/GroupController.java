@@ -83,6 +83,15 @@ public class GroupController {
         return GROUP_LINK;
     }
 
+    @RequestMapping(value = "/add-group-img", method = RequestMethod.POST)
+    public String addGroupPhoto(@RequestParam("file") MultipartFile[] file,
+            @ModelAttribute("group") final Group group,
+            RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("id", group.getId());
+        imageService.addImageToGroup(file, group);
+        return GROUP_LINK;
+    }
+
     @RequestMapping("/group/remove/{id}")
     public String removeGroup(@PathVariable Long id) {
         Group group = groupService.findOne(id);
@@ -143,8 +152,7 @@ public class GroupController {
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
             @RequestParam(value = "orderType") String orderType) {
-        return groupService.findPendingGroups(page, size, orderBy,
-                orderType);
+        return groupService.findPendingGroups(page, size, orderBy, orderType);
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)
@@ -207,15 +215,6 @@ public class GroupController {
         newGroup.setStatus(group.getStatus());
         groupService.saveGroup(newGroup);
         return group;
-    }
-
-    @RequestMapping(value = "/add-group-img", method = RequestMethod.POST)
-    public String addGroupPhoto(@RequestParam("file") MultipartFile[] file,
-            @ModelAttribute("group") final Group group,
-            RedirectAttributes redirectAttributes) {
-        redirectAttributes.addAttribute("id", group.getId());
-        imageService.addImageToGroup(file, group);
-        return GROUP_LINK;
     }
 
     @RequestMapping(value = "/groups-paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
