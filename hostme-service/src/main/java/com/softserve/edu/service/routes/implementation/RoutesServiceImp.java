@@ -81,7 +81,9 @@ public class RoutesServiceImp implements RoutesService{
         route.setUser(user);
         route.setName(routeDto.getName());
         route.setDescription(routeDto.getDescription());
-        route.setDistance(Long.valueOf(routeDto.getDistance()));
+        if (!routeDto.getDistance().equals("")) {
+            route.setDistance(Long.valueOf(routeDto.getDistance()));
+        }
         List<Place> places = new ArrayList<>();
         places.add(placeRep.findOne(Integer.parseInt(routeDto.getOriginId())));
         places.add(placeRep.findOne(Integer.parseInt(routeDto.getDestinationId())));

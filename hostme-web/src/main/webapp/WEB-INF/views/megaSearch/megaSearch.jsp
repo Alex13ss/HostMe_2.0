@@ -25,10 +25,10 @@
     <div class="box box-primary container-fluid">
         <div id="searchBox">
             <div>
-                <select id="searchType" class="col-md-2 btn btn-default dropdown-toggle" style="height: 4%"></select>
-                <input id="searchCity" class="col-md-9" placeholder="<spring:message code='label.citySelect'/>" style="height: 4%"/>
-                <input id="search" class="col-md-9" placeholder="<spring:message code='search.searchUser'/>" style="height: 4%">
-                <button id="showSearchOptions" class="btn btn-flat btn-primary col-md-1" style="height: 4%">
+                <select id="searchType" class="col-md-2 btn btn-default dropdown-toggle" style="height: 5%"></select>
+                <input id="searchCity" class="col-md-9" placeholder="<spring:message code='label.citySelect'/>" style="height: 5%"/>
+                <input id="search" class="col-md-9" placeholder="<spring:message code='search.searchUser'/>" style="height: 5%">
+                <button id="showSearchOptions" class="btn btn-flat btn-primary col-md-1" style="height: 5%">
                     <i class="fa fa-magic"></i>
                 </button>
                 <div id="searchOptions" class="searchOptionBox col-md-12"></div>

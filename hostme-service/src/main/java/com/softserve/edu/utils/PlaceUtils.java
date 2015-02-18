@@ -17,7 +17,9 @@ public class PlaceUtils {
     public static int countAveRating(Collection<Place> places) {
         int result = 0;
         for (Place pc : places) {
-            result += pc.getRating();
+            if (pc.getRating() != null) {
+                result += pc.getRating();
+            }
         }
         result /= places.size();
         return result;

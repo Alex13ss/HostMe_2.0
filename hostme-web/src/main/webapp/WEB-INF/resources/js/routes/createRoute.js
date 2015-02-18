@@ -9,6 +9,7 @@ var routeDto = {
     destinationId: "",
     waypointsId: []
 };
+var pageSize = 5;
 var userPlacesIndex = 0;
 var userBookedPlacesIndex = 0;
 var popularPlacesIndex = 0;
@@ -59,8 +60,6 @@ $(document).ready(function() {
             }
         }
     });
-    var waypointsCounter = 0;
-    var waypointsMAX = 8;
     $waypointsDropUi.droppable({
         drop: function(event, ui) {
             routeDto.waypointsId.push(ui.draggable.data("Id"));
@@ -129,12 +128,12 @@ function initListSize($ui) {
             }
             if ($ui === $userPlaceNumber) {
                 getPlaces(userPlacesUrl, $userPlacesUi,
-                    userPlacesIndex, $userPlaceNumber.val());
+                    userPlacesIndex);
                 getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
-                    userBookedPlacesIndex, $userPlaceNumber.val());
+                    userBookedPlacesIndex);
             } else {
                 getPlaces(popularPlacesUrl, $popularPlacesUi,
-                    popularPlacesIndex, $popularPlaceNumber.val());
+                    popularPlacesIndex);
             }
         }
     })
@@ -144,15 +143,11 @@ function initDropPlaces($ui) {
     $ui.droppable();
 }
 
-function getPlaces(url, $ui, pageIndex, placeSize) {
-    var obj = {
-        pageIndex: pageIndex,
-        placeSize: placeSize};
+function getPlaces(url, $ui, pageIndex) {
     $.ajax({
-        url: url + "?page=" + pageIndex + "&size=" + placeSize + "&sort=name" ,
+        url: url + "?page=" + pageIndex + "&size=" + pageSize + "&sort=name" ,
         dataType: "json",
         type: "POST",
-        data: JSON.stringify(obj),
         contentType : 'application/json; charset=utf-8',
         beforeSend: function() {
             $ui.append("<div class='ion-loading-c'/>");
@@ -161,13 +156,13 @@ function getPlaces(url, $ui, pageIndex, placeSize) {
             $ui.find(".ion-loading-c").remove();
             if ($ui === $userPlacesUi) {
                 fillPlaces(data, userPlaces);
-                drawPlaces($ui, userPlaces, placeSize, userPlacesIndex)
+                drawPlaces($ui, userPlaces, userPlacesIndex)
             } else if ($ui === $userBookedPlacesUi) {
                 fillPlaces(data, bookedPlaces);
-                drawPlaces($ui, bookedPlaces, placeSize, userBookedPlacesIndex)
+                drawPlaces($ui, bookedPlaces, userBookedPlacesIndex)
             } else {
                 fillPlaces(data, popularPlaces);
-                drawPlaces($ui, popularPlaces, placeSize, popularPlacesIndex)
+                drawPlaces($ui, popularPlaces, popularPlacesIndex)
             }
             initDrag();
         }
@@ -180,9 +175,9 @@ function fillPlaces(data, target) {
     }
 }
 
-function drawPlaces($ui, data, placeSize, pageIndex) {
+function drawPlaces($ui, data, pageIndex) {
     $ui.html("");
-    for (var i = pageIndex * placeSize; i < pageIndex * placeSize + Number(placeSize); i++) {
+    for (var i = pageIndex * pageSize; i < pageIndex * pageSize + pageSize; i++) {
         if (data[i] != undefined) {
             $ui.append("<div class='dragPlace box'>"
             + "<img style='height: 100%; width: 30%' src='"
@@ -213,21 +208,22 @@ function drawPlaces($ui, data, placeSize, pageIndex) {
         if (parentId == "userBookedPlaces") {
             if ((userBookedPlacesIndex - 1) >= 0) {
                 userBookedPlacesIndex--;
-                drawPlaces($ui, data, placeSize, pageIndex);
+                drawPlaces($ui, data, pageIndex);
             }
             //TODO if zero page
         } else if (parentId == "userPlaces") {
             if ((userPlacesIndex - 1) >= 0) {
                 userPlacesIndex--;
-                drawPlaces($ui, data, placeSize, pageIndex);
+                drawPlaces($ui, data, pageIndex);
             }
             //TODO if zero page
         } else {
             if ((popularPlacesIndex - 1) >= 0) {
+                if (popularPlacesIndex == 0) {
+                    $(event.target())
+                }
                 popularPlacesIndex--;
-                drawPlaces($popularPlacesUi, popularPlaces, $popularPlaceNumber.val(), popularPlacesIndex);
-            } else {
-                alert("Zero");
+                drawPlaces($popularPlacesUi, popularPlaces, popularPlacesIndex);
             }
         }
     });
@@ -236,29 +232,29 @@ function drawPlaces($ui, data, placeSize, pageIndex) {
         var parentId = $(event.target).parents().attr('id');
         if (parentId == "userBookedPlaces") {
             userBookedPlacesIndex++;
-            if (bookedPlaces[userBookedPlacesIndex * $userPlaceNumber.val()] == undefined ||
-                bookedPlaces[userBookedPlacesIndex * $userPlaceNumber.val() + $userPlaceNumber.val()] == undefined) {
+            if (bookedPlaces[userBookedPlacesIndex * pageSize] == undefined ||
+                bookedPlaces[userBookedPlacesIndex * pageSize + pageSize] == undefined) {
                 getPlaces(userBookedPlacesUlr, $userBookedPlacesUi,
-                    userBookedPlacesIndex, $userPlaceNumber.val());
+                    userBookedPlacesIndex);
             } else {
-                drawPlaces($ui, data, placeSize, pageIndex);
+                drawPlaces($ui, data, pageIndex);
             }
         } else if (parentId == "userPlaces"){
             userPlacesIndex++;
-            if (userPlaces[userPlacesIndex * $userPlaceNumber.val()] == undefined ||
-                userPlaces[userPlacesIndex * $userPlaceNumber.val() + $userPlaceNumber.val()] == undefined) {
+            if (userPlaces[userPlacesIndex * pageSize] == undefined ||
+                userPlaces[userPlacesIndex * pageSize + pageSize] == undefined) {
                 getPlaces(userPlacesUrl, $userPlacesUi,
-                    userPlacesIndex, $userPlaceNumber.val());
+                    userPlacesIndex);
             } else {
-                drawPlaces($ui, data, placeSize, pageIndex);
+                drawPlaces($ui, data, pageIndex);
             }
         } else {
             popularPlacesIndex++;
-            if (popularPlaces[popularPlacesIndex * $popularPlaceNumber.val()] == undefined) {
+            if (popularPlaces[popularPlacesIndex * pageSize] == undefined) {
                 getPlaces(popularPlacesUrl, $popularPlacesUi,
-                    popularPlacesIndex, $popularPlaceNumber.val());
+                    popularPlacesIndex);
             } else {
-                drawPlaces($popularPlacesUi, popularPlaces, $popularPlaceNumber.val(), popularPlacesIndex);
+                drawPlaces($popularPlacesUi, popularPlaces, popularPlacesIndex);
             }
         }
     });

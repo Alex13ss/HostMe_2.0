@@ -38,13 +38,13 @@ public class UserController {
 
     @RequestMapping(value = "/getUserPlaces", method = RequestMethod.POST)
     @ResponseBody
-    public List<PlaceDto> getUserPlaces(@RequestBody RoutePagingDto routeRequest, Pageable pageable) {
+    public List<PlaceDto> getUserPlaces(Pageable pageable) {
         return placeService.placeToPlaceDto(userService.getUserPlaces(pageable));
     }
 
     @RequestMapping(value = "/getUserBookedPlaces", method = RequestMethod.POST)
     @ResponseBody
-    public List<PlaceDto> getBookedPlaces(@RequestBody RoutePagingDto routeRequest, Pageable pageable) {
+    public List<PlaceDto> getBookedPlaces(Pageable pageable) {
         return placeService.placeToPlaceDto(userService.getUserBookedPlaces(pageable));
     }
 }

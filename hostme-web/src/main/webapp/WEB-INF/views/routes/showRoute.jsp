@@ -23,9 +23,12 @@
         <div class="container-fluid">
             <div class="col-md-4">
                 <h3>
-                    <spring:message code="label.name"/>
-                    :
-                    ${route.name}
+                    <div style="display: inline-block; max-width: 80%; overflow: hidden;
+                        text-overflow: ellipsis; white-space: nowrap;">
+                        <spring:message code="label.name"/>
+                        :
+                        ${route.name}
+                    </div>
                 </h3>
                 <button id="likeRoute" class='btn btn-default btn-xs' style="margin-left: 5%">
                     <i class='fa fa-thumbs-o-up'></i>
@@ -53,7 +56,9 @@
                         id="collapseDescription"
                         class="panel-collapse collapse">
                         <div class="box-body">
-                            <div class="form-group">
+                            <div class="form-group" style="display: inline-block;
+                                max-width: 90%; overflow: hidden; word-wrap: break-word;
+                                text-overflow: ellipsis; white-space: nowrap;">
                                 ${route.description}
                             </div>
                         </div>

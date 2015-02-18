@@ -29,13 +29,20 @@
             <spring:message code="routes.createRouteDescription" />
             <input id="description" class="form-control">
             <div class="container-fluid" style="margin-top: 3%">
-                <div class="col-sm-4 nav-tabs-custom">
-                    <spring:message code="places.yourPlaces"/>
+                <div class="col-sm-4 nav-tabs-custom" style="background-color: #FCFCFC">
+                    <h4>
+                        <spring:message code="places.yourPlaces" />
+                    </h4>
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#userBookedPlaces" data-toggle="tab">Booked</a></li>
-                        <li><a href="#userPlaces" data-toggle="tab">Your</a></li>
+                        <li class="active">
+                            <a href="#userBookedPlaces" data-toggle="tab">
+                                <spring:message code="label.booked" />
+                            </a>
+                        </li>
                         <li>
-                            <select id="userPlaceNumber" class="btn btn-default dropdown-toggle" data-toggle="tab"></select>
+                            <a href="#userPlaces" data-toggle="tab">
+                                <spring:message code="label.owned" />
+                            </a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -57,9 +64,10 @@
                         <spring:message code="routes.createRoute"/>
                     </button>
                 </div>
-                <div class="col-sm-4">
-                    <spring:message code="places.popularPlaces"/>
-                    <select id="popularPlaceNumber" class="btn btn-default dropdown-toggle"></select>
+                <div class="col-sm-4" style="background-color: #FCFCFC">
+                    <h4>
+                        <spring:message code="places.popularPlaces" />
+                    </h4>
                     <div id="popularPlaces"></div>
                 </div>
             </div>
