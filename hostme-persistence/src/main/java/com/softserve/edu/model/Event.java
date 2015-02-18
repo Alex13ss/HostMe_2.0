@@ -9,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import com.softserve.edu.model.routes.Place;
+import com.google.common.base.Objects;
 
 /**
  * 
@@ -47,6 +48,28 @@ public class Event extends Place{
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(super.hashCode(), startDate, endDate);
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Event) {
+			if (!super.equals(object))
+				return false;
+			Event that = (Event) object;
+			return Objects.equal(this.startDate, that.startDate)
+					&& Objects.equal(this.endDate, that.endDate);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Event [startDate=" + startDate + ", endDate=" + endDate + "]";
 	}
 
 }

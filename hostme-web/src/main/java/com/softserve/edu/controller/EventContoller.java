@@ -54,6 +54,10 @@ public class EventContoller {
 	@Autowired
 	ImageService imageService;
 
+	public static final String REDIRECT_EVENT_ID_VALUE = "redirect:/event?id={id}";
+	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String REDIRECT_EVENTS = "redirect:/events";
+
 	@RequestMapping(value = "/events", method = RequestMethod.GET)
 	public String showEvents(Model model) {
 		List<EventDto> events = eventService.getAllEvents();
@@ -78,11 +82,11 @@ public class EventContoller {
 		String city = event.getCity().getCity();
 		event.setOwner(user);
 		eventService.addEvent(event, priceCategory, city);
-		return "redirect:/events";
+		return REDIRECT_EVENTS;
 	}
 
 	@RequestMapping(value = "/all-events", params = { "page", "size",
-			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
+			"orderBy", "orderType" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EventDto> getAllEventsPaging(
 			@RequestParam(value = "page") Integer page,
 			@RequestParam(value = "size") Integer size,
@@ -92,7 +96,7 @@ public class EventContoller {
 
 	}
 
-	@RequestMapping(value = "/paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Long getEventsPaging(
 			@RequestParam(value = "size") Long size,
 			@RequestParam(value = "sender") String sender) {
@@ -100,7 +104,7 @@ public class EventContoller {
 	}
 
 	@RequestMapping(value = "/my-events", params = { "page", "size", "orderBy",
-			"orderType" }, method = RequestMethod.GET, produces = "application/json")
+			"orderType" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EventDto> getMyEvents(
 			@RequestParam(value = "page") Integer page,
 			@RequestParam(value = "size") Integer size,
@@ -110,7 +114,7 @@ public class EventContoller {
 	}
 
 	@RequestMapping(value = "/signed-events", params = { "page", "size",
-			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
+			"orderBy", "orderType" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EventDto> getSignedEvents(
 			@RequestParam(value = "page") Integer page,
 			@RequestParam(value = "size") Integer size,
@@ -128,7 +132,8 @@ public class EventContoller {
 		List<PriceCategory> priceCategories = priceCategoryService
 				.getAllPriceCategory();
 		boolean isCreator = eventService.checkEventOwner(eventDto, user);
-		boolean isSubscribed = eventService.checkEventSubscribed(eventDto, user);
+		boolean isSubscribed = eventService
+				.checkEventSubscribed(eventDto, user);
 		model.addAttribute("event", eventDto);
 		model.addAttribute("countries", countries);
 		model.addAttribute("cities", cities);
@@ -148,7 +153,7 @@ public class EventContoller {
 		eventService.updateEvent(event, city, priceCategory);
 		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
 				"eventEdited", true);
-		return "redirect:/event?id={id}";
+		return REDIRECT_EVENT_ID_VALUE;
 	}
 
 	@RequestMapping("/event/delete/{id}")
@@ -161,8 +166,7 @@ public class EventContoller {
 				|| (logedUserRole.equals("MODERATOR"))) {
 			eventService.removeEvent(event);
 		}
-
-		return "redirect:/events";
+		return REDIRECT_EVENTS;
 	}
 
 	@RequestMapping(value = "/event-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -180,30 +184,27 @@ public class EventContoller {
 		redirectAttributes.addAttribute("id", event.getId()).addFlashAttribute(
 				"eventEdited", true);
 		imageService.addImagesToEvent(files, event);
-		return "redirect:/event?id={id}";
+		return REDIRECT_EVENT_ID_VALUE;
 	}
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-		String datePattern = "yyyy-MM-dd HH:mm:ss";
+		String datePattern = DATE_FORMAT;
 		SimpleDateFormat dateFormat = new SimpleDateFormat(datePattern);
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, true));
 	}
 
-	@RequestMapping("/event-join/{id}")
+	@RequestMapping("/event-subcribe/{id}")
 	public String eventJoin(@PathVariable("id") Integer id) {
 		User user = profileService.getCurrentUser();
-		eventService.addAttendee(user, id);
-		return "redirect:/event?id={id}";
+		EventDto eventDto = eventService.getEvent(id);
+		if (eventService.checkEventSubscribed(eventDto, user)) {
+			eventService.leaveEvent(user, id);
+		} else {
+			eventService.addAttendee(user, id);
+		}
+		return REDIRECT_EVENT_ID_VALUE;
 	}
-	
-	@RequestMapping("/event-leave/{id}")
-	public String eventLeave(@PathVariable("id") Integer id) {
-		User user = profileService.getCurrentUser();
-		eventService.leaveEvent(user, id);
-		return "redirect:/event?id={id}";
-	}
-
 
 }

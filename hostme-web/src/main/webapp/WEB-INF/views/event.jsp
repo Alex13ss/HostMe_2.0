@@ -57,13 +57,13 @@
 						<c:out value="${event.name}" />
 						<security:authorize access="hasRole('USER')">
 							<c:if test="${isSubscribed eq false}">
-								<a href="<spring:url value="event-join/${event.id}"/>"
+								<a href="<spring:url value="event-subcribe/${event.id}"/>"
 									class="btn btn-default btn-sm " style="margin-left: 20px;"><i
 									class="fa fa-share"></i> <spring:message code="label.join" />
 								</a>
 							</c:if>
 							<c:if test="${isSubscribed eq true}">
-								<a href="<spring:url value="event-leave/${event.id}"/>"
+								<a href="<spring:url value="event-subcribe/${event.id}"/>"
 									class="btn btn-default btn-sm " style="margin-left: 20px;"><i
 									class="fa fa-share"></i> <spring:message code="label.leave" />
 								</a>
@@ -81,7 +81,7 @@
 									<i class="fa fa-gears"></i>
 									<spring:message code="label.status" />
 								</button>
-								<ul id="eventStatusChanger" class="dropdown-menu"
+								<ul id="eventStatusChanger" class="dropdown-menu "
 									style="margin-top: -10px; left: 20px;">
 									<li><a id="APPROVED" href="#">Approved</a> <a id="PENDING"
 										href="#">Pending</a> <a id="REFUSED" href="#">Refused</a></li>

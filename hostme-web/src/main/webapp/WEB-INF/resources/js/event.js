@@ -274,6 +274,7 @@ $(document)
                 size = $(this).val();
                 selectedTablePage = 1;
                 showEvents();
+                
 
             });
 

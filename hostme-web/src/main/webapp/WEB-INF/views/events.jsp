@@ -7,7 +7,7 @@
 <%@taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
 <!DOCTYPE html>
-<html>
+<html id="pageSize">
 <head>
 <meta charset="UTF-8">
 <link rel='stylesheet' href='resources/css/fullcalendar.min.css' />
@@ -22,8 +22,7 @@
 <link
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css" media="all"
-	href="resources/css/style.css" />
+
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/event.js" type="text/javascript"></script>
 <script src="resources/js/fnAjaxReload.js" type="text/javascript"></script>
@@ -33,7 +32,8 @@
 <script src='resources/js/fullcalendar.min.js'></script>
 <script type="text/javascript" src="resources/js/daterangepicker.js"></script>
 <script type="text/javascript" src="resources/js/rangeCalendar.js"></script>
-
+<link rel="stylesheet" type="text/css" media="all"
+	href="resources/css/style.css" />
 
 <title>Events</title>
 </head>

@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import java.util.List;
 import java.util.Set;
+import com.google.common.base.Objects;
 
 @Entity
 @Table
@@ -208,4 +209,49 @@ public class Place {
 	public void setBookedBy(Set<User> bookedBy) {
 		this.bookedBy = bookedBy;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(id, name, description, comment, website, image,
+				status, priceCategory, city, address, routes, owner, attendee,
+				likers, rating, posts, bookedBy);
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		if (object instanceof Place) {
+			Place that = (Place) object;
+			return Objects.equal(this.id, that.id)
+					&& Objects.equal(this.name, that.name)
+					&& Objects.equal(this.description, that.description)
+					&& Objects.equal(this.comment, that.comment)
+					&& Objects.equal(this.website, that.website)
+					&& Objects.equal(this.image, that.image)
+					&& Objects.equal(this.status, that.status)
+					&& Objects.equal(this.priceCategory, that.priceCategory)
+					&& Objects.equal(this.city, that.city)
+					&& Objects.equal(this.address, that.address)
+					&& Objects.equal(this.routes, that.routes)
+					&& Objects.equal(this.owner, that.owner)
+					&& Objects.equal(this.attendee, that.attendee)
+					&& Objects.equal(this.likers, that.likers)
+					&& Objects.equal(this.rating, that.rating)
+					&& Objects.equal(this.posts, that.posts)
+					&& Objects.equal(this.bookedBy, that.bookedBy);
+		}
+		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Place [id=" + id + ", name=" + name + ", description="
+				+ description + ", comment=" + comment + ", website=" + website
+				+ ", image=" + image + ", status=" + status
+				+ ", priceCategory=" + priceCategory + ", city=" + city
+				+ ", address=" + address + ", routes=" + routes + ", owner="
+				+ owner + ", attendee=" + attendee + ", likers=" + likers
+				+ ", rating=" + rating + ", posts=" + posts + ", bookedBy="
+				+ bookedBy + "]";
+	}
+	
 }
