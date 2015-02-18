@@ -9,6 +9,7 @@ import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 
+import com.softserve.edu.model.routes.Route;
 import org.springframework.data.domain.Pageable;
 
 public interface UserService {
@@ -42,5 +43,8 @@ public interface UserService {
     public Collection<Place> getUserBookedPlaces(Pageable pageable);
     
     public void saveUser(User user);
-
+    
+    public void addLikedRoute(int userId, Route route);
+    
+    public void removeLikedRoute(int userId, Route route);
 }

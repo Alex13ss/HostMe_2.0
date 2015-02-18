@@ -23,4 +23,9 @@ public class PriceCategoryServiceImpl implements PriceCategoryService {
 				.findAll();
 		return list;
 	}
+
+    @Override
+    public PriceCategory getPriceCategory(int id) {
+        return priceCategoryRepository.findOne(id);
+    }
 }

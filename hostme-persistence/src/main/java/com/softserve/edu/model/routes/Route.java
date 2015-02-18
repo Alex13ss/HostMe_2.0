@@ -1,5 +1,6 @@
 package com.softserve.edu.model.routes;
 
+import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.User;
 
 import javax.persistence.*;
@@ -21,7 +22,12 @@ public class Route {
     private String description;
     
     @Column
-    private int distance;
+    private long distance;
+    
+    @Column int rating;
+    
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private PriceCategory priceCategory;
     
     @ManyToOne
     private User user;
@@ -56,12 +62,28 @@ public class Route {
         this.description = description;
     }
 
-    public int getDistance() {
+    public long getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(long distance) {
         this.distance = distance;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public PriceCategory getPriceCategory() {
+        return priceCategory;
+    }
+
+    public void setPriceCategory(PriceCategory priceCategory) {
+        this.priceCategory = priceCategory;
     }
 
     public User getUser() {
@@ -86,5 +108,29 @@ public class Route {
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Route route = (Route) o;
+
+        if (distance != route.distance) return false;
+        if (id != route.id) return false;
+        if (!description.equals(route.description)) return false;
+        if (!name.equals(route.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + (int) (distance ^ (distance >>> 32));
+        return result;
     }
 }

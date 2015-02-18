@@ -8,4 +8,14 @@ $(document).ready(function () {
       });
    }
    drawDestination();
+    $('#likeRoute').click(function() {
+        $.ajax({
+            url: "likeRoute",
+            type: "PUT",
+            data: route_id,
+            success: function (result) {
+                alert(result);
+            }
+        });
+    });
 });

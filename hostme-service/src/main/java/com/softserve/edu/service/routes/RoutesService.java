@@ -30,4 +30,6 @@ public interface RoutesService {
     public List<Route> getRoutesNearToUsers();
 
     public boolean removeRoute(int id);
+    
+    public boolean likeRoute(int id);
 }

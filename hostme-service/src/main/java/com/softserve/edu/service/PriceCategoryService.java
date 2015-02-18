@@ -5,5 +5,8 @@ import java.util.List;
 import com.softserve.edu.model.PriceCategory;
 
 public interface PriceCategoryService {
+    
 	public List<PriceCategory> getAllPriceCategory();
+    
+    public PriceCategory getPriceCategory(int id);
 }

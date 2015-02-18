@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.softserve.edu.model.Group;
+import com.softserve.edu.model.routes.Route;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -31,5 +32,9 @@ public interface UserRepository extends
 
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.bookedPlaces WHERE u.userId = (:id)")
     public User findByUserIdAndFetchBookedPlacesEagerly(@Param("id") int id);
-
+    
+    @Query("SELECT u FROM User u LEFT JOIN FETCH u.likedRoutes WHERE u.userId = (:id)")
+    public User findOneWithFetchedLikedPlaces(@Param("id")int id);
+    
+    public User findByUserIdAndLikedRoutes(int id, Route route);
 }

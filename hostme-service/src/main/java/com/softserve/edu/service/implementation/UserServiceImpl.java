@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 
-
+import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,4 +141,18 @@ public class UserServiceImpl implements UserService {
 	public Collection<Place> getUserBookedPlaces(Pageable pageable) {
 		return placeRepository.findByBookedBy(profileService.getCurrentUser());
 	}
+
+    @Override
+    public void addLikedRoute(int userId, Route route) {
+        User user = userRepository.findOneWithFetchedLikedPlaces(userId);
+        user.getLikedRoutes().add(route);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void removeLikedRoute(int userId, Route route) {
+        User user = userRepository.findOneWithFetchedLikedPlaces(userId);
+        user.getLikedRoutes().remove(route);
+        userRepository.save(user);
+    }
 }
