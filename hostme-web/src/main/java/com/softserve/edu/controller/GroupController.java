@@ -1,6 +1,5 @@
 package com.softserve.edu.controller;
 
-import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -114,24 +113,23 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/my-groups", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<GroupDto> findMyGroups(Principal principal,
+    public @ResponseBody List<GroupDto> findMyGroups(
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
             @RequestParam(value = "orderType") String orderType) {
-        User creatorUser = profileService.getUserByLogin(principal.getName());
+        User creatorUser = profileService.getCurrentUser();
         return groupService.getGroupsByCreator(creatorUser, page, size,
                 orderBy, orderType);
     }
 
     @RequestMapping(value = "/interesting-groups", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<GroupDto> findSubscribedGroups(
-            Principal principal, @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "page") Integer page,
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
             @RequestParam(value = "orderType") String orderType) {
-        User interestedUser = profileService
-                .getUserByLogin(principal.getName());
+        User interestedUser = profileService.getCurrentUser();
         return groupService.getGroupsByInterestedUser(interestedUser, page,
                 size, orderBy, orderType);
     }
@@ -185,8 +183,7 @@ public class GroupController {
     }
 
     @RequestMapping("/group/subscribe/{id}")
-    public String subscribeGroup(@PathVariable("id") Long groupId,
-            Principal principal) {
+    public String subscribeGroup(@PathVariable("id") Long groupId) {
         Group group = groupService.findOne(groupId);
         User user = profileService.getCurrentUser();
         if (groupService.checkInterestedByGroupAndUser(group, user)) {

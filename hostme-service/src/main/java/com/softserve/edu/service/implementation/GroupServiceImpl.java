@@ -219,7 +219,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public void updateGroupStatus(String status, Long id) {
+    public void updateGroupStatus(String status, Long groupId) {
         Status newStatus;
         if ("Approved".equalsIgnoreCase(status)) {
             newStatus = Status.APPROVED;
@@ -228,7 +228,7 @@ public class GroupServiceImpl implements GroupService {
         } else {
             newStatus = Status.REFUSED;
         }
-        Group group = groupRepository.findOne(id);
+        Group group = groupRepository.findOne(groupId);
         group.setStatus(newStatus);
         groupRepository.save(group);
     }
