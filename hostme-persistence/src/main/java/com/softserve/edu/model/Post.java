@@ -11,7 +11,7 @@ import com.softserve.edu.model.routes.Place;
 public class Post {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 

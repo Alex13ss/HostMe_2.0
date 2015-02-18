@@ -21,21 +21,21 @@ import com.softserve.edu.service.PostService;
 import com.softserve.edu.service.SystemPropertiesService;
 
 @Service
-public class PostServiceImpl implements PostService{
+public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
-    
+
     @Autowired
     private ConversationRepository conversationRepository;
-    
+
     @Autowired
     private SystemPropertiesRepository systemPropertiesRepository;
-    
+
     @Autowired
     private SystemPropertiesService systemPropertiesSerive;
-    
+
     public final Integer PROPERTY_ID = 1;
-    
+
     @Override
     @Transactional
     public List<PostDto> findByConversationId(Long id) {
@@ -43,22 +43,23 @@ public class PostServiceImpl implements PostService{
 	List<Post> posts = (List<Post>) postRepository.findByConversationId(id);
 	Conversation conversation = conversationRepository.findOne(id);
 	String propertiesImageUrl = systemPropertiesSerive.getImageUrl();
-	String loggedUser = SecurityContextHolder.getContext().getAuthentication().getName();
-	
+	String loggedUser = SecurityContextHolder.getContext()
+		.getAuthentication().getName();
+
 	boolean isModerator = false;
 	Set<User> moderators = conversation.getModerators();
-	    if (moderators.size() > 0) {
-		for (User moderator : moderators) {
-		    if (moderator.getLogin().equals(loggedUser)) {
-			isModerator = true;
-		    }
+	if (moderators.size() > 0) {
+	    for (User moderator : moderators) {
+		if (moderator.getLogin().equals(loggedUser)) {
+		    isModerator = true;
 		}
 	    }
-	    if (conversation.getOwner().getLogin().equals(loggedUser)) {
-		isModerator = true;
-	    }
-	    
-	for (Post post : posts){
+	}
+	if (conversation.getOwner().getLogin().equals(loggedUser)) {
+	    isModerator = true;
+	}
+
+	for (Post post : posts) {
 	    String image = null;
 	    Iterator<Image> imageItr = post.getAuthor().getImages().iterator();
 	    if (imageItr.hasNext()) {
@@ -76,18 +77,19 @@ public class PostServiceImpl implements PostService{
 	}
 	return result;
     }
-    
+
     @Override
     @Transactional
     public List<PostDto> findByPlaceId(Integer id) {
 	List<PostDto> result = new ArrayList<PostDto>();
 	List<Post> posts = (List<Post>) postRepository.findByPlaceId(id);
 	String propertiesImageUrl = systemPropertiesSerive.getImageUrl();
-	for (Post post : posts){
+	for (Post post : posts) {
 	    String image = null;
 	    Iterator<Image> imageItr = post.getAuthor().getImages().iterator();
-	    if (imageItr.hasNext())
+	    if (imageItr.hasNext()) {
 		image = propertiesImageUrl + "/" + imageItr.next().getLink();
+	    }
 	    result.add(new PostDto(post, image));
 	}
 	return result;
@@ -96,9 +98,9 @@ public class PostServiceImpl implements PostService{
     @Override
     public Post findOne(Long id) {
 	return postRepository.findOne(id);
-	
+
     }
-    
+
     @Override
     @Transactional
     public Post save(Post post) {
