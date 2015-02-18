@@ -195,7 +195,7 @@ public class EventContoller {
 				dateFormat, true));
 	}
 
-	@RequestMapping("/event-subcribe/{id}")
+	@RequestMapping("/event-subscribe/{id}")
 	public String eventJoin(@PathVariable("id") Integer id) {
 		User user = profileService.getCurrentUser();
 		EventDto eventDto = eventService.getEvent(id);

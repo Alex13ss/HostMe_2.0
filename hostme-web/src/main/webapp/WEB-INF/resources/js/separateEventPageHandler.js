@@ -55,13 +55,13 @@ $(document).ready(function() {
             },
             description: {
                 required: true,
-                minlength: 3,
-                maxlength: 42
+                minlength: 5,
+                maxlength: 255
             },
             comment: {
                 required: true,
-                minlength: 3,
-                maxlength: 42
+                minlength: 5,
+                maxlength: 255
             }
 
         },

@@ -57,13 +57,13 @@
 						<c:out value="${event.name}" />
 						<security:authorize access="hasRole('USER')">
 							<c:if test="${isSubscribed eq false}">
-								<a href="<spring:url value="event-subcribe/${event.id}"/>"
+								<a href="<spring:url value="event-subscribe/${event.id}"/>"
 									class="btn btn-default btn-sm " style="margin-left: 20px;"><i
 									class="fa fa-share"></i> <spring:message code="label.join" />
 								</a>
 							</c:if>
 							<c:if test="${isSubscribed eq true}">
-								<a href="<spring:url value="event-subcribe/${event.id}"/>"
+								<a href="<spring:url value="event-subscribe/${event.id}"/>"
 									class="btn btn-default btn-sm " style="margin-left: 20px;"><i
 									class="fa fa-share"></i> <spring:message code="label.leave" />
 								</a>
