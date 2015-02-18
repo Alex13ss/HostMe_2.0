@@ -7,7 +7,7 @@
 <%@taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
 <!DOCTYPE html>
-<html id="pageSize">
+<html>
 <head>
 <meta charset="UTF-8">
 <link rel='stylesheet' href='resources/css/fullcalendar.min.css' />
