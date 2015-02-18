@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.softserve.edu.repositories.*;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +15,12 @@ import com.softserve.edu.dto.SightseeingDto;
 import com.softserve.edu.model.Sightseeing;
 import com.softserve.edu.model.Status;
 import com.softserve.edu.model.User;
-import com.softserve.edu.model.routes.Place;
+import com.softserve.edu.repositories.CityRepository;
+import com.softserve.edu.repositories.CountryRepository;
+import com.softserve.edu.repositories.ImageRepository;
+import com.softserve.edu.repositories.PriceCategoryRepository;
+import com.softserve.edu.repositories.SightseeingRepository;
+import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.ProfileService;
@@ -47,11 +49,11 @@ public class SightseeingServiceImpl implements SightseeingService {
 	@Autowired
 	SystemPropertiesService systemPropertiesService;
 
-    @Autowired
-    private SystemPropertiesRepository systemPropertiesRepository;
+	@Autowired
+	private SystemPropertiesRepository systemPropertiesRepository;
 
-    public final Integer PROPERTY_ID = 1;
-    
+	public final Integer PROPERTY_ID = 1;
+
 	public boolean haveSight(int id) {
 		return sightseeingRepository.exists(id);
 	}
@@ -67,16 +69,8 @@ public class SightseeingServiceImpl implements SightseeingService {
 	public List<SightseeingDto> getAllSightseeings(Integer page, Integer size,
 			String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
-		PageRequest pageRequsetObj;
-		if ("ASC".equals(orderType)) {
-			pageRequsetObj = new PageRequest(page - 1, size,
-					Sort.Direction.ASC, orderBy);
-		} else {
-			pageRequsetObj = new PageRequest(page - 1, size,
-					Sort.Direction.DESC, orderBy);
-		}
 		for (Sightseeing sightseeing : sightseeingRepository
-				.findAll(pageRequsetObj)) {
+				.findAll(getPageRequest(page, size, orderBy, orderType))) {
 			list.add(new SightseeingDto(sightseeing, placeRepository
 					.findOne(sightseeing.getId())));
 		}
@@ -86,16 +80,9 @@ public class SightseeingServiceImpl implements SightseeingService {
 	public List<SightseeingDto> getFavouriteSightseeings(User liker,
 			Integer page, Integer size, String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
-		PageRequest pageRequsetObj;
-		if ("ASC".equals(orderType)) {
-			pageRequsetObj = new PageRequest(page - 1, size,
-					Sort.Direction.ASC, orderBy);
-		} else {
-			pageRequsetObj = new PageRequest(page - 1, size,
-					Sort.Direction.DESC, orderBy);
-		}
+		
 		for (Sightseeing sightseeing : sightseeingRepository.findByLikers(
-				liker, pageRequsetObj)) {
+				liker, getPageRequest(page, size, orderBy, orderType))) {
 			list.add(new SightseeingDto(sightseeing, placeRepository
 					.findOne(sightseeing.getId())));
 		}
@@ -108,16 +95,8 @@ public class SightseeingServiceImpl implements SightseeingService {
 			Integer size, String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
 		User owner = profileService.getCurrentUser();
-		PageRequest pageRequsetObj;
-		if ("ASC".equals(orderType)) {
-			pageRequsetObj = new PageRequest(page - 1, size,
-					Sort.Direction.ASC, orderBy);
-		} else {
-			pageRequsetObj = new PageRequest(page - 1, size,
-					Sort.Direction.DESC, orderBy);
-		}
 		for (Sightseeing sightseeing : sightseeingRepository.findByOwner(owner,
-				pageRequsetObj)) {
+				getPageRequest(page, size, orderBy, orderType))) {
 			list.add(new SightseeingDto(sightseeing, placeRepository
 					.findOne(sightseeing.getId())));
 		}
@@ -128,16 +107,11 @@ public class SightseeingServiceImpl implements SightseeingService {
 	public List<SightseeingDto> getSightseeingsDtoList(
 			List<Sightseeing> sightseeings) {
 		List<SightseeingDto> result = new ArrayList<>();
-        String propertiesImageUrl = systemPropertiesService.getImageUrl();
+		String propertiesImageUrl = systemPropertiesService.getImageUrl();
 		for (Sightseeing sightseeing : sightseeings) {
 			result.add(new SightseeingDto(sightseeing, propertiesImageUrl));
 		}
 		return result;
-	}
-
-	@Override
-	public List<Sightseeing> getSightseeingsLike(String search) {
-		return sightseeingRepository.findByNameContaining(search);
 	}
 
 	@Override
@@ -197,15 +171,11 @@ public class SightseeingServiceImpl implements SightseeingService {
 	@Transactional
 	public boolean favouriteCheck(Sightseeing sightseeing, User liker) {
 		Set<User> likers = userRepository.findByFavouriveSights(sightseeing);
-		if (likers.contains(liker)) {
-			return true;
-		}
-		return false;
+		return likers.contains(liker);
 	}
 
 	public void unlikeSightseeing(Integer id, User liker) {
-		Integer likerId = liker.getUserId();
-		sightseeingRepository.unlike(id, likerId);
+		sightseeingRepository.unlike(id, liker.getUserId());
 	}
 
 	public Integer getCurrentRating(Integer id) {
@@ -222,7 +192,7 @@ public class SightseeingServiceImpl implements SightseeingService {
 				amount = dataBaseSize / size + 1;
 			}
 		} else if ("favourite-sightseeings".equals(sender)) {
-			Long dataFavouriteSize = (long) placeRepository.findByLikers(
+			Long dataFavouriteSize = (long) sightseeingRepository.findByLikers(
 					currentUser).size();
 			if (dataFavouriteSize % size == 0l) {
 				amount = dataFavouriteSize / size;
@@ -239,5 +209,14 @@ public class SightseeingServiceImpl implements SightseeingService {
 			}
 		}
 		return amount;
+	}
+
+	public PageRequest getPageRequest(Integer page, Integer size,
+			String orderBy, String orderType) {
+		if (orderType.equals("ASC")) {
+			return new PageRequest(page - 1, size, Sort.Direction.ASC, orderBy);
+		} else {
+			return new PageRequest(page - 1, size, Sort.Direction.DESC, orderBy);
+		}
 	}
 }

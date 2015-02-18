@@ -20,16 +20,6 @@ public interface PlaceRepository extends PagingAndSortingRepository<Place, Integ
 
 	public List<Place> findByOwnerNot(User owner);
 
-    public List<Place> findByCity(City city);
-	
-	public List<Place> findByOwner(User owner, Pageable peagelbe);
-	
-	public List<Place> findByPriceCategory(PriceCategory priceCategory);
-	
-	public List<Place> findByWebsite(String website);
-
-	public List<Place> findByLikers(User liker);
-
 	public List<Place> findByAttendee(User user, Pageable pageable);
 
 	public List<Place> findByLikers(User liker, Pageable pageable);

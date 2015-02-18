@@ -56,7 +56,7 @@
 								<spring:message code="label.like" /> </a>
 						</c:if>
 						<c:if test="${isFavourite eq true}">
-							<a href="<spring:url value="/unlike/${sightseeing.id}" />"
+							<a href="<spring:url value="/like/${sightseeing.id}" />"
 								class="btn btn-default btn-sm"><i class="fa fa-star"></i>${rating}
 								<spring:message code="label.unlike" /> </a>
 						</c:if>

@@ -1,7 +1,5 @@
 package com.softserve.edu.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -55,7 +53,10 @@ public class SightseeingController {
 	private ImageService imageService;
 	@Autowired
 	private PostService postService;
-
+	
+	public static final String REDIRECT_SIGHTSEEING_ID_VALUE = "redirect:/sightseeing?id={id}";
+	public static final String REDIRECT_SIGHTSEEINGS = "redirect:/sightseeings";
+	
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.GET)
 	public String showSightseeings(Model model) {
 		model.addAttribute("sightseeing", new Sightseeing());
@@ -88,7 +89,7 @@ public class SightseeingController {
 				.getPriceCategory();
 		String city = sightseeing.getCity().getCity();
 		sightseeingService.saveSightseeing(sightseeing, priceCategory, city);
-		return "redirect:/sightseeings";
+		return REDIRECT_SIGHTSEEINGS;
 	}
 
 	@RequestMapping(value = "/all-sightseeings", params = { "page", "size",
@@ -170,7 +171,7 @@ public class SightseeingController {
 		sightseeingService.updateSightseeing(sightseeing, priceCategory, city);
 		redirectAttributes.addAttribute("id", sightseeing.getId())
 				.addFlashAttribute("sightseeingEdited", true);
-		return "redirect:/sightseeing?id={id}";
+		return REDIRECT_SIGHTSEEING_ID_VALUE;
 	}
 
 	@RequestMapping(value = "/addPhotosToSight", method = RequestMethod.POST)
@@ -180,7 +181,7 @@ public class SightseeingController {
 		redirectAttributes.addAttribute("id", sightseeing.getId())
 				.addFlashAttribute("sightseeingEdited", true);
 		imageService.addImagesToSightseeing(files, sightseeing);
-		return "redirect:/sightseeing?id={id}";
+		return REDIRECT_SIGHTSEEING_ID_VALUE;
 	}
 
 	@RequestMapping(value = "/findComments.json", method = RequestMethod.GET, produces = "application/json")
@@ -221,23 +222,18 @@ public class SightseeingController {
 	public String deleteSightseeing(@PathVariable("id") Integer id) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
 		sightseeingService.deleteSightseeing(sightseeing);
-		return "redirect:/sightseeings";
+		return REDIRECT_SIGHTSEEINGS;
 	}
 
 	@RequestMapping("/like/{id}")
-	public String addToFavourite(@PathVariable("id") Integer id) {
+	public String rateSightseeing(@PathVariable("id") Integer id) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
-		User user = profileService.getUserByLogin(SecurityContextHolder
-				.getContext().getAuthentication().getName());
-		sightseeingService.saveLikerforSightseing(user, sightseeing);
-		return "redirect:/sightseeing?id={id}";
-	}
-
-	@RequestMapping("/unlike/{id}")
-	public String removeFromInteresting(@PathVariable("id") Integer id) {
-		User liker = profileService.getUserByLogin(SecurityContextHolder
-				.getContext().getAuthentication().getName());
-		sightseeingService.unlikeSightseeing(id, liker);
-		return "redirect:/sightseeing?id={id}";
+		User user = profileService.getCurrentUser();
+		if (sightseeingService.favouriteCheck(sightseeing, user)) {
+			sightseeingService.unlikeSightseeing(id, user);
+		} else {
+			sightseeingService.saveLikerforSightseing(user, sightseeing);
+		}
+		return REDIRECT_SIGHTSEEING_ID_VALUE;
 	}
 }

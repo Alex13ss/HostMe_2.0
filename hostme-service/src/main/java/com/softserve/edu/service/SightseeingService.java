@@ -12,17 +12,16 @@ public interface SightseeingService {
 
 	public boolean haveSight(int id);
 
-	public List<Sightseeing> searchSightseeing(Specifications<Sightseeing> specifications);
+	public List<Sightseeing> searchSightseeing(
+			Specifications<Sightseeing> specifications);
 
 	List<SightseeingDto> getAllSightseeings(Integer page, Integer size,
 			String orderBy, String orderType);
 
-	List<SightseeingDto> getSightseeingByOwner(Integer page,
-			Integer size, String orderBy, String orderType);
-	
-	List<SightseeingDto> getSightseeingsDtoList(List<Sightseeing> sightseeings);
+	List<SightseeingDto> getSightseeingByOwner(Integer page, Integer size,
+			String orderBy, String orderType);
 
-	List<Sightseeing> getSightseeingsLike(String search);
+	List<SightseeingDto> getSightseeingsDtoList(List<Sightseeing> sightseeings);
 
 	Sightseeing findOne(Integer id);
 
@@ -36,15 +35,15 @@ public interface SightseeingService {
 
 	void saveLikerforSightseing(User user, Sightseeing sightseeing);
 
-	List<SightseeingDto> getFavouriteSightseeings(User liker,
-			Integer page, Integer size, String orderBy, String orderType);
+	List<SightseeingDto> getFavouriteSightseeings(User liker, Integer page,
+			Integer size, String orderBy, String orderType);
 
 	Long getSightseeingsPaging(Long size, String sender, User liker);
 
 	boolean favouriteCheck(Sightseeing sightseeing, User liker);
 
 	void unlikeSightseeing(Integer id, User liker);
-	
+
 	Integer getCurrentRating(Integer id);
-	
+
 }
