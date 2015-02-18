@@ -16,5 +16,5 @@ public interface MegaSearchService {
 
     public List<GroupDto> searchGroups(SearchRequestDto searchRequestDto);
 
-    public List<HostingDto> searchHosting(String input);
+    public List<HostingDto> searchHosting(SearchRequestDto searchRequestDto);
 }

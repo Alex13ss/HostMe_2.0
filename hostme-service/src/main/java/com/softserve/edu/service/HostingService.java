@@ -2,6 +2,7 @@ package com.softserve.edu.service;
 
 import com.softserve.edu.dto.HostingDto;
 import com.softserve.edu.model.Hosting;
+import org.springframework.data.jpa.domain.Specifications;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,4 +22,6 @@ public interface HostingService {
 	public List<HostingDto> getHostingDtoList(List<Hosting> hostings);
 
 	public List<Hosting> getHostingLike(String request);
+
+    public List<Hosting> searchHosting(Specifications<Hosting> specifications);
 }

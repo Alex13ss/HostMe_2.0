@@ -17,7 +17,7 @@ import java.util.List;
 public class MegaSearchController {
 
     private enum SearchTypes {
-        EVENT, SIGHT, ROUTE, GROUPS, USER
+        HOSTING, EVENT, SIGHT, ROUTE, GROUPS, USER
     }
 
     @Autowired
@@ -40,18 +40,31 @@ public class MegaSearchController {
     @RequestMapping(value = "/superMegaSearch")
     @ResponseBody
     public List<?> getSearchResults(@RequestBody SearchRequestDto searchRequestDto) {
-        if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.ROUTE)) {
-            return megaSearchService.searchRoutes(searchRequestDto);
-        } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.EVENT)) {
-            return megaSearchService.searchEvents(searchRequestDto);
-        } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.SIGHT)) {
-            return megaSearchService.searchSights(searchRequestDto);
-        } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.USER)) {
-            return megaSearchService.searchUsers(searchRequestDto);
-        } else if (SearchTypes.valueOf(searchRequestDto.getType()).equals(SearchTypes.GROUPS)) {
-            return megaSearchService.searchGroups(searchRequestDto);
+        SearchTypes searchType = SearchTypes.valueOf(searchRequestDto.getType());
+        switch (searchType) {
+            
+            case HOSTING: {
+                return megaSearchService.searchHosting(searchRequestDto);
+            }
+            case ROUTE: {
+                return megaSearchService.searchRoutes(searchRequestDto);
+            }
+            case EVENT: {
+                return megaSearchService.searchEvents(searchRequestDto);
+            }
+            case SIGHT: {
+                return megaSearchService.searchSights(searchRequestDto);
+            }
+            case USER: {
+                return megaSearchService.searchUsers(searchRequestDto);
+            }
+            case GROUPS: {
+                return megaSearchService.searchGroups(searchRequestDto);
+            }
+            default: {
+                return null;
+            }
         }
-        return null;
     }
 
     @RequestMapping(value = "/searchType")

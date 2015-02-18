@@ -4,7 +4,12 @@ var searchObj = {
     haveMoreData: false,
     dateFrom: "",
     dateTo: "",
-    sightseeingType: ""
+    sightseeingType: "",
+    guestsNumb: "",
+    familyAllow: "",
+    childrenAllow: "",
+    smokingAllow: "",
+    petsAllow: ""
 };
 var priceCategories = [];
 var sightType = [];
@@ -97,7 +102,34 @@ function setAdvOptDisplay() {
 }
 
 function setAdvancedOptions() {
-    if ($searchType.val() == "EVENT") {
+    if ($searchType.val() == "HOSTING") {
+        $searchOptions.html("");
+        $searchOptions.append(
+        "<div class='checkbox col-md-2'>"
+            + "<label>"
+            + "<input type='checkbox'>"
+                + "Family allowed"
+            + "</label>"
+        + "</div>"
+        + "<div class='checkbox col-md-2'>"
+            + "<label>"
+            + "<input type='checkbox'>"
+                + "Children allowed"
+            + "</label>"
+        + "</div>"
+        + "<div class='checkbox col-md-2'>"
+            + "<label>"
+            + "<input type='checkbox'>"
+                + "Pets allowed"
+            + "</label>"
+        + "</div>"
+        + "<div class='checkbox col-md-2'>"
+            + "<label>"
+            + "<input type='checkbox'>"
+                + "Smokers allowed"
+            + "</label>"
+        + "</div>");
+    } else if ($searchType.val() == "EVENT") {
         $searchOptions.html("");
         $searchOptions.append("<div>"
         + "After: "
@@ -138,13 +170,10 @@ function setAdvancedOptions() {
         });
     } else if ($searchType.val() == "ROUTE") {
         $searchOptions.html("");
-
     } else if ($searchType.val() == "GROUPS") {
         $searchOptions.html("");
-
     } else if ($searchType.val() == "USER") {
         $searchOptions.html("");
-
     }
 }
 
@@ -214,6 +243,9 @@ function inputLength(input) {
 }
 
 function detectSearchDataType(data) {
+    if ($searchType.val() == "HOSTING") {
+        fillHostingData(data);
+    }
     if ($searchType.val() == "USER") {
         fillUserData(data)
     } else if ($searchType.val() == "ROUTE") {
@@ -223,6 +255,12 @@ function detectSearchDataType(data) {
         fillPlaceData(data)
     } else if ($searchType.val() == "GROUPS") {
         fillGroupData(data);
+    }
+}
+
+function fillHostingData(data) {
+    for (var i = 0; i < data.length; i++) {
+        alert(data[i]);
     }
 }
 

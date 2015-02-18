@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import static com.softserve.edu.repositories.specifications.EventSpecification.*;
 import static com.softserve.edu.repositories.specifications.SightseeingSpecification.*;
 import static com.softserve.edu.repositories.specifications.GroupSpecification.*;
+import static com.softserve.edu.repositories.specifications.HostingSpecification.*;
 
 import java.util.Date;
 import java.util.List;
@@ -92,12 +93,20 @@ public class MegaSearchServiceImp implements MegaSearchService {
     }
 
     @Override
-    public List<HostingDto> searchHosting(String input) {
-        return hostingService.getHostingDtoList(hostingService.getHostingLike(input));
+    public List<UserDto> searchUsers(SearchRequestDto searchRequestDto) {
+        return userService.getUserDtoList(userService.getUsersLike(searchRequestDto.getRequest()));
     }
 
     @Override
-    public List<UserDto> searchUsers(SearchRequestDto searchRequestDto) {
-        return userService.getUserDtoList(userService.getUsersLike(searchRequestDto.getRequest()));
+    public List<HostingDto> searchHosting(SearchRequestDto searchRequestDto) {
+        String city = searchRequestDto.getRequest();
+        Specifications<Hosting> specifications = Specifications.where(hostingHaveCity(city));
+        if (searchRequestDto.isHaveMoreData()) {
+            specifications = specifications.and(hostingOption(Hosting_.children, searchRequestDto.isChildrenAllow()));
+            specifications = specifications.and(hostingOption(Hosting_.family, searchRequestDto.isFamilyAllow()));
+            specifications = specifications.and(hostingOption(Hosting_.smoking, searchRequestDto.isSmokingAllow()));
+            specifications = specifications.and(hostingOption(Hosting_.pets, searchRequestDto.isPetsAllow()));
+        }
+        return hostingService.getHostingDtoList(hostingService.searchHosting(specifications));
     }
 }

@@ -3,10 +3,15 @@ package com.softserve.edu.dto;
 public class SearchRequestDto {
     String request;
     String type;
+    boolean haveMoreData;
     Long dateFrom;
     Long dateTo;
     String sightseeingType;
-    boolean haveMoreData;
+    int guestsNumb;
+    boolean familyAllow;
+    boolean childrenAllow;
+    boolean smokingAllow;
+    boolean petsAllow;
     
     public String getRequest() {
         return request;
@@ -54,5 +59,45 @@ public class SearchRequestDto {
 
     public void setHaveMoreData(boolean haveMoreData) {
         this.haveMoreData = haveMoreData;
+    }
+
+    public int getGuestsNumb() {
+        return guestsNumb;
+    }
+
+    public void setGuestsNumb(int guestsNumb) {
+        this.guestsNumb = guestsNumb;
+    }
+
+    public boolean isFamilyAllow() {
+        return familyAllow;
+    }
+
+    public void setFamilyAllow(boolean familyAllow) {
+        this.familyAllow = familyAllow;
+    }
+
+    public boolean isChildrenAllow() {
+        return childrenAllow;
+    }
+
+    public void setChildrenAllow(boolean childrenAllow) {
+        this.childrenAllow = childrenAllow;
+    }
+
+    public boolean isSmokingAllow() {
+        return smokingAllow;
+    }
+
+    public void setSmokingAllow(boolean smokingAllow) {
+        this.smokingAllow = smokingAllow;
+    }
+
+    public boolean isPetsAllow() {
+        return petsAllow;
+    }
+
+    public void setPetsAllow(boolean petsAllow) {
+        this.petsAllow = petsAllow;
     }
 }

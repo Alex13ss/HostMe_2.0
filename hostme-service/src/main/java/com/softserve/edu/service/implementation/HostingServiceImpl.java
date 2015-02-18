@@ -12,6 +12,7 @@ import com.softserve.edu.service.HostingService;
 import com.softserve.edu.service.ImageService;
 import com.softserve.edu.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,4 +104,8 @@ public class HostingServiceImpl implements HostingService {
 		imageService.deleteImagesForHosting(hosting);
 	}
 
+    @Override
+    public List<Hosting> searchHosting(Specifications<Hosting> specifications) {
+        return hostingRepository.findAll(specifications);
+    }
 }
