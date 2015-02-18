@@ -281,45 +281,24 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Long getGroupsPaging(Long size, String sender, User currentUser) {
         Long amount;
+        Long dataBaseSize;
         if ("all-groups".equals(sender)) {
-            Long dataBaseSize = groupRepository.count();
-            if (dataBaseSize % size == 0) {
-                amount = dataBaseSize / size;
-            } else {
-                amount = dataBaseSize / size + 1;
-            }
+            dataBaseSize = groupRepository.count();
         } else if ("pending-groups".equals(sender)) {
-            Long dataPendingSize = (long) groupRepository.findAllByStatus(
+            dataBaseSize = (long) groupRepository.findAllByStatus(
                     Status.PENDING).size();
-            if (dataPendingSize % size == 0l) {
-                amount = dataPendingSize / size;
-            } else {
-                amount = dataPendingSize / size + 1;
-            }
         } else if ("approved-groups".equals(sender)) {
-            Long dataApprovedSize = (long) groupRepository.findAllByStatus(
+            dataBaseSize = (long) groupRepository.findAllByStatus(
                     Status.APPROVED).size();
-            if (dataApprovedSize % size == 0l) {
-                amount = dataApprovedSize / size;
-            } else {
-                amount = dataApprovedSize / size + 1;
-            }
         } else if ("interesting-groups".equals(sender)) {
-            Long dataInterestingSize = (long) groupRepository
-                    .findAllByInterestedUsers(currentUser).size();
-            if (dataInterestingSize % size == 0l) {
-                amount = dataInterestingSize / size;
-            } else {
-                amount = dataInterestingSize / size + 1;
-            }
+            dataBaseSize = (long) groupRepository.findAllByInterestedUsers(
+                    currentUser).size();
         } else {
-            Long dataCreatorSize = groupRepository
-                    .countByCreatorUser(currentUser);
-            if (dataCreatorSize % size == 0) {
-                amount = dataCreatorSize / size;
-            } else {
-                amount = dataCreatorSize / size + 1;
-            }
+            dataBaseSize = groupRepository.countByCreatorUser(currentUser);
+        }
+        amount = dataBaseSize / size;
+        if (dataBaseSize % size > 0) {
+            amount++;
         }
         return amount;
     }
