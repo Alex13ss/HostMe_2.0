@@ -221,9 +221,9 @@ public class GroupServiceImpl implements GroupService {
     @Transactional
     public void updateGroupStatus(String status, Long id) {
         Status newStatus;
-        if ("APPROVED".equals(status)) {
+        if ("Approved".equalsIgnoreCase(status)) {
             newStatus = Status.APPROVED;
-        } else if ("Pending".equals(status)) {
+        } else if ("Pending".equalsIgnoreCase(status)) {
             newStatus = Status.PENDING;
         } else {
             newStatus = Status.REFUSED;
@@ -258,23 +258,23 @@ public class GroupServiceImpl implements GroupService {
         Long amount;
         Long dataBaseSize;
         switch (sender) {
-        case "all-groups":
-            dataBaseSize = groupRepository.count();
-            break;
-        case "pending-groups":
-            dataBaseSize = (long) groupRepository.findAllByStatus(
-                    Status.PENDING).size();
-            break;
-        case "approved-groups":
-            dataBaseSize = (long) groupRepository.findAllByStatus(
-                    Status.APPROVED).size();
-            break;
-        case "interesting-groups":
-            dataBaseSize = (long) groupRepository.findAllByInterestedUsers(
-                    currentUser).size();
-            break;
-        default:
-            dataBaseSize = groupRepository.countByCreatorUser(currentUser);
+            case "all-groups":
+                dataBaseSize = groupRepository.count();
+                break;
+            case "pending-groups":
+                dataBaseSize = (long) groupRepository.findAllByStatus(
+                        Status.PENDING).size();
+                break;
+            case "approved-groups":
+                dataBaseSize = (long) groupRepository.findAllByStatus(
+                        Status.APPROVED).size();
+                break;
+            case "interesting-groups":
+                dataBaseSize = (long) groupRepository.findAllByInterestedUsers(
+                        currentUser).size();
+                break;
+            default:
+                dataBaseSize = groupRepository.countByCreatorUser(currentUser);
         }
         amount = dataBaseSize / size;
         if (dataBaseSize % size > 0) {
