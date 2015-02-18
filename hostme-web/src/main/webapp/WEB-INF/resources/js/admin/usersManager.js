@@ -19,10 +19,23 @@ function allUsers(element) {
 
 	}
 }
+function banConfirm(e) {
+
+				$("#modalBan .banBtn").attr("href",
+						"banUser/"+e);
+			$("#modalBan").modal();
+}
+function resetConfirm(e) {
+
+	$("#modalReset .resetBtn").attr("href",
+			"resetPass/"+e);
+$("#modalReset").modal();
+}
 
 $(document)
 		.ready(
 				function() {
+					
 					table = $("table.table-bordered")
 							.dataTable(
 									{
@@ -70,8 +83,8 @@ $(document)
 																					$(
 																							'td:eq(2)',
 																							nRow)
-																							.html(
-																									response.role.role);
+																							.html(response.role.role.charAt(0).toUpperCase() 
+																									+ role.role.substr(1).toLowerCase());
 																				}
 																			});
 																});
@@ -138,20 +151,28 @@ $(document)
 												{
 													"mData" : function(data,
 															type, full) {
-														return data.role.role;
+														return data.role.role.charAt(0).toUpperCase() 
+														+ data.role.role.substr(1).toLowerCase();
 													}
-												},
-												{
-													"mData" : "userState"
 												},
 												{
 													"mData" : function(data,
 															type, full) {
-														return '<a href="banUser/'
+														return data.userState.charAt(0).toUpperCase() 
+														+ data.userState.substr(1).toLowerCase();
+													}
+												},
+												{
+													"mData" : function(data,
+															type, full) {
+														return '<a  href="banUser/'
 																+ data.userId
-																+ '" class="text-blue"/>'
+																+ '" class="triggerBan" onclick="event.preventDefault();banConfirm('
+																+ data.userId
+																+')"/>'
 																+ 'Ban/Dissban'
 																+ '</a>'
+																 
 													}
 												},
 												{
@@ -159,7 +180,9 @@ $(document)
 															type, full) {
 														return '<a href="resetPass/'
 																+ data.userId
-																+ '" class="text-blue"/>'
+																+ '" class="triggerReset" onclick="event.preventDefault();resetConfirm('
+																+ data.userId
+																+')"/>'
 																+ 'Reset'
 																+ '</a>'
 													}
@@ -170,6 +193,7 @@ $(document)
 
 												} ]
 									});
+
 					table
 							.on(
 									'draw',
@@ -184,4 +208,5 @@ $(document)
 													.hide();
 										}
 									});
+					
 				});

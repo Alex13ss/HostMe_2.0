@@ -16,7 +16,7 @@ public class UserDaoImpl extends AbstractGenericDao<User, Integer> implements
 	super(User.class);
     }
 
-    private final int USER = 1;
+    private final int USER = 3;
 
     @Override
     public User getUserByEmail(String email) {

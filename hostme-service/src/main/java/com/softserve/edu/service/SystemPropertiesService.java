@@ -23,4 +23,6 @@ public interface SystemPropertiesService extends Settings {
 	public void updateSystemProperties(SystemProperties systemproperties);
 
 	void saveSystemProperties(SystemProperties systemproperties);
+
+	String getPropetyByName(String prop);
 }

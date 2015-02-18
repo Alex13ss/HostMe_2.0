@@ -69,4 +69,27 @@ $(document)
 													.hide();
 										}
 									});
+					$(".groupForm").validate(
+							{
+								rules : {
+									propKey : {
+										required : true,
+										minlength : 3,
+										maxlength : 42
+									},
+									value: {
+										required : true,
+										minlength : 3,
+										maxlength : 255
+									}
+								},
+								highlight : function(element) {
+									$(element).closest('.form-group').removeClass(
+											'has-success').addClass('has-error');
+								},
+								unhighlight : function(element) {
+									$(element).closest('.form-group').removeClass(
+											'has-error').addClass('has-success');
+								}
+							});
 				});

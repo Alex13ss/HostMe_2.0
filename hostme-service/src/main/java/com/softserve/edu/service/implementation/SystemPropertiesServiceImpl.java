@@ -5,7 +5,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.softserve.edu.dao.SystemPropertiesDao;
-import com.softserve.edu.model.Event;
 import com.softserve.edu.model.SystemProperties;
 import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.service.SystemPropertiesService;
@@ -60,6 +59,12 @@ public class SystemPropertiesServiceImpl implements SystemPropertiesService {
 	@Transactional
 	public String getBaseUrl() {
 		return systemPropertiesDao.getPropeties(BASE_SEND_URL);
+	}
+	
+	@Override
+	@Transactional
+	public String getPropetyByName(String prop) {
+		return systemPropertiesDao.getPropeties(prop);
 	}
 
 	@Override

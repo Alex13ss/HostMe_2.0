@@ -5,7 +5,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
@@ -25,8 +24,23 @@
 	</section>
 
 	<section class="content">
+				<c:if test="${userBaned eq true}">
+				<div class="alert alert-warning" style="margin-right: 15px;"
+					align="center">
+					<h3>
+						<spring:message code="admin.banConf" />
+					</h3>
+				</div>
+			</c:if>
+			<c:if test="${passReset eq true}">
+				<div class="alert alert-warning" style="margin-right: 15px;"
+					align="center">
+					<h3>
+						<spring:message code="admin.resetConf" />
+					</h3>
+				</div>
+			</c:if>
 		<div class="box box-primary">
-
 			<!-- /.box-header -->
 			<ul class="nav nav-tabs">
 				<li id="all-users" class="active" onclick="allUsers(this)"><a
@@ -50,7 +64,66 @@
 				</table>
 
 			</div>
+			<div class="modal fade" id="modalBan" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								<spring:message code="admin.banMod" />
+							</h4>
+						</div>
+						<div class="modal-body">
+							<div class="callout callout-danger" id="alert" align="center">
+								<font size="5"><spring:message code="admin.banMsg" /></font>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<a href="" class="btn btn-primary banBtn"><spring:message
+									code="user.ban" /></a>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">
+								<spring:message code="label.cancel" />
+							</button>
+						</div>
+					</div>
+				</div> 
+			</div>
+			<div class="modal fade" id="modalReset" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								<spring:message code="admin.resetMod" />
+							</h4>
+						</div>
+						<div class="modal-body">
+							<div class="callout callout-danger" id="alert" align="center">
+								<font size="5"><spring:message code="admin.resetMsg" /></font>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<a href="" class="btn btn-primary resetBtn"><spring:message
+									code="admin.reset" /></a>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">
+								<spring:message code="label.cancel" />
+							</button>
+						</div>
+					</div>
+				</div> 
+			</div>
 		</div>
+
 	</section>
 </body>
 </html>

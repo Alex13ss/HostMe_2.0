@@ -7,4 +7,5 @@ public interface Settings {
 	public static final String EMAIL_PASS_SEND = "password";
 	public static final String EMAIL_LOGIN = "username";
 	public static final String BASE_SEND_URL = "url";
+	public static final String WEB_URL= "weburl";
 }

@@ -3,4 +3,5 @@ VALUES (1,'IMAGE_PATH', 'D:\htdocs\'),
 (2,'IMAGE_URL', 'http://localhost:8079'),
 (3,'username', 'hostmehost@gmail.com'),
 (4,'password', 'passwordhostme'),
-(5,'url', 'http://localhost:8080/hostme/registration-confirm?id=');
+(5,'url', 'http://localhost:8080/hostme/registration-confirm?id='),
+(5,'weburl', 'http://localhost:8080/hostme/login');

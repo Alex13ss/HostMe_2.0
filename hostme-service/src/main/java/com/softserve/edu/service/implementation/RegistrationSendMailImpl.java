@@ -1,9 +1,8 @@
 package com.softserve.edu.service.implementation;
 
-import java.util.Random;
-
 import com.softserve.edu.model.User;
 import com.softserve.edu.service.RegistrationSendMail;
+import com.softserve.edu.service.Settings;
 import com.softserve.edu.service.SystemPropertiesService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,21 +16,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Service
-public class RegistrationSendMailImpl implements RegistrationSendMail {
-    
-	
-	static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	static final int LEN = 6;
-	static Random rnd = new Random();
-
-	String randomString() 
-	{
-	   StringBuilder sb = new StringBuilder( LEN );
-	   for( int i = 0; i < LEN; i++ ) 
-	      sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
-	   return sb.toString();
-	}
-	
+public class RegistrationSendMailImpl implements RegistrationSendMail, Settings {
+ 	
     @Autowired
     SystemPropertiesService systemPropertiesService;
 
@@ -48,7 +34,7 @@ public class RegistrationSendMailImpl implements RegistrationSendMail {
 
     @Override
     public void sendWelcomeMail(User user) {
-        String url = systemPropertiesService.getBaseUrl();
+        String url = systemPropertiesService.getPropetyByName(BASE_SEND_URL);
         MimeMessage message = mailSender.createMimeMessage();
         try{
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -70,7 +56,7 @@ public class RegistrationSendMailImpl implements RegistrationSendMail {
     
     @Override
     public void sendNewPassMail(User user, String newpass) {
-        String url = "http://localhost:8080/hostme/login";
+        String url = systemPropertiesService.getPropetyByName(WEB_URL);
         MimeMessage message = mailSender.createMimeMessage();
         try{
             MimeMessageHelper helper = new MimeMessageHelper(message, true);

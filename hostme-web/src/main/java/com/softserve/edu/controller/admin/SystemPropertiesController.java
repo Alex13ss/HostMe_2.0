@@ -44,7 +44,7 @@ public class SystemPropertiesController {
 		systemPropertiesService.saveSystemProperties(systemproperty);
 		redirectAttributes.addAttribute("id", systemproperty.getPropertyId()).addFlashAttribute(
 				"systemPropertyEdited", true);
-		return "redirect:/systemproperty?id={id}";
+		return "redirect:/systemProperties";
 	}
 	
 	@RequestMapping(value = "/systemProperties", method = RequestMethod.POST)

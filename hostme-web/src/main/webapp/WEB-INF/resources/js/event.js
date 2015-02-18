@@ -125,7 +125,6 @@ jQuery()
 $(document)
     .ready(
         function() {
-
             console.log($("#eventsTypesNav li:first-child").attr("id"));
             $("#eventsTypesNav li:first-child").addClass("active");
             eventsType = $("#eventsTypesNav > li.active").attr("id");
@@ -285,23 +284,94 @@ $(document)
 
             });
 
+
             $("#eventsTableHeader > th").addClass(
                 "custom_sorting_enabled");
 
-            $("#eventsTableHeader > th").click(function() {
-                currentOrderBy = order.by;
-                order.by = $(this).attr("headers");
-                if (currentOrderBy == order.by) {
-                    if (order.type == "DESC") {
-                        order.type = "ASC";
-                    } else {
-                        order.type = "DESC";
-                    }
-                } else {
-                    order.type = "ASC";
-                }
-                showEvents();
-            });
+					$("#eventsTableHeader > th").click(function() {
+						currentOrderBy = order.by;
+						order.by = $(this).attr("headers");
+						if (currentOrderBy == order.by) {
+							if (order.type == "DESC") {
+								order.type = "ASC";
+							} else {
+								order.type = "DESC";
+							}
+						} else {
+							order.type = "ASC";
+						}
+						showEvents();
+					});
+					$(function() {
+					function validateDonotSelect(value, element, param) {
+												if (value == param) {
+													return false;
+												} else {
+													return true;
+												}
+											}
+											jQuery.validator.addMethod("do_not_select",
+													validateDonotSelect, "Please select an option");
+					$(".groupForm").validate(
+							{
+								rules : {
+									name : {
+										required : true,
+										minlength : 3,
+										maxlength : 42
+									},
+									address: {
+										required : true,
+										minlength : 3,
+										maxlength : 42
+									},
+									website : {
+										required : true,
+										minlength : 3,
+										maxlength : 42
+									},
+									description : {
+										required : true,
+										minlength : 3,
+										maxlength : 255
+									},
+									comment: {
+										required : true,
+										minlength : 3,
+										maxlength : 255
+									},
+									"priceCategory.priceCategory" : {
+																						do_not_select : '0'
+																					},
+																					"city.country.country" : {
+																						do_not_select : '0'
+																					},
+																					"city.city" : {
+																					do_not_select : '0'
+																					}
+								},
+								messages : {
+																			
+																				"priceCategory.priceCategory" : {
+																				do_not_select : "Please select a category"
+																				},
+																				"city.country.country" : {
+																					do_not_select : "Please select a country"
+																				},
+																				"city.city" : {
+																					do_not_select : "Please select a city"
+																				}
+																			},
+								highlight : function(element) {
+									$(element).closest('.form-group').removeClass(
+											'has-success').addClass('has-error');
+								},
+								unhighlight : function(element) {
+									$(element).closest('.form-group').removeClass(
+											'has-error').addClass('has-success');
+								}
+							});
+					});
 
         });
 jQuery()

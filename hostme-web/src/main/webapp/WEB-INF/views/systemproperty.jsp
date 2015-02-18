@@ -9,9 +9,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="<c:url value="/resources/js/jquery.dataTables.js"/>"></script>
-<script src="<c:url value="/resources/js/admin/usersManager.js"/>"></script>
+<script src="<c:url value="/resources/js/SystemProperties.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
 <script src="<c:url value="/resources/js/dataTables.bootstrap.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.validate.js"/>"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="admin.systemProperties" /></title>
 </head>
@@ -27,11 +28,11 @@
 
 			<div class="box-body" style="margin: auto">
 
-				<form:form method="post" modelAttribute="systemproperty" >
+				<form:form method="post" modelAttribute="systemproperty" cssClass="form-horizontal groupForm" >
 					<div class="row" style="margin-top: 1.5em; margin-bottom: 0.7em;">
 						<div class="form-group">
-							<label for="propKey" class="col-sm-3 control-label"
-								style="margin-top: 0.7em">${systemproperty.propKey}: </label>
+							<label for="propKey" class="col-sm-3 control-label" style=" text-align: center;"
+								>${systemproperty.propKey}: </label>
 							<div class="col-sm-9">
 								<form:input path="value" cssClass="form-control" />
 								<form:errors path="value" />

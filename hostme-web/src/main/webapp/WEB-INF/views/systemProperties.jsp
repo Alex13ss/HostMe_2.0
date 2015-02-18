@@ -12,6 +12,7 @@
 <script src="<c:url value="/resources/js/SystemProperties.js"/>"></script>
 <script src="<c:url value="/resources/js/fnAjaxReload.js"/>"></script>
 <script src="<c:url value="/resources/js/dataTables.bootstrap.js"/>"></script>
+<script src="<c:url value="/resources/js/jquery.validate.js"/>"></script>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/dataTables.bootstrap.css" />
 
@@ -25,6 +26,14 @@
 	</section>
 
 	<section class="content">
+	<c:if test="${systemPropertyEdited eq true}">
+				<div class="alert alert-warning" style="margin-right: 15px;"
+					align="center">
+					<h3>
+						<spring:message code="admin.propEdited" />
+					</h3>
+				</div>
+			</c:if>
 		<div class="box box-primary">
 			<div class="box-header">
 				<div style="margin-top: 10px;">

@@ -1,10 +1,10 @@
 package com.softserve.edu.controller.admin;
 
 import java.util.List;
-import java.util.Random;
 
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.UserState;
+import com.softserve.edu.service.RandomPass;
 import com.softserve.edu.service.RoleService;
 import com.softserve.edu.service.UserService;
 import com.softserve.edu.service.implementation.RegistrationSendMailImpl;
@@ -19,19 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class AdminController {
-	static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	static final int LEN = 6;
-	static Random rnd = new Random();
+public class AdminController implements RandomPass {
 
-	String randomString() {
-		StringBuilder sb = new StringBuilder(LEN);
-		for (int i = 0; i < LEN; i++)
-			sb.append(AB.charAt(rnd.nextInt(AB.length())));
-		return sb.toString();
-	}
 
 	@Autowired
 	UserService userService;
@@ -56,7 +48,7 @@ public class AdminController {
 	}
 
 	@RequestMapping("/banUser/{id}")
-	public String banUser(@PathVariable("id") Integer id) {
+	public String banUser(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
 		User user = userService.getUser(id);
 		UserState status = user.getUserState();
 		if(status==UserState.ACTIVE){
@@ -65,11 +57,13 @@ public class AdminController {
 		else status=UserState.ACTIVE;
 		user.setUserState(status);
 		userService.updateUser(user);
+		redirectAttributes.addFlashAttribute(
+                "userBaned", true);
 		return "redirect:/usersManager";
 	}
 
 	@RequestMapping(value = "/resetPass/{id}")
-	public String resetPass(@PathVariable("id") Integer id) {
+	public String resetPass(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
 		String newPass = randomString();
 		User user = userService.getUser(id);
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -81,6 +75,8 @@ public class AdminController {
 			}
 		});
 		mailSenderThread.start();
+		redirectAttributes.addFlashAttribute(
+                "passReset", true);
 		return "redirect:/usersManager";
 	}
 
