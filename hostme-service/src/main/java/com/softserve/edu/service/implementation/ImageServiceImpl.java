@@ -163,8 +163,10 @@ public class ImageServiceImpl implements ImageService {
     @Override
     @Transactional
     public void addImageToGroup(MultipartFile file, Group group) {
-        saveImage(file, buildPathGroup(group));
-        addGroupImg(file, group);
+        if (!file.getOriginalFilename().isEmpty()) {
+            saveImage(file, buildPathGroup(group));
+            addGroupImg(file, group);
+        }
     }
 
     private String buildPath(Sightseeing sightseeing) {
