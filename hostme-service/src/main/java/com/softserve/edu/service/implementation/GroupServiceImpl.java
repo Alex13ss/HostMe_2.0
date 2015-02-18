@@ -192,8 +192,8 @@ public class GroupServiceImpl implements GroupService {
     @PreAuthorize("hasRole('USER')")
     @Override
     @Transactional
-    public void unsubscribe(Integer userId, Long groupId) {
-        groupRepository.unsubscribe(userId, groupId);
+    public void unsubscribe(User user, Group group) {
+        groupRepository.unsubscribe(user.getUserId(), group.getId());
     }
 
     @Override

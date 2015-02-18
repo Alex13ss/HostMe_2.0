@@ -47,7 +47,7 @@
 								<spring:message code="label.subscribeGroup" /> </a>
 						</c:if>
 						<c:if test="${isInterested eq true}">
-							<a href="<spring:url value="/group/unsubscribe/${group.id}" />"
+							<a href="<spring:url value="/group/subscribe/${group.id}" />"
 								class="btn btn-default btn-sm"><i class="fa fa-fw fa-times"></i>
 								<spring:message code="label.unsubscribeGroup" /> </a>
 						</c:if>
@@ -148,7 +148,7 @@
 												accept="gif|jpg|png" data-maxfile="10000"
 												data-maxsize="50000" /> <br>
 											<button type="submit" class="btn btn-xs btn-primary">
-												<spring:message code="label.savePhotos" />
+												<spring:message code="label.saveGroupImage" />
 											</button>
 										</div>
 									</form:form>

@@ -40,7 +40,7 @@ public interface GroupService {
 
     void subscribe(User user, Group group);
 
-    void unsubscribe(Integer userId, Long groupId);
+    void unsubscribe(User user, Group group);
 
     boolean checkInterestedByGroupAndUser(Group group, User user);
 

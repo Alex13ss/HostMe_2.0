@@ -188,16 +188,12 @@ public class GroupController {
     public String subscribeGroup(@PathVariable("id") Long groupId,
             Principal principal) {
         Group group = groupService.findOne(groupId);
-        User user = profileService.getUserByLogin(principal.getName());
-        groupService.subscribe(user, group);
-        return GROUP_LINK;
-    }
-
-    @RequestMapping("/group/unsubscribe/{id}")
-    public String unsubscribeGroup(@PathVariable("id") Long groupId,
-            Principal principal) {
-        User user = profileService.getUserByLogin(principal.getName());
-        groupService.unsubscribe(user.getUserId(), groupId);
+        User user = profileService.getCurrentUser();
+        if (groupService.checkInterestedByGroupAndUser(group, user)) {
+            groupService.unsubscribe(user, group);
+        } else {
+            groupService.subscribe(user, group);
+        }
         return GROUP_LINK;
     }
 
