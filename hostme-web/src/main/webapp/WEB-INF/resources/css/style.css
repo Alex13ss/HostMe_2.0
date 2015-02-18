@@ -3940,3 +3940,7 @@ th.custom_sorting_enabled{
 .alertDelteWindowFont{
 	color:#CC0000;
 }
+#pageSize{
+	min-height:100% !important;
+	
+}

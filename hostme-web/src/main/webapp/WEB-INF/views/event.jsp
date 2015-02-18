@@ -8,7 +8,7 @@
 <%@taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
 <!DOCTYPE html>
-<html>
+<html >
 <head>
 <meta charset="UTF-8">
 <link href="resources/css/dataTables.bootstrap.css" rel="stylesheet"
@@ -25,6 +25,8 @@
 	rel="stylesheet">
 <link rel="stylesheet" type="text/css" media="all"
 	href="resources/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/oka_slider_model.css"/>" />
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/separateEventPageHandler.js"
@@ -35,10 +37,11 @@
 <script src='resources/js/moment.js'></script>
 <script type="text/javascript" src="resources/js/daterangepicker.js"></script>
 <script type="text/javascript" src="resources/js/rangeCalendar.js"></script>
+<script src="<c:url value="/resources/js/oka_slider_model.js"/>"></script>
 
 <title>Events</title>
 </head>
-<body class="skin-blue  pace-done" style="min-height: 1293px;">
+<body class="skin-blue  pace-done" >
 	<section class="content-header">
 		<h1>
 			<spring:message code="label.events" />
@@ -223,101 +226,94 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-12" style="margin-top: 10px;">
 
-							<div class="row col-md-12">
-								<div class="callout callout-danger">
-									<h4>
-										<spring:message code="label.description" />
-										:
-									</h4>
-									<p>${event.description}</p>
-									<h4>
-										<spring:message code="label.comment" />
-										:
-									</h4>
-									<p>${event.comment}</p>
-								</div>
-								<div class="callout callout-warning">
-									<h4>
-										<spring:message code="label.attendees" />
-										:
-									</h4>
-									<c:set var="leng" value="${fn:length(event.attendee)}" />
-									<c:forEach var="attendee" items="${event.attendee}"
-										varStatus="counter">
-										<c:out value="${attendee.firstName} ${attendee.lastName}"></c:out>
-										<c:if test="${counter.count lt leng}">
-											<c:out value=","></c:out>
-										</c:if>
-
-									</c:forEach>
-								</div>
-							</div>
-						</div>
 
 					</div>
 				</div>
 			</div>
-			<div class="box box-primary">
-				<div class="box-header">
-					<div class="col-md-12">
-
-						<div class="box-header">
-							<h3 class="box-title">
-								<b><spring:message code="label.photos" />
-							</h3>
+			<div class="col-md-6">
+				<div class="box box-solid">
+					<div class="box-header">
+						<h3 class="box-title">
+							<spring:message code="label.photos" />
+						</h3>
+					</div>
+					<!-- /.box-header -->
+					<div class="slider_model demo-8">
+						<div class="slider_model_box">
+							<c:forEach var="image" items="${event.image}">
+								<img src="${image_url}${image.link}" />
+							</c:forEach>
 						</div>
-						<!-- /.box-header -->
-						<div class="box-body">
-							<div class="row">
-								<c:forEach var="image" items="${event.image}">
-									<div class="col-lg-4 col-sm-6 col-xs-12">
-										<a href="${image_url}${image.link}"
-											class="thumbnail img-responsive"> <img
-											src="${image_url}${image.link}" />
-										</a>
-									</div>
-								</c:forEach>
-							</div>
-						</div>
-						<dl>
-							<dd>
-								<form:form method="post" action="addPhotosToEvent"
-									modelAttribute="event" enctype="multipart/form-data">
-									<input type="hidden" value="${event.id}" name="id" />
-									<div class="form-group">
-										<label for="exampleInputFile"> <security:authorize
-												access="hasRole('USER')">
-												<c:if test="${isCreator eq true}">
-													<div class="box-body">
-														<h4 class="box-title">
-															<spring:message code="label.addPhotos" />
-														</h4>
-														<h5>
-															(
-															<spring:message code="label.savePhotoHotKey" />
-															)
-														</h5></label> <br> <input type="file" name="file" class="multi"
-											multiple accept="gif|jpg|png" data-maxfile="10000"
-											data-maxsize="50000" /> <br>
-										<button type="submit" class="btn btn-primary">
-											<spring:message code="label.savePhotos" />
-										</button>
-										</c:if>
-										</security:authorize>
-
-									</div>
-								</form:form>
-							</dd>
-						</dl>
 					</div>
 					<!-- /.box-body -->
+				</div>
+				<div class="box box-solid">
+					<dl>
+						<dd>
+							<form:form method="post" action="addPhotosToEvent"
+								modelAttribute="event" enctype="multipart/form-data">
+								<input type="hidden" value="${event.id}" name="id" />
+								<security:authorize access="hasRole('USER')">
+									<c:if test="${isCreator eq true}">
+										<div class="form-group">
+											<label for="exampleInputFile">
+												<div class="box-body">
+													<h4 class="box-title">
+														<spring:message code="label.addPhotos" />
+													</h4>
+													<h5>
+														(
+														<spring:message code="label.savePhotoHotKey" />
+														)
+													</h5>
+											</label> <br> <input type="file" name="file" class="multi"
+												multiple accept="gif|jpg|png" data-maxfile="10000"
+												data-maxsize="50000" /> <br>
+											<button type="submit" class="btn btn-primary">
+												<spring:message code="label.savePhotos" />
+											</button>
+										</div>
+									</c:if>
+								</security:authorize>
+							</form:form>
+						</dd>
+					</dl>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="box box-info">
+					<div class="callout callout-danger">
+						<h4>
+							<spring:message code="label.description" />
+							:
+						</h4>
+						<p>${event.description}</p>
+						<h4>
+							<spring:message code="label.comment" />
+							:
+						</h4>
+						<p>${event.comment}</p>
+					</div>
+					<div class="callout callout-warning">
+						<h4>
+							<spring:message code="label.attendees" />
+							:
+						</h4>
+						<c:set var="leng" value="${fn:length(event.attendee)}" />
+						<c:forEach var="attendee" items="${event.attendee}"
+							varStatus="counter">
+							<c:out value="${attendee.firstName} ${attendee.lastName}"></c:out>
+							<c:if test="${counter.count lt leng}">
+								<c:out value=","></c:out>
+							</c:if>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
 	<form:form modelAttribute="event" method="post"
 		cssClass="form-horizontal groupForm">
 		<!-- Modal -->
@@ -352,8 +348,8 @@
 
 							<form class="form-horizontal">
 								<div class="col-sm-10" style="margin-left: auto">
-									<input type="text"  value=${event.startDate}/${event.endDate}  name="reservation" id="reservation"
-										class="form-control" />
+									<input type="text" value=${event.startDate}/${event.endDate}
+										name="reservation" id="reservation" class="form-control" />
 								</div>
 							</form>
 

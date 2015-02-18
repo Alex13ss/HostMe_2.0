@@ -24,6 +24,14 @@ $(document).ready(function() {
         });
 
     });
+    $(function(i){
+		$('.demo-8').oka_slider_model({ 
+			'type': 7,
+			'animateSpeed':300,
+			'speed': 5000
+		});
+	});
+	
 
     $(".triggerRemove").click(
         function(e) {
