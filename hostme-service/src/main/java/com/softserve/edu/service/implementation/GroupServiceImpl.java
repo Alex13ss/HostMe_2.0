@@ -60,15 +60,8 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupDto> findAll(Integer page, Integer size, String orderBy,
             String orderType) {
         List<GroupDto> list = new ArrayList<GroupDto>();
-        PageRequest pageRequsetObj;
-        if ("ASC".equals(orderType)) {
-            pageRequsetObj = new PageRequest(page - 1, size,
-                    Sort.Direction.ASC, orderBy);
-        } else {
-            pageRequsetObj = new PageRequest(page - 1, size,
-                    Sort.Direction.DESC, orderBy);
-        }
-        for (Group group : groupRepository.findAll(pageRequsetObj)) {
+        for (Group group : groupRepository.findAll(getPageRequsetObj(page,
+                size, orderBy, orderType))) {
             list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
@@ -78,17 +71,9 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupDto> findPendingGroups(Integer page, Integer size,
             String orderBy, String orderType) {
         List<GroupDto> list = new ArrayList<GroupDto>();
-        PageRequest pageRequsetObj;
-        if ("ASC".equals(orderType)) {
-            pageRequsetObj = new PageRequest(page - 1, size,
-                    Sort.Direction.ASC, orderBy);
-        } else {
-            pageRequsetObj = new PageRequest(page - 1, size,
-                    Sort.Direction.DESC, orderBy);
-        }
         Status status = Status.PENDING;
         for (Group group : groupRepository.findAllByStatus(status,
-                pageRequsetObj)) {
+                getPageRequsetObj(page, size, orderBy, orderType))) {
             list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
@@ -98,17 +83,9 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupDto> findApprovedGroups(Integer page, Integer size,
             String orderBy, String orderType) {
         List<GroupDto> list = new ArrayList<GroupDto>();
-        PageRequest pageRequsetObj;
-        if ("ASC".equals(orderType)) {
-            pageRequsetObj = new PageRequest(page - 1, size,
-                    Sort.Direction.ASC, orderBy);
-        } else {
-            pageRequsetObj = new PageRequest(page - 1, size,
-                    Sort.Direction.DESC, orderBy);
-        }
         Status status = Status.APPROVED;
         for (Group group : groupRepository.findAllByStatus(status,
-                pageRequsetObj)) {
+                getPageRequsetObj(page, size, orderBy, orderType))) {
             list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
@@ -119,16 +96,8 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupDto> getGroupsByCreator(User creatorUser, Integer page,
             Integer size, String orderBy, String orderType) {
         List<GroupDto> list = new ArrayList<GroupDto>();
-        PageRequest pageRequsetObj;
-        if ("ASC".equals(orderType)) {
-            pageRequsetObj = new PageRequest(page - 1, size,
-                    Sort.Direction.ASC, orderBy);
-        } else {
-            pageRequsetObj = new PageRequest(page - 1, size,
-                    Sort.Direction.DESC, orderBy);
-        }
         for (Group group : groupRepository.findAllByCreatorUser(creatorUser,
-                pageRequsetObj)) {
+                getPageRequsetObj(page, size, orderBy, orderType))) {
             list.add(new GroupDto(group, getPropImgUrl()));
         }
         return list;
@@ -139,6 +108,16 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupDto> getGroupsByInterestedUser(User interestedUser,
             Integer page, Integer size, String orderBy, String orderType) {
         List<GroupDto> list = new ArrayList<GroupDto>();
+        for (Group group : groupRepository.findAllByInterestedUsers(
+                interestedUser,
+                getPageRequsetObj(page, size, orderBy, orderType))) {
+            list.add(new GroupDto(group, getPropImgUrl()));
+        }
+        return list;
+    }
+
+    private PageRequest getPageRequsetObj(Integer page, Integer size,
+            String orderBy, String orderType) {
         PageRequest pageRequsetObj;
         if ("ASC".equals(orderType)) {
             pageRequsetObj = new PageRequest(page - 1, size,
@@ -147,11 +126,7 @@ public class GroupServiceImpl implements GroupService {
             pageRequsetObj = new PageRequest(page - 1, size,
                     Sort.Direction.DESC, orderBy);
         }
-        for (Group group : groupRepository.findAllByInterestedUsers(
-                interestedUser, pageRequsetObj)) {
-            list.add(new GroupDto(group, getPropImgUrl()));
-        }
-        return list;
+        return pageRequsetObj;
     }
 
     @Override
@@ -282,18 +257,23 @@ public class GroupServiceImpl implements GroupService {
     public Long getGroupsPaging(Long size, String sender, User currentUser) {
         Long amount;
         Long dataBaseSize;
-        if ("all-groups".equals(sender)) {
+        switch (sender) {
+        case "all-groups":
             dataBaseSize = groupRepository.count();
-        } else if ("pending-groups".equals(sender)) {
+            break;
+        case "pending-groups":
             dataBaseSize = (long) groupRepository.findAllByStatus(
                     Status.PENDING).size();
-        } else if ("approved-groups".equals(sender)) {
+            break;
+        case "approved-groups":
             dataBaseSize = (long) groupRepository.findAllByStatus(
                     Status.APPROVED).size();
-        } else if ("interesting-groups".equals(sender)) {
+            break;
+        case "interesting-groups":
             dataBaseSize = (long) groupRepository.findAllByInterestedUsers(
                     currentUser).size();
-        } else {
+            break;
+        default:
             dataBaseSize = groupRepository.countByCreatorUser(currentUser);
         }
         amount = dataBaseSize / size;
