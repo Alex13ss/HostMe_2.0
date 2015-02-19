@@ -193,6 +193,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Place> bookedPlaces;
     
+    @JsonIgnore
     @OneToMany
     private Set<Route> likedRoutes;
     

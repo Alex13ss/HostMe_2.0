@@ -13,8 +13,7 @@
 <link rel='stylesheet' href='resources/css/fullcalendar.min.css' />
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap.css"
 	type="text/css" />
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
+
 <link rel="stylesheet" type="text/css" media="all"
 	href="resources/css/daterangepicker-bs3.css" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -22,6 +21,8 @@
 <link
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
 	rel="stylesheet">
+	<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
 
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/event.js" type="text/javascript"></script>
@@ -140,7 +141,7 @@
 										code="label.eventName" />
 								</label>
 								<div class="col-sm-10">
-									<form:input path="name" id="Tfields" cssClass="form-control" />
+									<form:input path="name" cssClass="form-control" />
 								</div>
 							</div>
 
@@ -151,7 +152,7 @@
 
 								<form class="form-horizontal">
 									<div class="col-sm-10" style="margin-left: auto">
-										<input type="text" name="reservation" readonly id="reservation" style="cursor:pointer;background-color:white;border-color:black"
+										<input type="text" name="reservation" readonly id="reservation" style="cursor:pointer;background-color:white;"
 											class="form-control" />
 									</div>
 								</form>
@@ -188,7 +189,7 @@
 										<option value="0"><spring:message
 												code="label.countrySelect" /></option>
 										<c:forEach items="${countries}" var="country">
-											<option  id="Tfields" value="${country.country}">${country.country}</option>
+											<option  value="${country.country}">${country.country}</option>
 										</c:forEach>
 									</form:select>
 								</div>
@@ -200,7 +201,7 @@
 								</form:label>
 								<div class="col-sm-10">
 									<form:select id="city" class="drop-menu" path="city.city">
-										<option id="Tfields" value="0"><spring:message
+										<option value="0"><spring:message
 												code="label.citySelect" /></option>
 
 									</form:select>
@@ -211,7 +212,7 @@
 										code="label.address" />
 								</label>
 								<div class="col-sm-10">
-									<form:input id="Tfields" path="address" cssClass="form-control" />
+									<form:input path="address" cssClass="form-control" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -219,7 +220,7 @@
 										code="label.website" />
 								</label>
 								<div class="col-sm-10">
-									<form:input id="Tfields" path="website" cssClass="form-control" />
+									<form:input path="website" cssClass="form-control" />
 								</div>
 							</div>
 
@@ -227,14 +228,14 @@
 								<label for="description" class="col-sm-2 control-label"><spring:message
 										code="label.eventDescription" /> </label>
 								<div class="col-sm-10">
-									<form:input id="Tfields" path="description" cssClass="form-control" />
+									<form:input path="description" cssClass="form-control" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="comment" class="col-sm-2 control-label"><spring:message
 										code="label.comment" /> </label>
 								<div class="col-sm-10">
-									<form:input id="Tfields" path="comment" cssClass="form-control" />
+									<form:input path="comment" cssClass="form-control" />
 								</div>
 							</div>
 
@@ -248,7 +249,7 @@
 										<option value="0"><spring:message
 												code="label.priceCategorySelect" /></option>
 										<c:forEach items="${priceCategories}" var="priceCategory">
-											<option id="Tfields" value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
+											<option value="${priceCategory.priceCategory}">${priceCategory.priceCategory}</option>
 										</c:forEach>
 									</form:select>
 								</div>
