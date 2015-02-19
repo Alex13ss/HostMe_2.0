@@ -111,7 +111,6 @@ public class HostingController {
 		model.addAttribute("nonAvailableDatesJson", nonAvailableDatesJson);
 
 		// model.addAttribute("disabledDate",hostingService.getNonAvailableDates(hostingId));
-		System.out.println(hostingId);
 
 		return "hosting";
 	}
