@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +42,8 @@ public class GroupController {
 
     private static final String GROUP_LINK = "redirect:/group?id={id}";
 
+    private static final String ALL_GROUPS_LINK = "redirect:/groups";
+
     @Autowired
     private GroupService groupService;
 
@@ -63,18 +64,27 @@ public class GroupController {
         return new Group();
     }
 
+    /**
+     * Creates new Group
+     * 
+     * @param model                 Model of Group
+     * @param group                 Group object
+     * @param result                result with errors (if has)
+     * @param redirectAttributes    addition of params
+     * 
+     * @return redirect link on created Group
+     */
     @RequestMapping(value = "/groups", method = RequestMethod.POST)
     public String doAddGroup(Model model,
             @ModelAttribute("group") @Valid final Group group,
-            final BindingResult result, RedirectAttributes redirectAttributes,
-            HttpSession httpSession) {
+            final BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.group",
                     result);
             redirectAttributes.addFlashAttribute("group", group);
             redirectAttributes.addFlashAttribute("groupNotCreated", true);
-            return "redirect:/groups";
+            return ALL_GROUPS_LINK;
         }
         groupService.create(group);
         redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
@@ -95,7 +105,7 @@ public class GroupController {
     public String removeGroup(@PathVariable Long id) {
         Group group = groupService.findOne(id);
         groupService.delete(group);
-        return "redirect:/groups";
+        return ALL_GROUPS_LINK;
     }
 
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
