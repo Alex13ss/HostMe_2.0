@@ -59,10 +59,4 @@ public class RouteController {
         }
         else return "redirect:/error";
     }
-    
-    @RequestMapping(value = "/likeRoute", method = RequestMethod.PUT)
-    @ResponseBody
-    public boolean likeRoute(@RequestBody String routeId) {
-        return routesService.likeRoute(Integer.valueOf(routeId));
-    }
 }

@@ -10,6 +10,7 @@ public class RouteDto {
     private String name;
     private String description;
     private String distance;
+    private String rating;
     private String originId;
     private String destinationId;
     private final int MAX_WAYPOINTS = 8;
@@ -25,6 +26,8 @@ public class RouteDto {
         Iterator<Place> places = route.getPlaces().iterator();
         originId = String.valueOf(places.next().getId());
         destinationId = String.valueOf(places.next().getId());
+        distance = String.valueOf(route.getDistance());
+        rating = String.valueOf(route.getRating());
         int count = 0;
         while (places.hasNext()) {
             waypointsId[count] = String.valueOf(places.next().getId());
@@ -62,6 +65,14 @@ public class RouteDto {
 
     public void setDistance(String distance) {
         this.distance = distance;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public String getOriginId() {

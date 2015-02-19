@@ -14,7 +14,11 @@ public class HostingDto {
     private String firstAndLastName;
     private Integer hostingId;
     private Integer userId;
-
+    private boolean family;
+    private boolean children;
+    private boolean pets;
+    private boolean smoking;
+    
     public HostingDto(final Hosting hosting) {
         country = hosting.getCountry();
         region = hosting.getRegion();
@@ -22,9 +26,13 @@ public class HostingDto {
         address = hosting.getAddress();
         firstAndLastName = hosting.getOwner().getFirstName() + " " + hosting.getOwner().getLastName();
         hostingId = hosting.getHostingId();
-        link = "/hosting?hostingId=" + hostingId;
+        link = "hosting?hostingId=" + hostingId;
         name = address;
         userId = hosting.getOwner().getUserId();
+        family = hosting.getFamily();
+        children = hosting.getChildren();
+        pets = hosting.getPets();
+        smoking = hosting.getSmoking();
     }
 
     public HostingDto(final Hosting hosting, final User user) {
@@ -107,5 +115,37 @@ public class HostingDto {
 
     public void setFirstAndLastName(String firstAndLastName) {
         this.firstAndLastName = firstAndLastName;
+    }
+
+    public boolean isFamily() {
+        return family;
+    }
+
+    public void setFamily(boolean family) {
+        this.family = family;
+    }
+
+    public boolean isChildren() {
+        return children;
+    }
+
+    public void setChildren(boolean children) {
+        this.children = children;
+    }
+
+    public boolean isPets() {
+        return pets;
+    }
+
+    public void setPets(boolean pets) {
+        this.pets = pets;
+    }
+
+    public boolean isSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(boolean smoking) {
+        this.smoking = smoking;
     }
 }

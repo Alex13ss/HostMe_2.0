@@ -256,8 +256,7 @@ function inputLength(input) {
 function detectSearchDataType(data) {
     if ($searchType.val() == "HOSTING") {
         fillHostingData(data);
-    }
-    if ($searchType.val() == "USER") {
+    }else if ($searchType.val() == "USER") {
         fillUserData(data)
     } else if ($searchType.val() == "ROUTE") {
         fillRouteData(data)
@@ -271,7 +270,42 @@ function detectSearchDataType(data) {
 
 function fillHostingData(data) {
     for (var i = 0; i < data.length; i++) {
-        alert(data[i]);
+        $searchResult.append("<div class='placeResult col-md-5'>");
+        if (data[i].imgLink != undefined) {
+            $searchResult.children().last().append("<img class='placeResultImg' src='"
+            + data[i].imgLink + "'>");
+        } else {
+            $searchResult.children().last().append(
+                "<img class='placeResultImg' src='resources/images/imgNotFound.jpg'>");
+        }
+        $searchResult.children().last().append("<div class='placeResultBox'>");
+        $searchResult.children().last().find(".placeResultBox").append("<div class='col-md-9 name'>"
+        + "<a href = "+ data[i].link + ">"
+            + data[i].name
+        + "</a>" + "</div>");
+        $searchResult.children().last().find(".placeResultBox").append("<div class='col-md-3 icons'>");
+        if (data[i].family) {
+            $searchResult.children().last().find(".icons").append("<i class='fa fa-group'/> ");
+        }
+        if (data[i].children) {
+            $searchResult.children().last().find(".icons").append("<i class='fa fa-meh-o'/> ");
+        }
+        if (data[i].pets) {
+            $searchResult.children().last().find(".icons").append("<i class='fa fa-paw'/> ");
+        }
+        if (data[i].smoking) {
+            $searchResult.children().last().find(".icons").append("<i class='fa fa-cloud'/> ");
+        }
+        $searchResult.children().last().append("</div>");
+        if (data[i].address != null) {
+            $searchResult.children().last().find(".placeResultBox").append("<div class='col-md-12'>"
+            + data[i].city + ", " + data[i].address
+            +"</div>");
+        }
+        
+        $searchResult.children().last().append("</div>");
+        $searchResult.children().last().append("</div>");
+        $("#searchResult").children().last().find(".bookPlace").data("placeId", data[i].id);
     }
 }
 
@@ -329,10 +363,15 @@ function fillPlaceData(data) {
 
 function fillGroupData(data) {
     for (var i = 0; i < data.length; i++) {
-        $searchResult.append("<div class='groupResult'>" +
-        "<a href = group?id=" + data[i].id+'>'
-            + data[i].groupName + "</a>"
-        + "</div>");
+        $searchResult.append("<div class='groupResult'>");
+        $searchResult.children().last().append("<img style='height: 100%' src='"
+        + data[i].imgLink + "'>");
+        //$searchResult.append("<div class='groupResult'>");
+        //$searchResult.children().last().find(".groupResult").append("<img class='placeResultImg' src='"
+        //+ data[i].imgLink + "'>");
+        //$searchResult.children().last().find(".groupResult").append("<a href = group?id=" + data[i].id+'>'
+        //    + data[i].groupName + "</a>");
+        $searchResult.children().last().append("</div>");
     }
 }
 
@@ -347,9 +386,14 @@ function fillUserData(data) {
 
 function fillRouteData(data) {
     for (var i = 0; i < data.length; i++) {
-        $searchResult.append("<div class='routeResult'>");
-        $searchResult.children().last().append('<a href =route?routeId='+ data[i].id + '>'
-            + data[i].name + "</a>");
+        $searchResult.append("<div class='col-md-4 routeResult'>");
+        $searchResult.children().last().append('<a  href =route?routeId='+ data[i].id + '>'
+            + data[i].name
+        + "</a>"
+        + '  <i class="fa fa-truck"/>'
+        + "   " + data[i].distance/1000 + " m"
+        + "   <i class='fa fa-thumbs-o-up'>"
+        + data[i].rating);
         $searchResult.append("</div>");
     }
 }

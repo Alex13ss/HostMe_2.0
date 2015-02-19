@@ -64,12 +64,6 @@
 					</li>
 				</security:authorize>
 
-				<security:authorize access="hasRole('USER')">
-					<li><a href='<c:url value="search"/>'
-						style="margin-left: 10px;"><i class="fa fa-search"></i> <spring:message
-								code="label.searchhosts" /></a></li>
-				</security:authorize>
-
 				<security:authorize access="hasRole('ADMIN')">
 					<li>
 						<a href='<c:url value="/usersManager"/>' style="margin-left: 10px;">

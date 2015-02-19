@@ -1,7 +1,20 @@
-.routeResult {height: 3%; margin: 0.3%; background-color: bisque}
+.routeResult {
+    padding-top: 1%;
+    height: 5%;
+    font-size: 1.5rem;
+    background: #ffffff;
+    padding-left: 1%;
+    margin-bottom: 3%;
+    border-top: 2px solid #3c8dbc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 .placeResult {
     padding-top: 1%;
-    height: 30%;
+    height: 35%;
     font-size: 1.5rem;
     background: #ffffff;
     margin-bottom: 3%;
@@ -12,6 +25,7 @@
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
 .placeResultBox {
     position:absolute;
     bottom: 0;
@@ -38,9 +52,22 @@
     height: 60%;
     width: 100%;
 }
-.groupResult {
 
+.groupResult {
+    height: 10%;
+    width: 100%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    font-size: 1.5rem;
+    background: #ffffff;
+    margin-bottom: 3%;
+    border-top: 2px solid #3c8dbc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
 .userResult {height: 3%; margin: 0.3%;}
 .bookPlace {width: 100%;}
 .miniInfo {width: 10%}
