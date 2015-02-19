@@ -1,10 +1,12 @@
 package com.softserve.edu.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,7 +60,7 @@ public class Hosting {
 	private User owner;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "hosting", orphanRemoval = true)
+	@OneToMany(mappedBy = "hosting", orphanRemoval = true, fetch= FetchType.EAGER)
 	@Cascade({ CascadeType.DELETE, CascadeType.PERSIST, CascadeType.SAVE_UPDATE })
 	private Set<Image> images = new HashSet<Image>();
 
