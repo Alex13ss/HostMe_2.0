@@ -69,6 +69,9 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return sightseeingRepository.findAll(specifications);
 	}
 
+	/**
+	 * method all sightseeings for moderator
+	 */
 	@Override
 	public List<SightseeingDto> getAllSightseeings(Integer page, Integer size,
 			String orderBy, String orderType) {
@@ -81,6 +84,9 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return list;
 	}
 
+	/**
+	 * method favourite sightseeings which user liked
+	 */
 	public List<SightseeingDto> getFavouriteSightseeings(User liker,
 			Integer page, Integer size, String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
@@ -93,6 +99,9 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return list;
 	}
 
+	/**
+	 * method sightseeings that were created by the user
+	 */
 	@Override
 	public List<SightseeingDto> getSightseeingByOwner(Integer page,
 			Integer size, String orderBy, String orderType) {
@@ -122,6 +131,10 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return sightseeingRepository.findOne(id);
 	}
 
+	/**
+	 * delete sightseeing, route that related with this sightseeing and from
+	 * other interim tables
+	 */
 	@Override
 	@PreAuthorize("#sightseeing.owner.login == authentication.name or hasRole('MODERATOR')")
 	public void deleteSightseeing(Sightseeing sightseeing) {
@@ -134,6 +147,10 @@ public class SightseeingServiceImpl implements SightseeingService {
 		sightseeingRepository.delete(sightseeing);
 	}
 
+	/**
+	 * save sightseeing, checks price category and city in database to not
+	 * duplicated when creating sightseeing
+	 */
 	@Override
 	public void saveSightseeing(Sightseeing sightseeing, String priceCategory,
 			String city) {
@@ -147,6 +164,10 @@ public class SightseeingServiceImpl implements SightseeingService {
 		sightseeingRepository.save(sightseeing);
 	}
 
+	/**
+	 * update sightseeing, checks price category and city in database to not
+	 * duplicated when editing sightseeing
+	 */
 	@Override
 	public void updateSightseeing(Sightseeing sightseeing,
 			String priceCategory, String city) {
@@ -160,6 +181,9 @@ public class SightseeingServiceImpl implements SightseeingService {
 		sightseeingRepository.save(sightseeing);
 	}
 
+	/**
+	 * method for liking sightseeing
+	 */
 	@Override
 	public void saveLikerforSightseing(User user, Sightseeing sightseeing) {
 		Set<User> likers = userRepository.findByFavouriveSights(sightseeing);
@@ -173,20 +197,32 @@ public class SightseeingServiceImpl implements SightseeingService {
 		sightseeingRepository.save(sightseeing);
 	}
 
+	/**
+	 * method for checking is sightseeing is liked or not liked
+	 */
 	@Override
 	public boolean favouriteCheck(Sightseeing sightseeing, User liker) {
 		Set<User> likers = userRepository.findByFavouriveSights(sightseeing);
 		return likers.contains(liker);
 	}
 
+	/**
+	 * method for unliking sightseeing
+	 */
 	public void unlikeSightseeing(Integer id, User liker) {
 		sightseeingRepository.unlike(id, liker.getUserId());
 	}
 
+	/**
+	 * method return current sightseeing rating
+	 */
 	public Integer getCurrentRating(Integer id) {
 		return sightseeingRepository.getRating(id);
 	}
 
+	/**
+	 * Counts amount of pages
+	 */
 	public Long getSightseeingsPaging(Long size, String sender, User currentUser) {
 		Long amount;
 		if ("all-sightseeings".equals(sender)) {
@@ -216,6 +252,15 @@ public class SightseeingServiceImpl implements SightseeingService {
 		return amount;
 	}
 
+	/**
+	 * form PageRequest according to orderBy value
+	 * 
+	 * @param page
+	 * @param size
+	 * @param orderBy
+	 * @param orderType
+	 * @return
+	 */
 	public PageRequest getPageRequest(Integer page, Integer size,
 			String orderBy, String orderType) {
 		if (orderType.equals("ASC")) {

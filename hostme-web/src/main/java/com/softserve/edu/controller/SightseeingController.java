@@ -53,16 +53,21 @@ public class SightseeingController {
 	private ImageService imageService;
 	@Autowired
 	private PostService postService;
-	
+
 	public static final String REDIRECT_SIGHTSEEING_ID_VALUE = "redirect:/sightseeing?id={id}";
 	public static final String REDIRECT_SIGHTSEEINGS = "redirect:/sightseeings";
-	
+
 	@RequestMapping(value = "/sightseeings", method = RequestMethod.GET)
 	public String showSightseeings(Model model) {
 		model.addAttribute("sightseeing", new Sightseeing());
 		return "sightseeings";
 	}
 
+	/**
+	 * method return JSON of price categories from database to UI
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/getPriceCategories", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<PriceCategory> getAllPriceCategories() {
 		List<PriceCategory> priceCategories = priceCategoryService
@@ -70,12 +75,22 @@ public class SightseeingController {
 		return priceCategories;
 	}
 
+	/**
+	 * method return JSON of countries and relevant cities from database to UI
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/getAllCountries", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<Country> getAllCountries() {
 		List<Country> countries = countryService.getAllCountry();
 		return countries;
 	}
 
+	/**
+	 * method return JSON of sightseeing types to UI
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/getAllTypes", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody SightseeingType[] getAllTypes() {
 		SightseeingType[] types = SightseeingType.values();
@@ -92,6 +107,16 @@ public class SightseeingController {
 		return REDIRECT_SIGHTSEEINGS;
 	}
 
+	/**
+	 * Returns JSON with all sightseeings for moderator with fixed according to
+	 * pagination size
+	 * 
+	 * @param page
+	 * @param size
+	 * @param orderBy
+	 * @param orderType
+	 * @return
+	 */
 	@RequestMapping(value = "/all-sightseeings", params = { "page", "size",
 			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<SightseeingDto> getAllSightseeings(
@@ -104,6 +129,15 @@ public class SightseeingController {
 		return sightseeings;
 	}
 
+	/**
+	 * Returns JSON with sightseeings which user liked
+	 * 
+	 * @param page
+	 * @param size
+	 * @param orderBy
+	 * @param orderType
+	 * @return
+	 */
 	@RequestMapping(value = "/favourite-sightseeings", params = { "page",
 			"size", "orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<SightseeingDto> getFavouriteSightseeings(
@@ -117,6 +151,15 @@ public class SightseeingController {
 				orderBy, orderType);
 	}
 
+	/**
+	 * Returns sightseeings created by user
+	 * 
+	 * @param page
+	 * @param size
+	 * @param orderBy
+	 * @param orderType
+	 * @return
+	 */
 	@RequestMapping(value = "/my-sightseeings", params = { "page", "size",
 			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<SightseeingDto> getMySightseeings(
@@ -129,6 +172,13 @@ public class SightseeingController {
 		return sightseeings;
 	}
 
+	/**
+	 * Method for obtaining number of pages with fixed size of page
+	 * 
+	 * @param size
+	 * @param sender
+	 * @return
+	 */
 	@RequestMapping(value = "/pagingSightseeings", params = { "size", "sender" }, method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Long getPaging(
 			@RequestParam(value = "size") Long size,
@@ -138,6 +188,13 @@ public class SightseeingController {
 				currentUser);
 	}
 
+	/**
+	 * Show single sightseeing page
+	 * 
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/sightseeing", method = RequestMethod.GET)
 	public String showSightseeing(@RequestParam("id") int id, Model model) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
@@ -169,8 +226,7 @@ public class SightseeingController {
 				.getPriceCategory();
 		String city = sightseeing.getCity().getCity();
 		sightseeingService.updateSightseeing(sightseeing, priceCategory, city);
-		redirectAttributes.addAttribute("id", sightseeing.getId())
-				.addFlashAttribute("sightseeingEdited", true);
+		redirectAttributes.addAttribute("id", sightseeing.getId());
 		return REDIRECT_SIGHTSEEING_ID_VALUE;
 	}
 
@@ -178,18 +234,30 @@ public class SightseeingController {
 	public String addPhotoToSight(@RequestParam("file") MultipartFile[] files,
 			@ModelAttribute("sightseeing") final Sightseeing sightseeing,
 			RedirectAttributes redirectAttributes) {
-		redirectAttributes.addAttribute("id", sightseeing.getId())
-				.addFlashAttribute("sightseeingEdited", true);
+		redirectAttributes.addAttribute("id", sightseeing.getId());
 		imageService.addImagesToSightseeing(files, sightseeing);
 		return REDIRECT_SIGHTSEEING_ID_VALUE;
 	}
 
+	/**
+	 * Searches all the comments in sightseeing
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/findComments.json", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<PostDto> findPostsJson(
 			@RequestParam(value = "placeId") Integer id) {
 		return postService.findByPlaceId(id);
 	}
 
+	/**
+	 * creates new comment for sightseeing
+	 * 
+	 * @param id
+	 * @param message
+	 * @return
+	 */
 	@RequestMapping(value = "/sendComment", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody List<PostDto> sendPost(
 			@RequestParam(value = "placeId") Integer id,
@@ -203,6 +271,12 @@ public class SightseeingController {
 		return findPostsJson(id);
 	}
 
+	/**
+	 * Updates status of sightseeing
+	 * 
+	 * @param sightseeing
+	 * @return
+	 */
 	@RequestMapping(value = "/sightseeing-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Sightseeing updateSightseeingStatus(
 			@RequestBody Sightseeing sightseeing) {
@@ -211,7 +285,8 @@ public class SightseeingController {
 		Sightseeing newSightseeing = sightseeingService.findOne(sightseeing
 				.getId());
 		String city = newSightseeing.getCity().getCity();
-		newSightseeing.setStatus(Status.valueOf(sightseeing.getStatus().toString().toUpperCase()));
+		newSightseeing.setStatus(Status.valueOf(sightseeing.getStatus()
+				.toString().toUpperCase()));
 		sightseeingService.updateSightseeing(newSightseeing, priceCategory,
 				city);
 		return sightseeing;
@@ -224,6 +299,12 @@ public class SightseeingController {
 		return REDIRECT_SIGHTSEEINGS;
 	}
 
+	/**
+	 * Used for like/unlike sightseeing
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/like/{id}")
 	public String rateSightseeing(@PathVariable("id") Integer id) {
 		Sightseeing sightseeing = sightseeingService.findOne(id);
