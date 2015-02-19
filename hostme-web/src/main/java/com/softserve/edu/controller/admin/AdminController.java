@@ -54,12 +54,18 @@ public class AdminController implements RandomPass {
 		UserState status = user.getUserState();
 		if(status==UserState.ACTIVE){
 			status=UserState.INACTIVE;
+			redirectAttributes.addFlashAttribute(
+	                "userBaned", true);
 		}
-		else status=UserState.ACTIVE;
+		else {
+			status=UserState.ACTIVE;
+			redirectAttributes.addFlashAttribute(
+	                "userUnBaned", true);
+		}
+		
 		user.setUserState(status);
 		userService.updateUser(user);
-		redirectAttributes.addFlashAttribute(
-                "userBaned", true);
+		
 		return "redirect:/usersManager";
 	}
 	@PreAuthorize("hasRole('ADMIN')")

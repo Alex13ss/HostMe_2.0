@@ -32,6 +32,14 @@
 					</h3>
 				</div>
 			</c:if>
+				<c:if test="${userUnBaned eq true}">
+				<div class="alert alert-warning" style="margin-right: 15px;"
+					align="center">
+					<h3>
+						<spring:message code="admin.unbanConf" />
+					</h3>
+				</div>
+			</c:if>
 			<c:if test="${passReset eq true}">
 				<div class="alert alert-warning" style="margin-right: 15px;"
 					align="center">
