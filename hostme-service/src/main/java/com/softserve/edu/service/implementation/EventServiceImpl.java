@@ -64,7 +64,9 @@ public class EventServiceImpl implements EventService {
 	public boolean haveEvent(int id) {
 		return eventRepository.exists(id);
 	}
-
+	/**
+	 * Removes event, route that related with this event and from other interim tables
+	 */
 	@Override
 	@Transactional
 	@PreAuthorize("#event.owner.login == authentication.name or hasRole('MODERATOR')")
@@ -127,7 +129,9 @@ public class EventServiceImpl implements EventService {
 	public List<Event> searchEvent(Specifications<Event> specifications) {
 		return eventRepository.findAll(specifications);
 	}
-
+	/**
+	 * Returns all events created by user
+	 */
 	@Override
 	@Transactional
 	public List<EventDto> getEventByOwner(Integer page, Integer size,
@@ -142,7 +146,9 @@ public class EventServiceImpl implements EventService {
 		amountOfOwnerEvents = (long) list.size();
 		return list;
 	}
-
+	/**
+	 * Get all attendees of event
+	 */
 	@Override
 	@Transactional
 	public List<EventDto> getByAttendee(Integer page, Integer size,
@@ -158,7 +164,14 @@ public class EventServiceImpl implements EventService {
 		amountOfAttendeeEvents = (long) list.size();
 		return list;
 	}
-
+	/**
+	 * Form PageRequest according to orderBy value
+	 * @param page
+	 * @param size
+	 * @param orderBy
+	 * @param orderType
+	 * @return
+	 */
 	public PageRequest getPageRequest(Integer page, Integer size,
 			String orderBy, String orderType) {
 		if (orderType.equals("ASC")) {
@@ -200,7 +213,9 @@ public class EventServiceImpl implements EventService {
 		event.setRating(newEvent.getRating());
 		eventRepository.save(event);
 	}
-
+	/**
+	 * Counts amount of pages
+	 */
 	@Override
 	@Transactional
 	public Long getPageCount(Long size, String sender) {
@@ -219,14 +234,19 @@ public class EventServiceImpl implements EventService {
 		}
 		return amount;
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * Checks if user is owner of event
+	 */
 	@Override
 	public boolean checkEventOwner(EventDto event, User user) {
 		Event checkedEvent = eventRepository.findOne(event.getId());
 		User owner = checkedEvent.getOwner();
 		return owner.equals(user);
 	}
-
+	/**
+	 * Add user to attendees
+	 */
 	@Override
 	@Transactional
 	public void addAttendee(User user, Integer id) {
@@ -240,13 +260,17 @@ public class EventServiceImpl implements EventService {
 		user.setAttendee(placeSet);
 		userRepository.save(user);
 	}
-
+	/**
+	 * Leave event
+	 */
 	@Override
 	@Transactional
 	public void leaveEvent(User user, Integer id) {
 		eventRepository.deleteAttendeeFromEvent(user.getUserId(), id);
 	}
-
+	/**
+	 * Checks if user is subscribed
+	 */
 	public boolean checkEventSubscribed(EventDto event, User user) {
 		Event foundedEvent = eventRepository.findOne(event.getId());
 		Set<User> attendeeUsers = foundedEvent.getAttendee();

@@ -84,7 +84,14 @@ public class EventContoller {
 		eventService.addEvent(event, priceCategory, city);
 		return REDIRECT_EVENTS;
 	}
-
+	/**
+	 * Returns JSON with all events for moderator with fixed according to pagination size
+	 * @param page
+	 * @param size
+	 * @param orderBy
+	 * @param orderType
+	 * @return
+	 */
 	@RequestMapping(value = "/all-events", params = { "page", "size",
 			"orderBy", "orderType" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EventDto> getAllEventsPaging(
@@ -94,14 +101,26 @@ public class EventContoller {
 			@RequestParam(value = "orderType") String orderType) {
 		return eventService.getAllEventsPaging(page, size, orderBy, orderType);
 	}
-
+	/**
+	 * Method for obtaining number of pages with fixed size of page
+	 * @param size
+	 * @param sender
+	 * @return
+	 */
 	@RequestMapping(value = "/paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Long getEventsPaging(
 			@RequestParam(value = "size") Long size,
 			@RequestParam(value = "sender") String sender) {
 		return eventService.getPageCount(size, sender);
 	}
-
+	/**
+	 * Returns events created by user
+	 * @param page
+	 * @param size
+	 * @param orderBy
+	 * @param orderType
+	 * @return
+	 */
 	@RequestMapping(value = "/my-events", params = { "page", "size", "orderBy",
 			"orderType" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EventDto> getMyEvents(
@@ -111,7 +130,14 @@ public class EventContoller {
 			@RequestParam(value = "orderType") String orderType) {
 		return eventService.getEventByOwner(page, size, orderBy, orderType);
 	}
-
+	/**
+	 * Returns events that user are signed on
+	 * @param page
+	 * @param size
+	 * @param orderBy
+	 * @param orderType
+	 * @return
+	 */
 	@RequestMapping(value = "/signed-events", params = { "page", "size",
 			"orderBy", "orderType" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<EventDto> getSignedEvents(
@@ -121,7 +147,12 @@ public class EventContoller {
 			@RequestParam(value = "orderType") String orderType) {
 		return eventService.getByAttendee(page, size, orderBy, orderType);
 	}
-
+	/**
+	 * Single event page
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/event", method = RequestMethod.GET)
 	public String showEvent(@RequestParam("id") Integer id, Model model) {
 		EventDto eventDto = eventService.getEvent(id);
@@ -154,14 +185,22 @@ public class EventContoller {
 				"eventEdited", true);
 		return REDIRECT_EVENT_ID_VALUE;
 	}
-
+	/**
+	 * Removes event and redirects on single event page
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/event/delete/{id}")
 	public String deleteEvent(@PathVariable("id") Integer id) {
 		Event event = eventService.findOne(id);
 		eventService.removeEvent(event);
 		return REDIRECT_EVENTS;
 	}
-
+	/**
+	 * Updates status of event
+	 * @param event
+	 * @return
+	 */
 	@RequestMapping(value = "/event-update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody Event updateEventStatus(@RequestBody Event event) {
 		Event newEvent = eventService.findOne(event.getId());
@@ -179,7 +218,10 @@ public class EventContoller {
 		imageService.addImagesToEvent(files, event);
 		return REDIRECT_EVENT_ID_VALUE;
 	}
-
+	/**
+	 * Used for parsing string date and changed to format class Date
+	 * @param binder
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		String datePattern = DATE_FORMAT;
@@ -187,7 +229,11 @@ public class EventContoller {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, true));
 	}
-
+	/**
+	 * Used for joining or leaving according to existing subscribtion state
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/event-subscribe/{id}")
 	public String eventJoin(@PathVariable("id") Integer id) {
 		User user = profileService.getCurrentUser();
