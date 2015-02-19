@@ -9,7 +9,6 @@ import com.softserve.edu.dto.UserDto;
 import com.softserve.edu.model.User;
 import com.softserve.edu.model.routes.Place;
 
-import com.softserve.edu.model.routes.Route;
 import org.springframework.data.domain.Pageable;
 
 public interface UserService {
@@ -17,6 +16,8 @@ public interface UserService {
     public Integer addUser(User user);
 
     public List<User> getAllUsers();
+   
+    public List<User> getAllUsersPaging(Integer page, Integer size, String orderBy, String orderType);
 
     public List<UserDto> getUserDtoList(List<User> users);
     
@@ -43,4 +44,6 @@ public interface UserService {
     public Collection<Place> getUserBookedPlaces(Pageable pageable);
     
     public void saveUser(User user);
+    
+    public Long getPageCount(Long size, String sender);
 }

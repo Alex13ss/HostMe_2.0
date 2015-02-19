@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -35,18 +36,31 @@ public class AdminController implements RandomPass {
 	private RegistrationSendMailImpl registrationSendMail;
 
 	@RequestMapping(value = "/usersManager")
-	public String userManager(Model model) {
+	public String showUsers(Model model) {
 		model.addAttribute("users", userService.getAllUsers());
 		return "usersManager";
 	}
 
-	@RequestMapping(value = "/all-users", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<User> getAllUsers() {
+	@RequestMapping(value = "/all-users", params = { "page", "size",
+			"orderBy", "orderType" }, method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<User> getAllUsers(@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size,
+			@RequestParam(value = "orderBy") String orderBy,
+			@RequestParam(value = "orderType") String orderType) {
 		List<User> admin= userService.findUsersByNamesOrLogin("Admin");
-		List<User> users = userService.getAllUsers();
+		
+		List<User> users = userService.getAllUsersPaging(page, size, orderBy, orderType);
 		users.removeAll(admin);
 		return users;
 	}
+	
+	@RequestMapping(value = "/pagingUsers", params = { "size", "sender" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Long getPaging(
+			@RequestParam(value = "size") Long size,
+			@RequestParam(value = "sender") String sender) {
+		return userService.getPageCount(size, sender);
+	}
+	
 	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping("/banUser/{id}")
 	public String banUser(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {

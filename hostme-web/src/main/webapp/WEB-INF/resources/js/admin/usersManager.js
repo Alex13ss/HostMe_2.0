@@ -1,4 +1,7 @@
 var table;
+var size;
+var page;
+var selectedTablePage = 1;
 var ADMIN = {
 	"roleId" : 1,
 	"role" : "ADMIN"
@@ -11,12 +14,24 @@ var USER = {
 	"roleId" : 3,
 	"role" : "USER"
 };
+var order = {
+	    by: "login",
+	    type: "ASC"
+	};
 
+function usersAjaxCallback() {
+    setupPaging();
+}
+
+function getUsersParameters() {
+    return usersType + "?size=" + size + "&page=" + selectedTablePage + "&orderType=" + order.type + "&orderBy=" + order.by;
+}
+function showUsers() {
+    table.fnReloadAjax(getUsersParameters(), usersAjaxCallback);
+}
 function allUsers(element) {
 	if (element.className != 'active') {
-		table.fnClearTable();
-		table.fnReloadAjax("all-users");
-
+		table.fnReloadAjax(getUsersParameters(), usersAjaxCallback);
 	}
 }
 function banConfirm(e) {
@@ -32,17 +47,59 @@ function resetConfirm(e) {
 $("#modalReset").modal();
 }
 
+function setupPaging() {
+    $.ajax({
+        type: 'GET',
+        dataType: "json",
+        data: {
+            size: size,
+            sender: usersType
+        },
+        url: 'pagingUsers',
+        success: function(numberOfPages) {
+            $("#table_pages").empty();
+            $("#table_pages").append(
+                '<li class="previousPage"><a>«</a></li>');
+            for (number = 1; number <= numberOfPages; number++) {
+                $("#table_pages").append(
+                    '<li class="pageNumberButton"><a>' + number + '</a></li>');
+            }
+            $("#table_pages").append(
+                '<li class="nextPage"><a>»</a></li>');
+
+            $("#table_pages > li")
+                .click(
+                    function(element) {
+                        if ($(this).attr("class") == "previousPage" && selectedTablePage != 1) {
+                            selectedTablePage--;
+                            showEvents();
+                        } else if ($(this).attr("class") == "nextPage" && selectedTablePage != numberOfPages) {
+                            selectedTablePage++;
+                            showEvents();
+                        } else if ($(this).attr("class") == "pageNumberButton") {
+                            selectedTablePage = $(this).text();
+                            showUsers();
+                        }
+                    });
+
+        }
+    });
+}
+
 $(document)
 		.ready(
 				function() {
-					
+					$("#usersTypesNav li:first-child").addClass("active");
+		            usersType = $("#usersTypesNav > li.active").attr("id");
+		            size = $("#request_size").val();
 					table = $("table.table-bordered")
 							.dataTable(
 									{
 										"sAjaxDataProp" : "",
 										"fnInitComplete" : function(settings,
-												json) {
-										},
+						                        json) {
+					                        usersAjaxCallback();
+					                        },
 										"fnRowCallback" : function(nRow, aData,
 												iDisplayIndex,
 												iDisplayIndexFull) {
@@ -132,9 +189,13 @@ $(document)
 
 										},
 
-										"bProcessing" : false,
-										"bServerSide" : false,
-										"sAjaxSource" : "all-users",
+										"bProcessing": false,
+					                    "bServerSide": false,
+					                    "bPaginate": false,
+					                    "bFilter": false,
+					                    "bInfo": false,
+					                    "bSort": false,
+										"sAjaxSource" : usersType + "?size=" + size + "&page=" + selectedTablePage + "&orderType=" + order.type + "&orderBy=" + order.by,
 										"aoColumns" : [
 
 												{
@@ -205,20 +266,36 @@ $(document)
 
 												} ]
 									});
+					$("#request_size ").change(function() {
+		                size = $(this).val();
+		                selectedTablePage = 1;
+		                showUsers();
 
-					table
-							.on(
-									'draw',
-									function() {
-										if (table.fnSettings().sAjaxSource == "all-users") {
-											$(
-													'.dropdown-menu>li>a:contains("Reject"),a:contains("Approve")')
-													.hide();
-										} else {
-											$(
-													'.dropdown-menu>li>a:contains("Refuse"),a:contains("Send Again")')
-													.hide();
-										}
-									});
+
+		            });
+
+		            $("#usersTypesNav > li").click(function() {
+		                usersType = $(this).attr("id");
+		                showUsers();
+
+		            });
+
+		            $("#usersTableHeader > th").addClass(
+		                "custom_sorting_enabled");
+		            
+		            $("#usersTableHeader > th").click(function() {
+		                currentOrderBy = order.by;
+		                order.by = $(this).attr("headers");
+		                if (currentOrderBy == order.by) {
+		                    if (order.type == "DESC") {
+		                        order.type = "ASC";
+		                    } else {
+		                        order.type = "DESC";
+		                    }
+		                } else {
+		                    order.type = "ASC";
+		                }
+		                showUsers();
+		            });
 					
 				});

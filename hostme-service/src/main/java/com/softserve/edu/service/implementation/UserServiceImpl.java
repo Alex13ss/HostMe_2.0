@@ -6,13 +6,21 @@ import java.util.List;
 import java.util.Set;
 
 
+
+
+
+
+
 import com.softserve.edu.model.routes.Route;
 import com.softserve.edu.repositories.routes.PlaceRepository;
+
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.softserve.edu.dao.UserDao;
 import com.softserve.edu.dto.ModeratorDto;
@@ -59,6 +67,19 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllUsers() {
 		return (List<User>)userRepository.findAll();
 	}
+	
+	@Override
+	@Transactional
+	public List<User> getAllUsersPaging(Integer page, Integer size,
+			String orderBy, String orderType) {
+		List<User> list = new ArrayList<User>();
+		for (User user : userRepository.findAll(getPageRequest(page, size,
+				orderBy, orderType))) {
+			list.add(user);
+		}
+		return list;
+	}
+	
 
 	public List<UserDto> getUserDtoList(List<User> users) {
 		List<UserDto> result = new ArrayList<>();
@@ -140,5 +161,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Collection<Place> getUserBookedPlaces(Pageable pageable) {
 		return placeRepository.findByBookedBy(profileService.getCurrentUser());
+	}
+	
+	@Override
+	public Long getPageCount(Long size, String sender) {
+		Long amount;
+		Long dataBaseSize;
+		dataBaseSize = userRepository.count();
+		amount = dataBaseSize / size;
+		if (dataBaseSize % size != 0) {
+			amount++;
+		}
+		return amount;
+	}
+	public PageRequest getPageRequest(Integer page, Integer size,
+			String orderBy, String orderType) {
+		if (orderType.equals("ASC")) {
+			return new PageRequest(page - 1, size, Sort.Direction.ASC, orderBy);
+		} else {
+			return new PageRequest(page - 1, size, Sort.Direction.DESC, orderBy);
+		}
 	}
 }

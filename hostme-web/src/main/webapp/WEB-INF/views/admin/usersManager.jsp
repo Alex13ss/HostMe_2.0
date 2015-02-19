@@ -50,15 +50,21 @@
 			</c:if>
 		<div class="box box-primary">
 			<!-- /.box-header -->
-			<ul class="nav nav-tabs">
+			<ul id="usersTypesNav" class="nav nav-tabs">
 				<li id="all-users" class="active" onclick="allUsers(this)"><a
 					href="#" data-toggle="tab"><spring:message code="admin.users" /></a></li>
 			</ul>
 			<div class="box-body table-responsive">
+			<select id="request_size" class="dataTableDropDown">
+					<option value="10" selected="selected">10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+					<option value="100">100</option>
+				</select>
 				<table id="request_table_obtain"
 					class="table table-bordered table-striped">
 					<thead>
-						<tr>
+						<tr id="usersTableHeader">
 							<th style="width: 15%"><spring:message code="user.login" /></th>
 							<th style="width: 20%"><spring:message code="user.name" /></th>
 							<th style="width: 10%"><spring:message code="user.role" /></th>
@@ -70,6 +76,11 @@
 					</thead>
 
 				</table>
+				<div class="box-footer clearfix">
+					<ul id="table_pages"
+						class="pagination pagination-sm no-margin pull-right">
+					</ul>
+				</div>
 
 			</div>
 			<div class="modal fade" id="modalBan" tabindex="-1" role="dialog"
