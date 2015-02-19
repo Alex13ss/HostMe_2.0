@@ -39,7 +39,7 @@
                         <li role="presentation"><a role="menuitem"
                             tabindex="-1" id="ua"
                             onclick="setLanguage('ua');" href="#">Українська</a></li>
-                    </ul></li>
+                    </ul>
 
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu"><a
