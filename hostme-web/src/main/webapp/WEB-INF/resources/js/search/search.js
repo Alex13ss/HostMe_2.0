@@ -363,14 +363,21 @@ function fillPlaceData(data) {
 
 function fillGroupData(data) {
     for (var i = 0; i < data.length; i++) {
-        $searchResult.append("<div class='groupResult'>");
-        $searchResult.children().last().append("<img style='height: 100%' src='"
-        + data[i].imgLink + "'>");
-        //$searchResult.append("<div class='groupResult'>");
-        //$searchResult.children().last().find(".groupResult").append("<img class='placeResultImg' src='"
-        //+ data[i].imgLink + "'>");
-        //$searchResult.children().last().find(".groupResult").append("<a href = group?id=" + data[i].id+'>'
-        //    + data[i].groupName + "</a>");
+        $searchResult.append("<div style='position: relative' class='groupResult col-md-4'>");
+        var date = new Date(data[i].createdAt);
+        $searchResult.children().last().append(
+        "<div>"
+            +"<img style='height: 100%' src='"
+            + data[i].imgLink + "'>"
+        + "</div>"
+        + "<div style='position:absolute; top:4%; right:4%;'>"
+            + "<a href = group?id=" + data[i].id+'>'
+            + data[i].groupName + "</a> "
+        + "</div>"
+        + "<div style='position:absolute; bottom:4%; right:4%;'>"
+            + date.format("dd-m-yy")
+        + "</div>");
+    $searchResult.children().last().append();
         $searchResult.children().last().append("</div>");
     }
 }

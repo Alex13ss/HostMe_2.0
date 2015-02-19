@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=Utf-8">
 
 <script src="<c:url value="/resources/js/search/search.js"/>"></script>
+<script src="<c:url value="/resources/js/search/thePrototypeLibrary.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery-ui-1.11.2/jquery-ui.js"/>"></script>
 <script src="<c:url value="/resources/js/jquery-ui-1.11.2/jquery-ui.min.js"/>"></script>
 <link href="<c:url value="/resources/css/search/searchResults.css"/>" rel="stylesheet">
