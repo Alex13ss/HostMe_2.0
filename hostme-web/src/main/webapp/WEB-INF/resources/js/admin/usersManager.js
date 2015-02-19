@@ -165,13 +165,25 @@ $(document)
 												{
 													"mData" : function(data,
 															type, full) {
-														return '<a  href="banUser/'
-																+ data.userId
-																+ '" class="triggerBan" onclick="event.preventDefault();banConfirm('
-																+ data.userId
-																+')"/>'
-																+ 'Ban/Dissban'
-																+ '</a>'
+														if (data.userState=="ACTIVE"){
+															return '<a  href="banUser/'
+															+ data.userId
+															+ '" class="triggerBan" onclick="event.preventDefault();banConfirm('
+															+ data.userId
+															+')"/>'
+															+'Ban'
+															+ '</a>'
+														}
+														else {
+															return '<a  href="banUser/'
+															+ data.userId
+															+ '" class="triggerBan" onclick="event.preventDefault();banConfirm('
+															+ data.userId
+															+')"/>'
+															+'Unban'
+															+ '</a>'
+														}
+								
 																 
 													}
 												},
