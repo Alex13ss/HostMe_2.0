@@ -11,6 +11,7 @@ import com.softserve.edu.service.implementation.RegistrationSendMailImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +47,7 @@ public class AdminController implements RandomPass {
 		users.removeAll(admin);
 		return users;
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping("/banUser/{id}")
 	public String banUser(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
 		User user = userService.getUser(id);
@@ -61,7 +62,7 @@ public class AdminController implements RandomPass {
                 "userBaned", true);
 		return "redirect:/usersManager";
 	}
-
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/resetPass/{id}")
 	public String resetPass(@PathVariable("id") Integer id,RedirectAttributes redirectAttributes) {
 		String newPass = randomString();
