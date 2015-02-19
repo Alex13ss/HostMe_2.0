@@ -154,6 +154,7 @@ public class User {
     @JoinTable(name = "favourite_sightseeing", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Sightseeing> favouriveSights;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", 
             cascade = javax.persistence.CascadeType.REMOVE, orphanRemoval = true)
     private Set<Route> routes = new HashSet<>();
