@@ -13,7 +13,6 @@
 <link rel='stylesheet' href='resources/css/fullcalendar.min.css' />
 <link rel="stylesheet" href="resources/css/dataTables.bootstrap.css"
 	type="text/css" />
-
 <link rel="stylesheet" type="text/css" media="all"
 	href="resources/css/daterangepicker-bs3.css" />
 <link rel="stylesheet" type="text/css" media="all"
@@ -21,9 +20,8 @@
 <link
 	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
 	rel="stylesheet">
-	<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
-
+<link rel="stylesheet" type="text/css" media="all"
+	href="resources/css/style.css" />
 <script src="resources/js/jquery.dataTables.js" type="text/javascript"></script>
 <script src="resources/js/event.js" type="text/javascript"></script>
 <script src="resources/js/fnAjaxReload.js" type="text/javascript"></script>
@@ -33,10 +31,7 @@
 <script src='resources/js/fullcalendar.min.js'></script>
 <script type="text/javascript" src="resources/js/daterangepicker.js"></script>
 <script type="text/javascript" src="resources/js/rangeCalendar.js"></script>
-<link rel="stylesheet" type="text/css" media="all"
-	href="resources/css/style.css" />
 <script type="text/javascript" src="resources/js/jquery.validate.js"></script>
-
 
 <title>Events</title>
 </head>
@@ -176,7 +171,7 @@
 									<spring:message code="label.country" />
 								</form:label>
 								<div class="col-sm-10">
-									<form:select id="country" class="drop-menu"
+									<form:select id="country" class="dropMenuForModal"
 										path="city.country.country">
 										<option value="0"><spring:message
 												code="label.countrySelect" /></option>
@@ -191,7 +186,7 @@
 									<spring:message code="label.city" />
 								</form:label>
 								<div class="col-sm-10">
-									<form:select id="city" class="drop-menu" path="city.city">
+									<form:select id="city" class="dropMenuForModal" path="city.city">
 										<option value="0"><spring:message
 												code="label.citySelect" /></option>
 									</form:select>
@@ -233,7 +228,7 @@
 									class="col-sm-2 control-label"><spring:message
 										code="label.priceCategory" /></label>
 								<div class="col-sm-10">
-									<form:select class="drop-menu"
+									<form:select class="dropMenuForModal"
 										path="priceCategory.priceCategory">
 										<option value="0"><spring:message
 												code="label.priceCategorySelect" /></option>

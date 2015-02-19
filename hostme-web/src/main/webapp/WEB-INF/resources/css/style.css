@@ -3942,5 +3942,9 @@ th.custom_sorting_enabled{
 }
 #pageSize{
 	min-height:100% !important;
-	
+}
+.dropMenuForModal{
+	min-width: auto;
+	width: 100%;
+	height: 2.5em;
 }

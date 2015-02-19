@@ -13,8 +13,6 @@
 <meta charset="UTF-8">
 <link href="resources/css/dataTables.bootstrap.css" rel="stylesheet"
 	type="text/css" />
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/sightseeings/sightseeing.css"/>" />
 <link rel="stylesheet" type="text/css" href="resources/css/groups.css">
 <link rel="stylesheet" type="text/css" media="all"
 	href="resources/css/daterangepicker-bs3.css" />
@@ -377,7 +375,7 @@
 								<spring:message code="label.country" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select id="country" class="drop-menu"
+								<form:select id="country" class="dropMenuForModal"
 									path="city.country.country">
 									<option value="${event.city.country.country}">${event.city.country.country}</option>
 									<c:forEach items="${countries}" var="country">
@@ -391,7 +389,7 @@
 								<spring:message code="label.city" />
 							</form:label>
 							<div class="col-sm-10">
-								<form:select id="city" class="drop-menu" path="city.city">
+								<form:select id="city" class="dropMenuForModal" path="city.city">
 									<option value="${event.city.city}">${event.city.city}</option>
 								</form:select>
 							</div>
@@ -442,7 +440,7 @@
 									code="label.priceCategory" />:
 							</label>
 							<div class="col-sm-10">
-								<form:select class="drop-menu"
+								<form:select class="dropMenuForModal"
 									path="priceCategory.priceCategory">
 									<option value="${event.priceCategory.priceCategory}">${event.priceCategory.priceCategory}</option>
 									<c:forEach items="${priceCategories}" var="priceCategory">
