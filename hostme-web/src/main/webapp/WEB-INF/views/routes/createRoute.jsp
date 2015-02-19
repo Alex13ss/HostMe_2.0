@@ -24,12 +24,15 @@
     <div class="box box-primary">
         <div class="container-fluid">
             <div id="savingStatus"></div>
-            <spring:message code="routes.createRouteName" />
-            <input id="name" class="form-control">
-            <spring:message code="routes.createRouteDescription" />
-            <input id="description" class="form-control">
-            <div class="container-fluid" style="margin-top: 3%">
+            <div class="container-fluid col-sm-12" style="margin-top: 3%">
                 <div class="col-sm-4 nav-tabs-custom" style="background-color: #FCFCFC">
+                    <div>
+                        <spring:message code="routes.createRouteName" />
+                        <input id="name" class="form-control">
+                        <spring:message code="routes.createRouteDescription" />
+                        <textarea id="description" class="form-control"></textarea>
+                        <br>
+                    </div>
                     <h4>
                         <spring:message code="places.yourPlaces" />
                     </h4>
