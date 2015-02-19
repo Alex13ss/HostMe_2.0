@@ -207,4 +207,16 @@ public class ImageServiceImpl implements ImageService {
         image.setGroup(group);
         imageRepository.save(image);
     }
+    
+    @Override
+    public void deleteImageForGroup(Group group) {
+        for (Image im : group.getImages()) {
+            imageRepository.delete(im);
+        }
+        try {
+            FileUtils.deleteDirectory(new File(buildPathGroup(group)));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

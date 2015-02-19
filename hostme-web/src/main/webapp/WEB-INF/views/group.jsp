@@ -117,6 +117,17 @@
 					<div class="panel box box-success">
 						<div class="panel-body">
 
+							<c:if test="${!empty group.images}">
+								<c:if test="${isCreator eq true}">
+									<a
+										href="<spring:url value="/group/remove-group-image/${group.id}" />"
+										class="btn btn-default btn-xs triggerImageRemove"
+										style="width: 100%; margin-top: -15px;"><i
+										class="fa fa-fw fa-trash-o"></i> <spring:message
+											code="label.removeGroupImg" /> </a>
+								</c:if>
+							</c:if>
+
 							<c:if test="${empty group.images}">
 								<img src="resources/images/group-default.jpg">
 							</c:if>
@@ -147,7 +158,8 @@
 												type="file" name="file" class="multi" multiple
 												accept="gif|jpg|png" data-maxfile="10000"
 												data-maxsize="50000" /> <br>
-											<button type="submit" class="btn btn-xs btn-primary">
+											<button type="submit" class="btn btn-xs btn-primary"
+												style="width: 100%;">
 												<spring:message code="label.saveGroupImage" />
 											</button>
 										</div>
@@ -258,6 +270,37 @@
 						<div class="modal-body">
 							<div class="callout callout-danger" id="alert" align="center">
 								<font size="5"><spring:message code="label.removeMsg" /></font>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<a href="" class="btn btn-primary removeBtn"><spring:message
+									code="label.delete" /></a>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">
+								<spring:message code="label.cancel" />
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Modal -->
+			<div class="modal fade" id="modalRemoveImage" tabindex="-1"
+				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								<spring:message code="label.removeGroupImg" />
+							</h4>
+						</div>
+						<div class="modal-body">
+							<div class="callout callout-danger" id="alert" align="center">
+								<font size="5"><spring:message code="label.removeImgMsg" /></font>
 							</div>
 						</div>
 						<div class="modal-footer">

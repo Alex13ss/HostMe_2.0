@@ -46,6 +46,14 @@ $(document).ready(
 								$(this).attr("href"));
 						$("#modalRemove").modal();
 					});
+			
+			$(".triggerImageRemove").click(
+					function(e) {
+						e.preventDefault();
+						$("#modalRemoveImage .removeBtn").attr("href",
+								$(this).attr("href"));
+						$("#modalRemoveImage").modal();
+					});
 
 			$(".groupForm").validate(
 					{

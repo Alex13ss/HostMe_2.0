@@ -203,6 +203,13 @@ public class GroupController {
         }
         return GROUP_LINK;
     }
+    
+    @RequestMapping("/group/remove-group-image/{id}")
+    public String removeGroupImage(@PathVariable("id") Long groupId) {
+        Group group = groupService.findOne(groupId);
+        imageService.deleteImageForGroup(group);
+        return GROUP_LINK;
+    }
 
     private void addLatestConversationsByGroupId(Model model, Long id) {
         List<ConversationDto> conversations = conversationService
