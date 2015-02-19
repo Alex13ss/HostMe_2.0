@@ -30,10 +30,8 @@
                         ${route.name}
                     </div>
                 </h3>
-                <button id="likeRoute" class='btn btn-default btn-xs' style="margin-left: 5%">
-                    <i class='fa fa-thumbs-o-up'></i>
-                    ${route.rating}
-                </button>
+                <i class='fa fa-thumbs-o-up'></i>
+                ${route.rating}
                 <i class='fa fa-dollar' style="margin-left: 5%"></i>
                 ${route.priceCategory.priceCategory}
                 <i class='fa fa-suitcase' style="margin-left: 5%"></i>
