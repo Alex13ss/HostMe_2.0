@@ -140,26 +140,6 @@ public class RoutesServiceImp implements RoutesService{
         return false;
     }
 
-    @Override
-    public boolean likeRoute(int id) {
-        final int RATING_INCREMENT = 1;
-        User user = profileSrv.getCurrentUser();
-        int userId = user.getUserId();
-        Route route = findRoute(id);
-        user = userRepository.findByUserIdAndLikedRoutes(user.getUserId(), route);
-        if (user != null) {
-            userService.removeLikedRoute(userId, route);
-            route.setRating(route.getRating() - RATING_INCREMENT);
-            routeRep.save(route);
-            return false;
-        } else {
-            userService.addLikedRoute(userId, route);
-            route.setRating(route.getRating() + RATING_INCREMENT);
-            routeRep.save(route);
-            return true;
-        }
-    }
-
     private boolean userHaveRoute() {
         User user = profileSrv.getCurrentUser();
         for (Route route : user.getRoutes()) {

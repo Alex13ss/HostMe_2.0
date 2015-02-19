@@ -192,11 +192,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "place_id"))
     private Set<Place> bookedPlaces;
-    
-    @JsonIgnore
-    @OneToMany
-    private Set<Route> likedRoutes;
-    
+
     public User() {
     }
 
@@ -460,14 +456,6 @@ public class User {
 
     public void setBookedPlaces(Set<Place> bookedPlaces) {
         this.bookedPlaces = bookedPlaces;
-    }
-
-    public Set<Route> getLikedRoutes() {
-        return likedRoutes;
-    }
-
-    public void setLikedRoutes(Set<Route> likedRoutes) {
-        this.likedRoutes = likedRoutes;
     }
 
     @Override

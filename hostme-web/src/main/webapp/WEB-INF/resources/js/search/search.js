@@ -107,28 +107,39 @@ function setAdvancedOptions() {
         $searchOptions.append(
         "<div class='checkbox col-md-2'>"
             + "<label>"
-            + "<input type='checkbox'>"
+            + "<input id='checkFamily' class='icheckbox_minimal' type='checkbox'>"
                 + "Family allowed"
             + "</label>"
         + "</div>"
         + "<div class='checkbox col-md-2'>"
             + "<label>"
-            + "<input type='checkbox'>"
+            + "<input id='checkChild' class='icheckbox_minimal' type='checkbox'>"
                 + "Children allowed"
             + "</label>"
         + "</div>"
         + "<div class='checkbox col-md-2'>"
             + "<label>"
-            + "<input type='checkbox'>"
+            + "<input id='checkPets' class='icheckbox_minimal' type='checkbox'>"
                 + "Pets allowed"
             + "</label>"
         + "</div>"
         + "<div class='checkbox col-md-2'>"
             + "<label>"
-            + "<input type='checkbox'>"
+            + "<input id='checkSmoke' class='icheckbox_minimal' type='checkbox'>"
                 + "Smokers allowed"
             + "</label>"
         + "</div>");
+        $(".checkbox").click(function(event) {
+            if (event.target.id == "checkFamily") {
+                searchObj.familyAllow = $(event.target).prop('checked')
+            } else if (event.target.id == "checkChild") {
+                searchObj.childrenAllow = $(event.target).prop('checked')
+            } else if (event.target.id == "checkPets") {
+                searchObj.petsAllow = $(event.target).prop('checked')
+            } else if (event.target.id == "checkSmoke") {
+                searchObj.smokingAllow = $(event.target).prop('checked')
+            } 
+        });
     } else if ($searchType.val() == "EVENT") {
         $searchOptions.html("");
         $searchOptions.append("<div>"

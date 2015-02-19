@@ -141,18 +141,4 @@ public class UserServiceImpl implements UserService {
 	public Collection<Place> getUserBookedPlaces(Pageable pageable) {
 		return placeRepository.findByBookedBy(profileService.getCurrentUser());
 	}
-
-    @Override
-    public void addLikedRoute(int userId, Route route) {
-        User user = userRepository.findOneWithFetchedLikedPlaces(userId);
-        user.getLikedRoutes().add(route);
-        userRepository.save(user);
-    }
-
-    @Override
-    public void removeLikedRoute(int userId, Route route) {
-        User user = userRepository.findOneWithFetchedLikedPlaces(userId);
-        user.getLikedRoutes().remove(route);
-        userRepository.save(user);
-    }
 }

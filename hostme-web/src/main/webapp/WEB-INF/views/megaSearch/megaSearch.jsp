@@ -31,7 +31,7 @@
                 <button id="showSearchOptions" class="btn btn-flat btn-primary col-md-1" style="height: 5%">
                     <i class="fa fa-magic"></i>
                 </button>
-                <div id="searchOptions" class="searchOptionBox col-md-12"></div>
+                <div id="searchOptions" class="searchOptionBox col-md-12" style="margin-top: 3%"></div>
             </div>
         </div>
         <div id="searchResult" class="col-md-12"></div>

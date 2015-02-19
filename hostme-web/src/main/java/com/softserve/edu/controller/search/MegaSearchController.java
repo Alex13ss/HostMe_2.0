@@ -42,7 +42,6 @@ public class MegaSearchController {
     public List<?> getSearchResults(@RequestBody SearchRequestDto searchRequestDto) {
         SearchTypes searchType = SearchTypes.valueOf(searchRequestDto.getType());
         switch (searchType) {
-            
             case HOSTING: {
                 return megaSearchService.searchHosting(searchRequestDto);
             }

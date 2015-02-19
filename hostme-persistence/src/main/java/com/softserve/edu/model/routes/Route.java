@@ -1,11 +1,11 @@
 package com.softserve.edu.model.routes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.User;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "ROUTES")
@@ -28,7 +28,7 @@ public class Route {
     
     @ManyToOne(cascade = CascadeType.PERSIST)
     private PriceCategory priceCategory;
-    
+
     @ManyToOne
     private User user;
 
