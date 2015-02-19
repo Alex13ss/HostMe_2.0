@@ -32,6 +32,7 @@ import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.SystemPropertiesService;
 
 @Service
+@Transactional
 public class EventServiceImpl implements EventService {
 
 	@Autowired
@@ -68,11 +69,10 @@ public class EventServiceImpl implements EventService {
 	 * Removes event, route that related with this event and from other interim tables
 	 */
 	@Override
-	@Transactional
 	@PreAuthorize("#event.owner.login == authentication.name or hasRole('MODERATOR')")
 	public void removeEvent(Event event) {
-		Integer [] test = eventRepository.getIdDeltedRoutes(event.getId());
-		eventRepository.deletePlaceRoute(event.getId());
+		Integer [] test = placeRepository.getIdDeltedRoutes(event.getId());
+		placeRepository.deletePlaceRoute(event.getId());
 		eventRepository.deleteEventFromUserPlace(event.getId());
 		for(int i = 0; i < test.length; i++){
 			routeRepository.delete(test[i]);
@@ -90,7 +90,6 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	@Transactional
 	public List<EventDto> getAllEvents() {
 		List<EventDto> list = new ArrayList<EventDto>();
 		for (Event event : eventRepository.findAll()) {
@@ -100,7 +99,6 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	@Transactional
 	public List<EventDto> getAllEventsPaging(Integer page, Integer size,
 			String orderBy, String orderType) {
 		List<EventDto> list = new ArrayList<EventDto>();
@@ -112,7 +110,6 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	@Transactional
 	public EventDto getEvent(Integer id) {
 		Place place = placeRepository.findOne(id);
 		Event event = eventRepository.findOne(id);
@@ -120,7 +117,6 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	@Transactional
 	public Event findOne(Integer id) {
 		return eventRepository.findOne(id);
 	}
@@ -133,7 +129,6 @@ public class EventServiceImpl implements EventService {
 	 * Returns all events created by user
 	 */
 	@Override
-	@Transactional
 	public List<EventDto> getEventByOwner(Integer page, Integer size,
 			String orderBy, String orderType) {
 		List<EventDto> list = new ArrayList<EventDto>();
@@ -150,7 +145,6 @@ public class EventServiceImpl implements EventService {
 	 * Get all attendees of event
 	 */
 	@Override
-	@Transactional
 	public List<EventDto> getByAttendee(Integer page, Integer size,
 			String orderBy, String orderType) {
 		List<EventDto> list = new ArrayList<EventDto>();
@@ -182,7 +176,6 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	@Transactional
 	public void addEvent(Event event, String priceCategory, String city) {
 		event.setStatus(Status.PENDING);
 		Integer pcId = priceCategoryRepository.findByPriceCategory(
@@ -194,13 +187,11 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Override
-	@Transactional
 	public void saveEvent(Event event) {
 		eventRepository.save(event);
 	}
 
 	@Override
-	@Transactional
 	public void updateEvent(Event event, String city, String priceCategory) {
 		Integer pcId = priceCategoryRepository.findByPriceCategory(
 				priceCategory).getPriceCategoryId();
@@ -217,7 +208,6 @@ public class EventServiceImpl implements EventService {
 	 * Counts amount of pages
 	 */
 	@Override
-	@Transactional
 	public Long getPageCount(Long size, String sender) {
 		Long amount;
 		Long dataBaseSize;
@@ -248,7 +238,6 @@ public class EventServiceImpl implements EventService {
 	 * Add user to attendees
 	 */
 	@Override
-	@Transactional
 	public void addAttendee(User user, Integer id) {
 		Event event = eventRepository.findOne(id);
 		Set<User> attendeeSet = event.getAttendee();
@@ -264,7 +253,6 @@ public class EventServiceImpl implements EventService {
 	 * Leave event
 	 */
 	@Override
-	@Transactional
 	public void leaveEvent(User user, Integer id) {
 		eventRepository.deleteAttendeeFromEvent(user.getUserId(), id);
 	}

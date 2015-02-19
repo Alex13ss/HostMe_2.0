@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +23,14 @@ import com.softserve.edu.repositories.PriceCategoryRepository;
 import com.softserve.edu.repositories.SightseeingRepository;
 import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
+import com.softserve.edu.repositories.routes.RouteRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.ProfileService;
 import com.softserve.edu.service.SightseeingService;
 import com.softserve.edu.service.SystemPropertiesService;
 
 @Service
+@Transactional
 public class SightseeingServiceImpl implements SightseeingService {
 
 	@Autowired
@@ -48,6 +51,8 @@ public class SightseeingServiceImpl implements SightseeingService {
 	private ImageRepository imageRepository;
 	@Autowired
 	SystemPropertiesService systemPropertiesService;
+	@Autowired
+	RouteRepository routeRepository;
 
 	@Autowired
 	private SystemPropertiesRepository systemPropertiesRepository;
@@ -65,7 +70,6 @@ public class SightseeingServiceImpl implements SightseeingService {
 	}
 
 	@Override
-	@Transactional
 	public List<SightseeingDto> getAllSightseeings(Integer page, Integer size,
 			String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
@@ -80,7 +84,7 @@ public class SightseeingServiceImpl implements SightseeingService {
 	public List<SightseeingDto> getFavouriteSightseeings(User liker,
 			Integer page, Integer size, String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
-		
+
 		for (Sightseeing sightseeing : sightseeingRepository.findByLikers(
 				liker, getPageRequest(page, size, orderBy, orderType))) {
 			list.add(new SightseeingDto(sightseeing, placeRepository
@@ -90,7 +94,6 @@ public class SightseeingServiceImpl implements SightseeingService {
 	}
 
 	@Override
-	@Transactional
 	public List<SightseeingDto> getSightseeingByOwner(Integer page,
 			Integer size, String orderBy, String orderType) {
 		List<SightseeingDto> list = new ArrayList<SightseeingDto>();
@@ -115,19 +118,23 @@ public class SightseeingServiceImpl implements SightseeingService {
 	}
 
 	@Override
-	@Transactional
 	public Sightseeing findOne(Integer id) {
 		return sightseeingRepository.findOne(id);
 	}
 
 	@Override
+	@PreAuthorize("#sightseeing.owner.login == authentication.name or hasRole('MODERATOR')")
 	public void deleteSightseeing(Sightseeing sightseeing) {
+		Integer[] test = placeRepository.getIdDeltedRoutes(sightseeing.getId());
+		placeRepository.deletePlaceRoute(sightseeing.getId());
 		sightseeingRepository.deleteLikefromSightseeing(sightseeing.getId());
+		for (int i = 0; i < test.length; i++) {
+			routeRepository.delete(test[i]);
+		}
 		sightseeingRepository.delete(sightseeing);
 	}
 
 	@Override
-	@Transactional
 	public void saveSightseeing(Sightseeing sightseeing, String priceCategory,
 			String city) {
 		sightseeing.setOwner(profileService.getCurrentUser());
@@ -141,7 +148,6 @@ public class SightseeingServiceImpl implements SightseeingService {
 	}
 
 	@Override
-	@Transactional
 	public void updateSightseeing(Sightseeing sightseeing,
 			String priceCategory, String city) {
 		sightseeing.setOwner(profileService.getCurrentUser());
@@ -168,7 +174,6 @@ public class SightseeingServiceImpl implements SightseeingService {
 	}
 
 	@Override
-	@Transactional
 	public boolean favouriteCheck(Sightseeing sightseeing, User liker) {
 		Set<User> likers = userRepository.findByFavouriveSights(sightseeing);
 		return likers.contains(liker);
