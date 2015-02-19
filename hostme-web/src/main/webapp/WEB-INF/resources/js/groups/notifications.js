@@ -144,6 +144,7 @@ function removeNotification(id) {
 			$("#timeline").html(loader);
 		},
 		success : function(result) {
+			$("#timeline").html('');
 			if (result.length > 0) {
 				showNotifications(result);
 			} else {
