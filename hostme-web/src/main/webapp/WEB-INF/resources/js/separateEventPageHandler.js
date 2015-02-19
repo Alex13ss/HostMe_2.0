@@ -31,7 +31,6 @@ $(document).ready(function() {
 			'speed': 5000
 		});
 	});
-	
 
     $(".triggerRemove").click(
         function(e) {
@@ -74,8 +73,6 @@ $(document).ready(function() {
                 'has-error').addClass('has-success');
         }
     });
-
-
 });
 
 jQuery()

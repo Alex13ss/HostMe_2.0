@@ -93,7 +93,6 @@ public class EventContoller {
 			@RequestParam(value = "orderBy") String orderBy,
 			@RequestParam(value = "orderType") String orderType) {
 		return eventService.getAllEventsPaging(page, size, orderBy, orderType);
-
 	}
 
 	@RequestMapping(value = "/paging", params = { "size", "sender" }, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -159,13 +158,7 @@ public class EventContoller {
 	@RequestMapping("/event/delete/{id}")
 	public String deleteEvent(@PathVariable("id") Integer id) {
 		Event event = eventService.findOne(id);
-		User owner = event.getOwner();
-		User logedUser = profileService.getCurrentUser();
-		String logedUserRole = logedUser.getRole().getRole();
-		if ((logedUser.getUserId() == owner.getUserId())
-				|| (logedUserRole.equals("MODERATOR"))) {
-			eventService.removeEvent(event);
-		}
+		eventService.removeEvent(event);
 		return REDIRECT_EVENTS;
 	}
 

@@ -33,10 +33,8 @@
 <script src='resources/js/fullcalendar.min.js'></script>
 <script type="text/javascript" src="resources/js/daterangepicker.js"></script>
 <script type="text/javascript" src="resources/js/rangeCalendar.js"></script>
-
 <link rel="stylesheet" type="text/css" media="all"
 	href="resources/css/style.css" />
-
 <script type="text/javascript" src="resources/js/jquery.validate.js"></script>
 
 
@@ -72,7 +70,6 @@
 
 				</div>
 			</div>
-
 			<!-- /.box-header -->
 			<ul id="eventsTypesNav" class="nav nav-tabs">
 				<security:authorize access="hasRole('MODERATOR')">
@@ -95,7 +92,6 @@
 				</select>
 				<table id="request_table_obtain"
 					class="table table-bordered table-striped">
-
 					<thead>
 						<tr id="eventsTableHeader">
 							<th headers="name"><spring:message code="label.eventTitle" /></th>
@@ -135,7 +131,6 @@
 							</h4>
 						</div>
 						<div class="modal-body">
-
 							<div class="form-group">
 								<label for="name" class="col-sm-2 control-label"> <spring:message
 										code="label.eventName" />
@@ -156,9 +151,7 @@
 											class="form-control" />
 									</div>
 								</form>
-
 							</div>
-
 							<div class="form-group" style="display: none;">
 								<label for="startDate" class="col-sm-2 control-label"> <spring:message
 										code="label.startDate" />:
@@ -177,7 +170,6 @@
 
 								</div>
 							</div>
-
 							<div class="form-group">
 								<form:label path="city.country.country"
 									class="col-sm-2 control-label">
@@ -194,7 +186,6 @@
 									</form:select>
 								</div>
 							</div>
-
 							<div class="form-group">
 								<form:label path="city.city" class="col-sm-2 control-label">
 									<spring:message code="label.city" />
@@ -203,7 +194,6 @@
 									<form:select id="city" class="drop-menu" path="city.city">
 										<option value="0"><spring:message
 												code="label.citySelect" /></option>
-
 									</form:select>
 								</div>
 							</div>
@@ -238,7 +228,6 @@
 									<form:input path="comment" cssClass="form-control" />
 								</div>
 							</div>
-
 							<div class="form-group">
 								<label for="priceCategory.priceCategory"
 									class="col-sm-2 control-label"><spring:message
@@ -254,7 +243,6 @@
 									</form:select>
 								</div>
 							</div>
-
 						</div>
 						<div class="modal-footer">
 							<input type="submit" class="btn btn-primary"

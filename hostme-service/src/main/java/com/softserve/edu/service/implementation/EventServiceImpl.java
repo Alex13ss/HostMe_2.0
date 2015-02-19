@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,6 +64,7 @@ public class EventServiceImpl implements EventService {
 
 	@Override
 	@Transactional
+	@PreAuthorize("#event.owner.login == authentication.name or hasRole('MODERATOR')")
 	public void removeEvent(Event event) {
 		eventRepository.deleteEventFromUserPlace(event.getId());
 		eventRepository.delete(event);
@@ -92,15 +94,8 @@ public class EventServiceImpl implements EventService {
 	public List<EventDto> getAllEventsPaging(Integer page, Integer size,
 			String orderBy, String orderType) {
 		List<EventDto> list = new ArrayList<EventDto>();
-		PageRequest pageRequsetObj;
-		if (orderType.equals("ASC")) {
-			pageRequsetObj = new PageRequest(page - 1, size,
-					Sort.Direction.ASC, orderBy);
-		} else {
-			pageRequsetObj = new PageRequest(page - 1, size,
-					Sort.Direction.DESC, orderBy);
-		}
-		for (Event event : eventRepository.findAll(pageRequsetObj)) {
+		for (Event event : eventRepository.findAll(getPageRequest(page, size,
+				orderBy, orderType))) {
 			list.add(new EventDto(event, placeRepository.findOne(event.getId())));
 		}
 		return list;
@@ -120,7 +115,6 @@ public class EventServiceImpl implements EventService {
 		return eventRepository.findOne(id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Event> searchEvent(Specifications<Event> specifications) {
 		return eventRepository.findAll(specifications);

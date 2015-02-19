@@ -14,7 +14,7 @@ import com.softserve.edu.model.User;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpecificationExecutor{
+public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpecificationExecutor<Event>{
 	
 	public List<Event> findByStartDate(Date date);
 
