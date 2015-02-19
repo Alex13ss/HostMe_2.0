@@ -25,6 +25,7 @@ import com.softserve.edu.repositories.ImageRepository;
 import com.softserve.edu.repositories.PriceCategoryRepository;
 import com.softserve.edu.repositories.SystemPropertiesRepository;
 import com.softserve.edu.repositories.routes.PlaceRepository;
+import com.softserve.edu.repositories.routes.RouteRepository;
 import com.softserve.edu.repositories.user.UserRepository;
 import com.softserve.edu.service.EventService;
 import com.softserve.edu.service.ProfileService;
@@ -53,7 +54,9 @@ public class EventServiceImpl implements EventService {
 	SystemPropertiesService systemPropertiesService;
 	@Autowired
 	SystemPropertiesRepository systemPropertiesRepository;
-
+	@Autowired
+	RouteRepository routeRepository;
+	
 	public final Integer PROPERTY_ID = 1;
 	public static Long amountOfOwnerEvents;
 	public static Long amountOfAttendeeEvents;
@@ -66,7 +69,12 @@ public class EventServiceImpl implements EventService {
 	@Transactional
 	@PreAuthorize("#event.owner.login == authentication.name or hasRole('MODERATOR')")
 	public void removeEvent(Event event) {
+		Integer [] test = eventRepository.getIdDeltedRoutes(event.getId());
+		eventRepository.deletePlaceRoute(event.getId());
 		eventRepository.deleteEventFromUserPlace(event.getId());
+		for(int i = 0; i < test.length; i++){
+			routeRepository.delete(test[i]);
+		}
 		eventRepository.delete(event);
 	}
 

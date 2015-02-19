@@ -211,7 +211,6 @@ public class SightseeingController {
 		Sightseeing newSightseeing = sightseeingService.findOne(sightseeing
 				.getId());
 		String city = newSightseeing.getCity().getCity();
-		System.out.println("aaa = "+sightseeing.getStatus().toString().toLowerCase());
 		newSightseeing.setStatus(Status.valueOf(sightseeing.getStatus().toString().toUpperCase()));
 		sightseeingService.updateSightseeing(newSightseeing, priceCategory,
 				city);

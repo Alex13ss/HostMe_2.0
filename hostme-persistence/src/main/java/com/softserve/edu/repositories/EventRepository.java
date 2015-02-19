@@ -33,5 +33,15 @@ public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpeci
 	@Transactional("transactionManager")
 	@Query(value = "delete from user_place where user_id = ?1 and place_id = ?2 ", nativeQuery=true)
 	public void deleteAttendeeFromEvent(Integer userId, Integer placeId);
+	
+	@Modifying
+	@Transactional("transactionManager")
+	@Query(value = "delete from routes_places where place_id = ?1 ", nativeQuery=true)
+	public void deletePlaceRoute(Integer placeId);
+	
+	@Modifying
+	@Transactional("transactionManager")
+	@Query(value = "select route_id from routes_places where place_id = ?1", nativeQuery=true)
+	public Integer[] getIdDeltedRoutes(Integer placeId);
 }
 

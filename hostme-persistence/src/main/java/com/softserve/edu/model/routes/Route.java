@@ -5,6 +5,7 @@ import com.softserve.edu.model.PriceCategory;
 import com.softserve.edu.model.User;
 
 import javax.persistence.*;
+
 import java.util.List;
 
 @Entity
