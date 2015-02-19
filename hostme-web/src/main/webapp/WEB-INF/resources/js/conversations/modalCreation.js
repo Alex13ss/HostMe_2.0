@@ -11,7 +11,7 @@ $(document).ready(
 				}, 500);
 				
 				$('#moderatorsResult').slimScroll({
-				    height: '250px'
+				    height: '150px'
 				  });
 				
 				$("#messageClass").click(function(){
@@ -19,7 +19,7 @@ $(document).ready(
 				});
 				
 				$(".conversation_create_label").click(function(){
-					clearForm();
+					cleanConversationData();
 				});
 				
 			});
@@ -134,6 +134,8 @@ function cleanConversationData() {
 	$("#conversation").closest('.form-control').removeClass('error');
 	$("#title").val("");
 	$("#moderatorLogins").html("");
+	$("#moderatorsResult").html("");
+	$("#moderators").val("");
 	$("#messageClass").show();
 	$("#conversation").attr("action", "conversationCreate" );
 }
@@ -161,7 +163,7 @@ function getConversation(element) {
 }
 
 function fillConversationData(result, conversationId) {
-	validator.resetForm();
+	cleanConversationData();
 	$(".form-control").removeClass('error');
 	$("#title").val(result.title);
 	allResults = result.moderators;
