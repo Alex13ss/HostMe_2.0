@@ -15,6 +15,9 @@ function getUrlParameter(sParam) {
 
 $(document).ready(
 		function() {
+			$('.groupForm').one('submit', function() {
+			    $(this).find('input[type="submit"]').attr('disabled','disabled');
+			});
 			$('img').on('click', function() {
 				var src = $(this).attr('src');
 				var img = '<img src="' + src + '" class="img-responsive"/>';
