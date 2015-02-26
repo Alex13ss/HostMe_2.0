@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
@@ -39,6 +41,10 @@ import com.softserve.edu.service.ProfileService;
  */
 @Controller
 public class GroupController {
+    
+    
+    private static final Logger logger = LoggerFactory
+            .getLogger(GroupController.class);
 
     private static final String GROUP_LINK = "redirect:/group?id={id}";
 
@@ -89,6 +95,7 @@ public class GroupController {
         groupService.create(group);
         redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
                 "groupCreated", true);
+        logger.info("Created new group!");
         return GROUP_LINK;
     }
 
@@ -98,6 +105,7 @@ public class GroupController {
             RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("id", group.getId());
         imageService.addImageToGroup(file, group);
+        logger.info("Added group image!");
         return GROUP_LINK;
     }
 
@@ -105,11 +113,13 @@ public class GroupController {
     public String removeGroup(@PathVariable Long id) {
         Group group = groupService.findOne(id);
         groupService.delete(group);
+        logger.info("Group removed!");
         return ALL_GROUPS_LINK;
     }
 
     @RequestMapping(value = "/groups", method = RequestMethod.GET)
     public String groupsCreationShow() {
+        logger.info("Groups page showing!");
         return "groups";
     }
 
@@ -119,6 +129,7 @@ public class GroupController {
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
             @RequestParam(value = "orderType") String orderType) {
+        logger.info("Showing approved groups!");
         return groupService.findApprovedGroups(page, size, orderBy, orderType);
     }
 
@@ -128,6 +139,7 @@ public class GroupController {
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
             @RequestParam(value = "orderType") String orderType) {
+        logger.info("Showing groups created by authetificated user!");
         User creatorUser = profileService.getCurrentUser();
         return groupService.getGroupsByCreator(creatorUser, page, size,
                 orderBy, orderType);
@@ -139,6 +151,7 @@ public class GroupController {
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
             @RequestParam(value = "orderType") String orderType) {
+        logger.info("Showing subscribed groups!");
         User interestedUser = profileService.getCurrentUser();
         return groupService.getGroupsByInterestedUser(interestedUser, page,
                 size, orderBy, orderType);
@@ -151,6 +164,7 @@ public class GroupController {
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
             @RequestParam(value = "orderType") String orderType) {
+        logger.info("Showing all groups! For Moderator only.");
         return groupService.findAll(page, size, orderBy, orderType);
     }
 
@@ -160,11 +174,13 @@ public class GroupController {
             @RequestParam(value = "size") Integer size,
             @RequestParam(value = "orderBy") String orderBy,
             @RequestParam(value = "orderType") String orderType) {
+        logger.info("Showing new groups!");
         return groupService.findPendingGroups(page, size, orderBy, orderType);
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.GET)
     public String showGroup(@RequestParam("id") long id, Model model) {
+        logger.info("Showing group!");
         Group group = groupService.findOne(id);
         User user = profileService.getCurrentUser();
         boolean isInterested = groupService.checkInterestedByGroupAndUser(
@@ -189,6 +205,7 @@ public class GroupController {
         groupService.update(group);
         redirectAttributes.addAttribute("id", group.getId()).addFlashAttribute(
                 "groupEdited", true);
+        logger.info("Group was edited!");
         return GROUP_LINK;
     }
 
@@ -198,8 +215,10 @@ public class GroupController {
         User user = profileService.getCurrentUser();
         if (groupService.checkInterestedByGroupAndUser(group, user)) {
             groupService.unsubscribe(user, group);
+            logger.info("Group was unsubscribed!");
         } else {
             groupService.subscribe(user, group);
+            logger.info("Group was subscribed!");
         }
         return GROUP_LINK;
     }
@@ -208,6 +227,7 @@ public class GroupController {
     public String removeGroupImage(@PathVariable("id") Long groupId) {
         Group group = groupService.findOne(groupId);
         imageService.deleteImageForGroup(group);
+        logger.info("Group image removed!");
         return GROUP_LINK;
     }
 
@@ -224,6 +244,7 @@ public class GroupController {
         Group newGroup = groupService.findOne(group.getId());
         newGroup.setStatus(group.getStatus());
         groupService.saveGroup(newGroup);
+        logger.info("Group status updated!");
         return group;
     }
 
