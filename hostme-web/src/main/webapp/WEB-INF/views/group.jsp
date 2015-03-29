@@ -142,9 +142,7 @@
 									<div class="modal-content">
 										<div class="modal-body"></div>
 									</div>
-									<!-- /.modal-content -->
 								</div>
-								<!-- /.modal-dialog -->
 							</div>
 
 							<!-- Photo add form -->
@@ -166,7 +164,6 @@
 									</form:form>
 								</c:if>
 							</c:if>
-							<!-- http://plugins.krajee.com/file-input/demo -->
 
 						</div>
 					</div>
